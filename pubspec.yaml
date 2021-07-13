@@ -58,6 +58,13 @@ flutter:
       - assets/images/steam.png
       - assets/images/nathan-dumlao-c2Y16tC3yO8-unsplash@3x.png
       - assets/images/metro coffee logo@3x.png
+      - assets/images/nathan-dumlao-ikU3J1nr52w-unsplash@3x.png
+      - assets/images/coffeematcropped.png
+      - assets/images/coffematt.png
+      - assets/images/home-icon-silhouette.svg
+      - assets/images/bell.svg
+      - assets/images/shopping-cart.svg
+      - assets/images/user.svg
 
   #   - images/a_dot_ham.jpeg
 
@@ -91,6 +98,24 @@ flutter:
       - family: MontserratMedium
         fonts:
           - asset: assets/fonts/Montserrat-Medium.otf
+      - family: Freightdispbold
+        fonts:
+          - asset: assets/fonts/Freight Disp Bold.otf
+      - family: Freightdispbook
+        fonts:
+          - asset: assets/fonts/Freight Disp Book.otf
+      - family: Freightdispboldsc
+        fonts:
+          - asset: assets/fonts/Freight Disp Bold SC.otf
+      - family: Proximanovareg
+        fonts:
+          - asset: assets/fonts/proxima_nova_regular.ttf
+      - family: MontserratBold
+        fonts:
+          - asset: assets/fonts/Montserrat-Bold.otf
+      - family: MontserratSemiBold
+        fonts:
+          - asset: assets/fonts/Montserrat-SemiBold.otf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

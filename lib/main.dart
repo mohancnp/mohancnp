@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/screens/authentication/login.dart';
+import 'package:metrocoffee/screens/base/base.dart';
 import 'package:metrocoffee/screens/initial/splashscreen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Metro Coffee',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.brown,
       ),
       home: SplashScreen(),
       routes: <String,WidgetBuilder>{

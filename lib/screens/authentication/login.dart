@@ -59,43 +59,56 @@ class Login extends StatelessWidget {
                     color: Colors.white.withOpacity(0.4),
                   ),
                 ),
+                Container(
+                  margin: EdgeInsets.only(
+                      //          top: 25
+                      top: screenwidth * 0.0608),
+                  child: Text(
+                    "Welcome to\nMetro Coffee",
+                    style: TextStyle(
+                        fontFamily: freightbold,
+                        color: Colors.white,
+                        //       fontSize: 42
+                        fontSize: screenwidth * 0.102),
+                  ),
+                ),
                 ClipRRect(
                     child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                        child:GestureDetector(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context)=>MembershipLogin()
-                            ));
-                          },
-    child:Container(
-                          margin: EdgeInsets.only(
-                     //       top: 33
-                       top: screenwidth*0.0802
-                        ),
-                          width: screenwidth,
-                      //    height: 49,
-                        height: screenwidth*0.119,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 2, color: Color(0xfff3f3f3)),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(23)),
-                              color: Colors.black87),
-                          child: Center(
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MembershipLogin()));
+                            },
                             child: Container(
-                              child: Text(
-                                "Continue with Membership",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontFamily: poppinsregular,
-                            //        fontSize: 15,
-                              fontSize: screenwidth*0.03649,
-                                    color: Colors.white),
+                              margin: EdgeInsets.only(
+                                  //       top: 33
+                                  top: screenwidth * 0.0802),
+                              width: screenwidth,
+                              //    height: 49,
+                              height: screenwidth * 0.119,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 2, color: Color(0xfff3f3f3)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(23)),
+                                  color: Colors.black87),
+                              child: Center(
+                                child: Container(
+                                  child: Text(
+                                    "Continue with Membership",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontFamily: poppinsregular,
+                                        //        fontSize: 15,
+                                        fontSize: screenwidth * 0.03649,
+                                        color: Colors.white),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )))),
+                            )))),
                 facebookbox(context),
                 gmailbox(context),
                 instagrambox(context),
@@ -114,142 +127,133 @@ class Login extends StatelessWidget {
       filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
       child: Container(
         margin: EdgeInsets.only(
-      //      top: 27
-        top: screenwidth*0.0656
-        ),
+            //      top: 27
+            top: screenwidth * 0.0656),
         width: screenwidth,
-   //     height: 49,
-     height: screenwidth*0.1192,
+        //     height: 49,
+        height: screenwidth * 0.1192,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(23)),
             color: Colors.white),
-        child:   Center(
-    child: Container(
-    width: screenwidth*0.59,
-    child:Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Icon(
-            FontAwesomeIcons.facebookF,
-            color: Colors.black87,
-       //     size: 20,
-         size: screenwidth*0.0486,
-          ),
-          Container(
-            margin: EdgeInsets.only(
-         //       left: 17
-           left: screenwidth*0.04136
-            ),
-            child: Text(
-              "Continue with Facebook",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontFamily: poppinsregular,
-          //        fontSize: 15,
-                  fontSize: screenwidth*0.0364,
-                  color: Colors.black87),
-            ),
-          )
-        ]))),
+        child: Center(
+            child: Container(
+                width: screenwidth * 0.59,
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Icon(
+                    FontAwesomeIcons.facebookF,
+                    color: Colors.black87,
+                    //     size: 20,
+                    size: screenwidth * 0.0486,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        //       left: 17
+                        left: screenwidth * 0.04136),
+                    child: Text(
+                      "Continue with Facebook",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: poppinsregular,
+                          //        fontSize: 15,
+                          fontSize: screenwidth * 0.0364,
+                          color: Colors.black87),
+                    ),
+                  )
+                ]))),
       ),
     ));
   }
+
   Widget gmailbox(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return ClipRRect(
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-          child:
-          GestureDetector(
-          child:
-          Container(
-            margin: EdgeInsets.only(
-              //      top: 27
-                top: screenwidth*0.0656
-            ),
-            width: screenwidth,
-            //     height: 49,
-            height: screenwidth*0.1192,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(23)),
-                color: Colors.white),
-            child:  Center(
-    child: Container(
-    width: screenwidth*0.59,
-    child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Icon(
-                FontAwesomeIcons.google,
-                color: Colors.black87,
-                //     size: 20,
-                size: screenwidth*0.0486,
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  //       left: 17
-                    left: screenwidth*0.04136
-                ),
-                child: Text(
-                  "Continue with Gmail",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: poppinsregular,
-                      //        fontSize: 15,
-                      fontSize: screenwidth*0.0364,
-                      color: Colors.black87),
-                ),
-              )
-            ]))),
-          )),
-        ));
+      filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+      child: GestureDetector(
+          child: Container(
+        margin: EdgeInsets.only(
+            //      top: 27
+            top: screenwidth * 0.0656),
+        width: screenwidth,
+        //     height: 49,
+        height: screenwidth * 0.1192,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(23)),
+            color: Colors.white),
+        child: Center(
+            child: Container(
+                width: screenwidth * 0.59,
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Icon(
+                    FontAwesomeIcons.google,
+                    color: Colors.black87,
+                    //     size: 20,
+                    size: screenwidth * 0.0486,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        //       left: 17
+                        left: screenwidth * 0.04136),
+                    child: Text(
+                      "Continue with Gmail",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: poppinsregular,
+                          //        fontSize: 15,
+                          fontSize: screenwidth * 0.0364,
+                          color: Colors.black87),
+                    ),
+                  )
+                ]))),
+      )),
+    ));
   }
+
   Widget instagrambox(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return ClipRRect(
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-          child:
-          GestureDetector(
-              child:
-              Container(
-                margin: EdgeInsets.only(
-                  //      top: 27
-                    top: screenwidth*0.0656
-                ),
-                width: screenwidth,
-                //     height: 49,
-                height: screenwidth*0.1192,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(23)),
-                    color: Colors.white),
+      filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+      child: GestureDetector(
+          child: Container(
+        margin: EdgeInsets.only(
+            //      top: 27
+            top: screenwidth * 0.0656),
+        width: screenwidth,
+        //     height: 49,
+        height: screenwidth * 0.1192,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(23)),
+            color: Colors.white),
+        child: Center(
+            child: Container(
+                width: screenwidth * 0.58,
                 child:
-                    Center(
-    child:
-                Container(
-                  width: screenwidth*0.58,
-    child:
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start, children: [
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   Icon(
                     FontAwesomeIcons.instagram,
                     color: Colors.black87,
                     //     size: 20,
-                    size: screenwidth*0.0486,
+                    size: screenwidth * 0.0486,
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                      //       left: 17
-                        left: screenwidth*0.04136
-                    ),
+                        //       left: 17
+                        left: screenwidth * 0.04136),
                     child: Text(
                       "Continue with Instagram",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: poppinsregular,
                           //        fontSize: 15,
-                          fontSize: screenwidth*0.0364,
+                          fontSize: screenwidth * 0.0364,
                           color: Colors.black87),
                     ),
                   )
                 ]))),
-              )),
-        ));
+      )),
+    ));
   }
 }
