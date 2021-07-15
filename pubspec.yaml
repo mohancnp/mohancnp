@@ -34,6 +34,8 @@ dependencies:
   feather_icons: ^1.1.0-nullsafety.0
   ionicons: ^0.1.2
   outline_material_icons: ^0.1.1
+  intl: ^0.17.0
+  google_fonts: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +67,15 @@ flutter:
       - assets/images/bell.svg
       - assets/images/shopping-cart.svg
       - assets/images/user.svg
+      - assets/images/coffee1.png
+      - assets/images/coffe2.png
+      - assets/images/coffee4.png
+      - assets/images/singlecup.png
+      - assets/images/smallrowcoffee.png
+      - assets/images/pexels-maria-orlova-4915835@3x.png
+      - assets/images/favpng_coffee-cup-clip-art-image@3x.png
+      - assets/images/dashboardbg.svg
+      - assets/images/Path 56@3x.png
 
   #   - images/a_dot_ham.jpeg
 

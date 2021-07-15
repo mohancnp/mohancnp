@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
       ),
       home: SplashScreen(),
       routes: <String,WidgetBuilder>{
-        '/Login':(BuildContext context)=> Login()
+        '/Login':(BuildContext context)=> Login(),
+        '/Base':(BuildContext context)=> Base()
       },
     );
   }

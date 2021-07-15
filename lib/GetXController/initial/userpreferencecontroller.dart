@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
@@ -30,6 +31,7 @@ class UserPreferenceController extends GetxController{
           GestureDetector(
             onTap: (){
               setpreferenceascollection();
+                  Navigator.of(context).pushReplacementNamed('/Base');
             },
             child: AnimatedContainer(
               duration: Duration(milliseconds: 250),
@@ -65,6 +67,7 @@ class UserPreferenceController extends GetxController{
           GestureDetector(
             onTap: (){
               setpreferenceasdelivery();
+              Navigator.of(context).pushReplacementNamed('/Base');
             },
             child: AnimatedContainer(
               duration: Duration(milliseconds: 250),
@@ -95,4 +98,5 @@ class UserPreferenceController extends GetxController{
       ),
     );
   }
+
 }
