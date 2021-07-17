@@ -18,14 +18,7 @@ class Home extends StatelessWidget {
           children: [
             Scaffold(
               backgroundColor: Colors.transparent,
-              body: Container(
-              //  height: 363,
-                width: screenheight,
-                child:Image.asset("assets/images/Path 56@3x.png",
-                  width: screenheight,
-                color: Color(0xff550E1C),
-                fit: BoxFit.cover,),
-              ),
+//              body:
             ),
             Scaffold(
               backgroundColor: Colors.transparent,
@@ -34,7 +27,18 @@ class Home extends StatelessWidget {
                       physics: BouncingScrollPhysics(),
                      child: Container(
 
-                child: Column(
+                child:
+                Stack(
+                  children:[
+                    Container(
+                      //  height: 363,
+                      width: screenheight,
+                      child:Image.asset("assets/images/Path 56@3x.png",
+                        width: screenheight,
+                        color: Color(0xff550E1C),
+                        fit: BoxFit.cover,),
+                    ),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -43,7 +47,7 @@ class Home extends StatelessWidget {
                     HomeTabView(),
                     DrinksTab()
                   ],
-                ),
+                ),])
               )))
             )
           ],

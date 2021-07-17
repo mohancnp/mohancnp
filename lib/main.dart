@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:metrocoffee/screens/authentication/login.dart';
 import 'package:metrocoffee/screens/base/base.dart';
 import 'package:metrocoffee/screens/initial/splashscreen.dart';
+import 'package:metrocoffee/screens/sharables/product_detail.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      home: SplashScreen(),
+      home: ProductDetail(),
       routes: <String,WidgetBuilder>{
         '/Login':(BuildContext context)=> Login(),
         '/Base':(BuildContext context)=> Base()

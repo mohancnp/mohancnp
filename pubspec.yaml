@@ -36,6 +36,7 @@ dependencies:
   outline_material_icons: ^0.1.1
   intl: ^0.17.0
   google_fonts: ^2.1.0
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,13 @@ flutter:
       - assets/images/favpng_coffee-cup-clip-art-image@3x.png
       - assets/images/dashboardbg.svg
       - assets/images/Path 56@3x.png
+      - assets/images/productimages/cardddd@3x-min.png
+      - assets/images/Path 69@3x.png
+      - assets/images/lightcup.png
+      - assets/images/negborderradius.png
+      - assets/images/klipartz.com@3x.png
+      - assets/images/favpng_ice-cream-cone-chocolate-ice-cream-panna-cotta@3x.png
+      - assets/images/favpng_dark-chocolate-chocolate-bar-health-effects-of-chocolate@3x.png
 
   #   - images/a_dot_ham.jpeg
 

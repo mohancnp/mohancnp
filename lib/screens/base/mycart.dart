@@ -9,7 +9,8 @@ import 'package:metrocoffee/screens/contents/cartcontent/neworderspage.dart';
 import 'package:metrocoffee/screens/contents/cartcontent/reorderpage.dart';
 
 class MyCart extends StatelessWidget {
-  const MyCart({Key? key}) : super(key: key);
+   MyCart({Key? key}) : super(key: key);
+  final CartController cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
