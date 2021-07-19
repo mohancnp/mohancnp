@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/contents/homecontent/mostpopular.dart';
 import 'package:metrocoffee/screens/contents/homecontent/recommendation.dart';
+import 'package:metrocoffee/screens/sharables/product_detail.dart';
 class DrinksTab extends StatelessWidget {
   const DrinksTab({Key? key}) : super(key: key);
 
@@ -32,7 +33,13 @@ class DrinksTab extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       physics: BouncingScrollPhysics(),
       itemBuilder: (context,index){
-        return Column(
+        return
+          GestureDetector(
+            onTap: (){
+              Navigator.pushNamedAndRemoveUntil(context, '/DrinkDetails', (route) => true);
+            },
+        child:
+          Column(
           mainAxisAlignment: MainAxisAlignment.start,
             children:[Container(
           margin: EdgeInsets.only(
@@ -133,7 +140,7 @@ class DrinksTab extends StatelessWidget {
 
             ],
           )),
-        )]);
+        )]));
       },
     ));
   }

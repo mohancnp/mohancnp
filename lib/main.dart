@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/screens/authentication/login.dart';
 import 'package:metrocoffee/screens/base/base.dart';
+import 'package:metrocoffee/screens/contents/homecontent/tabs/all_menu.dart';
 import 'package:metrocoffee/screens/initial/splashscreen.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart';
 
@@ -17,10 +18,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      home: ProductDetail(),
+      home: Base(),
       routes: <String,WidgetBuilder>{
         '/Login':(BuildContext context)=> Login(),
-        '/Base':(BuildContext context)=> Base()
+        '/Base':(BuildContext context)=> Base(),
+        '/DrinkDetails':(BuildContext context)=> ProductDetail(),
+        '/AllMenu':(BuildContext context)=> AllMenu()
+
+
       },
     );
   }

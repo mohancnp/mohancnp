@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/screens/contents/homecontent/searchbar.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/drinks.dart';
+import 'package:metrocoffee/screens/contents/homecontent/tabs/snacks.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabview.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tophomegreeting.dart';
 
@@ -12,6 +15,11 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenwidth=MediaQuery.of(context).size.width;
     double screenheight=MediaQuery.of(context).size.height;
+    return GetBuilder<HomeTabController>(
+        initState: (v){
+    },
+    init: HomeTabController(),
+    builder: (hometabcontroller){
     return Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
@@ -24,7 +32,7 @@ class Home extends StatelessWidget {
               backgroundColor: Colors.transparent,
               body: SafeArea(
                   child:SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
+                      physics: AlwaysScrollableScrollPhysics(),
                      child: Container(
 
                 child:
@@ -33,7 +41,7 @@ class Home extends StatelessWidget {
                     Container(
                       //  height: 363,
                       width: screenheight,
-                      child:Image.asset("assets/images/Path 56@3x.png",
+                      child:Image.asset("assets/images/homebg.png",
                         width: screenheight,
                         color: Color(0xff550E1C),
                         fit: BoxFit.cover,),
@@ -45,12 +53,15 @@ class Home extends StatelessWidget {
                     TopHomeGreeting(),
                     SearchBar(),
                     HomeTabView(),
-                    DrinksTab()
+                    AnimatedSwitcher(duration: Duration(milliseconds: 250),
+                    child:
+                    hometabcontroller.currentpageindex==0?
+                    DrinksTab():Snacks())
                   ],
                 ),])
               )))
             )
           ],
-        ));
+        ));});
   }
 }

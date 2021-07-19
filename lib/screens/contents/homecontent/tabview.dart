@@ -97,7 +97,7 @@ class HomeTabView extends StatelessWidget {
                     )),
                 GestureDetector(
                     onTap: (){
-                      hometabcontroller.setpageindex(3);
+                      Navigator.pushNamedAndRemoveUntil(context, "/AllMenu", (route) => true);
                     },
                     child:
                     Container(
