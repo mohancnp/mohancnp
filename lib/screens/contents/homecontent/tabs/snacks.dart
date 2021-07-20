@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/screens/widgets/product/first_home_product_row.dart';
+import 'package:metrocoffee/screens/widgets/product/home_most_popular.dart';
 import 'package:metrocoffee/screens/widgets/product/home_recommendations.dart';
 import 'package:metrocoffee/screens/widgets/product/home_smallrow.dart';
 class Snacks extends StatelessWidget {
@@ -12,7 +13,8 @@ class Snacks extends StatelessWidget {
       child: Column(
         children: [
           FirstHomeProductRow(),
-          HomeRecommendationRow()
+          HomeRecommendationRow(),
+          HomeMostPopularRow()
 
         ],
       ),

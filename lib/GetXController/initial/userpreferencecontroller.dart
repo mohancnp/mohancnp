@@ -31,7 +31,7 @@ class UserPreferenceController extends GetxController{
           GestureDetector(
             onTap: (){
               setpreferenceascollection();
-                  Navigator.of(context).pushReplacementNamed('/Base');
+                  Navigator.of(context).pushReplacementNamed("Base");
             },
             child: AnimatedContainer(
               duration: Duration(milliseconds: 250),

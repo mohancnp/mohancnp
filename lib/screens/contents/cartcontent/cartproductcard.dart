@@ -118,11 +118,12 @@ class CartProductCard extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
+          GestureDetector(
+              onTap: () {},
+              child: Icon(
                 CupertinoIcons.xmark_circle,
-                size: 18,
+            //    size: 18,
+              size: screenwidth*0.0437,
                 color: Colors.redAccent,
               ))
         ],

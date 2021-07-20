@@ -3,6 +3,8 @@ import 'package:metrocoffee/screens/authentication/login.dart';
 import 'package:metrocoffee/screens/base/base.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/all_menu.dart';
 import 'package:metrocoffee/screens/initial/splashscreen.dart';
+import 'package:metrocoffee/screens/sharables/checkout.dart';
+import 'package:metrocoffee/screens/sharables/drink_detail.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart';
 
 void main() {
@@ -18,13 +20,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      home: Base(),
-      routes: <String,WidgetBuilder>{
-        '/Login':(BuildContext context)=> Login(),
-        '/Base':(BuildContext context)=> Base(),
-        '/DrinkDetails':(BuildContext context)=> ProductDetail(),
-        '/AllMenu':(BuildContext context)=> AllMenu()
-
+      home: SplashScreen(),
+      routes: <String, WidgetBuilder>{
+        '/Login': (BuildContext context) => Login(),
+        '/Base': (BuildContext context) => Base(),
+        '/DrinkDetails': (BuildContext context) => DrinkDetail(),
+        '/AllMenu': (BuildContext context) => AllMenu(),
+        '/ProductDetails': (BuildContext context) => ProductDetail(),
+        '/CheckoutPage': (BuildContext context) => CheckoutPage(),
 
       },
     );
@@ -61,9 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text(
               'You have pushed the button this many times:',
-              style: TextStyle(
-                fontFamily: 'PoppinsBold'
-              ),
+              style: TextStyle(fontFamily: 'PoppinsBold'),
             ),
             Text(
               '$_counter',

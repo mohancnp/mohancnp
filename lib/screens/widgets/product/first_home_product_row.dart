@@ -22,7 +22,7 @@ class FirstHomeProductRow extends StatelessWidget {
             return
               GestureDetector(
                   onTap: (){
-                    Navigator.pushNamedAndRemoveUntil(context, '/DrinkDetails', (route) => true);
+                    Navigator.pushNamedAndRemoveUntil(context, '/ProductDetails', (route) => true);
                   },
                   child:
                       Container(
@@ -149,25 +149,25 @@ class FirstHomeProductRow extends StatelessWidget {
   }
   getimageforrow1(int index){
     if(index==0){
-      return "assets/images/productimages/burger_sandwich_PNG4114@3x.png";
+      return "assets/images/productimages/burgermetrocoffee.png";
     }
     if(index==1){
-      return "assets/images/coffe2.png";
+      return "assets/images/productimages/correctsandwich.png";
     }
     if(index==2){
-      return "assets/images/coffee4.png";
+      return "assets/images/productimages/pngfind.com-pizza-emoji-png-800270@3x.png";
     }
 
   }
   gettitleforrow1(int index){
     if(index==0){
-      return "Café Latte";
+      return "Burger";
     }
     if(index==1){
-      return "Latte Machiato";
+      return "Sandwich";
     }
     if(index==2){
-      return "Café Americano";
+      return "Pizza";
     }
 
   }

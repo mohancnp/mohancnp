@@ -35,7 +35,9 @@ class MyCart extends StatelessWidget {
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
             floatingActionButton: GestureDetector(
-              onTap: (){},
+              onTap: (){
+                Navigator.pushNamedAndRemoveUntil(context, "/CheckoutPage", (route) => true);
+              },
               child: Container(
                 margin: EdgeInsets.only(
 //                    bottom: 12

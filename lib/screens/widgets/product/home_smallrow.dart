@@ -17,21 +17,21 @@ class HomeSmallRow extends StatelessWidget {
           itemBuilder: (context, index) {
             return
             Container(
+
                 margin: EdgeInsets.only(
                     right: index!=2?0: screenwidth * 0.0583,
                     //      top: 24
                    ),  child:
             Stack(
             children:[
-
               Container(
                   margin: EdgeInsets.only(
-                      left: screenwidth * 0.0583,
+                      left: index==0?screenwidth * 0.0233:screenwidth * 0.0083,
                       right:  0,
                       //      top: 24
                       top: screenwidth * 0.0583),
-                  height: screenwidth * 0.357,
-                  width: screenwidth * 0.443,
+                  height: screenwidth * 0.367,
+                  width: screenwidth * 0.503,
                   child:
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -110,32 +110,32 @@ class HomeSmallRow extends StatelessWidget {
                 //          right: -30, top: -25,
                   right: 0,
               //    top: 14.5,
-                top: screenwidth*0.0352,
+               // top: screenwidth*0.0352,
                   child: Image.asset(
                     getimageforrow2(index),
                     //      width: 120,
-                    width: screenwidth * 0.21,
+                    width: screenwidth * 0.28,
                   )),]));
           },
         ));  }
   getimageforrow2(int index) {
     if (index == 0) {
-      return "assets/images/productimages/burger_sandwich_PNG4114@3x.png";
+      return "assets/images/productimages/pngfind.com-pizza-emoji-png-800270@3x.png";
     }
     if (index == 1) {
-      return "assets/images/smallrowcoffee.png";
+      return "assets/images/productimages/correctsandwich.png";
     }
     if (index == 2) {
-      return "assets/images/pexels-maria-orlova-4915835@3x.png";
+      return "assets/images/productimages/burgermetrocoffee.png";
     }
   }
 
   gettitleforrow2(int index) {
     if (index == 0) {
-      return "Latte Machiato";
+      return "Pizza";
     }
     if (index == 1) {
-      return "Pumpkin Latte";
+      return "Sandwich";
     }
     if (index == 2) {
       return "Irish Coffee";

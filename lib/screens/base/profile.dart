@@ -1,6 +1,7 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 
@@ -25,7 +26,9 @@ class Profile extends StatelessWidget {
               fontSize: screenwidth * 0.0389),
         ),
       ),
-      body: Container(
+      body: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+    child:Container(
         width: screenwidth,
         padding: EdgeInsets.symmetric(horizontal: screenwidth * 0.05839),
         child: Column(
@@ -35,9 +38,10 @@ class Profile extends StatelessWidget {
 
             Container(
               padding: EdgeInsets.symmetric(
-                  //        horizontal: 8,vertical: 6
+                  //        horizontal: 8,vertical: 12
                   horizontal: screenwidth * 0.0194,
-                  vertical: screenwidth * 0.0145),
+                  vertical: screenwidth*0.0291
+              ),
               margin: EdgeInsets.only(
                   //     bottom: 20
                   bottom: screenwidth * 0.0486),
@@ -57,16 +61,17 @@ class Profile extends StatelessWidget {
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
                           //     height: 100, width: 100,
-                          height: screenwidth * 0.2433,
-                          width: screenwidth * 0.2433,
+                          height: screenwidth * 0.1733,
+                          width: screenwidth * 0.1733,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(9)),
                           ),
                           child: Image.asset(
-                            "assets/images/coffee1.png",
+                            "assets/images/profilep.png",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -74,8 +79,8 @@ class Profile extends StatelessWidget {
                           //  height: 76,
                           height: screenwidth * 0.1449,
                           margin: EdgeInsets.only(
-                              //        left: 18
-                              left: screenwidth * 0.0437),
+                              //        left: 12
+                              left: screenwidth*0.0291),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,6 +121,15 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                   Container(
+                      height: screenwidth*0.1559, width: screenwidth*0.1559,
+                      child:
+                        Stack(
+                          children:[
+                            Positioned(
+                              bottom:0,
+                                left: 0,
+                                child:
+                  Container(
 //                      height: 60, width: 60,
                       height: screenwidth*0.1459, width: screenwidth*0.1459,
                       decoration: BoxDecoration(
@@ -133,7 +147,28 @@ class Profile extends StatelessWidget {
                      //         fontSize: 17
                        fontSize: screenwidth*0.0413   )),
                         ),
-                      ))
+                      ))),
+                          Positioned(
+                              top: 0,right: 0,
+                              child: Container(
+//                                height: 25,width: 25,
+                                height: screenwidth*0.0608,width: screenwidth*0.0608,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Color(0xff5AB898),
+                                    width: 2.5
+                                  )
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                      "assets/images/badge.svg",
+                                  fit: BoxFit.cover,),
+                                ),
+
+                          ))
+                          ]))
                 ],
               ),
             ),
@@ -158,7 +193,7 @@ class Profile extends StatelessWidget {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
+                        color: Colors.black.withOpacity(0.05),
                         blurRadius: 10,
                         offset: Offset(0, 3))
                   ],
@@ -203,7 +238,7 @@ class Profile extends StatelessWidget {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
+                        color: Colors.black.withOpacity(0.05),
                         blurRadius: 10,
                         offset: Offset(0, 3))
                   ],
@@ -248,7 +283,7 @@ class Profile extends StatelessWidget {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
+                        color: Colors.black.withOpacity(0.05),
                         blurRadius: 10,
                         offset: Offset(0, 3))
                   ],
@@ -292,7 +327,7 @@ class Profile extends StatelessWidget {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
+                        color: Colors.black.withOpacity(0.05),
                         blurRadius: 10,
                         offset: Offset(0, 3))
                   ],
@@ -335,7 +370,7 @@ class Profile extends StatelessWidget {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
+                        color: Colors.black.withOpacity(0.05),
                         blurRadius: 10,
                         offset: Offset(0, 3))
                   ],
@@ -378,7 +413,7 @@ class Profile extends StatelessWidget {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
+                        color: Colors.black.withOpacity(0.05),
                         blurRadius: 10,
                         offset: Offset(0, 3))
                   ],
@@ -411,7 +446,7 @@ class Profile extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }
