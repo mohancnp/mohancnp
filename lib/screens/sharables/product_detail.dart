@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
@@ -12,7 +13,10 @@ class ProductDetail extends StatelessWidget {
   Get.put(ProductDetailController());
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);  double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
     return GetBuilder<ProductDetailController>(
     init: ProductDetailController(),

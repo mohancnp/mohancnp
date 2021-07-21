@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:metrocoffee/constants/fontconstants.dart';
 class SplashScreen extends StatefulWidget {
@@ -30,6 +31,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
     double screenheight=MediaQuery.of(context).size.height;
     double screenwidth=MediaQuery.of(context).size.width;
     return Scaffold(

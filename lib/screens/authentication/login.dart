@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
@@ -10,7 +11,10 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenheight = MediaQuery.of(context).size.height;
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);   double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [

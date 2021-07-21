@@ -1,6 +1,7 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
@@ -16,6 +17,10 @@ class DrinkDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 

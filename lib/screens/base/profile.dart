@@ -184,134 +184,147 @@ class Profile extends StatelessWidget {
               ),
             ),
 
-            Container(
-              padding: EdgeInsets.symmetric(
+            GestureDetector(
+              onTap: (){
+                Navigator.pushNamedAndRemoveUntil(context, "/PersonalDataPage", (route) => true);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(
 //                  vertical: 14, horizontal: 12
-                  vertical: screenwidth*0.0340, horizontal: screenwidth*0.0291
-              ),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        offset: Offset(0, 3))
-                  ],
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                children:[
-                  Icon(FeatherIcons.user,
-                  color: Color(0xff404D4D),
+                    vertical: screenwidth*0.0340, horizontal: screenwidth*0.0291
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: Offset(0, 3))
+                    ],
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                  children:[
+                    Icon(FeatherIcons.user,
+                    color: Color(0xff404D4D),
            //       size: 18,
-             size: screenwidth*0.04379,     ),
-                  Container(
-                    margin: EdgeInsets.only(
-                //        left: 11
-                  left: screenwidth*0.02676  ),
-                    child: Text("Personal Data",style: getpoppins(TextStyle(
+               size: screenwidth*0.04379,     ),
+                    Container(
+                      margin: EdgeInsets.only(
+                  //        left: 11
+                    left: screenwidth*0.02676  ),
+                      child: Text("Personal Data",style: getpoppins(TextStyle(
+                        color: Color(0xff404D4D),
+                     //   fontSize: 13.5,
+                       fontSize: screenwidth*0.0328, fontWeight: FontWeight.w400
+                      )),),
+                    )]),
+                    Icon(CupertinoIcons.forward,
                       color: Color(0xff404D4D),
-                   //   fontSize: 13.5,
-                     fontSize: screenwidth*0.0328, fontWeight: FontWeight.w400
-                    )),),
-                  )]),
-                  Icon(CupertinoIcons.forward,
-                    color: Color(0xff404D4D),
-             //     size: 20,
-               size: screenwidth*0.0486,   )
-                ],
+               //     size: 20,
+                 size: screenwidth*0.0486,   )
+                  ],
+                ),
               ),
             ),
 
 
 
-            Container(
-              margin: EdgeInsets.only(top: screenwidth*0.0535,
-              ),
-              padding: EdgeInsets.symmetric(
+            GestureDetector(
+              onTap: (){
+                Navigator.pushNamedAndRemoveUntil(context, "/MyOrders", (route) => true);
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: screenwidth*0.0535,
+                ),
+                padding: EdgeInsets.symmetric(
 //                  vertical: 14, horizontal: 12
-                  vertical: screenwidth*0.0340, horizontal: screenwidth*0.0291
-              ),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        offset: Offset(0, 3))
+                    vertical: screenwidth*0.0340, horizontal: screenwidth*0.0291
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: Offset(0, 3))
+                    ],
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                        children:[
+                          Icon(FeatherIcons.shoppingCart,
+                            color: Color(0xff404D4D),
+                            //       size: 18,
+                            size: screenwidth*0.04379,     ),
+                          Container(
+                            margin: EdgeInsets.only(
+                              //        left: 11
+                                left: screenwidth*0.02676  ),
+                            child: Text("My Order",style: getpoppins(TextStyle(
+                                color: Color(0xff404D4D),
+                                //   fontSize: 13.5,
+                                fontSize: screenwidth*0.0328, fontWeight: FontWeight.w400
+                            )),),
+                          )]),
+                    Icon(CupertinoIcons.forward,
+                      color: Color(0xff404D4D),
+                      //     size: 20,
+                      size: screenwidth*0.0486,   )
                   ],
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                      children:[
-                        Icon(FeatherIcons.shoppingCart,
-                          color: Color(0xff404D4D),
-                          //       size: 18,
-                          size: screenwidth*0.04379,     ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            //        left: 11
-                              left: screenwidth*0.02676  ),
-                          child: Text("My Order",style: getpoppins(TextStyle(
-                              color: Color(0xff404D4D),
-                              //   fontSize: 13.5,
-                              fontSize: screenwidth*0.0328, fontWeight: FontWeight.w400
-                          )),),
-                        )]),
-                  Icon(CupertinoIcons.forward,
-                    color: Color(0xff404D4D),
-                    //     size: 20,
-                    size: screenwidth*0.0486,   )
-                ],
+                ),
               ),
             ),
 
-
-
-            Container(
-              margin: EdgeInsets.only(top: screenwidth*0.0535,
-              ),
-              padding: EdgeInsets.symmetric(
+            GestureDetector(
+              onTap: (){
+                Navigator.pushNamedAndRemoveUntil(context, "/FavoriteProducts", (route) => true);
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: screenwidth*0.0535,
+                ),
+                padding: EdgeInsets.symmetric(
 //                  vertical: 14, horizontal: 12
-                  vertical: screenwidth*0.0340, horizontal: screenwidth*0.0291
-              ),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        offset: Offset(0, 3))
+                    vertical: screenwidth*0.0340, horizontal: screenwidth*0.0291
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: Offset(0, 3))
+                    ],
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                        children:[
+                          Icon(FeatherIcons.heart,
+                            color: Color(0xff404D4D),
+                            //       size: 18,
+                            size: screenwidth*0.04379,     ),
+                          Container(
+                            margin: EdgeInsets.only(
+                              //        left: 11
+                                left: screenwidth*0.02676  ),
+                            child: Text("My Favorites",style: getpoppins(TextStyle(
+                                color: Color(0xff404D4D),
+                                //   fontSize: 13.5,
+                                fontSize: screenwidth*0.0328, fontWeight: FontWeight.w400
+                            )),),
+                          )]),
+                    Icon(CupertinoIcons.forward,
+                      color: Color(0xff404D4D),
+                      //     size: 20,
+                      size: screenwidth*0.0486,   )
                   ],
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                      children:[
-                        Icon(FeatherIcons.heart,
-                          color: Color(0xff404D4D),
-                          //       size: 18,
-                          size: screenwidth*0.04379,     ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            //        left: 11
-                              left: screenwidth*0.02676  ),
-                          child: Text("My Favorites",style: getpoppins(TextStyle(
-                              color: Color(0xff404D4D),
-                              //   fontSize: 13.5,
-                              fontSize: screenwidth*0.0328, fontWeight: FontWeight.w400
-                          )),),
-                        )]),
-                  Icon(CupertinoIcons.forward,
-                    color: Color(0xff404D4D),
-                    //     size: 20,
-                    size: screenwidth*0.0486,   )
-                ],
+                ),
               ),
             ),
 

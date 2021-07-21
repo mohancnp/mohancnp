@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/membershipcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
@@ -10,7 +11,10 @@ class MembershipLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppBar appBar=AppBar(
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]); AppBar appBar=AppBar(
       elevation: 0,
       backgroundColor: Colors.black.withOpacity(0.14),
       leading: IconButton(

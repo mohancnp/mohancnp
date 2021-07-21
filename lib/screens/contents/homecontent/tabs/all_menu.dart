@@ -1,6 +1,7 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 class AllMenu extends StatelessWidget {
@@ -8,6 +9,10 @@ class AllMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
     return Scaffold(

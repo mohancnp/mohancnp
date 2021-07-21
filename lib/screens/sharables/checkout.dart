@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/screens/contents/cartcontent/cartproductcard.dart';
+import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
 import 'package:metrocoffee/screens/widgets/product/final_checkout_bottomnavigation.dart';
 import 'package:metrocoffee/theme.dart';
 class CheckoutPage extends StatelessWidget {
@@ -12,7 +13,10 @@ class CheckoutPage extends StatelessWidget {
   Get.put(CheckoutController());
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);  double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
     return
       GetBuilder<CheckoutController>(

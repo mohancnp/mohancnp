@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/screens/contents/cartcontent/cartproductcard.dart';
+import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
 
-import 'finalpricecalculationcard.dart';
+import '../../widgets/product/finalpricecalculationcard.dart';
 class NewOrdersPage extends StatelessWidget {
   const NewOrdersPage({Key? key}) : super(key: key);
 
@@ -61,7 +61,10 @@ class NewOrdersPage extends StatelessWidget {
                 CartProductCard(index: index,);}),
 
         Container(
-          margin: EdgeInsets.only(top:14,bottom: 24),
+          margin: EdgeInsets.only(
+//              top:14,bottom: 24
+              top:screenwidth*0.0340,bottom: screenwidth*0.0583
+          ),
           width: screenwidth,
           height: 1,
           decoration: BoxDecoration(

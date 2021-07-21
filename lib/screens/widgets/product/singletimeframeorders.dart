@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/screens/contents/cartcontent/reorders/timeframeorders.dart';
+import 'package:metrocoffee/screens/widgets/product/timeframeorders.dart';
 class SingleTimeFrameReorders extends StatelessWidget {
   final int? index;
   const SingleTimeFrameReorders({Key? key,@required this.index}) : super(key: key);

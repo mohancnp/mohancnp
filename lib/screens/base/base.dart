@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
@@ -13,7 +14,10 @@ class Base extends StatelessWidget {
   List pages=[Home(),Notifications(),MyCart(),Profile()];
   @override
   Widget build(BuildContext context) {
-    double screenwidth=MediaQuery.of(context).size.width;
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]); double screenwidth=MediaQuery.of(context).size.width;
     return GetBuilder<BaseController>(
         init: BaseController(),
         builder: (basecontroller) {

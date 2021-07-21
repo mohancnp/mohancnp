@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/screens/contents/cartcontent/cartproductcard.dart';
-import 'package:metrocoffee/screens/contents/cartcontent/finalpricecalculationcard.dart';
+import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
+import 'package:metrocoffee/screens/widgets/product/finalpricecalculationcard.dart';
 import 'package:metrocoffee/screens/contents/cartcontent/neworderspage.dart';
 import 'package:metrocoffee/screens/contents/cartcontent/reorderpage.dart';
 
@@ -14,6 +15,10 @@ class MyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<CartController>(
         init: CartController(),
