@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.metrocoffee.metrocoffee">
    <application
-        android:label="metrocoffee"
+        android:label="Metro Coffee"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

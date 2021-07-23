@@ -34,6 +34,11 @@ dependencies:
   feather_icons: ^1.1.0-nullsafety.0
   ionicons: ^0.1.2
   outline_material_icons: ^0.1.1
+  intl: ^0.17.0
+  google_fonts: ^2.1.0
+  expandable: ^5.0.1
+  flutter_staggered_grid_view: ^0.4.0
+  day_night_time_picker: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +63,44 @@ flutter:
       - assets/images/steam.png
       - assets/images/nathan-dumlao-c2Y16tC3yO8-unsplash@3x.png
       - assets/images/metro coffee logo@3x.png
+      - assets/images/nathan-dumlao-ikU3J1nr52w-unsplash@3x.png
+      - assets/images/coffeematcropped.png
+      - assets/images/coffematt.png
+      - assets/images/home-icon-silhouette.svg
+      - assets/images/bell.svg
+      - assets/images/shopping-cart.svg
+      - assets/images/user.svg
+      - assets/images/coffee1.png
+      - assets/images/coffe2.png
+      - assets/images/coffee4.png
+      - assets/images/singlecup.png
+      - assets/images/smallrowcoffee.png
+      - assets/images/pexels-maria-orlova-4915835@3x.png
+      - assets/images/favpng_coffee-cup-clip-art-image@3x.png
+      - assets/images/dashboardbg.svg
+      - assets/images/Path 56@3x.png
+      - assets/images/productimages/cardddd@3x-min.png
+      - assets/images/Path 69@3x.png
+      - assets/images/lightcup.png
+      - assets/images/negborderradius.png
+      - assets/images/klipartz.com@3x.png
+      - assets/images/favpng_ice-cream-cone-chocolate-ice-cream-panna-cotta@3x.png
+      - assets/images/favpng_dark-chocolate-chocolate-bar-health-effects-of-chocolate@3x.png
+      - assets/images/Path 56@3x.png
+      - assets/images/homebg.png
+      - assets/images/productimages/burger_sandwich_PNG4114@3x.png
+      - assets/images/profilepic.png
+      - assets/images/badge.svg
+      - assets/images/profilep.png
+      - assets/images/productimages/burgermetrocoffee.png
+      - assets/images/productimages/correctsandwich.png
+      - assets/images/productimages/pngfind.com-pizza-emoji-png-800270@3x.png
+      - assets/images/paymentimages/favpng_visa-debit-card-credit-card-logo-mastercard@3x.png
+      - assets/images/paymentimages/mastercard.png
+      - assets/images/productimages/mastercard.png
+      - assets/images/paymentimages/paypal@3x.png
+      - assets/images/paymentimages/creditcardpic.png
+      - assets/images/ordersuccesful/Order Confirmed_Two Color@3x.png
 
   #   - images/a_dot_ham.jpeg
 
@@ -91,6 +134,24 @@ flutter:
       - family: MontserratMedium
         fonts:
           - asset: assets/fonts/Montserrat-Medium.otf
+      - family: Freightdispbold
+        fonts:
+          - asset: assets/fonts/Freight Disp Bold.otf
+      - family: Freightdispbook
+        fonts:
+          - asset: assets/fonts/Freight Disp Book.otf
+      - family: Freightdispboldsc
+        fonts:
+          - asset: assets/fonts/Freight Disp Bold SC.otf
+      - family: Proximanovareg
+        fonts:
+          - asset: assets/fonts/proxima_nova_regular.ttf
+      - family: MontserratBold
+        fonts:
+          - asset: assets/fonts/Montserrat-Bold.otf
+      - family: MontserratSemiBold
+        fonts:
+          - asset: assets/fonts/Montserrat-SemiBold.otf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
