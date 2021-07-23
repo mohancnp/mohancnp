@@ -31,8 +31,9 @@ class UserPreferenceController extends GetxController{
           GestureDetector(
             onTap: (){
               setpreferenceascollection();
-                  Navigator.of(context).pushReplacementNamed("Base");
-            },
+              Navigator.pushNamedAndRemoveUntil(context,
+                  "/Base", (route) => false);
+              },
             child: AnimatedContainer(
               duration: Duration(milliseconds: 250),
 //              height: 40, width: 200,
@@ -67,8 +68,9 @@ class UserPreferenceController extends GetxController{
           GestureDetector(
             onTap: (){
               setpreferenceasdelivery();
-              Navigator.of(context).pushReplacementNamed('/Base');
-            },
+              Navigator.pushNamedAndRemoveUntil(context,
+                  "/Base", (route) => false);
+              },
             child: AnimatedContainer(
               duration: Duration(milliseconds: 250),
   //            height: 40, width: 200,

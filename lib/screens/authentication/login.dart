@@ -69,11 +69,14 @@ class Login extends StatelessWidget {
                       top: screenwidth * 0.0608),
                   child: Text(
                     "Welcome to\nMetro Coffee",
-                    style: TextStyle(
+                    style:
+                    TextStyle(
                         fontFamily: freightbold,
                         color: Colors.white,
                         //       fontSize: 42
-                        fontSize: screenwidth * 0.102),
+                        fontSize: screenwidth*0.102
+                    )
+                   ,
                   ),
                 ),
                 ClipRRect(

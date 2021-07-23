@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 
 import '../../../theme.dart';
-class CheckoutBottomNavigation extends StatelessWidget {
-  const CheckoutBottomNavigation({Key? key}) : super(key: key);
+class CheckoutoPaymentsBottomNav extends StatelessWidget {
+  const CheckoutoPaymentsBottomNav({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,7 @@ class CheckoutBottomNavigation extends StatelessWidget {
           Container(
             //       height: 47,
             height: screenwidth * 0.1153,
-            width: screenwidth * 0.3966,
+            width: screenwidth * 0.4166,
             padding: EdgeInsets.symmetric(
               //       horizontal: 22
                 horizontal: screenwidth * 0.0535),
@@ -50,7 +49,7 @@ class CheckoutBottomNavigation extends StatelessWidget {
                       offset: Offset(0, 9))
                 ]),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
@@ -61,31 +60,18 @@ class CheckoutBottomNavigation extends StatelessWidget {
                       fontSize: screenwidth * 0.0389,
                       fontWeight: FontWeight.w500)),
                 ),
-                Container(
-                  width: 1,
-                  //           height: 18,
-                  height: screenwidth * 0.0437,
-                  decoration: BoxDecoration(color: Colors.white),
-                ),
-                Container(
-                    child: Icon(
-                      CupertinoIcons.cart_badge_plus,
-                      color: Colors.white,
-                      //      size: 24,
-                      size: screenwidth * 0.0583,
-                    )),
               ],
             ),
           ),
           GestureDetector(
             onTap: (){
-              Navigator.pushNamedAndRemoveUntil(context,
-                  "/CheckoutPage", (route) => true);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/PaymentsPage", (route) => true);
             },
             child: Container(
               //       height: 47,
               height: screenwidth * 0.1153,
-              width: screenwidth * 0.3966,
+              width: screenwidth * 0.4166,
               padding: EdgeInsets.symmetric(
                 //       horizontal: 22
                   horizontal: screenwidth * 0.0535),
@@ -103,7 +89,7 @@ class CheckoutBottomNavigation extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Order Now",
+                    "Check Out",
                     textAlign: TextAlign.center,
                     style: getpoppins(
                         TextStyle(
@@ -119,6 +105,5 @@ class CheckoutBottomNavigation extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
+    );  }
 }

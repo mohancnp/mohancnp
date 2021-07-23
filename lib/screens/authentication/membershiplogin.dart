@@ -115,14 +115,13 @@ class MembershipLogin extends StatelessWidget {
                 GestureDetector(
                   onTap: (){
                     showDialog(context: context, builder: (_){
-                    return  ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(18)),
-                        child:SimpleDialog(
+                    return  SimpleDialog(
+                          backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(18)),
                           ),
 
-                          children:[DiscountDialog()]));
+                          children:[DiscountDialog()]);
                     });
 
                   },

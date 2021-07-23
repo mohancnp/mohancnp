@@ -16,7 +16,10 @@ class NewOrdersPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-            margin: EdgeInsets.only(bottom: 12),
+            margin: EdgeInsets.only(
+//                bottom: 12
+                bottom: screenwidth*0.0291
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -26,7 +29,9 @@ class NewOrdersPage extends StatelessWidget {
                     style: getpoppins(TextStyle(
                         fontWeight: FontWeight.w400,
                         color: Color(0xff344141),
-                        fontSize: 12.5)),
+//                        fontSize: 12.5
+                        fontSize: screenwidth*0.0304
+                    )),
                   ),
                 ),
                 Container(
@@ -38,14 +43,19 @@ class NewOrdersPage extends StatelessWidget {
                             style: getpoppins(TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff550E1C),
-                                fontSize: 12.5)),
+                       //         fontSize: 12.5
+                                fontSize: screenwidth*0.0304
+                            )),
                           ),
                           Container(
-                            margin: EdgeInsets.only(left: 8),
+                            margin: EdgeInsets.only(
+//                                left: 8
+                                left: screenwidth*0.0194
+                            ),
                             child: Icon(
                               CupertinoIcons.add_circled_solid,
                               color: Color(0xff550E1C),
-                              size: 16,
+                              size: screenwidth*0.03892,
                             ),
                           )
                         ]))

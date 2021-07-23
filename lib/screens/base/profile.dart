@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/topup_reward_dialog.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -120,55 +121,70 @@ class Profile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                      height: screenwidth*0.1559, width: screenwidth*0.1559,
-                      child:
-                        Stack(
-                          children:[
-                            Positioned(
-                              bottom:0,
-                                left: 0,
-                                child:
-                  Container(
-//                      height: 60, width: 60,
-                      height: screenwidth*0.1459, width: screenwidth*0.1459,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Color(0xff5AB898),
-                            width: 2.5,
-                          )),
-                      child: Center(
-                        child: Text(
-                          "100",
-                          style: getpoppins(TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff404D4D),
-                     //         fontSize: 17
-                       fontSize: screenwidth*0.0413   )),
-                        ),
-                      ))),
-                          Positioned(
-                              top: 0,right: 0,
-                              child: Container(
-//                                height: 25,width: 25,
-                                height: screenwidth*0.0608,width: screenwidth*0.0608,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Color(0xff5AB898),
-                                    width: 2.5
-                                  )
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                      "assets/images/badge.svg",
-                                  fit: BoxFit.cover,),
-                                ),
+                  GestureDetector(
+                    onTap: (){
 
-                          ))
-                          ]))
+                        showDialog(context: context, builder: (_){
+                          return  ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(18)),
+                              child:SimpleDialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(18)),
+                                  ),
+
+                                  children:[TopUpRewardDialog()]));
+                        });},
+
+                    child: Container(
+                        height: screenwidth*0.1559, width: screenwidth*0.1559,
+                        child:
+                          Stack(
+                            children:[
+                              Positioned(
+                                bottom:0,
+                                  left: 0,
+                                  child:
+                    Container(
+//                      height: 60, width: 60,
+                        height: screenwidth*0.1459, width: screenwidth*0.1459,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Color(0xff5AB898),
+                              width: 2.5,
+                            )),
+                        child: Center(
+                          child: Text(
+                            "100",
+                            style: getpoppins(TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xff404D4D),
+                       //         fontSize: 17
+                         fontSize: screenwidth*0.0413   )),
+                          ),
+                        ))),
+                            Positioned(
+                                top: 0,right: 0,
+                                child: Container(
+//                                height: 25,width: 25,
+                                  height: screenwidth*0.0608,width: screenwidth*0.0608,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Color(0xff5AB898),
+                                      width: 2.5
+                                    )
+                                  ),
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                        "assets/images/badge.svg",
+                                    fit: BoxFit.cover,),
+                                  ),
+
+                            ))
+                            ])),
+                  )
                 ],
               ),
             ),

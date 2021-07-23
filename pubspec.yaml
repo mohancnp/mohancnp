@@ -95,6 +95,12 @@ flutter:
       - assets/images/productimages/burgermetrocoffee.png
       - assets/images/productimages/correctsandwich.png
       - assets/images/productimages/pngfind.com-pizza-emoji-png-800270@3x.png
+      - assets/images/paymentimages/favpng_visa-debit-card-credit-card-logo-mastercard@3x.png
+      - assets/images/paymentimages/mastercard.png
+      - assets/images/productimages/mastercard.png
+      - assets/images/paymentimages/paypal@3x.png
+      - assets/images/paymentimages/creditcardpic.png
+      - assets/images/ordersuccesful/Order Confirmed_Two Color@3x.png
 
   #   - images/a_dot_ham.jpeg
 

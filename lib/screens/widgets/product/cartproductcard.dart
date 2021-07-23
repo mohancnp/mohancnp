@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/add_card_dialog.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/cancel_order_dialog.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/delete_order_dialog.dart';
 
 class CartProductCard extends StatelessWidget {
   final int? index;
@@ -119,7 +122,22 @@ class CartProductCard extends StatelessWidget {
             ),
           ),
           GestureDetector(
-              onTap: () {},
+              onTap: () {
+                showDialog(context: context, builder: (_){
+                  return  ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(18)),
+                      child:SimpleDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(18)),
+                          ),
+                          children:[
+                            DeleteOrderDialog()
+                            //   OrderSuccesfulDialog()
+                            //  CancelOrderDialog()
+                           // DeleteOrderDialog()
+                          ]));
+                });
+              },
               child: Icon(
                 CupertinoIcons.xmark_circle,
             //    size: 18,

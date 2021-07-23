@@ -18,3 +18,8 @@ TextStyle getpoppins(TextStyle textStyle){
     textStyle: textStyle
   );
 }
+TextStyle getplayfairdisplay(TextStyle textStyle){
+  return GoogleFonts.playfairDisplay(
+      textStyle: textStyle
+  );
+}

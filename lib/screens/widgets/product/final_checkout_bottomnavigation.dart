@@ -64,38 +64,44 @@ class FinalCheckoutBottomNavigation extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            //       height: 47,
-            height: screenwidth * 0.1153,
-            width: screenwidth * 0.4166,
-            padding: EdgeInsets.symmetric(
-              //       horizontal: 22
-                horizontal: screenwidth * 0.0535),
-            decoration: BoxDecoration(
-                color: coffeecolor,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color(0xffC3916A).withOpacity(0.25),
-                      blurRadius: 30,
-                      offset: Offset(0, 9))
-                ]),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "Check Out",
-                  textAlign: TextAlign.center,
-                  style: getpoppins(
-                      TextStyle(
-                          color: Colors.white,
-                          //        fontSize: 16,
-                          fontSize: screenwidth * 0.0389,
-                          fontWeight: FontWeight.w300)),
-                ),
+          GestureDetector(
+            onTap: (){
+              Navigator.pushNamedAndRemoveUntil(
+                 context, "/OrderSuccesfulPage", (route) => true);
+            },
+            child: Container(
+              //       height: 47,
+              height: screenwidth * 0.1153,
+              width: screenwidth * 0.4166,
+              padding: EdgeInsets.symmetric(
+                //       horizontal: 22
+                  horizontal: screenwidth * 0.0535),
+              decoration: BoxDecoration(
+                  color: coffeecolor,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xffC3916A).withOpacity(0.25),
+                        blurRadius: 30,
+                        offset: Offset(0, 9))
+                  ]),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Check Out",
+                    textAlign: TextAlign.center,
+                    style: getpoppins(
+                        TextStyle(
+                            color: Colors.white,
+                            //        fontSize: 16,
+                            fontSize: screenwidth * 0.0389,
+                            fontWeight: FontWeight.w300)),
+                  ),
 
-              ],
+                ],
+              ),
             ),
           ),
         ],
