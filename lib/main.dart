@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:metrocoffee/locator.dart';
 import 'package:metrocoffee/screens/authentication/change_password.dart';
+import 'package:metrocoffee/screens/authentication/email_login.dart';
 import 'package:metrocoffee/screens/authentication/login.dart';
 import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 import 'package:metrocoffee/screens/base/base.dart';
@@ -14,8 +17,12 @@ import 'package:metrocoffee/screens/sharables/order_details.dart';
 import 'package:metrocoffee/screens/sharables/order_succesful_page.dart';
 import 'package:metrocoffee/screens/sharables/payment_page.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart';
+import 'package:metrocoffee/test/apitest.dart';
+GetIt getIt = GetIt.instance;
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
   runApp(MyApp());
 }
 
@@ -28,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      home: SplashScreen(),
+      home: APITest(),
       routes: <String, WidgetBuilder>{
         '/Login': (BuildContext context) => Login(),
         '/Base': (BuildContext context) => Base(),
@@ -43,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/OrderDetails': (BuildContext context) => OrderDetails(),
         '/PaymentsPage': (BuildContext context) => PaymentPage(),
         '/OrderSuccesfulPage': (BuildContext context) => OrderSuccesfulPage(),
+        '/EmailLoginPage': (BuildContext context) => EmailLogin(),
 
       },
     );

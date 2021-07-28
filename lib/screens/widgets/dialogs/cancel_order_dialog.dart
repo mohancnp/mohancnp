@@ -18,7 +18,6 @@ class CancelOrderDialog extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(9)),
-
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

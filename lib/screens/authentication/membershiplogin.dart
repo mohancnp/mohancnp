@@ -2,35 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/auth/login_controller.dart';
 import 'package:metrocoffee/GetXController/auth/membershipcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/discount_dialog.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 
 class MembershipLogin extends StatelessWidget {
-  const MembershipLogin({Key? key}) : super(key: key);
+   MembershipLogin({Key? key}) : super(key: key);
+   final LoginController loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
-    ]); AppBar appBar=AppBar(
-      elevation: 0,
-      backgroundColor: Colors.black.withOpacity(0.14),
-      leading: IconButton(
-        onPressed: (){
-          Navigator.pop(context);
-        },
-        icon: Icon(CupertinoIcons.back,
-          color: Colors.white,
-          size: 28,
-        ),
-      ),
-    );
+    ]);
     double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
     return
-
+      GetBuilder<LoginController>(
+          init: LoginController(),
+    builder: (logincontroller){
+    return
         GetBuilder<MemberShipController>(
           init: MemberShipController(),
           builder: (membershiplogincontroller){
@@ -44,7 +38,19 @@ class MembershipLogin extends StatelessWidget {
               fit: BoxFit.cover,
             )),
         Scaffold(
-          appBar: appBar,
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.black.withOpacity(0.14),
+            leading: IconButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              icon: Icon(CupertinoIcons.back,
+                color: Colors.white,
+                //      size: 28,
+                size: screenwidth*0.0681,  ),
+            ),
+          ),
           backgroundColor: Colors.transparent,
           body:
           SingleChildScrollView(
@@ -114,15 +120,12 @@ class MembershipLogin extends StatelessWidget {
             child:
                 GestureDetector(
                   onTap: (){
-                    showDialog(context: context, builder: (_){
-                    return  SimpleDialog(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(18)),
-                          ),
+                    print( membershiplogincontroller.membershipnumbercontroller.text);
+                    print( membershiplogincontroller.passwordcontroller.text);
 
-                          children:[DiscountDialog()]);
-                    });
+                    logincontroller.loginwithmembershipid(context,
+                        membershipnumber: membershiplogincontroller.membershipnumbercontroller.text,
+                        password: membershiplogincontroller.passwordcontroller.text);
 
                   },
                   child:Container(
@@ -154,8 +157,11 @@ class MembershipLogin extends StatelessWidget {
               ],
             ),
           ),)
-        )
+        ),
+        logincontroller.isSigningIn?
+        LoadingPage():SizedBox(height: 0,)
+
       ],
-    );});
+    );});});
   }
 }
