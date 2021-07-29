@@ -16,7 +16,7 @@ class APITest extends StatelessWidget {
         backgroundColor: Colors.transparent,
         actions: [IconButton(
             onPressed: ()async{
-              changepassword('testpassword', 'adminadmin','adminadmin');
+              updateprofiledata();
             }, icon:
         Icon(CupertinoIcons.add_circled_solid,
         color: Colors.black87,
@@ -32,11 +32,25 @@ class APITest extends StatelessWidget {
     print(response.values);
   }
 
+  profiledata()async{
+    Map response=await locator<ApiService>().getprofiledata();
+    print(response.values);
+  }
   changepassword(String? currentpass,String? newpass,String? confirmnewpass)async{
-    Map response=await locator<ApiService>().changePassword(
-        oldPassword:currentpass ,newPassword: newpass,confirmnewPassword: confirmnewpass
+    Map response=await locator<ApiService>().changepassword(
+        currentpassword:currentpass ,newpassword: newpass,confirmnewpassword: confirmnewpass
     );
     print(response.values);
+  }
+  updateprofiledata()async{
+    Map response=await locator<ApiService>().updateprofiledata(
+        name: "TEst name",
+      email: "admin@admin.com",
+      phone: "98098098ij-09",
+      profilepic:"/storage/uploads/user/2021/7/LM5br0myKLSguw4qBU5MKPks3f0KapSI94IUjxDB.jpg"
+    );
+   print(response.values);
+
   }
   membershiplogin()async{
     Map response=await locator<ApiService>().membershiplogin(

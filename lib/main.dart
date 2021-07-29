@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      home: APITest(),
+      home: SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/Login': (BuildContext context) => Login(),
         '/Base': (BuildContext context) => Base(),

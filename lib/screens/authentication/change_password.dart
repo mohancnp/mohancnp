@@ -20,10 +20,23 @@ class ChangePasswordPage extends StatelessWidget {
     ]);
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<PersonalDataPageController>(
-        initState: (v) {},
+        initState: (v) {
+
+        },
         init: PersonalDataPageController(),
         builder: (personaldatacontroller) {
           return Scaffold(
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: GestureDetector(
+              onTap: (){},
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 250),
+                padding: EdgeInsets.symmetric(vertical: 11,horizontal: 14),
+                child: Center(
+
+                ),
+              ),
+            ),
             backgroundColor: Color(0xffF3F5F5),
             body: SingleChildScrollView(
               physics: AlwaysScrollableScrollPhysics(),

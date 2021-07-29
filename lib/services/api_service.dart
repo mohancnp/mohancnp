@@ -11,7 +11,7 @@ class ApiService{
     //  var tokenFromLocator = locator<UserService>().user.value.authToken;
 
     ////// //print('token from locator: $tokenFromLocator');
-    return {"Authorization": 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNzQ2N30.mMqJz0UBU6RnV6MtsvpEb0elFan3-iuK6awoFt5zN5I'};
+    return {"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiYjgxYWU1NjhmMDFjODQzNTA5ZGNiZjA2NjhmYjVjY2YxZGY3OWIyN2EyZWUzOTUwODdjNzFmZWMyZDhhMTA3MjQ4ZDhkYTkzNmZkODJiMDciLCJpYXQiOjE2Mjc0Njg5NzguODA0MjE4LCJuYmYiOjE2Mjc0Njg5NzguODA0MjIyLCJleHAiOjE2NTkwMDQ5NzguODAwOTQ3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.EQSBzHTimsMCobDYkwCkYxcgz_hhWU_8elJc148m23b5WUNKXmR_TqxgINgNlG7gLtZtnPBnZm95lXn4J1lKVjJDwOwa6xmmjleZ9lqflU7-YHUpIuyenPo1WYvb0KAPFObd0knu4PB6Afg-W6K4xvgQpde_8k7BDznEp9ORm81moRosQXrX7EuKOpTbFOudm9maPIALOlQLBzqXNhPm3aBeN3Cc7fAFzD5e1nHnE5YPNgoKNHfE5StuR89Zc4157ZIdrhlIox4jruih-9vCDBH1gfQVSxpS6IzY7RbJCjH2ofkNsaWZ9wV-eTaKsKWBqi0A5u0uLcFhEOgPjiaqbwKWdtU08cXs6oGgCaEAFxAPLfmZ7dCZrhNrkANQFeRAr7Onxlc60DJ7NIcLWnsc15s5m1bG6YMENrjFxUqrak3ESJ-fn9jOcNB8YpMsvQCGaXsGS19T63YUZ9ERoUQJMJD8mPtD9o6nUl_Tf-LC2626NstFx3-9ztc8G31RhqxJG4jFzg8p7henqZFJMOgpgm9JkdXtmj_MvpXiyzM9x54nNfEeY5anpaivd7Lc_IGjm5dNm1CTAsnqw-vQ4s9g8hAHPFKlEs4sZxprdDW9-yshQeiJLpBjn9nPJ1RpYMs0UtNHPPRPOnzwCPcmLMDeKfkHWJ6u74xvfEizEgNM1vk"};
   }
 
   getAuthorizationWithSessionId() {
@@ -20,7 +20,7 @@ class ApiService{
     // //print(token);
     return
       {authorization_key:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiYjgxYWU1NjhmMDFjODQzNTA5ZGNiZjA2NjhmYjVjY2YxZGY3OWIyN2EyZWUzOTUwODdjNzFmZWMyZDhhMTA3MjQ4ZDhkYTkzNmZkODJiMDciLCJpYXQiOjE2Mjc0Njg5NzguODA0MjE4LCJuYmYiOjE2Mjc0Njg5NzguODA0MjIyLCJleHAiOjE2NTkwMDQ5NzguODAwOTQ3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.EQSBzHTimsMCobDYkwCkYxcgz_hhWU_8elJc148m23b5WUNKXmR_TqxgINgNlG7gLtZtnPBnZm95lXn4J1lKVjJDwOwa6xmmjleZ9lqflU7-YHUpIuyenPo1WYvb0KAPFObd0knu4PB6Afg-W6K4xvgQpde_8k7BDznEp9ORm81moRosQXrX7EuKOpTbFOudm9maPIALOlQLBzqXNhPm3aBeN3Cc7fAFzD5e1nHnE5YPNgoKNHfE5StuR89Zc4157ZIdrhlIox4jruih-9vCDBH1gfQVSxpS6IzY7RbJCjH2ofkNsaWZ9wV-eTaKsKWBqi0A5u0uLcFhEOgPjiaqbwKWdtU08cXs6oGgCaEAFxAPLfmZ7dCZrhNrkANQFeRAr7Onxlc60DJ7NIcLWnsc15s5m1bG6YMENrjFxUqrak3ESJ-fn9jOcNB8YpMsvQCGaXsGS19T63YUZ9ERoUQJMJD8mPtD9o6nUl_Tf-LC2626NstFx3-9ztc8G31RhqxJG4jFzg8p7henqZFJMOgpgm9JkdXtmj_MvpXiyzM9x54nNfEeY5anpaivd7Lc_IGjm5dNm1CTAsnqw-vQ4s9g8hAHPFKlEs4sZxprdDW9-yshQeiJLpBjn9nPJ1RpYMs0UtNHPPRPOnzwCPcmLMDeKfkHWJ6u74xvfEizEgNM1vk'};
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiYjgxYWU1NjhmMDFjODQzNTA5ZGNiZjA2NjhmYjVjY2YxZGY3OWIyN2EyZWUzOTUwODdjNzFmZWMyZDhhMTA3MjQ4ZDhkYTkzNmZkODJiMDciLCJpYXQiOjE2Mjc0Njg5NzguODA0MjE4LCJuYmYiOjE2Mjc0Njg5NzguODA0MjIyLCJleHAiOjE2NTkwMDQ5NzguODAwOTQ3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.EQSBzHTimsMCobDYkwCkYxcgz_hhWU_8elJc148m23b5WUNKXmR_TqxgINgNlG7gLtZtnPBnZm95lXn4J1lKVjJDwOwa6xmmjleZ9lqflU7-YHUpIuyenPo1WYvb0KAPFObd0knu4PB6Afg-W6K4xvgQpde_8k7BDznEp9ORm81moRosQXrX7EuKOpTbFOudm9maPIALOlQLBzqXNhPm3aBeN3Cc7fAFzD5e1nHnE5YPNgoKNHfE5StuR89Zc4157ZIdrhlIox4jruih-9vCDBH1gfQVSxpS6IzY7RbJCjH2ofkNsaWZ9wV-eTaKsKWBqi0A5u0uLcFhEOgPjiaqbwKWdtU08cXs6oGgCaEAFxAPLfmZ7dCZrhNrkANQFeRAr7Onxlc60DJ7NIcLWnsc15s5m1bG6YMENrjFxUqrak3ESJ-fn9jOcNB8YpMsvQCGaXsGS19T63YUZ9ERoUQJMJD8mPtD9o6nUl_Tf-LC2626NstFx3-9ztc8G31RhqxJG4jFzg8p7henqZFJMOgpgm9JkdXtmj_MvpXiyzM9x54nNfEeY5anpaivd7Lc_IGjm5dNm1CTAsnqw-vQ4s9g8hAHPFKlEs4sZxprdDW9-yshQeiJLpBjn9nPJ1RpYMs0UtNHPPRPOnzwCPcmLMDeKfkHWJ6u74xvfEizEgNM1vk"};
   }
   membershiplogin({String? membershipnumber, String? password})async{
     final url = '$baseUrl/api/membership-login';
@@ -41,39 +41,29 @@ class ApiService{
     return response;
   }
 
-  changePassword({String? oldPassword, String? newPassword,String? confirmnewPassword}) async {
-    var url = '$baseUrl/api/profile/change-password';
-    try {
-      Dio _dio = Dio(BaseOptions(receiveDataWhenStatusError: true));
-      if (oldPassword == null) {
-        var response = await _dio.put(
-          url,
-          data: {
-            'current_password': oldPassword,
-            "new_password": newPassword,
-            'new_password_confirmation':confirmnewPassword
-          },
-          options: Options(
-            headers: getAuthorizationWithSessionId(),
-          ),
-        );
-        return response.data;
-      } else {
-        var response = await _dio.put(url,
-            data: {
-              "current_password": oldPassword,
-              "new_password": newPassword,
-              'new_password_confirmation':confirmnewPassword
-            },
-            options: Options(
-              headers: getAuthorizationWithSessionId(),
-            ));
-        return response.data;
-      }
-    } on DioError catch (e) {
-      return e.response!.data;
-    }
+  getprofiledata()async{
+    final url = '$baseUrl/api/profile';
+    final response=await getRequest(url: url,options: Options(
+      headers: getAuthorization()
+    ));
+    return response;
   }
+
+  updateprofiledata({
+    String? name,String? phone, String? profilepic,String? email})async{
+    final url = '$baseUrl/api/profile/update';
+    final Map<String?, String?> body = {
+      'name': name,
+      'phone': phone,
+      'profile_pic':profilepic,
+      'email':email,
+    };
+    final response = await postRequest(url: url, data: body,options: Options(
+      headers: getAuthorizationWithSessionId(),
+    ));
+    return response;
+  }
+
   emaillogin({String? email, String? password}) async {
     final url = '$baseUrl/api/login';
     final Map<String?, String?> body = {'email': email, 'password': password};
