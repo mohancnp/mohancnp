@@ -3,6 +3,7 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/auth/login_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 class MemberShipController extends GetxController{
   TextEditingController membershipnumbercontroller=TextEditingController();
@@ -13,7 +14,8 @@ class MemberShipController extends GetxController{
   Widget loginfields(BuildContext context){
     double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
-    return Container(
+    return
+    Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,7 +48,7 @@ class MemberShipController extends GetxController{
          //       fontSize: 13.5
            fontSize: screenwidth*0.0328
               ),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
                 suffixIcon: Icon(FeatherIcons.user,

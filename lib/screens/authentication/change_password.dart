@@ -1,3 +1,4 @@
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +12,6 @@ class ChangePasswordPage extends StatelessWidget {
   ChangePasswordPage({Key? key}) : super(key: key);
   final PersonalDataPageController personalDataPageController =
       Get.put(PersonalDataPageController());
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -20,10 +20,49 @@ class ChangePasswordPage extends StatelessWidget {
     ]);
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<PersonalDataPageController>(
-        initState: (v) {},
+        initState: (v) {
+
+        },
         init: PersonalDataPageController(),
         builder: (personaldatacontroller) {
           return Scaffold(
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: !personaldatacontroller.passwordchangedsuccesfully?
+            SizedBox(height: 0,):
+            GestureDetector(
+              onTap: (){},
+              child: AnimatedContainer(
+             height: 42,width:295,
+                duration: Duration(milliseconds: 250),
+                decoration: BoxDecoration(
+                  color: Colors.greenAccent,
+                  borderRadius: BorderRadius.all(Radius.circular(24)),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 11,horizontal: 14),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(FeatherIcons.check,
+                    color: Colors.white,
+                    size: 24,),
+                    Container(
+                      margin: EdgeInsets.only(left: 11),
+                      child: Center(
+                        child: Text("Password changes succesfully",style: getpoppins(
+                          TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                            fontSize: 14.5
+                          )
+                        ),),
+                      ),
+                    )
+                  ],
+
+                ),
+              ),
+            ),
             backgroundColor: Color(0xffF3F5F5),
             body: SingleChildScrollView(
               physics: AlwaysScrollableScrollPhysics(),

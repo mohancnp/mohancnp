@@ -9,14 +9,16 @@ import 'package:metrocoffee/screens/contents/homecontent/tabview.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tophomegreeting.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
-
+   Home({Key? key}) : super(key: key);
+  final HomeTabController homeTabController =
+  Get.put(HomeTabController());
   @override
   Widget build(BuildContext context) {
     double screenwidth=MediaQuery.of(context).size.width;
     double screenheight=MediaQuery.of(context).size.height;
     return GetBuilder<HomeTabController>(
         initState: (v){
+          homeTabController.getallproducts();
     },
     init: HomeTabController(),
     builder: (hometabcontroller){

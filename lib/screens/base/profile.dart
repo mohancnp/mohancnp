@@ -2,16 +2,22 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:metrocoffee/GetXController/auth/login_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/topup_reward_dialog.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+   Profile({Key? key}) : super(key: key);
+  final LoginController loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
+    return  GetBuilder<LoginController>(
+        init: LoginController(),
+    builder: (logincontroller){
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -432,50 +438,55 @@ class Profile extends StatelessWidget {
             ),
 
 
-            Container(
-              margin: EdgeInsets.only(top: screenwidth*0.0535,
-              ),  padding: EdgeInsets.symmetric(
+            GestureDetector(
+             onTap: (){
+               logincontroller.logout(context);
+             },
+              child: Container(
+                margin: EdgeInsets.only(top: screenwidth*0.0535,
+                ),  padding: EdgeInsets.symmetric(
 //                  vertical: 14, horizontal: 12
-                  vertical: screenwidth*0.0340, horizontal: screenwidth*0.0291
-              ),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        offset: Offset(0, 3))
+                    vertical: screenwidth*0.0340, horizontal: screenwidth*0.0291
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: Offset(0, 3))
+                    ],
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                        children:[
+                          Icon(FeatherIcons.logOut,
+                            color: Color(0xff404D4D),
+                            //       size: 18,
+                            size: screenwidth*0.04379,     ),
+                          Container(
+                            margin: EdgeInsets.only(
+                              //        left: 11
+                                left: screenwidth*0.02676  ),
+                            child: Text("Log Out",style: getpoppins(TextStyle(
+                                color: Color(0xff404D4D),
+                                //   fontSize: 13.5,
+                                fontSize: screenwidth*0.0328, fontWeight: FontWeight.w400
+                            )),),
+                          )]),
+                    Icon(CupertinoIcons.forward,
+                      color: Color(0xff404D4D),
+                      //     size: 20,
+                      size: screenwidth*0.0486,   )
                   ],
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                      children:[
-                        Icon(FeatherIcons.logOut,
-                          color: Color(0xff404D4D),
-                          //       size: 18,
-                          size: screenwidth*0.04379,     ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            //        left: 11
-                              left: screenwidth*0.02676  ),
-                          child: Text("Log Out",style: getpoppins(TextStyle(
-                              color: Color(0xff404D4D),
-                              //   fontSize: 13.5,
-                              fontSize: screenwidth*0.0328, fontWeight: FontWeight.w400
-                          )),),
-                        )]),
-                  Icon(CupertinoIcons.forward,
-                    color: Color(0xff404D4D),
-                    //     size: 20,
-                    size: screenwidth*0.0486,   )
-                ],
+                ),
               ),
             ),
           ],
         ),
       )),
-    );
+    );});
   }
 }
