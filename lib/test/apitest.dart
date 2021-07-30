@@ -1,12 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:metrocoffee/config.dart';
 import 'package:metrocoffee/locator.dart';
+import 'package:metrocoffee/models/UserprofileModel.dart';
+import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/services/api_service.dart';
 class APITest extends StatelessWidget {
-  const APITest({Key? key}) : super(key: key);
-
+   APITest({Key? key}) : super(key: key);
+  List<Product> prods=[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +18,19 @@ class APITest extends StatelessWidget {
         backgroundColor: Colors.transparent,
         actions: [IconButton(
             onPressed: ()async{
-              updateprofiledata();
+              getproducts();
             }, icon:
         Icon(CupertinoIcons.add_circled_solid,
         color: Colors.black87,
         size: 24,))],
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            Image.asset("http://metro.clickandpress.com/api/product/storage/uploads/product/2021/7/BfphddsfUFWhGQ521Wra9JJGvlPGZmfvvWp6GAiW.jpg",
+              width: 200,)
+          ],
+        ),
       ),
     );
   }
@@ -32,12 +42,33 @@ class APITest extends StatelessWidget {
     print(response.values);
   }
 
-  profiledata()async{
-    Map response=await locator<ApiService>().getprofiledata();
+  getproducts()async{
+    Map response=await locator<ApiService>().getallproducts();
     print(response.values);
+    List<dynamic> productlist = response['data']['data'] as List;
+    var products = productlist.map<Product>((json) => Product.fromJson(json));
+    prods.addAll(products);
+    for(int i=0;i<=prods.length-1;i++){
+      print("Name:"+prods[i].name!.toString());
+      print("Image:"+prods[i].image!.toString());
+      print("Price:"+prods[i].price!.toString());
+
+    }
+
+  }
+
+  profiledata()async{
+    Map<String,dynamic> response=await locator<ApiService>().getprofiledata();
+    print(response.values);
+    UserProfile user=UserProfile.fromJson(response["data"]);
+    print(user.name);
+    print(user.membershipnumber);
+    print(user.status);
+    print(user.createdat);
+
   }
   changepassword(String? currentpass,String? newpass,String? confirmnewpass)async{
-    Map response=await locator<ApiService>().changepassword(
+    Map<String,dynamic> response=await locator<ApiService>().changepassword(
         currentpassword:currentpass ,newpassword: newpass,confirmnewpassword: confirmnewpass
     );
     print(response.values);

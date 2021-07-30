@@ -125,10 +125,59 @@ class Login extends StatelessWidget {
                       emailbox(context),
                       ClipRRect(
                           child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                            child: GestureDetector(
+                                onTap: () async {
+                                  logincontroller.googlelogin(context);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                    //      top: 27
+                                      top: screenwidth * 0.0656),
+                                  width: screenwidth,
+                                  //     height: 49,
+                                  height: screenwidth * 0.1192,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(23)),
+                                      color: Colors.white),
+                                  child: Center(
+                                      child: Container(
+                                          width: screenwidth * 0.59,
+                                          child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                              children: [
+                                                Icon(
+                                                  FontAwesomeIcons.google,
+                                                  color: Colors.black87,
+                                                  //     size: 20,
+                                                  size: screenwidth * 0.0486,
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.only(
+                                                    //       left: 17
+                                                      left: screenwidth * 0.04136),
+                                                  child: Text(
+                                                    "Continue with Gmail",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontFamily: poppinsregular,
+                                                        //        fontSize: 15,
+                                                        fontSize:
+                                                        screenwidth * 0.0364,
+                                                        color: Colors.black87),
+                                                  ),
+                                                )
+                                              ]))),
+                                )),
+                          )),
+                      ClipRRect(
+                          child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                         child: GestureDetector(
                           onTap: ()async{
-                            logincontroller.facebooklogin();
+                            logincontroller.facebooklogin(context);
                           },
                           child: Container(
                             margin: EdgeInsets.only(
@@ -172,55 +221,7 @@ class Login extends StatelessWidget {
                           ),
                         ),
                       )),
-                      ClipRRect(
-                          child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                        child: GestureDetector(
-                            onTap: () async {
-                              logincontroller.googlelogin();
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                  //      top: 27
-                                  top: screenwidth * 0.0656),
-                              width: screenwidth,
-                              //     height: 49,
-                              height: screenwidth * 0.1192,
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(23)),
-                                  color: Colors.white),
-                              child: Center(
-                                  child: Container(
-                                      width: screenwidth * 0.59,
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Icon(
-                                              FontAwesomeIcons.google,
-                                              color: Colors.black87,
-                                              //     size: 20,
-                                              size: screenwidth * 0.0486,
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  //       left: 17
-                                                  left: screenwidth * 0.04136),
-                                              child: Text(
-                                                "Continue with Gmail",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontFamily: poppinsregular,
-                                                    //        fontSize: 15,
-                                                    fontSize:
-                                                        screenwidth * 0.0364,
-                                                    color: Colors.black87),
-                                              ),
-                                            )
-                                          ]))),
-                            )),
-                      ))
+
                       //      instagrambox(context),
                     ],
                   ),

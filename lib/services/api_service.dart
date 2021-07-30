@@ -49,6 +49,14 @@ class ApiService{
     return response;
   }
 
+  getallproducts()async{
+    final url = '$baseUrl/api/product';
+    final response=await getRequest(url: url,options: Options(
+        headers: getAuthorization()
+    ));
+    return response;
+  }
+
   updateprofiledata({
     String? name,String? phone, String? profilepic,String? email})async{
     final url = '$baseUrl/api/profile/update';

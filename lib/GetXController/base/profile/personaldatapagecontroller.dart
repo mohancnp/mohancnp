@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/UserprofileModel.dart';
 import 'package:metrocoffee/services/api_service.dart';
 import 'package:metrocoffee/theme.dart';
 
@@ -19,7 +20,12 @@ class PersonalDataPageController extends GetxController {
   bool obscurecurrentpassword = true;
   String? gender;
   bool changesmade=false;
+  bool passwordchangedsuccesfully=false;
 
+  setpasswordchangestate(){
+    passwordchangedsuccesfully=!passwordchangedsuccesfully;
+    update();
+  }
   setchangesmadetrue(){
     changesmade=true;
     update();
@@ -39,12 +45,19 @@ class PersonalDataPageController extends GetxController {
     print(response.values);
   }
 
-  setinitialdata() {
-    namecontroller.text = "Judas Basnet";
-    currentpasswordcontroller.text = "testpassword";
-    emailcontroller.text = "robfox@gmail.com";
-    jobcontroller.text = "Designer";
-    membershipcontroller.text = "Gold Membership";
+  setinitialdata() async{
+      Map<String,dynamic> response=await locator<ApiService>().getprofiledata();
+      print(response.values);
+      UserProfile user=UserProfile.fromJson(response["data"]);
+      print(user.name);
+      print(user.membershipnumber);
+      print(user.status);
+      print(user.createdat);
+      namecontroller.text = user.name!;
+ //   currentpasswordcontroller.text = "testpassword";
+    emailcontroller.text = user.email!;
+    jobcontroller.text = user.job!;
+    membershipcontroller.text =user.membershipnumber!;
     gender = 'male';
     update();
   }
@@ -595,6 +608,7 @@ class PersonalDataPageController extends GetxController {
               cursorColor: Color(0xff1A1C1C),
               obscureText: obscurecurrentpassword,
               controller: currentpasswordcontroller,
+              textInputAction: TextInputAction.next,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   suffixIcon: GestureDetector(
@@ -659,6 +673,7 @@ class PersonalDataPageController extends GetxController {
                       offset: Offset(0, 3))
                 ]),
             child: TextField(
+              textInputAction: TextInputAction.next,
               onChanged: (v){
                 setchangesmadetrue();
               }, style: getpoppins(
@@ -734,6 +749,7 @@ class PersonalDataPageController extends GetxController {
                       offset: Offset(0, 3))
                 ]),
             child: TextField(
+              textInputAction: TextInputAction.done,
               onChanged: (v){
                 setchangesmadetrue();
               },
@@ -780,6 +796,10 @@ class PersonalDataPageController extends GetxController {
     Map response=await locator<ApiService>().changepassword(
         currentpassword:currentpass ,newpassword: newpass,confirmnewpassword: confirmnewpass
     );
+    if(response.containsKey("data")){
+      setpasswordchangestate();
+      Future.delayed(Duration(seconds: 5),setpasswordchangestate);
+    }
     emptychangepasswordtextfields();
     print(response.values);
   }
@@ -798,6 +818,7 @@ class PersonalDataPageController extends GetxController {
           if(changesmade){
           changepassword(currentpasswordcontroller.text, newpasswordcontroller.text,
               confirmpasswordcontroller.text);
+
           }
         },
         child:Container(

@@ -440,7 +440,7 @@ class Profile extends StatelessWidget {
 
             GestureDetector(
              onTap: (){
-
+               logincontroller.logout(context);
              },
               child: Container(
                 margin: EdgeInsets.only(top: screenwidth*0.0535,
