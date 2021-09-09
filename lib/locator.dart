@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:metrocoffee/screens/initial/splashscreen.dart';
 import 'package:metrocoffee/services/api_service.dart';
 
 GetIt locator = GetIt.instance;

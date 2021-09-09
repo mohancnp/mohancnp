@@ -1,11 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
+import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 
 import '../../../theme.dart';
-class CheckoutBottomNavigation extends StatelessWidget {
+
+class CheckoutBottomNavigation extends StatefulWidget {
   const CheckoutBottomNavigation({Key? key}) : super(key: key);
 
+  @override
+  _CheckoutBottomNavigationState createState() =>
+      _CheckoutBottomNavigationState();
+}
+
+class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -21,13 +33,10 @@ class CheckoutBottomNavigation extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(15),
-              topLeft: Radius.circular(15)),
+              topRight: Radius.circular(15), topLeft: Radius.circular(15)),
           boxShadow: [
             BoxShadow(
-                color: Colors.black12,
-                blurRadius: 25,
-                offset: Offset(0, -6))
+                color: Colors.black12, blurRadius: 25, offset: Offset(0, -6))
           ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,7 +47,7 @@ class CheckoutBottomNavigation extends StatelessWidget {
             height: screenwidth * 0.1153,
             width: screenwidth * 0.3966,
             padding: EdgeInsets.symmetric(
-              //       horizontal: 22
+                //       horizontal: 22
                 horizontal: screenwidth * 0.0535),
             decoration: BoxDecoration(
                 color: darkgrey,
@@ -67,27 +76,76 @@ class CheckoutBottomNavigation extends StatelessWidget {
                   height: screenwidth * 0.0437,
                   decoration: BoxDecoration(color: Colors.white),
                 ),
-                Container(
-                    child: Icon(
-                      CupertinoIcons.cart_badge_plus,
-                      color: Colors.white,
-                      //      size: 24,
-                      size: screenwidth * 0.0583,
-                    )),
+                SizedBox(
+                    child: GetX<DrinkDetailsController>(builder: (controller) {
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          //change the cart icon status
+                          controller.toggleCart();
+                          var count = controller.cartStatus.value ? 0 : 1;
+                          controller.updateCart(count);
+                        },
+                        child: Icon(
+                          CupertinoIcons.cart,
+                          color: controller.cartStatus.value
+                              ? coffeecolor
+                              : Colors.white,
+                          size: screenwidth * (19 / 375),
+                        ),
+                      ),
+                      AnimatedPositioned(
+                        left: controller.cartStatus.value ? 12 : 14,
+                        top: controller.cartStatus.value ? -6 : -4,
+                        duration: Duration(milliseconds: 200),
+                        child: AnimatedSize(
+                          vsync: this,
+                          duration: Duration(milliseconds: 200),
+                          curve: Curves.easeIn,
+                          // alignment: Alignment(0,0.4),
+                          child: Container(
+                            height: controller.cartStatus.value ? 13 : 8,
+                            width: controller.cartStatus.value ? 13 : 8,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: controller.cartStatus.value
+                                  ? coffeecolor
+                                  : Colors.white,
+                            ),
+                            child: Align(
+                              alignment: Alignment(0.2, 0),
+                              child: Text(
+                                "${controller.cartCount.value}",
+                                style: TextStyle(
+                                    fontSize:
+                                        controller.cartStatus.value ? 6 : 4,
+                                    color: controller.cartStatus.value
+                                        ? Colors.white
+                                        : null),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                })),
               ],
             ),
           ),
           GestureDetector(
-            onTap: (){
-              Navigator.pushNamedAndRemoveUntil(context,
-                  "/CheckoutPage", (route) => true);
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/CheckoutPage", (route) => true);
             },
             child: Container(
               //       height: 47,
               height: screenwidth * 0.1153,
               width: screenwidth * 0.3966,
               padding: EdgeInsets.symmetric(
-                //       horizontal: 22
+                  //       horizontal: 22
                   horizontal: screenwidth * 0.0535),
               decoration: BoxDecoration(
                   color: coffeecolor,
@@ -105,14 +163,12 @@ class CheckoutBottomNavigation extends StatelessWidget {
                   Text(
                     "Order Now",
                     textAlign: TextAlign.center,
-                    style: getpoppins(
-                        TextStyle(
-                            color: Colors.white,
-                            //        fontSize: 16,
-                            fontSize: screenwidth * 0.0389,
-                            fontWeight: FontWeight.w300)),
+                    style: getpoppins(TextStyle(
+                        color: Colors.white,
+                        //        fontSize: 16,
+                        fontSize: screenwidth * 0.0389,
+                        fontWeight: FontWeight.w300)),
                   ),
-
                 ],
               ),
             ),

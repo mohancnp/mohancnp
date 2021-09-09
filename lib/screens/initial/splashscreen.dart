@@ -175,7 +175,6 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void navigationPage() {
-
     Navigator.of(context).pushReplacementNamed(loginstat==0?'/Login':'/Base');
   }
 }
