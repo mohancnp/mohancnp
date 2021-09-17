@@ -1,13 +1,11 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
-import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/product/checkout_bottomnavigation.dart';
+import 'package:metrocoffee/services/rest/config.dart';
 import 'package:metrocoffee/theme.dart';
 
 class DrinkDetail extends StatelessWidget {
@@ -17,6 +15,8 @@ class DrinkDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int id = ModalRoute.of(context)!.settings.arguments as int;
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
@@ -27,6 +27,7 @@ class DrinkDetail extends StatelessWidget {
     return GetBuilder<DrinkDetailsController>(
         initState: (v) {
           drinkDetailsController.addlistenertoexpand();
+          drinkDetailsController.getProductDetails(id);
         },
         init: DrinkDetailsController(),
         builder: (productdetailscontroller) {
@@ -43,11 +44,17 @@ class DrinkDetail extends StatelessWidget {
                                 Colors.black.withOpacity(0.5)
                               ]).createShader(bounds),
                       blendMode: BlendMode.srcATop,
-                      child: Image.asset(
-                        "assets/images/productimages/cardddd@3x-min.png",
-                        width: screenheight,
-                        fit: BoxFit.cover,
-                      ))),
+                      child: productdetailscontroller.pd == null
+                          ? Image.network(
+                              "$baseUrl/storage/uploads/product/2021/7/IqZ0skXFEXc0oTO61WmBWoOlWmsxSWyZzJrFxwso.jpg",
+                              width: screenheight,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.network(
+                              "$baseUrl${productdetailscontroller.pd?.imageUri}",
+                              width: screenheight,
+                              fit: BoxFit.cover,
+                            ))),
               Scaffold(
                 bottomNavigationBar: CheckoutBottomNavigation(),
                 backgroundColor: Colors.transparent,
@@ -163,7 +170,7 @@ class DrinkDetail extends StatelessWidget {
                                               left: screenwidth * 0.0535,
                                               right: screenwidth * 0.0535),
                                           child: Text(
-                                            "Café Latte",
+                                            "${productdetailscontroller.pd?.name ?? 'N/A'}",
                                             style: getpoppins(TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 color: darkgrey,
@@ -174,47 +181,53 @@ class DrinkDetail extends StatelessWidget {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            var status =
-                                                drinkDetailsController
-                                                    .isFavorite
-                                                    .toggle();
+                                            var status = drinkDetailsController
+                                                .isFavorite
+                                                .toggle();
                                             print(status);
                                           },
-                                          child: Container(
-                                            height: screenwidth * (30 / 375),
-                                            width: screenwidth * (30 / 375),
-                                            margin: EdgeInsets.only(
-                                                right: screenwidth * 0.0535),
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.white,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      color: Colors.black26,
-                                                      blurRadius: 10)
-                                                ]),
-                                            child: GetX<DrinkDetailsController>(
+                                          // child: GetX<DrinkDetailsController>(
+                                          // builder: (controller) {
+
+                                          child: GetX<DrinkDetailsController>(
                                               builder: (controller) {
-                                                return Center(
-                                                    child: controller
-                                                            .isFavorite.value
-                                                        ? Icon(
-                                                            Icons.favorite,
-                                                            color: Colors.red,
-                                                            // size: 17,
-                                                            size: screenwidth *
-                                                                (17 / 375),
-                                                          )
-                                                        : Icon(
-                                                            Icons.favorite_outline,
-                                                            color: null,
-                                                            // size: 17,
-                                                            size: screenwidth *
-                                                                (17 / 375),
-                                                          ));
-                                              }
-                                            ),
-                                          ),
+                                            return Container(
+                                              height: screenwidth * (30 / 375),
+                                              width: screenwidth * (30 / 375),
+                                              margin: EdgeInsets.only(
+                                                  right: screenwidth * 0.0535),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.white,
+                                                  boxShadow: controller
+                                                          .isFavorite.value
+                                                      ? [
+                                                          BoxShadow(
+                                                              color: Colors
+                                                                  .black26,
+                                                              blurRadius: 10)
+                                                        ]
+                                                      : null),
+                                              child: Center(
+                                                  child: controller
+                                                          .isFavorite.value
+                                                      ? Icon(
+                                                          Icons.favorite,
+                                                          color: Colors.red,
+                                                          // size: 17,
+                                                          size: screenwidth *
+                                                              (17 / 375),
+                                                        )
+                                                      : Icon(
+                                                          Icons
+                                                              .favorite_outline,
+                                                          color: null,
+                                                          // size: 17,
+                                                          size: screenwidth *
+                                                              (17 / 375),
+                                                        )),
+                                            );
+                                          }),
                                         ),
                                       ],
                                     ),

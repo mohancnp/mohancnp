@@ -6,12 +6,16 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/login_controller.dart';
+import 'package:metrocoffee/GetXController/auth/social_login_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
-  final LoginController loginController = Get.put(LoginController());
+
+  // final LoginController loginController = Get.put(LoginController());
+  final SocialLoginController socialLoginController =
+      Get.put(SocialLoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,9 @@ class Login extends StatelessWidget {
     ]);
     double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
-    return GetBuilder<LoginController>(
-        init: LoginController(),
+
+    return GetBuilder<SocialLoginController>(
+        init: SocialLoginController(),
         builder: (logincontroller) {
           return Stack(
             children: [
@@ -60,7 +65,6 @@ class Login extends StatelessWidget {
                       Container(
                         child: Image.asset(
                           "assets/images/metro coffee logo@3x.png",
-//  width: 58,
                           width: screenwidth * 0.1411,
                         ),
                         padding: EdgeInsets.all(
@@ -89,11 +93,12 @@ class Login extends StatelessWidget {
                               filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                               child: GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MembershipLogin()));
+                                    Get.toNamed('/MembershipLogin');
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             MembershipLogin()));
                                   },
                                   child: Container(
                                     margin: EdgeInsets.only(
@@ -125,59 +130,61 @@ class Login extends StatelessWidget {
                       emailbox(context),
                       ClipRRect(
                           child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                            child: GestureDetector(
-                                onTap: () async {
-                                  logincontroller.googlelogin(context);
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                    //      top: 27
-                                      top: screenwidth * 0.0656),
-                                  width: screenwidth,
-                                  //     height: 49,
-                                  height: screenwidth * 0.1192,
-                                  decoration: BoxDecoration(
-                                      borderRadius:
+                        filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                        child: GestureDetector(
+                            onTap: () async {
+                              //goggle sign in
+                              logincontroller.performGoogleSignin();
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                  //      top: 27
+                                  top: screenwidth * 0.0656),
+                              width: screenwidth,
+                              //     height: 49,
+                              height: screenwidth * 0.1192,
+                              decoration: BoxDecoration(
+                                  borderRadius:
                                       BorderRadius.all(Radius.circular(23)),
-                                      color: Colors.white),
-                                  child: Center(
-                                      child: Container(
-                                          width: screenwidth * 0.59,
-                                          child: Row(
-                                              mainAxisAlignment:
+                                  color: Colors.white),
+                              child: Center(
+                                  child: Container(
+                                      width: screenwidth * 0.59,
+                                      child: Row(
+                                          mainAxisAlignment:
                                               MainAxisAlignment.start,
-                                              children: [
-                                                Icon(
-                                                  FontAwesomeIcons.google,
-                                                  color: Colors.black87,
-                                                  //     size: 20,
-                                                  size: screenwidth * 0.0486,
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                    //       left: 17
-                                                      left: screenwidth * 0.04136),
-                                                  child: Text(
-                                                    "Continue with Gmail",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontFamily: poppinsregular,
-                                                        //        fontSize: 15,
-                                                        fontSize:
+                                          children: [
+                                            Icon(
+                                              FontAwesomeIcons.google,
+                                              color: Colors.black87,
+                                              //     size: 20,
+                                              size: screenwidth * 0.0486,
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  //       left: 17
+                                                  left: screenwidth * 0.04136),
+                                              child: Text(
+                                                "Continue with Gmail",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontFamily: poppinsregular,
+                                                    //        fontSize: 15,
+                                                    fontSize:
                                                         screenwidth * 0.0364,
-                                                        color: Colors.black87),
-                                                  ),
-                                                )
-                                              ]))),
-                                )),
-                          )),
+                                                    color: Colors.black87),
+                                              ),
+                                            )
+                                          ]))),
+                            )),
+                      )),
                       ClipRRect(
                           child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                         child: GestureDetector(
-                          onTap: ()async{
-                            logincontroller.facebooklogin(context);
+                          onTap: () async {
+                            //login through facebook
+                            socialLoginController.performFacebookLogin();
                           },
                           child: Container(
                             margin: EdgeInsets.only(
@@ -213,7 +220,8 @@ class Login extends StatelessWidget {
                                               style: TextStyle(
                                                   fontFamily: poppinsregular,
                                                   //        fontSize: 15,
-                                                  fontSize: screenwidth * 0.0364,
+                                                  fontSize:
+                                                      screenwidth * 0.0364,
                                                   color: Colors.black87),
                                             ),
                                           )

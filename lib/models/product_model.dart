@@ -1,9 +1,13 @@
 class Product {
-  int? id;
-  String? name, image;
-  int? price;
+  int id;
+  String name, image;
+  int price;
 
-  Product({this.id, this.name, this.image, this.price});
+  Product(
+      {required this.id,
+      required this.name,
+      required this.image,
+      required this.price});
 
   factory Product.fromJson(Map<String, dynamic> data) {
     var productdetails = Product(

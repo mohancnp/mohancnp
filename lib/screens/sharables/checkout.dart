@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
+import 'package:metrocoffee/GetXController/maps/map_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
 import 'package:metrocoffee/screens/widgets/product/checkouttopayments_bottom_nav.dart';
@@ -12,6 +13,7 @@ import 'package:metrocoffee/theme.dart';
 class CheckoutPage extends StatelessWidget {
   CheckoutPage({Key? key}) : super(key: key);
   final CheckoutController checkoutController = Get.put(CheckoutController());
+
 
   @override
   Widget build(BuildContext context) {

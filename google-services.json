@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "873800795701",
-    "project_id": "metrocoffee-a6583",
-    "storage_bucket": "metrocoffee-a6583.appspot.com"
+    "project_number": "912486806445",
+    "project_id": "metro-coffee-1",
+    "storage_bucket": "metro-coffee-1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:873800795701:android:ddf86f5bec5d378f0e937c",
+        "mobilesdk_app_id": "1:912486806445:android:0d1599884c4aada9392724",
         "android_client_info": {
           "package_name": "com.metrocoffee.metrocoffee"
         }
       },
       "oauth_client": [
         {
-          "client_id": "873800795701-1sl6fcvdruhdgsgdl6l8g6tvcp8o0rfq.apps.googleusercontent.com",
+          "client_id": "912486806445-oqt81pu53cv04nvea2uo89iu4ejg0tva.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.metrocoffee.metrocoffee",
-            "certificate_hash": "4d6abeab18d6cb57a1fc7746fd11cce9d6bf5c0d"
+            "certificate_hash": "63ae039a1a971e715adcf41dfb01941b8d0b533e"
           }
         },
         {
-          "client_id": "873800795701-c96epe1023fh6mdiqdpfcav54v5vk2og.apps.googleusercontent.com",
+          "client_id": "912486806445-jv482v9hc8p5sljdda7kr6hvu7tgmj15.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAcU15_CDXoVkGQAupwoqvfAgaAG1chC-M"
+          "current_key": "AIzaSyDKtEfGCb_eLFsZMJ_7VzG7FgyVuBVsd6w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "873800795701-c96epe1023fh6mdiqdpfcav54v5vk2og.apps.googleusercontent.com",
+              "client_id": "912486806445-jv482v9hc8p5sljdda7kr6hvu7tgmj15.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

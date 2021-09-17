@@ -3,8 +3,12 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:location/location.dart';
+import 'package:metrocoffee/GetXController/maps/map_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
-
+import 'package:metrocoffee/models/location.dart';
+import 'package:metrocoffee/screens/maps/map.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 import '../../theme.dart';
 
 class CheckoutController extends GetxController {
@@ -12,6 +16,11 @@ class CheckoutController extends GetxController {
   String selectedorderconfirmationtype = 'email';
   TextEditingController orderinstructionscontroller = TextEditingController();
   TimeOfDay _time = TimeOfDay.now().replacing(minute: 30);
+
+  //controller
+  final MapController mapController = Get.put(
+    MapController(),
+  );
 
   setselectedtimeindex(int index) {
     selectedtimeindex = index;
@@ -23,6 +32,20 @@ class CheckoutController extends GetxController {
     update();
   }
 
+  @override
+  void onInit() {
+    super.onInit();
+    Location location = new Location();
+
+    mapController.getCurrentUserLocation(location).then((locationData) {
+      mapController.getCurrentLocationName(locationData).then((placeMarkList) {
+        geo.Placemark pm = placeMarkList.elementAt(0);
+        mapController.current.value.mainLocation = pm.locality!;
+        mapController.current.value.subLocation = pm.subLocality!;
+      });
+      // print(locationData);
+    });
+  }
 
   Widget checkoutlocation(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -121,42 +144,46 @@ class CheckoutController extends GetxController {
                     margin: EdgeInsets.only(
                         //       left: 19
                         left: screenwidth * 0.0462),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: Text(
-                            "2 Saint Street. st",
-                            style: getpoppins(TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: darkgrey,
+                    child: GetX<MapController>(builder: (controller) {
+                      var current = controller.getCurrentLocation();
+                      print(current.mainLocation);
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            child: Text(
+                              "${current.mainLocation}",
+                              style: getpoppins(TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: darkgrey,
 //                              fontSize:13.5
-                                fontSize: screenwidth * 0.0328)),
+                                  fontSize: screenwidth * 0.0328)),
+                            ),
                           ),
-                        ),
-                        Container(
-                          child: Text(
-                            "Park In, United Kingdom",
-                            style: getpoppins(TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: darkgrey.withOpacity(0.8),
+                          Container(
+                            child: Text(
+                              "${current.subLocation}",
+                              style: getpoppins(TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: darkgrey.withOpacity(0.8),
 //                              fontSize:10.5
-                                fontSize: screenwidth * 0.0255)),
+                                  fontSize: screenwidth * 0.0255)),
+                            ),
                           ),
-                        ),
-                        Container(
-                          child: Text(
-                            "+99 56581464",
-                            style: getpoppins(TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: darkgrey.withOpacity(0.8),
-                                //           fontSize:10.5
-                                fontSize: screenwidth * 0.0255)),
+                          Container(
+                            child: Text(
+                              "+99 56581464",
+                              style: getpoppins(TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: darkgrey.withOpacity(0.8),
+                                  //           fontSize:10.5
+                                  fontSize: screenwidth * 0.0255)),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      );
+                    }),
                   ),
                 ]),
                 Container(
@@ -168,7 +195,15 @@ class CheckoutController extends GetxController {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () async {
+                            CustomLocation result =
+                                await Get.toNamed("/GoogleMapPage");
+                            print("data from route: ${result.mainLocation}");
+                            mapController.current.value.mainLocation =
+                                result.mainLocation;
+                            mapController.current.value.subLocation =
+                                result.subLocation;
+                          },
                           child: Icon(
                             FeatherIcons.edit,
                             color: darkgrey,

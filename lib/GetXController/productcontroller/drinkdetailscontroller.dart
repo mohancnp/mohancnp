@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/variants.dart';
+import 'package:metrocoffee/services/rest/products.dart';
 
 import '../../theme.dart';
 
@@ -16,9 +18,15 @@ class DrinkDetailsController extends GetxController {
   Rx<int> cartCount = 0.obs;
   Rx<bool> cartStatus = false.obs;
   Rx<bool> isFavorite = false.obs;
-
+  Rx<bool> isSelected = false.obs;
+  ProductDetail? pd;
   ExpandableController toppingsexpandableController = ExpandableController();
   ExpandableController milkexpandableController = ExpandableController();
+
+  setProductDetail(proDet) {
+    pd = proDet;
+    update();
+  }
 
   settabindex(int index) {
     currenttabindex = index;
@@ -69,6 +77,15 @@ class DrinkDetailsController extends GetxController {
 
   toggleCart() {
     cartStatus.toggle();
+  }
+
+//v-2
+  Future getProductDetails(int id) async {
+    ProductService().getSingleProduct(id: id).then((response) {
+      // print("single product detail: $response");
+      var prodObj = ProductDetail.fromJson(response['data']);
+      setProductDetail(prodObj);
+    });
   }
 
   Widget drinktemperatureoption(BuildContext context) {
@@ -767,77 +784,91 @@ class DrinkDetailsController extends GetxController {
                               left: 0,
                               //         bottom:24,
                               bottom: screenwidth * 0.0583,
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    //          left: 12,bottom: 4,right: 4
-                                    left: screenwidth * 0.0291,
-                                    bottom: screenwidth * 0.00973,
-                                    right: screenwidth * 0.00973),
+                              child: GestureDetector(
+                                onTap: () {
+                                  print('tapped on button');
+                                  //animating the border.
+                                  this.isSelected = this.isSelected.toggle();
+                                },
+                                child: GetX<DrinkDetailsController>(
+                                    builder: (controller) {
+                                  return Container(
+                                    padding: EdgeInsets.only(
+                                        //          left: 12,bottom: 4,right: 4
+                                        left: screenwidth * 0.0291,
+                                        bottom: screenwidth * 0.00973,
+                                        right: screenwidth * 0.00973),
 //                      height: 88,width: 110,
-                                height: screenwidth * 0.2141,
-                                width: screenwidth * 0.267,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(9)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black12,
-                                          blurRadius: 20,
-                                          offset: Offset(0, 3))
-                                    ]),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        gettitleforextras(index),
-                                        style: getpoppins(TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            color: darkgrey,
-                                            //              fontSize: 12
-                                            fontSize: screenwidth * 0.0291)),
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                    height: screenwidth * 0.2141,
+                                    width: screenwidth * 0.267,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: controller.isSelected.isTrue
+                                                ? Color(0xFF550E1C)
+                                                : Colors.transparent,
+                                            width: 2.0),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(9),
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.black12,
+                                              blurRadius: 20,
+                                              offset: Offset(0, 3))
+                                        ]),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Container(
                                           child: Text(
-                                            "\$1.50",
+                                            gettitleforextras(index),
                                             style: getpoppins(TextStyle(
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeight.w300,
                                                 color: darkgrey,
-                                                //             fontSize: 13.5
+                                                //              fontSize: 12
                                                 fontSize:
-                                                    screenwidth * 0.0328)),
+                                                    screenwidth * 0.0291)),
                                           ),
                                         ),
-                                        Icon(
-                                          CupertinoIcons.add_circled_solid,
-                                          color: coffeecolor,
-                                          //      size: 21,
-                                          size: screenwidth * 0.0510,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              child: Text(
+                                                "\$1.50",
+                                                style: getpoppins(TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    color: darkgrey,
+                                                    //             fontSize: 13.5
+                                                    fontSize:
+                                                        screenwidth * 0.0328)),
+                                              ),
+                                            ),
+                                            Icon(
+                                              CupertinoIcons.add_circled_solid,
+                                              color: coffeecolor,
+                                              //      size: 21,
+                                              size: screenwidth * 0.0510,
+                                            )
+                                          ],
                                         )
                                       ],
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                  );
+                                }),
                               )),
                           Positioned(
-                            top: index == 2 ? 0 : 9,
+                            top: index == 2 ? 0 : 29,
                             right: 0,
                             child: Image.asset(getimageforextrasrow(index),
                                 width: index == 2
-                                    ?
-                                    //        74:
-                                    screenwidth * 0.1800
+                                    ? screenwidth * 0.1800
                                     : index == 1
-                                        ?
-                                        //            68: 86,
-                                        screenwidth * 0.1654
+                                        ? screenwidth * 0.1654
                                         : screenwidth * 0.2092),
                           )
                         ]));

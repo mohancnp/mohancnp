@@ -46,6 +46,13 @@ dependencies:
   google_sign_in: ^5.0.5
   flutter_login_facebook: ^1.0.1
   shared_preferences: ^2.0.6
+  google_maps_flutter: ^2.0.8
+  location: ^4.2.0
+  geocoding: ^2.0.1
+  flutter_screenutil: ^5.0.0+2
+  dartz: ^0.10.0
+  connectivity_plus: ^1.1.0
+
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +85,9 @@ flutter:
       - assets/images/bell.svg
       - assets/images/shopping-cart.svg
       - assets/images/user.svg
+      - assets/images/testcanberemoved/heart.svg
+      - assets/images/testcanberemoved/paperplus.svg
+      - assets/images/testcanberemoved/send.svg
       - assets/images/coffee1.png
       - assets/images/coffe2.png
       - assets/images/coffee4.png
@@ -100,6 +110,9 @@ flutter:
       - assets/images/profilepic.png
       - assets/images/badge.svg
       - assets/images/profilep.png
+      - assets/images/iconhome.svg
+      - assets/images/iconwork.svg
+      - assets/images/iconmappin.svg
       - assets/images/productimages/burgermetrocoffee.png
       - assets/images/productimages/correctsandwich.png
       - assets/images/productimages/pngfind.com-pizza-emoji-png-800270@3x.png
@@ -109,7 +122,7 @@ flutter:
       - assets/images/paymentimages/paypal@3x.png
       - assets/images/paymentimages/creditcardpic.png
       - assets/images/ordersuccesful/Order Confirmed_Two Color@3x.png
-
+      - assets/images/no-wifi.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
