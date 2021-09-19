@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/screens/contents/homecontent/searchbar.dart';
+import 'package:metrocoffee/screens/contents/homecontent/tabs/bakery.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/drinks.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/snacks.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabview.dart';
@@ -10,14 +11,13 @@ import 'package:metrocoffee/screens/contents/homecontent/tophomegreeting.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
-  final HomeTabController homeTabController = Get.put(HomeTabController());
+  final HomeTabController homeTabController = Get.find<HomeTabController>();
 
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
     return GetBuilder<HomeTabController>(
-        initState: (v) {},
         init: HomeTabController(),
         builder: (hometabcontroller) {
           return Scaffold(
@@ -54,16 +54,26 @@ class Home extends StatelessWidget {
                                     HomeTabView(),
                                     AnimatedSwitcher(
                                         duration: Duration(milliseconds: 250),
-                                        child: hometabcontroller
-                                                    .currentpageindex ==
-                                                0
-                                            ? DrinksTab()
-                                            : Snacks())
+                                        child: getPageForTabAtIndex(
+                                            hometabcontroller.currentpageindex))
                                   ],
                                 ),
                               ])))))
                 ],
               ));
         });
+  }
+
+  Widget getPageForTabAtIndex(index) {
+    switch (index) {
+      case 0:
+        return DrinksTab();
+      case 1:
+        return Bakery();
+      case 2:
+        return Snacks();
+      default:
+        return DrinksTab();
+    }
   }
 }

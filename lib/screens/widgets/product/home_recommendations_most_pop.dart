@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/enums/section.dart';
+import 'package:metrocoffee/screens/widgets/product/home_smallrow.dart';
 
-import 'home_smallrow.dart';
-class HomeMostPopularRow extends StatelessWidget {
-  const HomeMostPopularRow({Key? key}) : super(key: key);
+class HomeRecPopRow extends StatelessWidget {
+  final Section section;
+  final int page;
+
+  HomeRecPopRow({Key? key,required this.page, required this.section}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,9 @@ class HomeMostPopularRow extends StatelessWidget {
               left: screenwidth * 0.0583,
             ),
             child: Text(
-              "Most Popular",
+              section == Section.recommendation
+                  ? "Recommendation"
+                  : "Most Popular",
               style: getpoppins(TextStyle(
                   fontWeight: FontWeight.w500,
                   color: Color(0xff344141),
@@ -26,10 +32,9 @@ class HomeMostPopularRow extends StatelessWidget {
                   fontSize: screenwidth * 0.0377)),
             ),
           ),
-          HomeSmallRow()
+          HomeSmallRow(page: page,section: section,)
         ],
       ),
-
     );
   }
 }

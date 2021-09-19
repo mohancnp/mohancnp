@@ -3,7 +3,6 @@ import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
 class RegisterUser {
-
   Future<int> addUser(User user) async {
     var dio = Dio(options);
     var data = user.toJson();
@@ -11,7 +10,7 @@ class RegisterUser {
     int? status = 0;
 
     try {
-      var response = await dio.post('/register', data: data);
+      var response = await dio.post('/api/register', data: data);
       print(response.statusMessage);
       // print(response.data);
     } on DioError catch (e) {

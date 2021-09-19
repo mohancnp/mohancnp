@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/GetXController/auth/login_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/topup_reward_dialog.dart';
@@ -17,6 +16,7 @@ class Profile extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<LoginController>(
         init: LoginController(),
+
         builder: (logincontroller) {
           return Scaffold(
             backgroundColor: Colors.transparent,
@@ -107,7 +107,8 @@ class Profile extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Text(
-                                            "Judas Basnet",
+                                            logincontroller.userName ??
+                                                "Judas Basnet",
                                             style: getpoppins(TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 color: Color(0xff404D4D),
@@ -118,7 +119,8 @@ class Profile extends StatelessWidget {
                                         ),
                                         Container(
                                             child: Text(
-                                          "juagsjaklk@gmail.com",
+                                          logincontroller.email ??
+                                              "juagsjaklk@gmail.com",
                                           style: getpoppins(TextStyle(
                                               fontWeight: FontWeight.w300,
                                               color: Color(0xff404D4D),
@@ -482,8 +484,13 @@ class Profile extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
-                          // logincontroller.logout(context);
+                        onTap: () async {
+                          logincontroller.logout().then((removed) {
+                            if (removed) {
+                              Get.offAllNamed('/Login',
+                                  predicate: (route) => false);
+                            }
+                          });
                         },
                         child: Container(
                           margin: EdgeInsets.only(

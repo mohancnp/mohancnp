@@ -19,8 +19,13 @@ Future addToken({required String provider, required String token}) async {
 
 //after logout or session expiration
 Future removeToken() async {
-  final prefs = await SharedPreferences.getInstance();
-  prefs.remove('auth_token');
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('auth_token');
+    return true;
+  } on Exception catch (e) {
+    print("$e");
+  }
 }
 
 Future verifyToken() async {
@@ -37,4 +42,9 @@ Future verifyToken() async {
 Future getToken() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getString('auth_token');
+}
+
+Future getProvider() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString('provider');
 }

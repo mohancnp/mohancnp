@@ -8,36 +8,10 @@ import 'package:metrocoffee/screens/base/home.dart';
 import 'package:metrocoffee/screens/base/mycart.dart';
 import 'package:metrocoffee/screens/base/notifications.dart';
 import 'package:metrocoffee/screens/base/profile.dart';
-import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 
-class Base extends StatefulWidget {
-  Base({Key? key}) : super(key: key);
-
-  @override
-  _BaseState createState() => _BaseState();
-}
-
-class _BaseState extends State<Base> {
+class Base extends StatelessWidget {
   final BaseController baseController = Get.put(BaseController());
-  final HomeTabController homeTabController=Get.put(HomeTabController());
   List pages = [Home(), Notifications(), MyCart(), Profile()];
-
-  @override
-  void initState() {
-    super.initState();
-    verifyToken().then((status) {
-      print('User verified: $status');
-
-      if (status == false) {
-        Get.toNamed('/Login');
-        // setUserVerified();
-        // Future.delayed(Duration.zero).then((value) => Get.offNamed('/Login'));
-      } else {
-        print("in true section");
-        baseController.setUserVerified();
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

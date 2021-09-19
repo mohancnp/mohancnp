@@ -6,6 +6,7 @@ import 'package:metrocoffee/GetXController/auth/email_login_controller.dart';
 import 'package:metrocoffee/GetXController/auth/login_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/screens/authentication/change_password.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 
 class EmailLogin extends StatelessWidget {
@@ -99,24 +100,30 @@ class EmailLogin extends StatelessWidget {
                                   ),
                                 ),
                                 emaillogincontroller.loginfields(context),
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => ChangePasswordPage());
+                                  },
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(
 //                            top: 13,left: 10
-                                            top: screenwidth * 0.0316,
-                                            left: screenwidth * 0.02433),
-                                        child: Text(
-                                          "Forgot Password?",
-                                          style: TextStyle(
-                                              fontFamily: proximanovaregular,
-                                              color: Colors.white70,
-                                              //                           fontSize: 14.5
-                                              fontSize: screenwidth * 0.0352),
-                                        ),
-                                      )
-                                    ]),
+                                              top: screenwidth * 0.0316,
+                                              left: screenwidth * 0.02433),
+                                          child: Text(
+                                            "Forgot Password?",
+                                            style: TextStyle(
+                                                fontFamily: proximanovaregular,
+                                                color: Colors.white70,
+                                                //                           fontSize: 14.5
+                                                fontSize: screenwidth * 0.0352),
+                                          ),
+                                        )
+                                      ]),
+                                ),
                                 Center(
                                     child: GestureDetector(
                                   onTap: () {

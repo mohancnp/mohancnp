@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/login_controller.dart';
 import 'package:metrocoffee/GetXController/auth/social_login_controller.dart';
+import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 

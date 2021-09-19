@@ -88,7 +88,7 @@ class AllMenu extends StatelessWidget {
                         left: screenwidth * 0.0535,
                         right: screenwidth * 0.0535,
                         bottom: screenwidth * 0.0535),
-                    child: homeTabController.internetConnected.value
+                    child: homeTabController.allProducts.length > 0
                         ? staggeredgridview(context)
                         : NoInternet()),
               ],
@@ -107,13 +107,13 @@ class AllMenu extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       crossAxisCount: 4,
-      itemCount: homeTabController.prods.length,
+      itemCount: homeTabController.allProducts.length,
 
       itemBuilder: (BuildContext context, int index) {
-        final Product p = homeTabController.prods.elementAt(index);
+        final Product p = homeTabController.allProducts.elementAt(index);
         return GestureDetector(
             onTap: () {
-              Get.to(DrinkDetail(), arguments: p.id);
+              Get.to(()=>DrinkDetail(), arguments: p.id);
             },
             child: Container(
                 decoration: BoxDecoration(
@@ -133,7 +133,6 @@ class AllMenu extends StatelessWidget {
                         width: screenwidth * 0.38,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(26)),
                         ),
                         child: Stack(children: [
                           Positioned(

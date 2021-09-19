@@ -1,7 +1,7 @@
 class Product {
   int id;
   String name, image;
-  int price;
+  dynamic price;
 
   Product(
       {required this.id,

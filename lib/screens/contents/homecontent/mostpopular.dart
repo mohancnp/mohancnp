@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/enums/section.dart';
 import 'package:metrocoffee/screens/widgets/product/smallerrow.dart';
 class MostPopular extends StatelessWidget {
-  const MostPopular({Key? key}) : super(key: key);
+  MostPopular({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,7 @@ class MostPopular extends StatelessWidget {
                 )
             ),),
           ),
-          SmallProductRow()
-
-
+          SmallProductRow(tag:Section.mostPopular)
         ],
       ),
     );

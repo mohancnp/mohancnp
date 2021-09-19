@@ -85,9 +85,6 @@ flutter:
       - assets/images/bell.svg
       - assets/images/shopping-cart.svg
       - assets/images/user.svg
-      - assets/images/testcanberemoved/heart.svg
-      - assets/images/testcanberemoved/paperplus.svg
-      - assets/images/testcanberemoved/send.svg
       - assets/images/coffee1.png
       - assets/images/coffe2.png
       - assets/images/coffee4.png

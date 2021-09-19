@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/login_controller.dart';
+import 'package:metrocoffee/GetXController/base/basecontroller.dart';
+import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/enums/uistate.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
+import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 import 'package:metrocoffee/services/rest/login.dart';
 
 class MemberShipController extends GetxController {
@@ -14,6 +17,15 @@ class MemberShipController extends GetxController {
   bool showpassword = false;
   bool eye = false;
   String? memberShipLoginErrorMsg;
+  BaseController? baseController;
+  HomeTabController? homeTabController;
+
+  @override
+  void onInit() {
+    super.onInit();
+    baseController = Get.find<BaseController>();
+    homeTabController = Get.find<HomeTabController>();
+  }
 
   //to change ui based on the status of the future result(like api call file io etc)
   UIState state = UIState.passive;
@@ -48,10 +60,15 @@ class MemberShipController extends GetxController {
           var data = response['data'];
           var token = data['token'];
           addToken(provider: 'membership', token: token.toString());
+
+          addUserDetail(
+                  name: response['data']['user']['name'] ?? "",
+                  email: response['data']['user']['email'] ?? "",
+                  id: response['data']['user']['id'] ?? 0);
+          baseController?.setUserVerified();
+          homeTabController?.initializeAllData();
           setUiState(UIState.completed);
-          // Navigator.pushNamedAndRemoveUntil(context, '/Base', (route) => false);
-          // Get.re('/Base', ModalRoute.withName('/Login'));
-          Get.offNamedUntil("/Base", (route) => false);
+          Get.offNamedUntil('/Base', (route) => false);
         }
       } else {
         setMemberShipLoginError("Error occured, try again!!!");

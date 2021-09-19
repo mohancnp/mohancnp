@@ -4,8 +4,8 @@ import 'package:metrocoffee/screens/widgets/product/first_home_product_row.dart'
 import 'package:metrocoffee/screens/widgets/product/home_recommendations_most_pop.dart';
 import 'package:metrocoffee/screens/widgets/product/home_smallrow.dart';
 
-class Snacks extends StatelessWidget {
-  const Snacks({Key? key}) : super(key: key);
+class Bakery extends StatelessWidget {
+  const Bakery({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +13,13 @@ class Snacks extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          FirstHomeProductRow(page: 2),
+          FirstHomeProductRow(page: 1),
           HomeRecPopRow(
-            page: 2,
+            page: 1,
             section: Section.recommendation,
           ),
           HomeRecPopRow(
-            page: 2,
+            page: 1,
             section: Section.mostPopular,
           ),
         ],

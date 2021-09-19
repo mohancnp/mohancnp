@@ -22,6 +22,7 @@ class DrinkDetailsController extends GetxController {
   ProductDetail? pd;
   ExpandableController toppingsexpandableController = ExpandableController();
   ExpandableController milkexpandableController = ExpandableController();
+  final _productService = ProductService.getInstance();
 
   setProductDetail(proDet) {
     pd = proDet;
@@ -81,7 +82,7 @@ class DrinkDetailsController extends GetxController {
 
 //v-2
   Future getProductDetails(int id) async {
-    ProductService().getSingleProduct(id: id).then((response) {
+    _productService.getSingleProduct(id: id).then((response) {
       // print("single product detail: $response");
       var prodObj = ProductDetail.fromJson(response['data']);
       setProductDetail(prodObj);

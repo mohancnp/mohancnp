@@ -4,14 +4,14 @@ class NoInternet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
             'assets/images/no-wifi.png',
-            height: 100,
-            width: 100,
+            height: 50,
+            width: 50,
           ),
           SizedBox(
               width: 200,

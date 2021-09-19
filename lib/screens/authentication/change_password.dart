@@ -12,6 +12,7 @@ class ChangePasswordPage extends StatelessWidget {
   ChangePasswordPage({Key? key}) : super(key: key);
   final PersonalDataPageController personalDataPageController =
       Get.put(PersonalDataPageController());
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -20,49 +21,54 @@ class ChangePasswordPage extends StatelessWidget {
     ]);
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<PersonalDataPageController>(
-        initState: (v) {
-
-        },
+        initState: (v) {},
         init: PersonalDataPageController(),
         builder: (personaldatacontroller) {
           return Scaffold(
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: !personaldatacontroller.passwordchangedsuccesfully?
-            SizedBox(height: 0,):
-            GestureDetector(
-              onTap: (){},
-              child: AnimatedContainer(
-             height: 42,width:295,
-                duration: Duration(milliseconds: 250),
-                decoration: BoxDecoration(
-                  color: Colors.greenAccent,
-                  borderRadius: BorderRadius.all(Radius.circular(24)),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 11,horizontal: 14),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(FeatherIcons.check,
-                    color: Colors.white,
-                    size: 24,),
-                    Container(
-                      margin: EdgeInsets.only(left: 11),
-                      child: Center(
-                        child: Text("Password changes succesfully",style: getpoppins(
-                          TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                            fontSize: 14.5
-                          )
-                        ),),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: !personaldatacontroller
+                    .passwordchangedsuccesfully
+                ? SizedBox(
+                    height: 0,
+                  )
+                : GestureDetector(
+                    onTap: () {},
+                    child: AnimatedContainer(
+                      height: 42,
+                      width: 295,
+                      duration: Duration(milliseconds: 250),
+                      decoration: BoxDecoration(
+                        color: Colors.greenAccent,
+                        borderRadius: BorderRadius.all(Radius.circular(24)),
                       ),
-                    )
-                  ],
-
-                ),
-              ),
-            ),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 11, horizontal: 14),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FeatherIcons.check,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 11),
+                            child: Center(
+                              child: Text(
+                                "Password changes succesfully",
+                                style: getpoppins(TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                    fontSize: 14.5)),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
             backgroundColor: Color(0xffF3F5F5),
             body: SingleChildScrollView(
               physics: AlwaysScrollableScrollPhysics(),
@@ -112,21 +118,23 @@ class ChangePasswordPage extends StatelessWidget {
                               right: screenwidth * 0.0535,
                             ),
                             padding: EdgeInsets.all(
-                              //            14
-                                screenwidth*0.0340      ),
+                                //            14
+                                screenwidth * 0.0340),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.white,
-                                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 10,offset: Offset(0,3))]
-                            ),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.05),
+                                      blurRadius: 10,
+                                      offset: Offset(0, 3))
+                                ]),
                             child: Image.asset(
                               "assets/images/profilep.png",
                               //     width: 82.5,
-                              width:screenwidth*0.2007,
+                              width: screenwidth * 0.2007,
                               fit: BoxFit.cover,
                             ),
-
                           )
                         ],
                       ),
@@ -158,7 +166,7 @@ class ChangePasswordPage extends StatelessWidget {
                               style: getpoppins(TextStyle(
                                   fontWeight: FontWeight.w500,
 //                                  fontSize: 22.5,
-                                  fontSize: screenwidth*0.0547,
+                                  fontSize: screenwidth * 0.0547,
                                   color: darkgrey)),
                             ),
                           )
@@ -177,14 +185,14 @@ class ChangePasswordPage extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.only(
 //                                  top: 6, bottom: 32
-                                  top: screenwidth*0.0145, bottom: screenwidth*0.0778
-                              ),
+                                  top: screenwidth * 0.0145,
+                                  bottom: screenwidth * 0.0778),
                               child: Text(
                                 "Your new password must be different\nfrom previous used passwords.",
                                 style: getpoppins(TextStyle(
                                   fontWeight: FontWeight.w400,
-                           //       fontSize: 12.5,
-                             fontSize: screenwidth*0.0304,
+                                  //       fontSize: 12.5,
+                                  fontSize: screenwidth * 0.0304,
                                   color: darkgrey.withOpacity(0.66),
                                 )),
                               ),

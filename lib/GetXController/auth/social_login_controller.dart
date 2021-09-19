@@ -2,11 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:metrocoffee/GetXController/base/basecontroller.dart';
+import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
+import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 import 'package:metrocoffee/services/rest/login.dart';
 
 class SocialLoginController extends GetxController {
+  BaseController? baseController;
+  HomeTabController? homeTabController;
   bool isLoggedIn = false;
 
   UIState state = UIState.passive;
@@ -23,6 +29,8 @@ class SocialLoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    baseController = Get.find<BaseController>();
+    homeTabController = Get.find<HomeTabController>();
   }
 
   Future performFacebookLogin() async {
@@ -57,7 +65,16 @@ class SocialLoginController extends GetxController {
           if (response['success'] == true) {
             var data = response['data'];
             var token = data['token'];
+            var user = data['user'];
+            var newClient = Client.fromJson(user);
+
             addToken(provider: 'facebook', token: token.toString());
+            addUserDetail(
+                name: response['data']['name'],
+                email: response['data']['email'],
+                id: response['data']['id']);
+            homeTabController?.initializeAllData();
+            baseController?.setUserVerified();
             Get.offNamedUntil('/Base', (route) => false);
             // print("server response data: $data");
           } else {

@@ -148,16 +148,7 @@ class MembershipLogin extends StatelessWidget {
 
                               var result = await membershiplogincontroller
                                   .memberShipLogin(eC, pC);
-
-                              // if (result == true) {
-                              //   print("result true");
-                              //   Get.toNamed('/Base');
-                              // }
-                              // logincontroller.loginwithmembershipid(context,
-                              //     membershipnumber: membershiplogincontroller.membershipnumbercontroller.text,
-                              //     password: membershiplogincontroller.passwordcontroller.text);
-                              //
-                            },
+                     },
                             child: Container(
                               margin: EdgeInsets.only(
 //                        top: 34
