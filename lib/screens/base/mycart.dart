@@ -11,9 +11,11 @@ import 'package:metrocoffee/screens/contents/cartcontent/reorderpage.dart';
 
 class MyCart extends StatelessWidget {
   MyCart({Key? key}) : super(key: key);
+  final CartController cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
+    cartController.getOrderProducts();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,

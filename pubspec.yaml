@@ -52,6 +52,8 @@ dependencies:
   flutter_screenutil: ^5.0.0+2
   dartz: ^0.10.0
   connectivity_plus: ^1.1.0
+  sqflite: ^2.0.0+4
+  path: ^1.8.0
 
 
 dev_dependencies:

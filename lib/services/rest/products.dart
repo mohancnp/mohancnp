@@ -22,7 +22,7 @@ class ProductService {
       try {
         dio.options.headers["Authorization"] = "Bearer ${token}";
         var products = await dio.get('$baseUrl/api/product');
-        print('$baseUrl/api/product');
+        // print('$baseUrl/api/product');
         // print('Products: $products');
         return products;
       } on DioError catch (e) {

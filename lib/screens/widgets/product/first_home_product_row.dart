@@ -40,7 +40,8 @@ class FirstHomeProductRow extends StatelessWidget {
                         Product p = pList.elementAt(index);
                         return GestureDetector(
                             onTap: () {
-                              Get.to(() => ProductDetail(), arguments: p.id);
+
+                              Get.to(() => ProductDetail(), arguments:p);
 
                               // Navigator.pushNamedAndRemoveUntil(
                               //     context, '/ProductDetails', (route) => true);

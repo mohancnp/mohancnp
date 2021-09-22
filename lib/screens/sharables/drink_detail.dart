@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/screens/widgets/product/checkout_bottomnavigation.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 import 'package:metrocoffee/theme.dart';
@@ -15,7 +16,8 @@ class DrinkDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int id = ModalRoute.of(context)!.settings.arguments as int;
+    Product drink = ModalRoute.of(context)!.settings.arguments as Product;
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
@@ -26,10 +28,11 @@ class DrinkDetail extends StatelessWidget {
     return GetBuilder<DrinkDetailsController>(
         initState: (v) {
           drinkDetailsController.addlistenertoexpand();
-          drinkDetailsController.getProductDetails(id);
+          drinkDetailsController.getProductDetails(drink.id);
         },
         init: DrinkDetailsController(),
         builder: (productdetailscontroller) {
+
           return productdetailscontroller.pd == null
               ? Material(child: Center(child: Text("loading...")))
               : Stack(
@@ -58,8 +61,7 @@ class DrinkDetail extends StatelessWidget {
                                   ))),
                     Scaffold(
                       bottomNavigationBar: CheckoutBottomNavigation(
-                        id: 0,
-                        pd: productdetailscontroller.pd!,
+                        id: drink.id,
                       ),
                       backgroundColor: Colors.transparent,
                       //    appBar:
@@ -99,6 +101,9 @@ class DrinkDetail extends StatelessWidget {
                                         GestureDetector(
                                           onTap: () {
                                             // print("something");
+                                            //add products to be orderd in cart
+                                            // drinkDetailsController.orderProducts.qty++;
+
                                           },
                                           child: Icon(
                                             CupertinoIcons.minus_circle,
@@ -193,8 +198,8 @@ class DrinkDetail extends StatelessWidget {
                                                 onTap: () {
                                                   var status =
                                                       drinkDetailsController
-                                                          .toggleFavorite(
-                                                              id); // print(status);
+                                                          .toggleFavorite(drink
+                                                              .id); // print(status);
                                                 },
                                                 // child: GetX<DrinkDetailsController>(
                                                 // builder: (controller) {

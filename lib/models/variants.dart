@@ -2,7 +2,7 @@ class ProductDetail {
   int id;
   dynamic price;
   String name;
-  String imageUri;
+  String? imageUri;
   String? cautions;
   String type;
   String? ingredients;
@@ -12,11 +12,11 @@ class ProductDetail {
       {required this.id,
       required this.price,
       required this.name,
-      required this.imageUri,
-      required this.cautions,
-      required this.ingredients,
+      this.imageUri,
+      this.cautions,
+      this.ingredients,
       required this.type,
-      required this.allVariants});
+      this.allVariants});
 
   factory ProductDetail.fromJson(Map<String, dynamic> prodMap) {
     List<Variant> variantList = [];

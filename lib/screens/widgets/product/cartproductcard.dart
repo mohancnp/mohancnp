@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/add_card_dialog.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/cancel_order_dialog.dart';
@@ -13,27 +14,17 @@ import 'package:metrocoffee/services/rest/single_product.dart';
 
 class CartProductCard extends StatelessWidget {
   final int? index;
-  final OrderProducts? ob;
+  final CartData cartData;
 
-  CartProductCard({Key? key, this.index, this.ob}) : super(key: key);
+  CartProductCard({Key? key, this.index, required this.cartData})
+      : super(key: key);
 
   final CartController cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
-    return GetBuilder<CartController>(
-        init: CartController(),
-        initState: (v) {
-          Future.delayed(Duration.zero).then((value) {
-            cartController.getProductDetailWithId(ob!.productVariantId);
-            print(cartController.pd?.id);
-          });
-        },
-        builder: (controller) {
-          return cartController.pd == null
-              ? SizedBox(child: Center(child: Text('loading')))
-              : Container(
+          return Container(
                   padding: EdgeInsets.symmetric(
                       //        horizontal: 8,vertical: 6
                       horizontal: screenwidth * 0.0194,
@@ -66,9 +57,9 @@ class CartProductCard extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(9)),
                               ),
-                              child: controller.pd != null
+                              child: (cartData.imageUri != null)
                                   ? Image.network(
-                                      "$baseUrl/${controller.pd?.imageUri}",
+                                      "$baseUrl/${cartData.imageUri}",
                                       fit: BoxFit.cover,
                                     )
                                   : Image.asset(
@@ -89,7 +80,7 @@ class CartProductCard extends StatelessWidget {
                                 children: [
                                   Container(
                                     child: Text(
-                                      "${controller.pd?.name}",
+                                      "${cartData.name}",
                                       style: getpoppins(TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Color(0xff404D4D),
@@ -99,7 +90,7 @@ class CartProductCard extends StatelessWidget {
                                   ),
                                   Container(
                                     child: Text(
-                                      '\$ ${controller.pd?.price}',
+                                      '\$ ${3}',
                                       style: getpoppins(TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Color(0xff550E1C),
@@ -128,7 +119,7 @@ class CartProductCard extends StatelessWidget {
                                               horizontal:
                                                   screenwidth * 0.01459),
                                           child: Text(
-                                            "${ob?.qty}",
+                                            "${cartData.orderProducts.qty}",
                                             style: getpoppins(TextStyle(
                                                 fontWeight: FontWeight.w300,
                                                 color: Colors.black54)),
@@ -175,7 +166,7 @@ class CartProductCard extends StatelessWidget {
                           },
                           child: GestureDetector(
                             onTap: () {
-                              cartController.removeOrderProducts(ob);
+                              cartController.removeOrderProducts(cartData);
                             },
                             child: Icon(
                               CupertinoIcons.xmark_circle,
@@ -187,7 +178,6 @@ class CartProductCard extends StatelessWidget {
                     ],
                   ),
                 );
-        });
   }
 
   getimageforrow1(int? index) {

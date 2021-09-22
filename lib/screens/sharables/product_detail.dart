@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/screens/widgets/product/checkout_bottomnavigation.dart';
 import 'package:metrocoffee/screens/widgets/product/ratings_row_product_detail.dart';
 import 'package:metrocoffee/services/rest/config.dart';
@@ -19,7 +20,7 @@ class ProductDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int id = ModalRoute.of(context)!.settings.arguments as int;
+    Product product = ModalRoute.of(context)!.settings.arguments as Product;
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
@@ -32,11 +33,11 @@ class ProductDetail extends StatelessWidget {
     return GetBuilder<ProductDetailController>(
         init: ProductDetailController(),
         initState: (v) {
-          productDetailsController.getProductDetails(id);
+          productDetailsController.getProductDetails(product.id);
         },
         builder: (productdetailscontroller) {
-          final prod = productDetailsController.pd;
-          return productdetailscontroller.pd == null
+          final prod = productdetailscontroller.pd;
+          return prod == null
               ? Material(child: Center(child: Text("loading...")))
               : Stack(
                   children: [
@@ -54,9 +55,9 @@ class ProductDetail extends StatelessWidget {
                                 margin: EdgeInsets.only(
                                     //        top: 85
                                     top: screenwidth * 0.206),
-                                child: prod?.imageUri != null
+                                child: prod.imageUri != null
                                     ? Image.network(
-                                        '$baseUrl${prod?.imageUri}',
+                                        '$baseUrl${prod.imageUri}',
                                         height: screenwidth * 0.362,
                                         fit: BoxFit.contain,
                                       )
@@ -73,8 +74,7 @@ class ProductDetail extends StatelessWidget {
                     Scaffold(
                       backgroundColor: Colors.transparent,
                       bottomNavigationBar: CheckoutBottomNavigation(
-                        id: 1,
-                        pd: prod!,
+                        id: prod.id,
                       ),
                       body: SingleChildScrollView(
                           physics: AlwaysScrollableScrollPhysics(),
@@ -212,7 +212,7 @@ class ProductDetail extends StatelessWidget {
                                                       right:
                                                           screenwidth * 0.0535),
                                                   child: Text(
-                                                    prod.name.toString(),
+                                                    "${prod.name}",
                                                     style: getpoppins(TextStyle(
                                                         fontWeight:
                                                             FontWeight.w500,

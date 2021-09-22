@@ -45,7 +45,8 @@ class DrinksTab extends StatelessWidget {
                   final drink = controller.allDrinks.elementAt(index);
                   return GestureDetector(
                       onTap: () {
-                        Get.to(() => DrinkDetail(), arguments: drink.id);
+                        print('id sent from list page: ${drink.id} ');
+                        Get.to(() => DrinkDetail(), arguments: drink);
                         // Navigator.pushNamedAndRemoveUntil(
                         //     context, '/DrinkDetails', (route) => true);
                       },

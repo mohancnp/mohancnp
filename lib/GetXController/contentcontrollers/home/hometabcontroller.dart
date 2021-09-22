@@ -106,8 +106,6 @@ class HomeTabController extends GetxController {
             // prods.add(element);
           });
           update();
-          // prods=
-          // print("product list: ${products.data['data']['data']}");
         }
       });
     }

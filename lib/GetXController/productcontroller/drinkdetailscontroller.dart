@@ -25,6 +25,7 @@ class DrinkDetailsController extends GetxController {
 
   setProductDetail(proDet) {
     pd = proDet;
+    print(" id ${pd?.id}");
     update();
   }
 
@@ -67,13 +68,14 @@ class DrinkDetailsController extends GetxController {
     });
   }
 
-
 //v-2
-  Future getProductDetails(int id) async {
-    _productService.getSingleProduct(id: id).then((response) {
+  Future<ProductDetail> getProductDetails(int id) async {
+    ProductDetail prodObj;
+    return _productService.getSingleProduct(id: id).then((response) {
       // print("single product detail: $response");
-      var prodObj = ProductDetail.fromJson(response['data']);
+      prodObj = ProductDetail.fromJson(response['data']);
       setProductDetail(prodObj);
+      return prodObj;
     });
   }
 

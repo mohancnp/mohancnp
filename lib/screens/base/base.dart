@@ -46,7 +46,6 @@ class Base extends StatelessWidget {
               // setUserVerified();
               // Future.delayed(Duration.zero).then((value) => Get.offNamed('/Login'));
             } else {
-              print("user has been verified section");
               v.controller?.setUserVerified();
               homeTabController.setUserName();
               homeTabController.initializeAllData();

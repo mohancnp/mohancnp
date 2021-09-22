@@ -13,11 +13,10 @@ class CheckoutPage extends StatelessWidget {
   CheckoutPage({Key? key}) : super(key: key);
   final CheckoutController checkoutController = Get.put(CheckoutController());
 
-
   @override
   Widget build(BuildContext context) {
     final ProductDetailController productDetailsController =
-    Get.find<ProductDetailController>();
+        Get.find<ProductDetailController>();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
@@ -77,7 +76,9 @@ class CheckoutPage extends StatelessWidget {
                           shrinkWrap: true,
                           physics: AlwaysScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return CartProductCard(index: index);
+                            // return CartProductCard(index: index);
+
+                            return SizedBox();
                           })),
                   checkoutcontroller.checkoutlocation(context),
                   checkoutcontroller.setdeliverytime(context),
