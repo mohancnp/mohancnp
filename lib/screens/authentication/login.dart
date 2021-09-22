@@ -5,11 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/auth/login_controller.dart';
 import 'package:metrocoffee/GetXController/auth/social_login_controller.dart';
-import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
@@ -29,6 +26,9 @@ class Login extends StatelessWidget {
 
     return GetBuilder<SocialLoginController>(
         init: SocialLoginController(),
+        initState: (v){
+
+        },
         builder: (logincontroller) {
           return Stack(
             children: [

@@ -3,6 +3,7 @@ class Product {
   String name, image;
   dynamic price;
 
+
   Product(
       {required this.id,
       required this.name,

@@ -10,6 +10,7 @@ import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 
 // import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 import 'package:metrocoffee/screens/base/base.dart';
+import 'package:metrocoffee/screens/base/profile.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/all_menu.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/favorite_products.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/my_order.dart';

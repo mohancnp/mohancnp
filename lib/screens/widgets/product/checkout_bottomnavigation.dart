@@ -2,14 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
+import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/order.dart';
+import 'package:metrocoffee/models/variants.dart';
 
 import '../../../theme.dart';
 
 class CheckoutBottomNavigation extends StatefulWidget {
-  const CheckoutBottomNavigation({Key? key}) : super(key: key);
+//this id is to know if the request for detail coming from drinksdetail or product detail page
+//if 0 drink detail
+  final int? id;
+  final ProductDetail pd;
+
+  const CheckoutBottomNavigation({Key? key, this.id = 1, required this.pd})
+      : super(key: key);
 
   @override
   _CheckoutBottomNavigationState createState() =>
@@ -18,10 +28,25 @@ class CheckoutBottomNavigation extends StatefulWidget {
 
 class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
     with TickerProviderStateMixin {
+  final CartController ct = Get.find<CartController>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var productDetailsController;
+    if (widget.id == 0) {
+      productDetailsController = Get.find<DrinkDetailsController>();
+    } else {
+      productDetailsController = Get.find<ProductDetailController>();
+    }
+
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
+
     return Container(
       padding: EdgeInsets.symmetric(
         //       vertical:18,
@@ -63,7 +88,7 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "\$3.00",
+                  "\$ ${productDetailsController.pd?.price}",
                   style: getpoppins(TextStyle(
                       color: Colors.white,
                       //        fontSize: 16,
@@ -76,67 +101,103 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                   height: screenwidth * 0.0437,
                   decoration: BoxDecoration(color: Colors.white),
                 ),
-                SizedBox(
-                    child: GetX<DrinkDetailsController>(builder: (controller) {
-                  return Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          //change the cart icon status
-                          controller.toggleCart();
-                          var count = controller.cartStatus.value ? 0 : 1;
-                          controller.updateCart(count);
-                        },
-                        child: Icon(
-                          CupertinoIcons.cart,
-                          color: controller.cartStatus.value
-                              ? coffeecolor
-                              : Colors.white,
-                          size: screenwidth * (19 / 375),
-                        ),
-                      ),
-                      AnimatedPositioned(
-                        left: controller.cartStatus.value ? 12 : 14,
-                        top: controller.cartStatus.value ? -6 : -4,
-                        duration: Duration(milliseconds: 200),
-                        child: AnimatedSize(
-                          vsync: this,
-                          duration: Duration(milliseconds: 200),
-                          curve: Curves.easeIn,
-                          // alignment: Alignment(0,0.4),
-                          child: Container(
-                            height: controller.cartStatus.value ? 13 : 8,
-                            width: controller.cartStatus.value ? 13 : 8,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: controller.cartStatus.value
+                GetX<CartController>(
+                    initState: (v) {
+                      print("id received: ${widget.pd.id}");
+
+                      Future.delayed(Duration.zero).then((value) {
+                        v.controller
+                            ?.checkProductExistence(widget.pd.id)
+                            .then((value) {
+                          if (value) {
+                            print('value true');
+                            v.controller?.status.value = true;
+                          } else {
+                            v.controller?.status.value = false;
+                          }
+                        });
+                      });
+                    },
+                    dispose: (v) {},
+                    builder: (cartController) {
+                      return SizedBox(
+                          child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              print(cartController.status.value);
+                              cartController.status.toggle();
+
+                              OrderProducts odp = OrderProducts();
+
+                              //build product to be orderd
+                              odp.productVariantId =
+                                  productDetailsController.pd?.id;
+
+                              //check before adding new data to the cart
+                              if (cartController.status.isTrue) {
+                                cartController.addOrderProducts(odp);
+                              } else if (cartController.status.isFalse) {
+                                cartController.removeOrderProducts(odp);
+                              }
+                              //add the current data to cart
+
+                              //changes the status of the cart icon
+                            },
+                            child: Icon(
+                              CupertinoIcons.cart,
+                              color: (cartController.status.isTrue)
                                   ? coffeecolor
                                   : Colors.white,
-                            ),
-                            child: Align(
-                              alignment: Alignment(0.2, 0),
-                              child: Text(
-                                "${controller.cartCount.value}",
-                                style: TextStyle(
-                                    fontSize:
-                                        controller.cartStatus.value ? 6 : 4,
-                                    color: controller.cartStatus.value
-                                        ? Colors.white
-                                        : null),
-                              ),
+                              size: screenwidth * (19 / 375),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  );
-                })),
+                          AnimatedPositioned(
+                            left: (cartController.status.isTrue) ? 12 : 14,
+                            top: (cartController.status.isTrue) ? -6 : -4,
+                            duration: Duration(milliseconds: 200),
+                            child: AnimatedSize(
+                              vsync: this,
+                              duration: Duration(milliseconds: 200),
+                              curve: Curves.easeIn,
+                              // alignment: Alignment(0,0.4),
+                              child: Container(
+                                height: (cartController.status.isTrue) ? 13 : 8,
+                                width: (cartController.status.isTrue) ? 13 : 8,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: (cartController.status.isTrue)
+                                      ? coffeecolor
+                                      : Colors.white,
+                                ),
+                                child: Align(
+                                  alignment: Alignment(0.2, 0),
+                                  child: Text(
+                                    "${(cartController.status.isTrue) ? 1 : 0}",
+                                    style: TextStyle(
+                                        fontSize: (cartController.status.isTrue)
+                                            ? 6
+                                            : 4,
+                                        color: (cartController.status.isTrue)
+                                            ? Colors.white
+                                            : null),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ));
+                    }),
               ],
             ),
           ),
           GestureDetector(
             onTap: () {
+              productDetailsController.order.orderProductList
+                  ?.add(productDetailsController.orderProducts);
+              //ordernow button press handler
               Navigator.pushNamedAndRemoveUntil(
                   context, "/CheckoutPage", (route) => true);
             },

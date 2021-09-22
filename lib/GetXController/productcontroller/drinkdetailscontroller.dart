@@ -3,11 +3,10 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/services/rest/products.dart';
-
+import 'package:metrocoffee/services/rest/single_product.dart';
 import '../../theme.dart';
 
 class DrinkDetailsController extends GetxController {
@@ -15,14 +14,14 @@ class DrinkDetailsController extends GetxController {
   int currentsize = 0;
   String currenttopping = 'Caramel Syrup';
   String currentmilk = 'Soy Milk';
-  Rx<int> cartCount = 0.obs;
-  Rx<bool> cartStatus = false.obs;
   Rx<bool> isFavorite = false.obs;
   Rx<bool> isSelected = false.obs;
   ProductDetail? pd;
   ExpandableController toppingsexpandableController = ExpandableController();
   ExpandableController milkexpandableController = ExpandableController();
   final _productService = ProductService.getInstance();
+  final _singleProduct = SingleProductService.getInstance();
+  int productOrderCount = 1;
 
   setProductDetail(proDet) {
     pd = proDet;
@@ -68,17 +67,6 @@ class DrinkDetailsController extends GetxController {
     });
   }
 
-  updateCart(int updateCount) {
-    //update later
-    if (updateCount == 0)
-      cartCount.value += 1;
-    else
-      cartCount.value -= 1;
-  }
-
-  toggleCart() {
-    cartStatus.toggle();
-  }
 
 //v-2
   Future getProductDetails(int id) async {
@@ -86,6 +74,24 @@ class DrinkDetailsController extends GetxController {
       // print("single product detail: $response");
       var prodObj = ProductDetail.fromJson(response['data']);
       setProductDetail(prodObj);
+    });
+  }
+
+  Future getFavoriteStatus(int id) async {
+    _singleProduct.toggleFavoriteStatus(id: id).then((status) {
+      if (status) {
+        isFavorite.toggle();
+      }
+    });
+  }
+
+  //if favorites
+
+  void toggleFavorite(int id) {
+    _singleProduct.toggleFavoriteStatus(id: id).then((status) {
+      if (status) {
+        isFavorite.toggle();
+      }
     });
   }
 

@@ -4,6 +4,7 @@ import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontro
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/screens/sharables/drink_detail.dart';
+import 'package:metrocoffee/screens/sharables/product_detail.dart';
 import 'package:metrocoffee/screens/widgets/product/ratings_row.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
@@ -15,6 +16,7 @@ class FirstHomeProductRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
+
     return GetX<HomeTabController>(builder: (controller) {
       List<Product> pList = [];
       if (page == 1) {
@@ -38,7 +40,7 @@ class FirstHomeProductRow extends StatelessWidget {
                         Product p = pList.elementAt(index);
                         return GestureDetector(
                             onTap: () {
-                              Get.to(() => DrinkDetail(), arguments: p.id);
+                              Get.to(() => ProductDetail(), arguments: p.id);
 
                               // Navigator.pushNamedAndRemoveUntil(
                               //     context, '/ProductDetails', (route) => true);

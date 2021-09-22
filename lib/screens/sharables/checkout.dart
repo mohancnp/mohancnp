@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
-import 'package:metrocoffee/GetXController/maps/map_controller.dart';
+import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
 import 'package:metrocoffee/screens/widgets/product/checkouttopayments_bottom_nav.dart';
-import 'package:metrocoffee/screens/widgets/product/final_checkout_bottomnavigation.dart';
 import 'package:metrocoffee/theme.dart';
 
 class CheckoutPage extends StatelessWidget {
@@ -17,6 +16,9 @@ class CheckoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ProductDetailController productDetailsController =
+    Get.find<ProductDetailController>();
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
@@ -26,6 +28,8 @@ class CheckoutPage extends StatelessWidget {
     return GetBuilder<CheckoutController>(
         init: CheckoutController(),
         builder: (checkoutcontroller) {
+          print(productDetailsController.orderProducts);
+
           return Scaffold(
             bottomNavigationBar: CheckoutoPaymentsBottomNav(),
             backgroundColor: Color(0xffF3F5F5),

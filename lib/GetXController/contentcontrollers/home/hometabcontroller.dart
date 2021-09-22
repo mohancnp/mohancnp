@@ -32,7 +32,6 @@ class HomeTabController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    setUserName();
   }
 
   @override

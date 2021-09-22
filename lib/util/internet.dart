@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import "package:connectivity_plus/connectivity_plus.dart";
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 
 Future<bool> isConnectionReady() async {
   var connectivityResult = await (Connectivity().checkConnectivity());

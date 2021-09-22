@@ -31,7 +31,8 @@ class DrinksTab extends StatelessWidget {
           ? SizedBox(
               height: screenwidth * 0.5596,
               child: Center(
-                child: Text("Loading or Not Available"),
+                child: Text("Loading.."
+                    "...."),
               ),
             )
           : Container(
@@ -44,7 +45,7 @@ class DrinksTab extends StatelessWidget {
                   final drink = controller.allDrinks.elementAt(index);
                   return GestureDetector(
                       onTap: () {
-                        Get.to(DrinkDetail(), arguments: drink.id);
+                        Get.to(() => DrinkDetail(), arguments: drink.id);
                         // Navigator.pushNamedAndRemoveUntil(
                         //     context, '/DrinkDetails', (route) => true);
                       },
@@ -76,7 +77,7 @@ class DrinksTab extends StatelessWidget {
                                       top: -screenwidth * 0.0729,
                                       child: Image.network(
                                         "$baseUrl" + drink.image,
-                                        height: screenwidth*0.40,
+                                        height: screenwidth * 0.40,
                                         // //      width: 185,
                                         width: screenwidth * 0.45012,
                                       )),
@@ -104,76 +105,67 @@ class DrinksTab extends StatelessWidget {
                                                 fontWeight: FontWeight.w500,
                                                 color: Color(0xff404D4D),
                                                 //        fontSize: 14
-                                                fontSize: screenwidth *
-                                                    0.034063)),
+                                                fontSize:
+                                                    screenwidth * 0.034063)),
                                           )),
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.end,
                                             children: [
                                               Container(
                                                   child: Text(
-                                                "\$ " +
-                                                    drink.price.toString(),
+                                                "\$ " + drink.price.toString(),
                                                 style: getpoppins(TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w600,
-                                                    color:
-                                                        Color(0xff550E1C),
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Color(0xff550E1C),
                                                     //         fontSize: 15
-                                                    fontSize: screenwidth *
-                                                        0.0364)),
+                                                    fontSize:
+                                                        screenwidth * 0.0364)),
                                               )),
                                               Container(
                                                 //      height: 29,width: 29,
-                                                height:
-                                                    screenwidth * 0.07055,
-                                                width:
-                                                    screenwidth * 0.07055,
+                                                height: screenwidth * 0.07055,
+                                                width: screenwidth * 0.07055,
                                                 decoration: BoxDecoration(
                                                     color: Colors.white,
                                                     boxShadow: [
                                                       BoxShadow(
-                                                          color: Colors
-                                                              .black
-                                                              .withOpacity(
-                                                                  0.2),
+                                                          color: Colors.black
+                                                              .withOpacity(0.2),
                                                           blurRadius: 15,
-                                                          offset:
-                                                              Offset(0, 3)),
+                                                          offset: Offset(0, 3)),
                                                     ],
                                                     shape: BoxShape.circle),
                                                 child: Center(
                                                     child: GestureDetector(
                                                         onTap: () {
-                                                          controller
-                                                              .isFavorite
+                                                          controller.isFavorite
                                                               .toggle();
                                                         },
                                                         child: controller
                                                                 .isFavorite
                                                                 .value
                                                             ? Icon(
-                                                                Icons
-                                                                    .favorite,
-                                                                color: Colors
-                                                                    .red,
+                                                                Icons.favorite,
+                                                                color:
+                                                                    Colors.red,
                                                                 // size: 17,
-                                                                size: screenwidth *
-                                                                    (17 /
-                                                                        375),
+                                                                size:
+                                                                    screenwidth *
+                                                                        (17 /
+                                                                            375),
                                                               )
                                                             : Icon(
                                                                 Icons
                                                                     .favorite_outline,
                                                                 color: null,
                                                                 // size: 17,
-                                                                size: screenwidth *
-                                                                    (17 /
-                                                                        375),
+                                                                size:
+                                                                    screenwidth *
+                                                                        (17 /
+                                                                            375),
                                                               ))),
                                               )
                                             ],

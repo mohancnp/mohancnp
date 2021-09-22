@@ -1,5 +1,6 @@
 class ProductDetail {
-  int id, price;
+  int id;
+  dynamic price;
   String name;
   String imageUri;
   String? cautions;
@@ -39,7 +40,8 @@ class ProductDetail {
 }
 
 class Variant {
-  int id, productId, variantType, stock, position, isDefault, price;
+  int id, productId, variantType, stock, position, isDefault;
+  dynamic price;
   String sku, imageUri, name, productName;
 
   Variant(

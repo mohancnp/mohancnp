@@ -49,9 +49,9 @@ class APITest extends StatelessWidget {
     var products = productlist.map<Product>((json) => Product.fromJson(json));
     prods.addAll(products);
     for(int i=0;i<=prods.length-1;i++){
-      print("Name:"+prods[i].name!.toString());
-      print("Image:"+prods[i].image!.toString());
-      print("Price:"+prods[i].price!.toString());
+      print("Name:"+prods[i].name.toString());
+      print("Image:"+prods[i].image.toString());
+      print("Price:"+prods[i].price.toString());
 
     }
 

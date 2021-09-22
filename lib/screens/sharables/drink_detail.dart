@@ -16,7 +16,6 @@ class DrinkDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int id = ModalRoute.of(context)!.settings.arguments as int;
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
@@ -31,243 +30,271 @@ class DrinkDetail extends StatelessWidget {
         },
         init: DrinkDetailsController(),
         builder: (productdetailscontroller) {
-          return Stack(
-            children: [
-              Scaffold(
-                  backgroundColor: Color(0xffF3F5F5),
-                  body: ShaderMask(
-                      shaderCallback: (bounds) => LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.black.withOpacity(0.06),
-                                Colors.black.withOpacity(0.5)
-                              ]).createShader(bounds),
-                      blendMode: BlendMode.srcATop,
-                      child: productdetailscontroller.pd == null
-                          ? Image.network(
-                              "$baseUrl/storage/uploads/product/2021/7/IqZ0skXFEXc0oTO61WmBWoOlWmsxSWyZzJrFxwso.jpg",
-                              width: screenheight,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.network(
-                              "$baseUrl${productdetailscontroller.pd?.imageUri}",
-                              width: screenheight,
-                              fit: BoxFit.cover,
-                            ))),
-              Scaffold(
-                bottomNavigationBar: CheckoutBottomNavigation(),
-                backgroundColor: Colors.transparent,
-                //    appBar:
-                body: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  child: Column(children: [
-                    AppBar(
+          return productdetailscontroller.pd == null
+              ? Material(child: Center(child: Text("loading...")))
+              : Stack(
+                  children: [
+                    Scaffold(
+                        backgroundColor: Color(0xffF3F5F5),
+                        body: ShaderMask(
+                            shaderCallback: (bounds) => LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Colors.black.withOpacity(0.06),
+                                      Colors.black.withOpacity(0.5)
+                                    ]).createShader(bounds),
+                            blendMode: BlendMode.srcATop,
+                            child: productdetailscontroller.pd == null
+                                ? Image.network(
+                                    "$baseUrl/storage/uploads/product/2021/7/IqZ0skXFEXc0oTO61WmBWoOlWmsxSWyZzJrFxwso.jpg",
+                                    width: screenheight,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    "$baseUrl${productdetailscontroller.pd!.imageUri}",
+                                    width: screenheight,
+                                    fit: BoxFit.cover,
+                                  ))),
+                    Scaffold(
+                      bottomNavigationBar: CheckoutBottomNavigation(
+                        id: 0,
+                        pd: productdetailscontroller.pd!,
+                      ),
                       backgroundColor: Colors.transparent,
-                      elevation: 0,
-                      leading: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            CupertinoIcons.back,
-                            //      size: 28,
-                            size: screenwidth * 0.0681,
-                            color: Colors.white70,
-                          )),
-                    ),
-                    Container(
-                        width: screenwidth,
-                        padding: EdgeInsets.only(
-//                          top: 175, bottom: 40
-                            top: screenwidth * 0.4257,
-                            bottom: screenwidth * 0.09732),
-                        child: Stack(children: [
+                      //    appBar:
+                      body: SingleChildScrollView(
+                        physics: AlwaysScrollableScrollPhysics(),
+                        child: Column(children: [
+                          AppBar(
+                            backgroundColor: Colors.transparent,
+                            elevation: 0,
+                            leading: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  CupertinoIcons.back,
+                                  //      size: 28,
+                                  size: screenwidth * 0.0681,
+                                  color: Colors.white70,
+                                )),
+                          ),
                           Container(
                               width: screenwidth,
-                              margin: EdgeInsets.only(
-                                  //       bottom: 8
-                                  bottom: screenwidth * 0.0194),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      // print("something");
-                                    },
-                                    child: Icon(
-                                      CupertinoIcons.minus_circle,
-                                      color: Colors.white,
-                                      //      size: 27.5,
-                                      size: screenwidth * 0.0669,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                        //          horizontal: 22
-                                        horizontal: screenwidth * 0.0535),
-                                    child: Text(
-                                      "1",
-                                      style: getpoppins(TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.white,
-                                          fontSize: screenwidth * 0.0583)),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Icon(
-                                      CupertinoIcons.plus_circle,
-                                      color: Colors.white,
-                                      //      size: 27.5,
-                                      size: screenwidth * 0.0669,
-                                    ),
-                                  ),
-                                ],
-                              )),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  //      width: 48, height: 50,
-                                  width: screenwidth * 0.1167,
-                                  height: screenwidth * 0.121,
-                                  child: Stack(children: [
-                                    Positioned(
-                                        left: 0,
-                                        bottom: 0,
-                                        child: Image.asset(
-                                          "assets/images/negborderradius.png",
-                                          //       width: 48,
-                                          width: screenwidth * 0.1167,
-                                          fit: BoxFit.cover,
-                                        )),
-                                  ])),
-                              Container(
-                                padding: EdgeInsets.only(
-                                  //           top: 16,
-                                  //          left: 22, right: 22
-                                  top: screenwidth * 0.0389,
-                                ),
-                                decoration: BoxDecoration(
-                                    color: Color(0xffF3F5F5),
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(60)),
-                                    border:
-                                        Border.all(color: Colors.transparent)),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
+                              padding: EdgeInsets.only(
+//                          top: 175, bottom: 40
+                                  top: screenwidth * 0.4257,
+                                  bottom: screenwidth * 0.09732),
+                              child: Stack(children: [
+                                Container(
+                                    width: screenwidth,
+                                    margin: EdgeInsets.only(
+                                        //       bottom: 8
+                                        bottom: screenwidth * 0.0194),
+                                    child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.center,
                                       children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            // print("something");
+                                          },
+                                          child: Icon(
+                                            CupertinoIcons.minus_circle,
+                                            color: Colors.white,
+                                            //      size: 27.5,
+                                            size: screenwidth * 0.0669,
+                                          ),
+                                        ),
                                         Container(
-                                          padding: EdgeInsets.only(
-                                              //          left: 22, right: 22
-                                              left: screenwidth * 0.0535,
-                                              right: screenwidth * 0.0535),
+                                          margin: EdgeInsets.symmetric(
+                                              //          horizontal: 22
+                                              horizontal: screenwidth * 0.0535),
                                           child: Text(
-                                            "${productdetailscontroller.pd?.name ?? 'N/A'}",
+                                            "1",
                                             style: getpoppins(TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: darkgrey,
-                                                //         fontSize: 26
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.white,
                                                 fontSize:
-                                                    screenwidth * 0.0632)),
+                                                    screenwidth * 0.0583)),
                                           ),
                                         ),
                                         GestureDetector(
-                                          onTap: () {
-                                            var status = drinkDetailsController
-                                                .isFavorite
-                                                .toggle();
-                                            print(status);
-                                          },
-                                          // child: GetX<DrinkDetailsController>(
-                                          // builder: (controller) {
-
-                                          child: GetX<DrinkDetailsController>(
-                                              builder: (controller) {
-                                            return Container(
-                                              height: screenwidth * (30 / 375),
-                                              width: screenwidth * (30 / 375),
-                                              margin: EdgeInsets.only(
-                                                  right: screenwidth * 0.0535),
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.white,
-                                                  boxShadow: controller
-                                                          .isFavorite.value
-                                                      ? [
-                                                          BoxShadow(
-                                                              color: Colors
-                                                                  .black26,
-                                                              blurRadius: 10)
-                                                        ]
-                                                      : null),
-                                              child: Center(
-                                                  child: controller
-                                                          .isFavorite.value
-                                                      ? Icon(
-                                                          Icons.favorite,
-                                                          color: Colors.red,
-                                                          // size: 17,
-                                                          size: screenwidth *
-                                                              (17 / 375),
-                                                        )
-                                                      : Icon(
-                                                          Icons
-                                                              .favorite_outline,
-                                                          color: null,
-                                                          // size: 17,
-                                                          size: screenwidth *
-                                                              (17 / 375),
-                                                        )),
-                                            );
-                                          }),
+                                          onTap: () {},
+                                          child: Icon(
+                                            CupertinoIcons.plus_circle,
+                                            color: Colors.white,
+                                            //      size: 27.5,
+                                            size: screenwidth * 0.0669,
+                                          ),
                                         ),
                                       ],
-                                    ),
+                                    )),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                        //      width: 48, height: 50,
+                                        width: screenwidth * 0.1167,
+                                        height: screenwidth * 0.121,
+                                        child: Stack(children: [
+                                          Positioned(
+                                              left: 0,
+                                              bottom: 0,
+                                              child: Image.asset(
+                                                "assets/images/negborderradius.png",
+                                                //       width: 48,
+                                                width: screenwidth * 0.1167,
+                                                fit: BoxFit.cover,
+                                              )),
+                                        ])),
                                     Container(
                                       padding: EdgeInsets.only(
-                                          //          left: 22, right: 22
-                                          left: screenwidth * 0.0535,
-                                          right: screenwidth * 0.0535),
-                                      child: Text(
-                                        "Caffe latte is a coffee drink "
-                                        "made with espresso and steamed milk. "
-                                        "The word comes from the Italian caffè e "
-                                        'which means "coffee & milk".',
-                                        style: getpoppins(TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            color: darkgrey.withOpacity(0.6),
-                                            //         fontSize: 13.5
-                                            fontSize: screenwidth * 0.0328)),
+                                        //           top: 16,
+                                        //          left: 22, right: 22
+                                        top: screenwidth * 0.0389,
                                       ),
-                                    ),
-                                    Container(
-                                        child: productdetailscontroller
-                                            .drinktemperatureoption(context)),
-                                    productdetailscontroller.drinksize(context),
-                                    productdetailscontroller
-                                        .toppingsoptions(context),
-                                    productdetailscontroller
-                                        .milkoptions(context),
-                                    productdetailscontroller.extrasrow(context),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xffF3F5F5),
+                                          borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(60)),
+                                          border: Border.all(
+                                              color: Colors.transparent)),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.only(
+                                                    //          left: 22, right: 22
+                                                    left: screenwidth * 0.0535,
+                                                    right:
+                                                        screenwidth * 0.0535),
+                                                child: Text(
+                                                  "${productdetailscontroller.pd?.name ?? 'N/A'}",
+                                                  style: getpoppins(TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: darkgrey,
+                                                      //         fontSize: 26
+                                                      fontSize: screenwidth *
+                                                          0.0632)),
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  var status =
+                                                      drinkDetailsController
+                                                          .toggleFavorite(
+                                                              id); // print(status);
+                                                },
+                                                // child: GetX<DrinkDetailsController>(
+                                                // builder: (controller) {
+
+                                                child: GetX<
+                                                        DrinkDetailsController>(
+                                                    builder: (controller) {
+                                                  return Container(
+                                                    height: screenwidth *
+                                                        (30 / 375),
+                                                    width: screenwidth *
+                                                        (30 / 375),
+                                                    margin: EdgeInsets.only(
+                                                        right: screenwidth *
+                                                            0.0535),
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Colors.white,
+                                                        boxShadow: controller
+                                                                .isFavorite
+                                                                .value
+                                                            ? [
+                                                                BoxShadow(
+                                                                    color: Colors
+                                                                        .black26,
+                                                                    blurRadius:
+                                                                        10)
+                                                              ]
+                                                            : null),
+                                                    child: Center(
+                                                        child: controller
+                                                                .isFavorite
+                                                                .value
+                                                            ? Icon(
+                                                                Icons.favorite,
+                                                                color:
+                                                                    Colors.red,
+                                                                // size: 17,
+                                                                size:
+                                                                    screenwidth *
+                                                                        (17 /
+                                                                            375),
+                                                              )
+                                                            : Icon(
+                                                                Icons
+                                                                    .favorite_outline,
+                                                                color: null,
+                                                                // size: 17,
+                                                                size:
+                                                                    screenwidth *
+                                                                        (17 /
+                                                                            375),
+                                                              )),
+                                                  );
+                                                }),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                                //          left: 22, right: 22
+                                                left: screenwidth * 0.0535,
+                                                right: screenwidth * 0.0535),
+                                            child: Text(
+                                              "Caffe latte is a coffee drink "
+                                              "made with espresso and steamed milk. "
+                                              "The word comes from the Italian caffè e "
+                                              'which means "coffee & milk".',
+                                              style: getpoppins(TextStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  color:
+                                                      darkgrey.withOpacity(0.6),
+                                                  //         fontSize: 13.5
+                                                  fontSize:
+                                                      screenwidth * 0.0328)),
+                                            ),
+                                          ),
+                                          Container(
+                                              child: productdetailscontroller
+                                                  .drinktemperatureoption(
+                                                      context)),
+                                          productdetailscontroller
+                                              .drinksize(context),
+                                          productdetailscontroller
+                                              .toppingsoptions(context),
+                                          productdetailscontroller
+                                              .milkoptions(context),
+                                          productdetailscontroller
+                                              .extrasrow(context),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 ),
-                              )
-                            ],
-                          ),
-                        ]))
-                  ]),
-                ),
-              )
-            ],
-          );
+                              ]))
+                        ]),
+                      ),
+                    )
+                  ],
+                );
         });
   }
 }
