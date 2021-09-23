@@ -17,7 +17,8 @@ class CartController extends GetxController {
   RxList<CartData> cartDataList = <CartData>[].obs;
 
   Rx<ProductDetail?> pd =
-      ProductDetail(id: 0, price: 0, name: 'N/A', type: "1").obs;
+      ProductDetail(id: 0, isFavorite: false, price: 0, name: 'N/A', type: "1")
+          .obs;
 
   Future checkProductExistence(productId) async {
     // print("id on check $productId");

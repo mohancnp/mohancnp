@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/services/rest/products.dart';
 import 'package:metrocoffee/services/rest/single_product.dart';
@@ -22,10 +23,20 @@ class DrinkDetailsController extends GetxController {
   final _productService = ProductService.getInstance();
   final _singleProduct = SingleProductService.getInstance();
   int productOrderCount = 1;
+  OrderProducts orderProducts = OrderProducts();
+
+  addCount() {
+    orderProducts.qty++;
+    update();
+  }
+
+  removeCount() {
+    orderProducts.qty--;
+    update();
+  }
 
   setProductDetail(proDet) {
     pd = proDet;
-    print(" id ${pd?.id}");
     update();
   }
 
@@ -143,7 +154,9 @@ class DrinkDetailsController extends GetxController {
               children: [
                 GestureDetector(
                     onTap: () {
+                      // orderProducts.orderProductOptions()
                       settabindex(0);
+                      orderProducts.orderProductOptions?.add("hot");
                     },
                     child: Container(
                       //             height: 41, width: 180,
@@ -164,6 +177,7 @@ class DrinkDetailsController extends GetxController {
                 GestureDetector(
                   onTap: () {
                     settabindex(1);
+                    orderProducts.orderProductOptions?.add("Chilled");
                   },
                   child: Container(
 //                            height: 41, width: 180,
@@ -207,6 +221,7 @@ class DrinkDetailsController extends GetxController {
                 GestureDetector(
                     onTap: () {
                       setsize(0);
+                      orderProducts.orderProductAddons?.add(0);
                     },
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 150),
@@ -255,6 +270,7 @@ class DrinkDetailsController extends GetxController {
                 GestureDetector(
                     onTap: () {
                       setsize(1);
+                      orderProducts.orderProductAddons?.add(1);
                     },
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 150),

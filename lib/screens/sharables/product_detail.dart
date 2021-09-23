@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/screens/widgets/product/checkout_bottomnavigation.dart';
 import 'package:metrocoffee/screens/widgets/product/ratings_row_product_detail.dart';
@@ -34,6 +35,9 @@ class ProductDetail extends StatelessWidget {
         init: ProductDetailController(),
         initState: (v) {
           productDetailsController.getProductDetails(product.id);
+        },
+        dispose: (v) {
+          productDetailsController.orderProducts = OrderProducts();
         },
         builder: (productdetailscontroller) {
           final prod = productdetailscontroller.pd;
@@ -75,6 +79,7 @@ class ProductDetail extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       bottomNavigationBar: CheckoutBottomNavigation(
                         id: prod.id,
+                        orderProducts: productDetailsController.orderProducts,
                       ),
                       body: SingleChildScrollView(
                           physics: AlwaysScrollableScrollPhysics(),
@@ -115,13 +120,8 @@ class ProductDetail extends StatelessWidget {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  var count =
-                                                      productDetailsController
-                                                          .orderProducts.qty;
-                                                  if (count > 1) {
-                                                    productDetailsController
-                                                        .orderProducts.qty--;
-                                                  }
+                                                  productDetailsController
+                                                      .removeCount();
                                                 },
                                                 child: Icon(
                                                   CupertinoIcons.minus_circle,
@@ -149,10 +149,9 @@ class ProductDetail extends StatelessWidget {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  //add products to be orderd in cart
+                                                  // add products to be orderd in cart
                                                   productDetailsController
-                                                      .orderProducts.qty++;
-                                                  //increase the count
+                                                      .addCount();
                                                 },
                                                 child: Icon(
                                                   CupertinoIcons.plus_circle,

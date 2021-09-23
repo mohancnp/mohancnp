@@ -6,15 +6,31 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/enums/uistate.dart';
 import 'package:metrocoffee/models/product_model.dart';
+import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/screens/sharables/drink_detail.dart';
+import 'package:metrocoffee/screens/sharables/product_detail.dart' as pg;
 import 'package:metrocoffee/screens/sharables/no_internet.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
-class AllMenu extends StatelessWidget {
-  final HomeTabController homeTabController = Get.find<HomeTabController>();
-
+class AllMenu extends StatefulWidget {
   AllMenu({Key? key}) : super(key: key);
+
+  @override
+  _AllMenuState createState() => _AllMenuState();
+}
+
+class _AllMenuState extends State<AllMenu> {
+  final HomeTabController homeTabController = Get.find<HomeTabController>();
+  UIState state = UIState.passive;
+
+  @override
+  void initState() {
+    // homeTabController.getProductDetails(id)
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,77 +40,83 @@ class AllMenu extends StatelessWidget {
     ]);
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
-    return Scaffold(
-        backgroundColor: Color(0xffF3F5F5),
-        body: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-          child: Container(
-              child: Stack(children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "assets/images/Path 56@3x.png",
-                  width: screenheight,
-                )
-              ],
+    return state == UIState.processing
+        ? Material(
+            child: SizedBox(
+              child: Center(child: Text("loading")),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AppBar(
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                  centerTitle: true,
-                  leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      CupertinoIcons.back,
-                      color: Colors.white,
-                      //      size: 28,
-                      size: screenwidth * 0.0681,
-                    ),
-                  ),
-                  title: Text(
-                    "ALL MENU",
-                    style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                        //          fontSize: 16.5
-                        fontSize: screenwidth * 0.0401)),
-                  ),
-                  actions: [
-                    IconButton(
-                        onPressed: () {},
+          )
+        : Scaffold(
+            backgroundColor: Color(0xffF3F5F5),
+            body: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
+              child: Container(
+                  child: Stack(children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/Path 56@3x.png",
+                      width: screenheight,
+                    )
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AppBar(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      centerTitle: true,
+                      leading: IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
                         icon: Icon(
-                          FeatherIcons.search,
+                          CupertinoIcons.back,
                           color: Colors.white,
                           //      size: 28,
                           size: screenwidth * 0.0681,
-                        ))
+                        ),
+                      ),
+                      title: Text(
+                        "ALL MENU",
+                        style: getpoppins(TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                            //          fontSize: 16.5
+                            fontSize: screenwidth * 0.0401)),
+                      ),
+                      actions: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              FeatherIcons.search,
+                              color: Colors.white,
+                              //      size: 28,
+                              size: screenwidth * 0.0681,
+                            ))
+                      ],
+                    ),
+                    Container(
+                        width: screenwidth,
+                        margin: EdgeInsets.symmetric(),
+                        padding: EdgeInsets.only(
+                            //      top: 80,
+//                left: 22,right: 22,bottom: 22
+                            top: screenwidth * 0.1946,
+                            left: screenwidth * 0.0535,
+                            right: screenwidth * 0.0535,
+                            bottom: screenwidth * 0.0535),
+                        child: homeTabController.allProducts.length > 0
+                            ? staggeredgridview(context)
+                            : NoInternet()),
                   ],
                 ),
-                Container(
-                    width: screenwidth,
-                    margin: EdgeInsets.symmetric(),
-                    padding: EdgeInsets.only(
-                        //      top: 80,
-//                left: 22,right: 22,bottom: 22
-                        top: screenwidth * 0.1946,
-                        left: screenwidth * 0.0535,
-                        right: screenwidth * 0.0535,
-                        bottom: screenwidth * 0.0535),
-                    child: homeTabController.allProducts.length > 0
-                        ? staggeredgridview(context)
-                        : NoInternet()),
-              ],
-            ),
-          ])),
-        ));
+              ])),
+            ));
   }
 
   Widget staggeredgridview(BuildContext context) {
@@ -113,7 +135,27 @@ class AllMenu extends StatelessWidget {
         final Product p = homeTabController.allProducts.elementAt(index);
         return GestureDetector(
             onTap: () {
-              Get.to(()=>DrinkDetail(), arguments: p.id);
+              setState(() {
+                this.state = UIState.processing;
+              });
+              homeTabController
+                  .getProductDetails(p.id)
+                  .then((ProductDetail? pd) {
+                if (pd == null) {
+                  setState(() {
+                    this.state = UIState.passive;
+                  });
+                } else {
+                  if (pd.type == "Drinks") {
+                    Get.to(() => DrinkDetail(), arguments: p);
+                  } else {
+                    Get.to(() => pg.ProductDetail(), arguments: p);
+                  }
+                  setState(() {
+                    this.state = UIState.passive;
+                  });
+                }
+              });
             },
             child: Container(
                 decoration: BoxDecoration(
@@ -127,9 +169,6 @@ class AllMenu extends StatelessWidget {
                 child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(26)),
                     child: Container(
-
-                        //  height: 135,
-
                         width: screenwidth * 0.38,
                         decoration: BoxDecoration(
                           color: Colors.white,

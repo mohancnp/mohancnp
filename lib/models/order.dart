@@ -35,6 +35,7 @@ class Order {
 }
 
 class OrderProducts {
+  int? productId;
   dynamic productVariantId;
   int qty = 1;
   bool? addedToCart=false;

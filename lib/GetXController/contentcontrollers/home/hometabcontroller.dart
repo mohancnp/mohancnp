@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/constants/product_type.dart';
 import 'package:metrocoffee/models/product_model.dart';
+import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 import 'package:metrocoffee/services/rest/products.dart';
 import 'package:metrocoffee/util/internet.dart';
@@ -49,6 +50,16 @@ class HomeTabController extends GetxController {
         getProductsOfType(ProductType.bakery);
         getProducts();
       }
+    });
+  }
+
+  //v-2
+  Future<ProductDetail?> getProductDetails(int id) async {
+    ProductDetail prodObj;
+    return productService.getSingleProduct(id: id).then((response) {
+      // print("single product detail: $response");
+      prodObj = ProductDetail.fromJson(response['data']);
+      return prodObj;
     });
   }
 

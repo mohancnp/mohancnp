@@ -6,7 +6,9 @@ class ProductDetail {
   String? cautions;
   String type;
   String? ingredients;
+  bool isFavorite;
   List<Variant>? allVariants;
+  List<ProductOption>? options;
 
   ProductDetail(
       {required this.id,
@@ -15,27 +17,33 @@ class ProductDetail {
       this.imageUri,
       this.cautions,
       this.ingredients,
+      required this.isFavorite,
+      this.options,
       required this.type,
       this.allVariants});
 
   factory ProductDetail.fromJson(Map<String, dynamic> prodMap) {
     List<Variant> variantList = [];
+    List<ProductOption> optionList = [];
     List<dynamic> list = prodMap['all_variants'];
-
+    List<dynamic> options = prodMap['product_options'];
     list.forEach((element) {
       variantList.add(Variant.fromJson(element));
     });
-
+    options.forEach((element) {
+      optionList.add(ProductOption.fromJson(element));
+    });
     return ProductDetail(
-      id: prodMap['id'],
-      price: prodMap['price'],
-      name: prodMap['name'],
-      imageUri: prodMap['image'],
-      ingredients: prodMap['ingredients'],
-      cautions: prodMap['cautions'],
-      type: prodMap['type'],
-      allVariants: variantList,
-    );
+        id: prodMap['id'],
+        price: prodMap['price'],
+        name: prodMap['name'],
+        imageUri: prodMap['image'],
+        ingredients: prodMap['ingredients'],
+        cautions: prodMap['cautions'],
+        type: prodMap['type'],
+        isFavorite: prodMap['is_favourite'],
+        allVariants: variantList,
+        options: optionList);
   }
 }
 
@@ -72,3 +80,32 @@ class Variant {
         stock: varMap['stock']);
   }
 }
+
+class ProductOption {
+  int id;
+  String name;
+  List<String> options;
+  String? defaultValue;
+
+  ProductOption(
+      {required this.id,
+      required this.name,
+      required this.options,
+      this.defaultValue});
+
+  factory ProductOption.fromJson(Map<String, dynamic> option) {
+    List<dynamic> nestedOption = option['options'];
+    List<String> stringOption = [];
+    nestedOption.forEach((element) {
+      stringOption.add(element);
+    });
+    return ProductOption(
+      id: option['id'],
+      name: option['name'],
+      options: stringOption,
+      defaultValue: option['default'],
+    );
+  }
+}
+
+class ProductAddOn {}

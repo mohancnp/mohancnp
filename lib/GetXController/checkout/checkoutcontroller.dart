@@ -16,7 +16,6 @@ class CheckoutController extends GetxController {
   String selectedorderconfirmationtype = 'email';
   TextEditingController orderinstructionscontroller = TextEditingController();
   TimeOfDay _time = TimeOfDay.now().replacing(minute: 30);
-
   //controller
   final MapController mapController = Get.put(
     MapController(),
@@ -36,7 +35,6 @@ class CheckoutController extends GetxController {
   void onInit() {
     super.onInit();
     Location location = new Location();
-
     mapController.getCurrentUserLocation(location).then((locationData) {
       mapController.getCurrentLocationName(locationData).then((placeMarkList) {
         geo.Placemark pm = placeMarkList.elementAt(0);

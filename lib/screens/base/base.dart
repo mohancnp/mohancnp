@@ -15,6 +15,7 @@ import 'package:metrocoffee/screens/base/profile.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 
 class Base extends StatelessWidget {
+
   final BaseController baseController = Get.put(BaseController());
   final HomeTabController homeTabController = Get.put(HomeTabController());
   final ProductDetailController productDetailsController =

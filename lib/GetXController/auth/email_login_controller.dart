@@ -10,7 +10,7 @@ class EmailLoginController extends GetxController{
   bool eye=false;
 
   Widget loginfields(BuildContext context){
-    double screenheight = MediaQuery.of(context).size.height;
+    // double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
     return
       Container(

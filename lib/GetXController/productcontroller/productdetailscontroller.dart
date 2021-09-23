@@ -12,7 +12,7 @@ class ProductDetailController extends GetxController {
   ProductDetail? pd;
   int productOrderCount = 1;
   OrderProducts orderProducts = OrderProducts();
-  Order order= Order();
+  // Order order= Order();
 
   setsize(int index) {
     currentsize = index;
@@ -26,12 +26,14 @@ class ProductDetailController extends GetxController {
   }
 
   void addCount() {
-    productOrderCount++;
+    // productOrderCount++;
+    orderProducts.qty++;
     update();
   }
 
   void removeCount() {
-    productOrderCount--;
+    // productOrderCount--;
+    orderProducts.qty--;
     update();
   }
 

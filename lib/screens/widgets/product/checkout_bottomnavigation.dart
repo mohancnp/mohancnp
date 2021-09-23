@@ -11,15 +11,18 @@ import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/models/variants.dart';
+import 'package:metrocoffee/screens/sharables/checkout.dart';
 
 import '../../../theme.dart';
 
 class CheckoutBottomNavigation extends StatefulWidget {
   final int id;
+  final OrderProducts orderProducts;
 
   const CheckoutBottomNavigation({
     Key? key,
     required this.id,
+    required this.orderProducts,
   }) : super(key: key);
 
   @override
@@ -47,9 +50,10 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
+    // print(widget.productCount.toString());
 
     return productDetail == null
-        ? SizedBox(child: Text('loading...'))
+        ? SizedBox(child: Center(child: Text('loading...')))
         : Container(
             padding: EdgeInsets.symmetric(
               //       vertical:18,
@@ -109,8 +113,7 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                       ),
                       GetX<CartController>(
                           initState: (v) {
-                            print("id sent: ${productDetail?.id}");
-
+                            // print("id sent: ${productDetail?.id}");
                             Future.delayed(Duration.zero).then((value) {
                               v.controller
                                   ?.checkProductExistence(productDetail?.id)
@@ -127,17 +130,20 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                                   onTap: () async {
                                     // print(cartController.status.value);
                                     cartController.status.toggle();
-
-                                    OrderProducts odp = OrderProducts();
-
                                     //build product to be orderd
-                                    odp.productVariantId = productDetail?.id;
-                                    odp.qty=2;
+                                    print(
+                                        "qty received from detail page: ${widget.orderProducts.qty}");
+                                    widget.orderProducts.productVariantId =
+                                        productDetail?.id;
+
+                                    // productDetail?.allVariants.elementAt(index);
+
                                     CartData cartData = CartData(
-                                      orderProducts: odp,
+                                      orderProducts: widget.orderProducts,
                                       name: productDetail?.name,
                                       imageUri: productDetail?.imageUri,
                                     );
+
                                     //check before adding new data to the cart
                                     if (cartController.status.isTrue) {
                                       cartController.addOrderProducts(cartData);
@@ -203,11 +209,28 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                 ),
                 GestureDetector(
                   onTap: () {
+                    //qty is retreived from above widget
+
+                    widget.orderProducts.productVariantId = productDetail?.id;
+                    widget.orderProducts.orderProductOptions =
+                        productDetail?.options;
+                    // productDetail?.allVariants.elementAt(index);
+
+                    CartData cartData = CartData(
+                      orderProducts: widget.orderProducts,
+                      name: productDetail?.name,
+                      imageUri: productDetail?.imageUri,
+                    );
+                    List<CartData> orders = <CartData>[
+                      cartData,
+                    ];
+                    Get.to(CheckoutPage(orders:orders),);
+
                     // productDetailsController.order.orderProductList
                     //     ?.add(productDetailsController.orderProducts);
                     //ordernow button press handler
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, "/CheckoutPage", (route) => true);
+                    // Navigator.pushNamedAndRemoveUntil(
+                    //     context, "/CheckoutPage", (route) => true);
                   },
                   child: Container(
                     //       height: 47,

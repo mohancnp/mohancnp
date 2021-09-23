@@ -91,89 +91,82 @@ class DrinksTab extends StatelessWidget {
                                     //          height: 192, width: 170,
                                     height: screenwidth * 0.467,
                                     width: screenwidth * 0.4136,
-                                    child: GetX<DrinkDetailsController>(
-                                        builder: (controller) {
-                                      return Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                              child: Text(
-                                            drink.name,
-                                            style: getpoppins(TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xff404D4D),
-                                                //        fontSize: 14
-                                                fontSize:
-                                                    screenwidth * 0.034063)),
-                                          )),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                  child: Text(
-                                                "\$ " + drink.price.toString(),
-                                                style: getpoppins(TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Color(0xff550E1C),
-                                                    //         fontSize: 15
-                                                    fontSize:
-                                                        screenwidth * 0.0364)),
-                                              )),
-                                              Container(
-                                                //      height: 29,width: 29,
-                                                height: screenwidth * 0.07055,
-                                                width: screenwidth * 0.07055,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                          color: Colors.black
-                                                              .withOpacity(0.2),
-                                                          blurRadius: 15,
-                                                          offset: Offset(0, 3)),
-                                                    ],
-                                                    shape: BoxShape.circle),
-                                                child: Center(
-                                                    child: GestureDetector(
-                                                        onTap: () {
-                                                          controller.isFavorite
-                                                              .toggle();
-                                                        },
-                                                        child: controller
-                                                                .isFavorite
-                                                                .value
-                                                            ? Icon(
-                                                                Icons.favorite,
-                                                                color:
-                                                                    Colors.red,
-                                                                // size: 17,
-                                                                size:
-                                                                    screenwidth *
-                                                                        (17 /
-                                                                            375),
-                                                              )
-                                                            : Icon(
-                                                                Icons
-                                                                    .favorite_outline,
-                                                                color: null,
-                                                                // size: 17,
-                                                                size:
-                                                                    screenwidth *
-                                                                        (17 /
-                                                                            375),
-                                                              ))),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      );
-                                    }),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            child: Text(
+                                          drink.name,
+                                          style: getpoppins(TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff404D4D),
+                                              //        fontSize: 14
+                                              fontSize:
+                                                  screenwidth * 0.034063)),
+                                        )),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                                child: Text(
+                                              "\$ " + drink.price.toString(),
+                                              style: getpoppins(TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0xff550E1C),
+                                                  //         fontSize: 15
+                                                  fontSize:
+                                                      screenwidth * 0.0364)),
+                                            )),
+                                            Container(
+                                              //      height: 29,width: 29,
+                                              height: screenwidth * 0.07055,
+                                              width: screenwidth * 0.07055,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.black
+                                                            .withOpacity(0.2),
+                                                        blurRadius: 15,
+                                                        offset: Offset(0, 3)),
+                                                  ],
+                                                  shape: BoxShape.circle),
+                                              child: Center(
+                                                  child: GestureDetector(
+                                                      onTap: () {
+                                                        // controller.isFavorite
+                                                        //     .toggle();
+                                                      },
+                                                      child: drink.isFavorite
+                                                          ? Icon(
+                                                              Icons.favorite,
+                                                              color: Colors.red,
+                                                              // size: 17,
+                                                              size:
+                                                                  screenwidth *
+                                                                      (17 /
+                                                                          375),
+                                                            )
+                                                          : Icon(
+                                                              Icons
+                                                                  .favorite_outline,
+                                                              color: null,
+                                                              // size: 17,
+                                                              size:
+                                                                  screenwidth *
+                                                                      (17 /
+                                                                          375),
+                                                            ))),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),

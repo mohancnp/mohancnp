@@ -10,7 +10,9 @@ import 'package:metrocoffee/screens/widgets/product/checkouttopayments_bottom_na
 import 'package:metrocoffee/theme.dart';
 
 class CheckoutPage extends StatelessWidget {
-  CheckoutPage({Key? key}) : super(key: key);
+  final dynamic orders;
+
+  CheckoutPage({Key? key, this.orders}) : super(key: key);
   final CheckoutController checkoutController = Get.put(CheckoutController());
 
   @override
@@ -27,7 +29,7 @@ class CheckoutPage extends StatelessWidget {
     return GetBuilder<CheckoutController>(
         init: CheckoutController(),
         builder: (checkoutcontroller) {
-          print(productDetailsController.orderProducts);
+          // print(productDetailsController.orderProducts);
 
           return Scaffold(
             bottomNavigationBar: CheckoutoPaymentsBottomNav(),
@@ -70,16 +72,18 @@ class CheckoutPage extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           //          horizontal: 22
                           horizontal: screenwidth * 0.0535),
-                      child: ListView.builder(
-                          itemCount: 1,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          physics: AlwaysScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            // return CartProductCard(index: index);
-
-                            return SizedBox();
-                          })),
+                      child: (orders != null)
+                          ? ListView.builder(
+                              itemCount: orders.length,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              physics: AlwaysScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return CartProductCard(
+                                    index: index,
+                                    cartData: orders.elementAt(index));
+                              })
+                          : SizedBox()),
                   checkoutcontroller.checkoutlocation(context),
                   checkoutcontroller.setdeliverytime(context),
                   checkoutcontroller.orderconfirmationoptions(context),
