@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/order_data.dart';
 import 'package:metrocoffee/screens/widgets/product/timeframeorders.dart';
 class SingleTimeFrameReorders extends StatelessWidget {
   final int? index;
-  const SingleTimeFrameReorders({Key? key,@required this.index}) : super(key: key);
+  final OrderData orderData;
+  const SingleTimeFrameReorders({Key? key,@required this.index,required this.orderData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class SingleTimeFrameReorders extends StatelessWidget {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context,index){
-            return TimeFrameOrders(index: index);
+            return TimeFrameOrders(index: index,orderData: orderData);
           })
 
 

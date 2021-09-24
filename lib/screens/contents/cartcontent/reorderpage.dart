@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/screens/widgets/product/singletimeframeorders.dart';
+
 class ReOrderPage extends StatelessWidget {
   const ReOrderPage({Key? key}) : super(key: key);
 
@@ -13,8 +14,8 @@ class ReOrderPage extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(
 //                top:14,bottom: 24
-                top:screenwidth*0.0340,bottom: screenwidth*0.0583
-            ),
+                top: screenwidth * 0.0340,
+                bottom: screenwidth * 0.0583),
             width: screenwidth,
             height: 1,
             decoration: BoxDecoration(
@@ -22,14 +23,16 @@ class ReOrderPage extends StatelessWidget {
             ),
           ),
           ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-              itemCount: 3,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 1,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemBuilder: (context,index){
-            return SingleTimeFrameReorders(index: index);
-          })
-        ]
-    );
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  child: Center(child: Text('coming soon')),
+                );
+                // return SingleTimeFrameReorders(index: index);
+              })
+        ]);
   }
 }

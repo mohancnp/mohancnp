@@ -2,20 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/order_data.dart';
+import 'package:metrocoffee/services/rest/config.dart';
+
 class TimeFrameOrders extends StatelessWidget {
   final int? index;
-  const TimeFrameOrders({Key? key,@required this.index}) : super(key: key);
+  final OrderData orderData;
+
+  const TimeFrameOrders(
+      {Key? key, @required this.index, required this.orderData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.symmetric(
-        //        horizontal: 8,vertical: 6
+          //        horizontal: 8,vertical: 6
           horizontal: screenwidth * 0.0194,
           vertical: screenwidth * 0.0145),
       margin: EdgeInsets.only(
-        //     bottom: 20
+          //     bottom: 20
           bottom: screenwidth * 0.0486),
       decoration: BoxDecoration(
           color: Color(0xffFBFBFB),
@@ -40,8 +47,8 @@ class TimeFrameOrders extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(9)),
                   ),
-                  child: Image.asset(
-                    getimageforrow1(index),
+                  child: Image.network(
+                    "$baseUrl" + "${orderData.orderImage}",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -49,7 +56,7 @@ class TimeFrameOrders extends StatelessWidget {
                   //  height: 76,
                   height: screenwidth * 0.1449,
                   margin: EdgeInsets.only(
-                    //        left: 18
+                      //        left: 18
                       left: screenwidth * 0.0437),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -57,7 +64,7 @@ class TimeFrameOrders extends StatelessWidget {
                     children: [
                       Container(
                         child: Text(
-                          "2 items",
+                          "${orderData.orderCount} items",
                           style: getpoppins(TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Color(0xff404D4D),
@@ -67,23 +74,23 @@ class TimeFrameOrders extends StatelessWidget {
                       ),
                       Container(
                         child: Text(
-                          "Date: 01-02-2021",
+                          "Date: ${orderData.createdAt.substring(0, 17)}",
                           style: getpoppins(TextStyle(
                               fontWeight: FontWeight.w300,
                               color: Color(0xff404D4D),
                               //         fontSize: 11.5
-                              fontSize: screenwidth*0.0279
-                          )),
+                              fontSize: screenwidth * 0.0279)),
                         ),
                       ),
                       Container(
-                        child: Text("Order ID: #5432",style: getpoppins(TextStyle(
+                          child: Text(
+                        "Order ID: #${orderData.id}",
+                        style: getpoppins(TextStyle(
                             fontWeight: FontWeight.w300,
                             color: Color(0xff404D4D),
                             //         fontSize: 11.5
-                            fontSize:screenwidth*0.0279
-                        )),)
-                      )
+                            fontSize: screenwidth * 0.0279)),
+                      ))
                     ],
                   ),
                 )
@@ -97,28 +104,29 @@ class TimeFrameOrders extends StatelessWidget {
               children: [
                 Container(
 //                  height: 31,width: 2,
-                  height: screenwidth*0.0754,width: 2,
+                  height: screenwidth * 0.0754, width: 2,
                   decoration: BoxDecoration(
                     color: Color(0xffA5A5A5),
                   ),
-
                 ),
                 Container(
-                  margin:EdgeInsets.only(
+                  margin: EdgeInsets.only(
 //                      left: 9,right: 16
-                      left: screenwidth*0.0218,right: screenwidth*0.0389
+                      left: screenwidth * 0.0218,
+                      right: screenwidth * 0.0389),
+                  child: Text(
+                    "\$ ${orderData.cost}",
+                    style: getpoppins(TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff550E1C),
+                        //      fontSize: 16
+                        fontSize: screenwidth * 0.0389)),
                   ),
-                  child: Text("\$ 5.50",style: getpoppins(TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff550E1C),
-              //      fontSize: 16
-                fontSize: screenwidth*0.0389
-                  )),),
                 ),
                 Icon(
                   CupertinoIcons.forward,
-             //     size: 20,
-               size: screenwidth*0.0486,
+                  //     size: 20,
+                  size: screenwidth * 0.0486,
                   color: Color(0xff404D4D),
                 )
               ],
@@ -128,6 +136,7 @@ class TimeFrameOrders extends StatelessWidget {
       ),
     );
   }
+
   getimageforrow1(int? index) {
     if (index == 0) {
       return "assets/images/coffee1.png";

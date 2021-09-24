@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,7 +8,10 @@ import 'package:get/get.dart';
 import 'package:location/location.dart';
 import 'package:metrocoffee/GetXController/maps/map_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/constants/instances.dart';
 import 'package:metrocoffee/models/location.dart';
+import 'package:metrocoffee/models/order.dart';
+import 'package:metrocoffee/models/profile.dart';
 import 'package:metrocoffee/screens/maps/map.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import '../../theme.dart';
@@ -16,10 +21,17 @@ class CheckoutController extends GetxController {
   String selectedorderconfirmationtype = 'email';
   TextEditingController orderinstructionscontroller = TextEditingController();
   TimeOfDay _time = TimeOfDay.now().replacing(minute: 30);
+  RxList<Address> addresses = <Address>[].obs;
+  RxList<String> timeFromEnd = ['00:00', '00:00'].obs;
+  RxString selectedTime = "Enter Time".obs;
+  RxDouble totalAmount = 0.00.obs;
+
   //controller
   final MapController mapController = Get.put(
     MapController(),
   );
+
+  calculateTotal() {}
 
   setselectedtimeindex(int index) {
     selectedtimeindex = index;
@@ -34,15 +46,61 @@ class CheckoutController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Location location = new Location();
-    mapController.getCurrentUserLocation(location).then((locationData) {
-      mapController.getCurrentLocationName(locationData).then((placeMarkList) {
-        geo.Placemark pm = placeMarkList.elementAt(0);
-        mapController.current.value.mainLocation = pm.locality!;
-        mapController.current.value.subLocation = pm.subLocality!;
-      });
-      // print(locationData);
+    getLocations().then((value) => null);
+    // Location location = new Location();
+    // mapController.getCurrentUserLocation(location).then((locationData) {
+    //   mapController.getCurrentLocationName(locationData).then((placeMarkList) {
+    //     geo.Placemark pm = placeMarkList.elementAt(0);
+    //     mapController.current.value.mainLocation = pm.locality!;
+    //     mapController.current.value.subLocation = pm.subLocality!;
+    //   });
+    //   // print(locationData);
+    // });
+  }
+
+  Future sendOrderToServer(Order order) async {
+    List<dynamic> list = [];
+    order.orderProductList?.forEach((element) {
+      var orderProduct = {
+        "product_variant_id": element.productVariantId,
+        "qty": element.qty,
+        "order_product_options": element.orderProductOptions,
+        "order_product_addons": element.orderProductAddons
+      };
+      list.add(orderProduct);
     });
+    var dataToSend={
+      "address_id": order.addressId,
+    "delivery_time_from": "${order.deliveryTimeFrom}",
+    "delivery_time_end": "${order.deliveryTimeEnd}",
+    "order_products": list
+    };
+    var encodedData=jsonEncode(dataToSend);
+    print(encodedData);
+    var addOrderStatus = await orderService.addOrder(encodedData);
+    // print({
+    //   "address_id": order.addressId,
+    //   "delivery_time_from": order.deliveryTimeFrom,
+    //   "delivery_time_end": order.deliveryTimeEnd,
+    //   "order_products": list
+    // });
+    if (addOrderStatus != null) {
+      print('order placed sucessfully');
+      return true;
+    } else {
+      print('error placing order, try again');
+    }
+  }
+
+  Future getLocations() async {
+    var response = await profileService.getUserAddresses();
+    if (response != null) {
+      List<dynamic> addresses = response['data']['data'];
+      addresses.forEach((element) {
+        this.addresses.add(Address.fromJson(element));
+      });
+      this.addresses.refresh();
+    }
   }
 
   Widget checkoutlocation(BuildContext context) {
@@ -100,129 +158,137 @@ class CheckoutController extends GetxController {
               )
             ],
           ),
-          Container(
-            margin: EdgeInsets.only(
-//               top: 11
-                top: screenwidth * 0.0267),
-            padding: EdgeInsets.symmetric(
+          GetX<CheckoutController>(builder: (controller) {
+            return ListView.builder(
+                itemCount: controller.addresses.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  Address address = controller.addresses.elementAt(index);
+                  return Container(
+                    padding: EdgeInsets.symmetric(
 //                vertical: 10,horizontal: 12
-                vertical: screenwidth * 0.0243,
-                horizontal: screenwidth * 0.0291),
-            width: screenwidth,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(9)),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(0.07),
-                      blurRadius: 10,
-                      offset: Offset(0, 3))
-                ]),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Container(
-//                  height: 57,width: 58,
-                    height: screenwidth * 0.138, width: screenwidth * 0.141,
+                        vertical: screenwidth * 0.0243,
+                        horizontal: screenwidth * 0.0291),
+                    width: screenwidth,
                     decoration: BoxDecoration(
-                      color: Color(0xffE8E8E8),
-                      borderRadius: BorderRadius.all(Radius.circular(9)),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.location_on,
-                        color: coffeecolor,
-                        //    size: 22,
-                        size: screenwidth * 0.0535,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                        //       left: 19
-                        left: screenwidth * 0.0462),
-                    child: GetX<MapController>(builder: (controller) {
-                      var current = controller.getCurrentLocation();
-                      print(current.mainLocation);
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: Text(
-                              "${current.mainLocation}",
-                              style: getpoppins(TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: darkgrey,
-//                              fontSize:13.5
-                                  fontSize: screenwidth * 0.0328)),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              "${current.subLocation}",
-                              style: getpoppins(TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: darkgrey.withOpacity(0.8),
-//                              fontSize:10.5
-                                  fontSize: screenwidth * 0.0255)),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              "+99 56581464",
-                              style: getpoppins(TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: darkgrey.withOpacity(0.8),
-                                  //           fontSize:10.5
-                                  fontSize: screenwidth * 0.0255)),
-                            ),
-                          ),
-                        ],
-                      );
-                    }),
-                  ),
-                ]),
-                Container(
-                    //    height: 57,
-                    height: screenwidth * 0.138,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(9)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.07),
+                              blurRadius: 10,
+                              offset: Offset(0, 3))
+                        ]),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        GestureDetector(
-                          onTap: () async {
-                            CustomLocation result =
-                                await Get.toNamed("/GoogleMapPage");
-                            print("data from route: ${result.mainLocation}");
-                            mapController.current.value.mainLocation =
-                                result.mainLocation;
-                            mapController.current.value.subLocation =
-                                result.subLocation;
-                          },
-                          child: Icon(
-                            FeatherIcons.edit,
-                            color: darkgrey,
-                            //       size: 19,
-                            size: screenwidth * 0.0462,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Icon(
-                            CupertinoIcons.delete,
-                            color: Colors.redAccent,
-                            //       size: 19,
-                            size: screenwidth * 0.0462,
-                          ),
-                        ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+//                  height: 57,width: 58,
+                                height: screenwidth * 0.138,
+                                width: screenwidth * 0.141,
+                                decoration: BoxDecoration(
+                                  color: Color(0xffE8E8E8),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(9)),
+                                ),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.location_on,
+                                    color: coffeecolor,
+                                    //    size: 22,
+                                    size: screenwidth * 0.0535,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    //       left: 19
+                                    left: screenwidth * 0.0462),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        address.addr1.toString(),
+                                        style: getpoppins(TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            color: darkgrey,
+//                              fontSize:13.5
+                                            fontSize: screenwidth * 0.0328)),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        address.addr2.toString(),
+                                        style: getpoppins(TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            color: darkgrey.withOpacity(0.8),
+//                              fontSize:10.5
+                                            fontSize: screenwidth * 0.0255)),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        address.phone ?? "+99 56581464",
+                                        style: getpoppins(TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            color: darkgrey.withOpacity(0.8),
+                                            //           fontSize:10.5
+                                            fontSize: screenwidth * 0.0255)),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ]),
+                        Container(
+                            //    height: 57,
+                            height: screenwidth * 0.138,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                GestureDetector(
+                                  onTap: () async {
+                                    // CustomLocation result =
+                                    //     await Get.toNamed("/GoogleMapPage");
+                                    // print(
+                                    //     "data from route: ${result.mainLocation}");
+                                    // mapController.current.value.mainLocation =
+                                    //     result.mainLocation;
+                                    // mapController.current.value.subLocation =
+                                    //     result.subLocation;
+                                  },
+                                  child: Icon(
+                                    FeatherIcons.edit,
+                                    color: darkgrey,
+                                    //       size: 19,
+                                    size: screenwidth * 0.0462,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Icon(
+                                    CupertinoIcons.delete,
+                                    color: Colors.redAccent,
+                                    //       size: 19,
+                                    size: screenwidth * 0.0462,
+                                  ),
+                                ),
+                              ],
+                            ))
                       ],
-                    ))
-              ],
-            ),
-          )
+                    ),
+                  );
+                });
+          })
         ],
       ),
     );
@@ -279,38 +345,49 @@ class CheckoutController extends GetxController {
                 ]),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: Text(
-                      "Enter Time",
-                      style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: darkgrey,
+              GetX<CheckoutController>(builder: (controller) {
+                var time = controller.selectedTime;
+                return Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Text(
+                        time.value,
+                        style: getpoppins(TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: darkgrey,
 //                              fontSize:13.5
-                          fontSize: screenwidth * 0.0328)),
+                            fontSize: screenwidth * 0.0328)),
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(showPicker(
-                          value: _time,
-                          borderRadius: 9,
-                          okText: "SET TIME",
-                          accentColor: coffeecolor,
-                          onChange: (v) {}));
-                    },
-                    child: Icon(
-                      FeatherIcons.clock,
-                      color: coffeecolor,
-                      //       size: 19,
-                      size: screenwidth * 0.0462,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(showPicker(
+                            value: _time,
+                            borderRadius: 9,
+                            okText: "SET TIME",
+                            accentColor: coffeecolor,
+                            onChange: (v) {
+                              time.value = "${v.hour}:" +"${v.minute}";
+                              timeFromEnd.clear();
+                              timeFromEnd.insert(
+                                  0, "${_time.hour}:" + "${_time.minute}");
+                              timeFromEnd.insert(
+                                  1, "${v.hour}:" + ":${v.minute}");
+                              timeFromEnd.refresh();
+                            }));
+                      },
+                      child: Icon(
+                        FeatherIcons.clock,
+                        color: coffeecolor,
+                        //       size: 19,
+                        size: screenwidth * 0.0462,
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              }),
               Divider(
                 color: darkgrey.withOpacity(0.15),
                 thickness: 1.5,
@@ -341,6 +418,15 @@ class CheckoutController extends GetxController {
     double screenwidth = MediaQuery.of(context).size.width;
     return GestureDetector(
         onTap: () {
+          if (timetext == "As soon as possible.") {
+            timeFromEnd.clear();
+            timeFromEnd.insert(0, "${_time.hour}:" + "${_time.minute}");
+            timeFromEnd.insert(1, " ${_time.hour}:" + "${_time.minute}");
+          } else {
+            timeFromEnd.clear();
+            timeFromEnd.insert(0, "${timetext.substring(0, 1)}"+"${timetext.substring(2, 3)}");
+            timeFromEnd.insert(1, " ${timetext.substring(7,8)}"+"${timetext.substring(9,10)}");
+          }
           setselectedtimeindex(index);
         },
         child: AnimatedContainer(

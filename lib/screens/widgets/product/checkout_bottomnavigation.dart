@@ -36,6 +36,7 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
 
   @override
   void initState() {
+    print("checkout page detected");
     super.initState();
     final DrinkDetailsController controller =
         Get.find<DrinkDetailsController>();
@@ -116,7 +117,7 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                             // print("id sent: ${productDetail?.id}");
                             Future.delayed(Duration.zero).then((value) {
                               v.controller
-                                  ?.checkProductExistence(productDetail?.id)
+                                  ?.checkProductExistence(productDetail?.allVariants?.elementAt(0).id)
                                   .then((value) {});
                             });
                           },
@@ -131,10 +132,14 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                                     // print(cartController.status.value);
                                     cartController.status.toggle();
                                     //build product to be orderd
-                                    print(
-                                        "qty received from detail page: ${widget.orderProducts.qty}");
+                                    // print(
+                                    //     "qty received from detail page: ${widget.orderProducts.qty}");
+
+                                    //default variant type sent as for now because of unavailability
                                     widget.orderProducts.productVariantId =
-                                        productDetail?.id;
+                                        productDetail?.allVariants
+                                            ?.elementAt(0)
+                                            .id;
 
                                     // productDetail?.allVariants.elementAt(index);
 
@@ -209,9 +214,11 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                 ),
                 GestureDetector(
                   onTap: () {
+                    print('ontap pressed');
                     //qty is retreived from above widget
 
-                    widget.orderProducts.productVariantId = productDetail?.id;
+                    widget.orderProducts.productVariantId =
+                        productDetail?.allVariants?.elementAt(0).id;
                     widget.orderProducts.orderProductOptions =
                         productDetail?.options;
                     // productDetail?.allVariants.elementAt(index);
@@ -224,7 +231,10 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                     List<CartData> orders = <CartData>[
                       cartData,
                     ];
-                    Get.to(CheckoutPage(orders:orders),);
+
+                    Get.to(
+                      () => CheckoutPage(orders: orders),
+                    );
 
                     // productDetailsController.order.orderProductList
                     //     ?.add(productDetailsController.orderProducts);

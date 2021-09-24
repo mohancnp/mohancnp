@@ -6,6 +6,12 @@ class Order {
 
   Order();
 
+  @override
+  toString() {
+    // var obj = {""};
+    return "adderss id: $addressId, deliveryfrom : $deliveryTimeFrom, order id: ${orderProductList?.elementAt(0).productVariantId}";
+  }
+
   Order.make(
       {this.addressId,
       required this.deliveryTimeFrom,
@@ -13,7 +19,8 @@ class Order {
       required this.orderProductList});
 
   Map<dynamic, dynamic> toJson() {
-    final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
+    Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
+
     List<Map<dynamic, dynamic>> orderlist = [];
 
     orderProductList?.forEach((OrderProducts element) {
@@ -38,7 +45,7 @@ class OrderProducts {
   int? productId;
   dynamic productVariantId;
   int qty = 1;
-  bool? addedToCart=false;
+  bool? addedToCart = false;
   List<dynamic>? orderProductOptions = [];
   List<dynamic>? orderProductAddons = [];
 

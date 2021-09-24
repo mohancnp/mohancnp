@@ -251,6 +251,7 @@ class DrinkDetail extends StatelessWidget {
                                         ],
                                       ),
                                     ),
+                                    productdetailscontroller.drinksize(context),
                                     ListView.builder(
                                       shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),

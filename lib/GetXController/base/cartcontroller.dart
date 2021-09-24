@@ -20,9 +20,9 @@ class CartController extends GetxController {
       ProductDetail(id: 0, isFavorite: false, price: 0, name: 'N/A', type: "1")
           .obs;
 
-  Future checkProductExistence(productId) async {
+  Future checkProductExistence(productVariantId) async {
     // print("id on check $productId");
-    var exists = await cartHandlerDB.getProductWithId(productId);
+    var exists = await cartHandlerDB.getProductWithId(productVariantId);
     status.value = exists;
 
     // for (int i = 0; i < cartProducts.length; i++) {

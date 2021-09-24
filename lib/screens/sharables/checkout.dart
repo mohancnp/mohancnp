@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/enums/checkout_type.dart';
+import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
 import 'package:metrocoffee/screens/widgets/product/checkouttopayments_bottom_nav.dart';
 import 'package:metrocoffee/theme.dart';
 
 class CheckoutPage extends StatelessWidget {
-  final dynamic orders;
+  final List<CartData>? orders;
 
   CheckoutPage({Key? key, this.orders}) : super(key: key);
   final CheckoutController checkoutController = Get.put(CheckoutController());
@@ -19,7 +21,6 @@ class CheckoutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProductDetailController productDetailsController =
         Get.find<ProductDetailController>();
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
@@ -28,11 +29,15 @@ class CheckoutPage extends StatelessWidget {
     double screenheight = MediaQuery.of(context).size.height;
     return GetBuilder<CheckoutController>(
         init: CheckoutController(),
+        initState: (v) {},
         builder: (checkoutcontroller) {
           // print(productDetailsController.orderProducts);
 
           return Scaffold(
-            bottomNavigationBar: CheckoutoPaymentsBottomNav(),
+            bottomNavigationBar: CheckoutoPaymentsBottomNav(
+              checkoutType: CheckoutType.single,
+              orders: orders,
+            ),
             backgroundColor: Color(0xffF3F5F5),
             body: SingleChildScrollView(
                 child: Container(
@@ -74,16 +79,16 @@ class CheckoutPage extends StatelessWidget {
                           horizontal: screenwidth * 0.0535),
                       child: (orders != null)
                           ? ListView.builder(
-                              itemCount: orders.length,
+                              itemCount: orders?.length,
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               physics: AlwaysScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return CartProductCard(
                                     index: index,
-                                    cartData: orders.elementAt(index));
+                                    cartData: orders?.elementAt(index));
                               })
-                          : SizedBox()),
+                          : SizedBox(child: Center(child: Text("no order selected")))),
                   checkoutcontroller.checkoutlocation(context),
                   checkoutcontroller.setdeliverytime(context),
                   checkoutcontroller.orderconfirmationoptions(context),
