@@ -12,6 +12,7 @@ import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/screens/sharables/drink_detail.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart' as pg;
 import 'package:metrocoffee/screens/sharables/no_internet.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
 class AllMenu extends StatefulWidget {
@@ -41,11 +42,7 @@ class _AllMenuState extends State<AllMenu> {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
     return state == UIState.processing
-        ? Material(
-            child: SizedBox(
-              child: Center(child: Text("loading")),
-            ),
-          )
+        ? LoadingWidget()
         : Scaffold(
             backgroundColor: Color(0xffF3F5F5),
             body: SingleChildScrollView(
@@ -135,25 +132,17 @@ class _AllMenuState extends State<AllMenu> {
         final Product p = homeTabController.allProducts.elementAt(index);
         return GestureDetector(
             onTap: () {
-              setState(() {
-                this.state = UIState.processing;
-              });
               homeTabController
                   .getProductDetails(p.id)
                   .then((ProductDetail? pd) {
                 if (pd == null) {
-                  setState(() {
-                    this.state = UIState.passive;
-                  });
+                  print("product detail is nullin : All Menu");
                 } else {
                   if (pd.type == "Drinks") {
                     Get.to(() => DrinkDetail(), arguments: p);
                   } else {
                     Get.to(() => pg.ProductDetail(), arguments: p);
                   }
-                  setState(() {
-                    this.state = UIState.passive;
-                  });
                 }
               });
             },
@@ -234,16 +223,23 @@ class _AllMenuState extends State<AllMenu> {
                                           ],
                                           shape: BoxShape.circle),
                                       child: Center(
-                                        child: GestureDetector(
-                                          onTap: () {},
-                                          child: Icon(
-                                            Icons.favorite,
-                                            color: Colors.redAccent,
-                                            //    size: 17,
-                                            size: screenwidth * 0.04136,
-                                          ),
-                                        ),
-                                      ),
+                                          child: GestureDetector(
+                                              onTap: () {},
+                                              child: p.isFavorite
+                                                  ? Icon(
+                                                      Icons.favorite,
+                                                      color: Colors.red,
+                                                      // size: 17,
+                                                      size: screenwidth *
+                                                          (17 / 375),
+                                                    )
+                                                  : Icon(
+                                                      Icons.favorite_outline,
+                                                      color: null,
+                                                      // size: 17,
+                                                      size: screenwidth *
+                                                          (17 / 375),
+                                                    ))),
                                     )
                                   ],
                                 ),

@@ -1,3 +1,5 @@
+import 'package:metrocoffee/models/variants.dart';
+
 class Order {
   dynamic addressId;
   String? deliveryTimeFrom, deliveryTimeEnd;
@@ -42,16 +44,19 @@ class Order {
 }
 
 class OrderProducts {
-  int? productId;
+  int productId = 0;
   dynamic productVariantId;
   int qty = 1;
   bool? addedToCart = false;
   List<dynamic>? orderProductOptions = [];
   List<dynamic>? orderProductAddons = [];
+  dynamic cost = 0.0;
+  int orderId = -1;
 
   Map<dynamic, dynamic> toJson() {
     return {
       'product_variant_id': this.productVariantId,
+      'product_id': this.productId,
       'qty': this.qty,
       'order_product_options': this.orderProductOptions,
       'order_product_addons': this.orderProductAddons,

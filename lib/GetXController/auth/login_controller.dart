@@ -24,9 +24,7 @@ class LoginController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    print('onclose being called');
-    // baseController?.refresh();
-    // homeTabController?.refresh();
+    // print('onclose being called');
   }
 
   //to change ui based on the status of the future result(like api call file io etc)

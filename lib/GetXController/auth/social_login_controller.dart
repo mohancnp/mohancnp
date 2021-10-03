@@ -60,22 +60,36 @@ class SocialLoginController extends GetxController {
             .socialLogin(
                 accessToken: result.accessToken!.token, provider: "facebook")
             .then((response) {
-          // print("Server Response: $response");
+          print("Server Response Facebook Login: $response");
 
           if (response['success'] == true) {
             var data = response['data'];
             var token = data['token'];
             var user = data['user'];
-            var newClient = Client.fromJson(user);
+            bool userVerified = data['user_registered'];
 
-            addToken(provider: 'facebook', token: token.toString());
-            addUserDetail(
-                name: response['data']['name'],
-                email: response['data']['email'],
-                id: response['data']['id']);
-            homeTabController?.initializeAllData();
-            baseController?.setUserVerified();
-            Get.offNamedUntil('/Base', (route) => false);
+            if (userVerified) {
+              var newClient = Client.fromJson(user);
+
+              addToken(provider: 'facebook', token: token.toString());
+              addUserDetail(
+                  name: response['data']['name'],
+                  email: response['data']['email'],
+                  id: response['data']['id']);
+              homeTabController?.initializeAllData();
+              baseController?.setUserVerified();
+              setActivity(UIState.completed);
+              Get.offNamedUntil('/Base', (route) => false);
+            } else {
+              Get.offNamedUntil('/SocialRegister', (route) => false,
+                  arguments: {
+                    "token": token,
+                    "provider": "facebook",
+                    "name": response['data']['name'],
+                    "email": response['data']['email'],
+                    "provider_id": response['data']['id'],
+                  });
+            }
             // print("server response data: $data");
           } else {
             print(
@@ -83,7 +97,6 @@ class SocialLoginController extends GetxController {
           }
         });
         setActivity(UIState.completed);
-
         break;
       default:
         print('undefined situation in facebook login');

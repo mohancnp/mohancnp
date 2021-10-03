@@ -77,7 +77,7 @@ Widget getDeliveryAddressFeild(size) {
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: GetX<MapController>(builder: (mapC) {
-                  var loc = mapC.getDeliveryLocation();
+                  var loc = mapC.current.value;
                   return Text("${loc.mainLocation},${loc.subLocation}");
                 }),
               ),

@@ -2,8 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/screens/sharables/no_internet.dart';
+import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
+import 'package:metrocoffee/util/internet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,29 +28,48 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _fadeanimation;
   late Animation<double> _downscaleanimation;
   int initialfadeduration = 2000;
-  int loginstat=0;
+  int loginstat = -1;
+
   @override
   initState() {
     super.initState();
+
     deployanimation();
     startTime();
-    _getloginstatus();
+    // _getloginstatus();
+
+    isConnectionReady().then((ready) {
+      if (ready) {
+        verifyToken().then((status) {
+          // print('verification status: $status');
+          if (status == false) {
+            loginstat = 0;
+            // setUserVerified();
+            // Future.delayed(Duration.zero).then((value) => Get.offNamed('/Login'));
+          } else {
+            loginstat = 1;
+          }
+        });
+      } else {
+        Get.to(() => NoInternet());
+      }
+    });
   }
 
-  Future<int> _getloginstatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    final loginstatus = prefs.getInt('loginstatus');
-    if (loginstatus == null) {
-      setState(() {
-        loginstat=0;
-      });
-      return 0;
-    }
-    setState(() {
-      loginstat=loginstatus;
-    });
-    return loginstatus;
-  }
+  // Future<int> _getloginstatus() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final loginstatus = prefs.getInt('loginstatus');
+  //   if (loginstatus == null) {
+  //     setState(() {
+  //       loginstat = 0;
+  //     });
+  //     return 0;
+  //   }
+  //   setState(() {
+  //     loginstat = loginstatus;
+  //   });
+  //   return loginstatus;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -170,11 +193,16 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   startTime() async {
-    var _duration = new Duration(seconds: 6);
+    var _duration = new Duration(seconds: 4);
     return new Timer(_duration, navigationPage);
   }
 
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed(loginstat==0?'/Login':'/Base');
+    if (loginstat < 0) {
+      print('still no internet');
+    } else {
+      Navigator.of(context)
+          .pushReplacementNamed(loginstat == 0 ? '/Login' : '/Base');
+    }
   }
 }

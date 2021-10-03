@@ -6,7 +6,12 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/GetXController/maps/map_controller.dart';
+import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/models/location.dart';
+import 'package:metrocoffee/models/profile.dart';
+import 'package:metrocoffee/theme.dart';
 import 'widgets/widget_map.dart';
 
 class GoogleMapScreen extends StatefulWidget {
@@ -33,27 +38,33 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   double min = 0.4, initial = 0.7, max = 0.7;
   var _expanding = true;
   double containerH = 585.h, containerW = 338.w;
-
+  double currentLat = 27.7172;
+  double currentLong = 85.3240;
   //controller
   final MapController mapController = Get.find<MapController>();
-
+  final CheckoutController checkoutController = Get.find<CheckoutController>();
   @override
   void initState() {
     location = new Location();
     mapController.getCurrentUserLocation(location).then((locationData) {
+      currentLat = locationData.latitude ?? 27.7172;
+      currentLong = locationData.longitude ?? 85.3240;
+
       mapController.getCurrentLocationName(locationData).then((placeMarkList) {
         geo.Placemark pm = placeMarkList.elementAt(0);
 
-        mapController.current.value.mainLocation = pm.locality!;
-        mapController.current.value.subLocation = pm.subLocality!;
+        mapController.current.value.mainLocation =
+            "${pm.locality}${pm.subLocality}";
+        mapController.current.value.subLocation = "${pm.name}${pm.street}";
+        mapController.deliveryLocationList.add(mapController.current.value);
 
         setState(() {
           source = Marker(
               markerId: MarkerId("${locationData.latitude}"),
               infoWindow: InfoWindow(
                   title: "${pm.administrativeArea}", snippet: "${pm.locality}"),
-              position: LatLng(locationData.latitude ?? 27.7172,
-                  locationData.longitude ?? 85.3240));
+              position: LatLng(locationData.latitude ?? currentLat,
+                  locationData.longitude ?? currentLong));
         });
       });
       // print(locationData);
@@ -67,13 +78,19 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Google Map'),
-          elevation: 0,
-          // backgroundColor: Colors.transparent,
-          leading: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Icon(CupertinoIcons.back)),
-        ),
+            title: Text('Google Map'),
+            elevation: 0,
+            // backgroundColor: Colors.transparent,
+            leading: GestureDetector(
+                onTap: () async {
+                  CustomLocation newLocation = mapController
+                      .deliveryLocationList
+                      .elementAt(mapController.selectedAddressIndex.value);
+                  await mapController.addNewAddressToserver(newLocation);
+                  await checkoutController.getLocations();
+                  Get.back();
+                },
+                child: Icon(CupertinoIcons.back))),
         backgroundColor: Color(0xffF3F5F5),
 
         // extendBody: false,
@@ -83,17 +100,25 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               mapType: MapType.normal,
               markers: _markers,
               myLocationEnabled: true,
-              myLocationButtonEnabled: true,
+              // myLocationButtonEnabled: true,
               onLongPress: (latLong) async {
                 geo.Placemark pm =
                     await mapController.getSelectedLocationNameWith(latLong);
+                CustomLocation newLocation = CustomLocation(
+                  "${pm.locality}${pm.subLocality}",
+                  "${pm.name}${pm.street}",
+                  latLong.latitude,
+                  latLong.longitude,
+                );
+                mapController.addNewDeliveryLocation(newLocation);
+
                 setState(() {
                   mapController.delivery.value.mainLocation = pm.locality!;
                   mapController.delivery.value.subLocation = pm.street!;
-                  print(pm.subThoroughfare);
-
+                  // print(pm.subThoroughfare);
+                  _markers.clear();
                   _markers.add(Marker(
-                      markerId: MarkerId(latLong.longitude.toString()),
+                      markerId: MarkerId(latLong.toString()),
                       infoWindow: InfoWindow(
                           title: "${pm.administrativeArea}",
                           snippet: "${pm.locality}"),
@@ -104,15 +129,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               onMapCreated: (GoogleMapController mapController) {
                 _markers.add(source ??
                     Marker(
-                        markerId: MarkerId('m1'),
-                        position: LatLng(27.7172, 85.3240)));
-
+                        markerId: MarkerId('currentLocationMarker'),
+                        position: LatLng(currentLat, currentLong)));
                 googleMapController = mapController;
                 // _markers.add(source);
                 // _markers.add(destination);
               },
-              initialCameraPosition:
-                  CameraPosition(target: LatLng(27.7172, 85.3240), zoom: 15),
+              initialCameraPosition: CameraPosition(
+                  target: LatLng(currentLat, currentLong), zoom: 15),
             ),
             SizedBox.expand(
               child: NotificationListener<DraggableScrollableNotification>(
@@ -166,146 +190,160 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                   height: 2,
                                   color: Color(0xFF9B9B9B),
                                 ),
-                                getDeliveryAddressFeild(size),
-                                _expanding
-                                    ? getSearchYourAddressFeild(size)
-                                    : SizedBox(),
-                                _expanding == false
-                                    ? Container(
-                                        margin: EdgeInsets.only(
-                                          top: 11,
-                                        ),
-                                      )
-                                    : Container(
-                                        margin: EdgeInsets.only(
-                                            top: 11, bottom: 18),
-                                        width: size.width * (290 / 375),
-                                        height: 1,
-                                        color: Color(0xFF9B9B9B),
-                                        // decoration: BoxDecoration(
-                                        //     borderRadius: BorderRadius.circular(3),
-                                        //     border:
-                                        //         Border.all(color: Color(0xFF9B9B9B))),
-                                      ),
-                                Container(
-                                  width: 299.w,
-                                  height: 50.h,
-                                  margin: EdgeInsets.only(bottom: 13),
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFF3F3F3),
-                                      borderRadius: BorderRadius.circular(9),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 10,
-                                            color: Color(0x08000000),
-                                            offset: Offset(0, 3))
-                                      ]),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        height: 39.w,
-                                        width: 39.w,
-                                        margin: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(9),
-                                            color: Colors.white),
-                                        child: SvgPicture.asset(
-                                          "assets/images/iconhome.svg",
-                                          height: 14.h,
-                                          width: 14.w,
-                                          fit: BoxFit.none,
-                                          // color: Colors.black,
-                                        ),
-                                      ),
-                                      GetX<MapController>(builder: (location) {
-                                        return Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              location
-                                                  .getHomeLocation()
-                                                  .mainLocation,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 13),
-                                            ),
-                                            Text(
-                                              location
-                                                  .getHomeLocation()
-                                                  .subLocation,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w300,
-                                                  fontSize: 10),
-                                            )
-                                          ],
-                                        );
-                                      })
-                                    ],
-                                  ),
+                                Text(
+                                  'Long press on the map to select an address of your choice',
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 10),
                                 ),
                                 Container(
-                                  width: 299.w,
-                                  height: 50.h,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFF3F3F3),
-                                      borderRadius: BorderRadius.circular(9),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 10,
-                                            color: Color(0x08000000),
-                                            offset: Offset(0, 3))
-                                      ]),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        height: 39.w,
-                                        width: 39.w,
-                                        margin: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(9),
-                                            color: Colors.white),
-                                        child: SvgPicture.asset(
-                                          "assets/images/iconwork.svg",
-                                          height: 14.h,
-                                          width: 14.w,
-                                          fit: BoxFit.none,
-                                          // color: Colors.black,
-                                        ),
-                                      ),
-                                      GetX<MapController>(
-                                          builder: (controller) {
-                                        var work = controller.getWorkLocation();
-                                        return GestureDetector(
-                                          onTap: () {
-                                            Get.back(
-                                                result: controller
-                                                    .getWorkLocation());
-                                          },
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "${work.mainLocation}",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 13),
+                                  margin: EdgeInsets.only(top: 11, bottom: 10),
+                                ),
+
+                                getDeliveryAddressFeild(size),
+                                // _expanding
+                                //     ? getSearchYourAddressFeild(size)
+                                //     : SizedBox(),
+                                // _expanding == false
+                                //     ? Container(
+                                //         margin: EdgeInsets.only(
+                                //           top: 11,
+                                //         ),
+                                //       )
+                                //     : Container(
+                                //         margin: EdgeInsets.only(
+                                //             top: 11, bottom: 18),
+                                //         width: size.width * (290 / 375),
+                                //         height: 1,
+                                //         color: Color(0xFF9B9B9B),
+                                //         // decoration: BoxDecoration(
+                                //         //     borderRadius: BorderRadius.circular(3),
+                                //         //     border:
+                                //         //         Border.all(color: Color(0xFF9B9B9B))),
+                                //       ),
+                                Text(
+                                  'double tap to select the address from below',
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 8),
+                                ),
+                                SizedBox(
+                                  width: size.width,
+                                  height: size.height * 0.20,
+                                  child:
+                                      GetX<MapController>(builder: (location) {
+                                    print(location.selectedAddressIndex);
+                                    return ListView.builder(
+                                        itemCount: location
+                                            .deliveryLocationList.length,
+                                        scrollDirection: Axis.vertical,
+                                        physics:
+                                            AlwaysScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          CustomLocation cl = location
+                                              .deliveryLocationList
+                                              .elementAt(index);
+                                          return GestureDetector(
+                                            onDoubleTap: () {
+                                              location.selectedAddressIndex
+                                                  .value = index;
+                                            },
+                                            child: Container(
+                                              width: 320.w,
+                                              height: 64.h,
+                                              margin: EdgeInsets.only(
+                                                  top: 5, left: 5, right: 5),
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xFFFFFFFF),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  border: Border.all(
+                                                      color: (location
+                                                                  .selectedAddressIndex
+                                                                  .value ==
+                                                              index)
+                                                          ? coffeecolor
+                                                          : Colors.white),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        blurRadius: 10,
+                                                        color:
+                                                            Color(0x08000000),
+                                                        offset: Offset(0, 3))
+                                                  ]),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    width: 40.w,
+                                                    height: 40.h,
+                                                    margin: EdgeInsets.all(5),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              9),
+                                                      color: Color(0xFFF3F3F3),
+                                                    ),
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.location_on,
+                                                        color: coffeecolor,
+                                                        //    size: 22,
+                                                        size:
+                                                            size.width * 0.0535,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        cl.mainLocation,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 13),
+                                                      ),
+                                                      Text(
+                                                        cl.subLocation,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            fontSize: 10),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: SizedBox(
+                                                      width: 50.w,
+                                                    ),
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      mapController
+                                                          .removeLocationWIthIndex(
+                                                        index,
+                                                      );
+                                                    },
+                                                    child: Icon(
+                                                      CupertinoIcons.delete,
+                                                      color: Colors.redAccent,
+                                                      //       size: 19,
+                                                      size: size.width * 0.0462,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Text(
-                                                "${work.subLocation}",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 10),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      })
-                                    ],
-                                  ),
+                                            ),
+                                          );
+                                        });
+                                  }),
                                 ),
                                 (_expanding == false)
                                     ? Container(

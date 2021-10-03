@@ -1,0 +1,1 @@
+enum TakeAwayType { pickup, delivery }

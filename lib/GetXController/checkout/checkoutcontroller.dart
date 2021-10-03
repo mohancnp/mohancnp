@@ -5,15 +5,16 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:location/location.dart';
+// import 'package:location/location.dart';
 import 'package:metrocoffee/GetXController/maps/map_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/constants/instances.dart';
+import 'package:metrocoffee/enums/uistate.dart';
 import 'package:metrocoffee/models/location.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/profile.dart';
 import 'package:metrocoffee/screens/maps/map.dart';
-import 'package:geocoding/geocoding.dart' as geo;
+// import 'package:geocoding/geocoding.dart' as geo;
 import '../../theme.dart';
 
 class CheckoutController extends GetxController {
@@ -25,13 +26,13 @@ class CheckoutController extends GetxController {
   RxList<String> timeFromEnd = ['00:00', '00:00'].obs;
   RxString selectedTime = "Enter Time".obs;
   RxDouble totalAmount = 0.00.obs;
+  Rx<int> selectedAddressIndex = 0.obs;
+  UIState state = UIState.passive;
 
-  //controller
-  final MapController mapController = Get.put(
-    MapController(),
-  );
-
-  calculateTotal() {}
+  setUIState(UIState state) {
+    this.state = state;
+    update();
+  }
 
   setselectedtimeindex(int index) {
     selectedtimeindex = index;
@@ -46,16 +47,6 @@ class CheckoutController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getLocations().then((value) => null);
-    // Location location = new Location();
-    // mapController.getCurrentUserLocation(location).then((locationData) {
-    //   mapController.getCurrentLocationName(locationData).then((placeMarkList) {
-    //     geo.Placemark pm = placeMarkList.elementAt(0);
-    //     mapController.current.value.mainLocation = pm.locality!;
-    //     mapController.current.value.subLocation = pm.subLocality!;
-    //   });
-    //   // print(locationData);
-    // });
   }
 
   Future sendOrderToServer(Order order) async {
@@ -69,13 +60,13 @@ class CheckoutController extends GetxController {
       };
       list.add(orderProduct);
     });
-    var dataToSend={
+    var dataToSend = {
       "address_id": order.addressId,
-    "delivery_time_from": "${order.deliveryTimeFrom}",
-    "delivery_time_end": "${order.deliveryTimeEnd}",
-    "order_products": list
+      "delivery_time_from": "${order.deliveryTimeFrom}",
+      "delivery_time_end": "${order.deliveryTimeEnd}",
+      "order_products": list
     };
-    var encodedData=jsonEncode(dataToSend);
+    var encodedData = jsonEncode(dataToSend);
     print(encodedData);
     var addOrderStatus = await orderService.addOrder(encodedData);
     // print({
@@ -92,10 +83,22 @@ class CheckoutController extends GetxController {
     }
   }
 
+  Future removeLocation(id, index) async {
+    bool status = await addressService.removeAddress(id);
+    if (status) {
+      print("address sucessfully remvoed");
+    } else {
+      print("error removing address from server");
+    }
+    addresses.removeAt(index);
+    addresses.refresh();
+  }
+
   Future getLocations() async {
     var response = await profileService.getUserAddresses();
     if (response != null) {
       List<dynamic> addresses = response['data']['data'];
+      this.addresses.clear();
       addresses.forEach((element) {
         this.addresses.add(Address.fromJson(element));
       });
@@ -103,8 +106,130 @@ class CheckoutController extends GetxController {
     }
   }
 
+  Widget companyLocation(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
+    addresses
+        .add(Address.create(id: 1, userId: 12, lat: 123.45, long: 1234.56));
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+          //          horizontal: 22
+          horizontal: screenwidth * 0.0535),
+      margin: EdgeInsets.only(
+          //      bottom: 23
+          bottom: screenwidth * 0.0559),
+      width: screenwidth,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.only(
+                    //      left: 6
+                    left: screenwidth * 0.0145),
+                child: Text(
+                  "Pickup Location",
+                  style: getpoppins(TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: darkgrey,
+                      //       fontSize:14.5
+                      fontSize: screenwidth * 0.0352)),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(
+//                vertical: 10,horizontal: 12
+                vertical: screenwidth * 0.0243,
+                horizontal: screenwidth * 0.0291),
+            width: screenwidth,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(9)),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.07),
+                      blurRadius: 10,
+                      offset: Offset(0, 3))
+                ]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Container(
+//                  height: 57,width: 58,
+                    height: screenwidth * 0.138,
+                    width: screenwidth * 0.141,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE8E8E8),
+                      borderRadius: BorderRadius.all(Radius.circular(9)),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.location_on,
+                        color: coffeecolor,
+                        //    size: 22,
+                        size: screenwidth * 0.0535,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        //       left: 19
+                        left: screenwidth * 0.0462),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: Text(
+                            "Company First Address",
+                            style: getpoppins(TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: darkgrey,
+//                              fontSize:13.5
+                                fontSize: screenwidth * 0.0328)),
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "Company precise address",
+                            style: getpoppins(TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: darkgrey.withOpacity(0.8),
+//                              fontSize:10.5
+                                fontSize: screenwidth * 0.0255)),
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "Phone: +97798786456",
+                            style: getpoppins(TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: darkgrey.withOpacity(0.8),
+                                //           fontSize:10.5
+                                fontSize: screenwidth * 0.0255)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ]),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget checkoutlocation(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
+    getLocations().then((value) => null);
+
     return Container(
       padding: EdgeInsets.symmetric(
           //          horizontal: 22
@@ -132,162 +257,194 @@ class CheckoutController extends GetxController {
                       fontSize: screenwidth * 0.0352)),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(
-                        //          right: 4
-                        right: screenwidth * 0.00973),
-                    child: Text(
-                      "Add",
-                      style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: coffeecolor,
-                          //       fontSize:12.5
-                          fontSize: screenwidth * 0.0304)),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('/GoogleMapPage');
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                          //          right: 4
+                          right: screenwidth * 0.00973),
+                      child: Text(
+                        "Add",
+                        style: getpoppins(TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: coffeecolor,
+                            //       fontSize:12.5
+                            fontSize: screenwidth * 0.0304)),
+                      ),
                     ),
-                  ),
-                  Icon(
-                    CupertinoIcons.add_circled_solid,
-                    color: coffeecolor,
-//                  size: 18,
-                    size: screenwidth * 0.0437,
-                  )
-                ],
+                    Icon(
+                      CupertinoIcons.add_circled_solid,
+                      color: coffeecolor,
+                      //                  size: 18,
+                      size: screenwidth * 0.0437,
+                    )
+                  ],
+                ),
               )
             ],
           ),
           GetX<CheckoutController>(builder: (controller) {
-            return ListView.builder(
-                itemCount: controller.addresses.length,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  Address address = controller.addresses.elementAt(index);
-                  return Container(
-                    padding: EdgeInsets.symmetric(
-//                vertical: 10,horizontal: 12
-                        vertical: screenwidth * 0.0243,
-                        horizontal: screenwidth * 0.0291),
-                    width: screenwidth,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(9)),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.07),
-                              blurRadius: 10,
-                              offset: Offset(0, 3))
-                        ]),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-//                  height: 57,width: 58,
-                                height: screenwidth * 0.138,
-                                width: screenwidth * 0.141,
-                                decoration: BoxDecoration(
-                                  color: Color(0xffE8E8E8),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(9)),
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.location_on,
-                                    color: coffeecolor,
-                                    //    size: 22,
-                                    size: screenwidth * 0.0535,
+            print(controller.selectedAddressIndex.value);
+            // print(controller.selectedAddressIndex);
+            return SizedBox(
+              height: screenwidth * 0.60,
+              child: ListView.builder(
+                  itemCount: controller.addresses.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    Address address = controller.addresses.elementAt(index);
+                    return GestureDetector(
+                      onTap: () {
+                        controller.selectedAddressIndex.value = index;
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            //                vertical: 10,horizontal: 12
+                            vertical: screenwidth * 0.0243,
+                            horizontal: screenwidth * 0.0291),
+                        margin: EdgeInsets.only(top: 10),
+                        width: screenwidth,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(9),
+                            ),
+                            border: Border.all(
+                                color: (controller.selectedAddressIndex.value ==
+                                        index)
+                                    ? coffeecolor
+                                    : Colors.white),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.07),
+                                  blurRadius: 10,
+                                  offset: Offset(0, 3))
+                            ]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    //                  height: 57,width: 58,
+                                    height: screenwidth * 0.138,
+                                    width: screenwidth * 0.141,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffE8E8E8),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(9)),
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.location_on,
+                                        color: coffeecolor,
+                                        //    size: 22,
+                                        size: screenwidth * 0.0535,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                    //       left: 19
-                                    left: screenwidth * 0.0462),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        //       left: 19
+                                        left: screenwidth * 0.0462),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: screenwidth * 0.5,
+                                          child: Text(
+                                            address.addr1.toString(),
+                                            overflow: TextOverflow.clip,
+                                            style: getpoppins(TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                color: darkgrey,
+                                                //                              fontSize:13.5
+                                                fontSize:
+                                                    screenwidth * 0.0328)),
+                                          ),
+                                        ),
+                                        Text(
+                                          address.addr2.toString(),
+                                          style: getpoppins(TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              color: darkgrey.withOpacity(0.8),
+                                              //                              fontSize:10.5
+                                              fontSize: screenwidth * 0.0255)),
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            address.phone ?? "+99 56581464",
+                                            style: getpoppins(TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                color:
+                                                    darkgrey.withOpacity(0.8),
+                                                //           fontSize:10.5
+                                                fontSize:
+                                                    screenwidth * 0.0255)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ]),
+                            Container(
+                                //    height: 57,
+                                height: screenwidth * 0.138,
                                 child: Column(
+                                  mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Container(
-                                      child: Text(
-                                        address.addr1.toString(),
-                                        style: getpoppins(TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            color: darkgrey,
-//                              fontSize:13.5
-                                            fontSize: screenwidth * 0.0328)),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        // CustomLocation result =
+                                        //     await Get.toNamed("/GoogleMapPage");
+                                        // print(
+                                        //     "data from route: ${result.mainLocation}");
+                                        // mapController.current.value.mainLocation =
+                                        //     result.mainLocation;
+                                        // mapController.current.value.subLocation =
+                                        //     result.subLocation;
+                                      },
+                                      child: Icon(
+                                        FeatherIcons.edit,
+                                        color: darkgrey,
+                                        //       size: 19,
+                                        size: screenwidth * 0.0462,
                                       ),
                                     ),
-                                    Container(
-                                      child: Text(
-                                        address.addr2.toString(),
-                                        style: getpoppins(TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            color: darkgrey.withOpacity(0.8),
-//                              fontSize:10.5
-                                            fontSize: screenwidth * 0.0255)),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        address.phone ?? "+99 56581464",
-                                        style: getpoppins(TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            color: darkgrey.withOpacity(0.8),
-                                            //           fontSize:10.5
-                                            fontSize: screenwidth * 0.0255)),
+                                    GestureDetector(
+                                      onTap: () {
+                                        //remove address
+                                        removeLocation(address.id, index);
+                                      },
+                                      child: Icon(
+                                        CupertinoIcons.delete,
+                                        color: Colors.redAccent,
+                                        //       size: 19,
+                                        size: screenwidth * 0.0462,
                                       ),
                                     ),
                                   ],
-                                ),
-                              ),
-                            ]),
-                        Container(
-                            //    height: 57,
-                            height: screenwidth * 0.138,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                GestureDetector(
-                                  onTap: () async {
-                                    // CustomLocation result =
-                                    //     await Get.toNamed("/GoogleMapPage");
-                                    // print(
-                                    //     "data from route: ${result.mainLocation}");
-                                    // mapController.current.value.mainLocation =
-                                    //     result.mainLocation;
-                                    // mapController.current.value.subLocation =
-                                    //     result.subLocation;
-                                  },
-                                  child: Icon(
-                                    FeatherIcons.edit,
-                                    color: darkgrey,
-                                    //       size: 19,
-                                    size: screenwidth * 0.0462,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: Icon(
-                                    CupertinoIcons.delete,
-                                    color: Colors.redAccent,
-                                    //       size: 19,
-                                    size: screenwidth * 0.0462,
-                                  ),
-                                ),
-                              ],
-                            ))
-                      ],
-                    ),
-                  );
-                });
+                                ))
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            );
           })
         ],
       ),
@@ -369,12 +526,12 @@ class CheckoutController extends GetxController {
                             okText: "SET TIME",
                             accentColor: coffeecolor,
                             onChange: (v) {
-                              time.value = "${v.hour}:" +"${v.minute}";
+                              time.value = "${v.hour}:" + "${v.minute}";
                               timeFromEnd.clear();
                               timeFromEnd.insert(
                                   0, "${_time.hour}:" + "${_time.minute}");
                               timeFromEnd.insert(
-                                  1, "${v.hour}:" + ":${v.minute}");
+                                  1, "${v.hour}:" + "${v.minute}");
                               timeFromEnd.refresh();
                             }));
                       },
@@ -424,8 +581,8 @@ class CheckoutController extends GetxController {
             timeFromEnd.insert(1, " ${_time.hour}:" + "${_time.minute}");
           } else {
             timeFromEnd.clear();
-            timeFromEnd.insert(0, "${timetext.substring(0, 1)}"+"${timetext.substring(2, 3)}");
-            timeFromEnd.insert(1, " ${timetext.substring(7,8)}"+"${timetext.substring(9,10)}");
+            timeFromEnd.insert(0, "${timetext.substring(0, 5)}");
+            timeFromEnd.insert(1, " ${timetext.substring(8, 13)}");
           }
           setselectedtimeindex(index);
         },
@@ -462,13 +619,13 @@ class CheckoutController extends GetxController {
       return "As soon as possible.";
     }
     if (index == 1) {
-      return "1:00 - 1:10 PM";
+      return "13:00 - 13:10 PM";
     }
     if (index == 2) {
-      return "1:10 - 1:20 PM";
+      return "13:10 - 13:20 PM";
     }
     if (index == 3) {
-      return "1:20 - 1:30 PM";
+      return "13:20 - 13:30 PM";
     }
   }
 

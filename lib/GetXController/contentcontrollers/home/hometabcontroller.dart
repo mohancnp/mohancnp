@@ -41,16 +41,17 @@ class HomeTabController extends GetxController {
     // streamSubscription?.cancel();
   }
 
-  initializeAllData() {
-    checkInternet().then((ready) {
-      if (ready) {
-        internetConnected = true;
-        getProductsOfType(ProductType.drinks);
-        getProductsOfType(ProductType.snacks);
-        getProductsOfType(ProductType.bakery);
-        getProducts();
-      }
-    });
+  Future initializeAllData() async {
+    var ready = await checkInternet();
+    if (ready) {
+      internetConnected = true;
+      await getProductsOfType(ProductType.drinks);
+      await getProductsOfType(ProductType.snacks);
+      await getProductsOfType(ProductType.bakery);
+      await getProducts();
+      return true;
+    }
+    return false;
   }
 
   //v-2
@@ -103,7 +104,7 @@ class HomeTabController extends GetxController {
     );
   }
 
-  void getProducts() async {
+  Future getProducts() async {
     allProducts.clear();
     if (internetConnected) {
       productService.getAllProducts().then((products) {
@@ -122,7 +123,7 @@ class HomeTabController extends GetxController {
     }
   }
 
-  void getProductsOfType(String type) async {
+  Future getProductsOfType(String type) async {
     var response = await productService.getProductsOfType(type: type);
     print("$type:$response");
     if (response != null) {

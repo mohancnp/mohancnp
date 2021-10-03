@@ -15,15 +15,18 @@ class SingleProductService {
 
   Future toggleFavoriteStatus({required int id}) async {
     bool toggled = false;
-    dio.post('$baseUrl/api/favourite/$id').then((response) {
-      if (response.statusCode == 200) {
-        if (response.data["success"] == true) {
-          toggled = !toggled;
+
+    var response = await dio.post('$baseUrl/api/favourite/$id');
+    if (response.statusCode == 200) {
+      if (response.data["success"] == true) {
+        if (response.data["message"] == "Product favourited.") {
+          toggled = true;
+        } else {
+          toggled = false;
         }
       }
-    }).catchError((error) {
-      print(error);
-    });
+    }
     return toggled;
+    // print(toggled);
   }
 }

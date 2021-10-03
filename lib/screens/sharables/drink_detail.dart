@@ -1,24 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/constants/product_options.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/product_model.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
 import 'package:metrocoffee/screens/widgets/product/checkout_bottomnavigation.dart';
-import 'package:metrocoffee/services/rest/config.dart';
 import 'package:metrocoffee/theme.dart';
 
 class DrinkDetail extends StatelessWidget {
   DrinkDetail({Key? key}) : super(key: key);
-  final DrinkDetailsController drinkDetailsController =
-      Get.find<DrinkDetailsController>();
 
   @override
   Widget build(BuildContext context) {
+    timeDilation = 2.0; // 1.0 means normal animation speed.
+
     Product drink = ModalRoute.of(context)!.settings.arguments as Product;
+    final DrinkDetailsController drinkDetailsController =
+        Get.find<DrinkDetailsController>();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
@@ -30,41 +32,60 @@ class DrinkDetail extends StatelessWidget {
 
     return GetBuilder<DrinkDetailsController>(
         initState: (v) {
+          // print('inistate called');
           drinkDetailsController.addlistenertoexpand();
           drinkDetailsController.getProductDetails(drink.id);
-
-        },
-        dispose: (v) {
           drinkDetailsController.orderProducts = OrderProducts();
+          drinkDetailsController.selectedPrice.value = 0.0;
+          drinkDetailsController.totalPrice.value = 0.0;
+          drinkDetailsController.selectedIds.clear();
+          drinkDetailsController.setsize(0);
         },
+        dispose: (v) {},
         init: DrinkDetailsController(),
         builder: (productdetailscontroller) {
+          // print(drinkDetailsController.pd?.isFavorite);
           return productdetailscontroller.pd == null
-              ? Material(child: Center(child: Text("loading...")))
+              ? LoadingWidget()
               : Stack(
                   children: [
                     Scaffold(
                         backgroundColor: Color(0xffF3F5F5),
-                        body: ShaderMask(
+                        body: Container(
+                          child: ShaderMask(
                             shaderCallback: (bounds) => LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      Colors.black.withOpacity(0.06),
-                                      Colors.black.withOpacity(0.5)
-                                    ]).createShader(bounds),
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.06),
+                                  Colors.black.withOpacity(0.5)
+                                ]).createShader(bounds),
                             blendMode: BlendMode.srcATop,
-                            child: productdetailscontroller.pd == null
-                                ? Image.network(
-                                    "$baseUrl/storage/uploads/product/2021/7/IqZ0skXFEXc0oTO61WmBWoOlWmsxSWyZzJrFxwso.jpg",
-                                    width: screenheight,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.network(
-                                    "$baseUrl${productdetailscontroller.pd!.imageUri}",
-                                    width: screenheight,
-                                    fit: BoxFit.cover,
-                                  ))),
+                            child: Hero(
+                              tag: drink.id,
+                              child: Material(
+                                child: InkWell(
+                                  child: Image.asset(
+                                      "assets/images/productimages/cardddd@3x-min.png",
+                                      width: screenwidth,
+                                      fit: BoxFit.cover),
+                                ),
+                              ),
+                            ),
+
+                            //  productdetailscontroller.pd == null
+                            //     ? Image.network(
+                            //         "$baseUrl/storage/uploads/product/2021/7/IqZ0skXFEXc0oTO61WmBWoOlWmsxSWyZzJrFxwso.jpg",
+                            //         width: screenwidth,
+                            //         fit: BoxFit.cover,
+                            //       )
+                            //     : Image.network(
+                            //         "$baseUrl${productdetailscontroller.pd!.imageUri}",
+                            //         width: screenwidth,
+                            //         fit: BoxFit.fill,
+                            //       )
+                          ),
+                        )),
                     Scaffold(
                       bottomNavigationBar: CheckoutBottomNavigation(
                         id: drink.id,
@@ -107,8 +128,10 @@ class DrinkDetail extends StatelessWidget {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
+                                            // print(productdetailscontroller
+                                            //     .productOrderCount);
                                             var count = productdetailscontroller
-                                                .productOrderCount;
+                                                .orderProducts.qty;
                                             if (count > 1) {
                                               productdetailscontroller
                                                   .removeCount();
@@ -116,7 +139,11 @@ class DrinkDetail extends StatelessWidget {
                                           },
                                           child: Icon(
                                             CupertinoIcons.minus_circle,
-                                            color: Colors.white,
+                                            color: productdetailscontroller
+                                                        .orderProducts.qty >
+                                                    1
+                                                ? Colors.white
+                                                : Colors.white38,
                                             //      size: 27.5,
                                             size: screenwidth * 0.0669,
                                           ),
@@ -140,10 +167,6 @@ class DrinkDetail extends StatelessWidget {
                                           onTap: () {
                                             // add products to be orderd in cart
                                             productdetailscontroller.addCount();
-                                            // productdetailscontroller
-                                            //         .orderProducts.qty =
-                                            //     productdetailscontroller
-                                            //         .productOrderCount;
                                           },
                                           child: Icon(
                                             CupertinoIcons.plus_circle,
@@ -214,10 +237,11 @@ class DrinkDetail extends StatelessWidget {
                                               ),
                                               GestureDetector(
                                                   onTap: () {
-                                                    // var status =
-                                                    //     drinkDetailsController
-                                                    //         .toggleFavorite(drink
-                                                    //             .id); // print(status);
+                                                    // print("function caled");
+                                                    var status =
+                                                        drinkDetailsController
+                                                            .toggleFavorite(drink
+                                                                .id); // print(status);
                                                   },
                                                   child: getFavoriteWidget(
                                                       productdetailscontroller,
@@ -251,20 +275,27 @@ class DrinkDetail extends StatelessWidget {
                                         ],
                                       ),
                                     ),
+                                    productdetailscontroller
+                                        .drinktemperatureoption(context),
                                     productdetailscontroller.drinksize(context),
-                                    ListView.builder(
-                                      shrinkWrap: true,
-                                        physics: NeverScrollableScrollPhysics(),
-                                        itemCount: getOptionExists(
-                                                productdetailscontroller,
-                                                context)
-                                            .length,
-                                        itemBuilder: (context, index) {
-                                          return getOptionExists(
-                                                  productdetailscontroller,
-                                                  context)
-                                              .elementAt(index);
-                                        })
+                                    (productdetailscontroller.pd != null)
+                                        ? productdetailscontroller
+                                            .toppingsoptions(context)
+                                        : SizedBox(
+                                            height: 0,
+                                          ),
+                                    (productdetailscontroller.pd != null)
+                                        ? productdetailscontroller
+                                            .milkoptions(context)
+                                        : SizedBox(
+                                            height: 0,
+                                          ),
+                                    (productdetailscontroller.pd != null)
+                                        ? productdetailscontroller
+                                            .extrasrow(context)
+                                        : SizedBox(
+                                            height: 0,
+                                          ),
                                   ],
                                 ),
                               ]))
@@ -276,43 +307,19 @@ class DrinkDetail extends StatelessWidget {
         });
   }
 
-  List<Widget> getOptionExists(DrinkDetailsController controller, context) {
-    List<Widget> widgetList = [
-      SizedBox(height: 0),
-      SizedBox(height: 0),
-      SizedBox(height: 0)
-    ];
-    if (controller.pd != null) {
-      var optionList = controller.pd!.options;
-
-      if (optionList != null) {
-        for (int i = 0; i < optionList.length; i++) {
-          if (optionList.elementAt(i).name == ProductOption.milk) {
-            widgetList.insert(2, controller.milkoptions(context));
-          } else if (optionList.elementAt(i).name == ProductOption.toppings) {
-            widgetList.insert(1, controller.toppingsoptions(context));
-          } else if (optionList.elementAt(i).name == ProductOption.temprature) {
-            widgetList.insert(0, controller.drinktemperatureoption(context));
-          }
-        }
-      }
-    }
-    return widgetList;
-  }
-
   Widget getFavoriteWidget(controller, screenwidth, screenheight) {
     return Container(
       height: screenwidth * (30 / 375),
       width: screenwidth * (30 / 375),
-      margin: EdgeInsets.only(right: screenwidth * 0.0535),
+      margin: EdgeInsets.only(right: screenwidth * 0.0335),
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.white,
-          boxShadow: controller.pd.isFavorite
+          boxShadow: controller.pd!.isFavorite
               ? [BoxShadow(color: Colors.black26, blurRadius: 10)]
               : null),
       child: Center(
-          child: controller.pd.isFavorite
+          child: controller.pd!.isFavorite
               ? Icon(
                   Icons.favorite,
                   color: Colors.red,

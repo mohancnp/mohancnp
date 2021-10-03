@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/models/order_data.dart';
@@ -54,7 +55,6 @@ class TimeFrameOrders extends StatelessWidget {
                 ),
                 Container(
                   //  height: 76,
-                  height: screenwidth * 0.1449,
                   margin: EdgeInsets.only(
                       //        left: 18
                       left: screenwidth * 0.0437),
@@ -97,39 +97,48 @@ class TimeFrameOrders extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-//                  height: 31,width: 2,
-                  height: screenwidth * 0.0754, width: 2,
-                  decoration: BoxDecoration(
-                    color: Color(0xffA5A5A5),
+          GestureDetector(
+            onTap: () {
+              print("sent id : ${orderData.id}");
+              Get.toNamed(
+                '/OrderDetails',
+                arguments: orderData.id,
+              );
+            },
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    //                  height: 31,width: 2,
+                    height: screenwidth * 0.0754, width: 2,
+                    decoration: BoxDecoration(
+                      color: Color(0xffA5A5A5),
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-//                      left: 9,right: 16
-                      left: screenwidth * 0.0218,
-                      right: screenwidth * 0.0389),
-                  child: Text(
-                    "\$ ${orderData.cost}",
-                    style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff550E1C),
-                        //      fontSize: 16
-                        fontSize: screenwidth * 0.0389)),
+                  Container(
+                    margin: EdgeInsets.only(
+                        //                      left: 9,right: 16
+                        left: screenwidth * 0.0218,
+                        right: screenwidth * 0.0389),
+                    child: Text(
+                      "\$ ${orderData.cost}",
+                      style: getpoppins(TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff550E1C),
+                          //      fontSize: 16
+                          fontSize: screenwidth * 0.0389)),
+                    ),
                   ),
-                ),
-                Icon(
-                  CupertinoIcons.forward,
-                  //     size: 20,
-                  size: screenwidth * 0.0486,
-                  color: Color(0xff404D4D),
-                )
-              ],
+                  Icon(
+                    CupertinoIcons.forward,
+                    //     size: 20,
+                    size: screenwidth * 0.0486,
+                    color: Color(0xff404D4D),
+                  )
+                ],
+              ),
             ),
           )
         ],

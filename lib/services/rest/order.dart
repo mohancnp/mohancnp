@@ -95,6 +95,77 @@ class OrderService {
       }
     }
     return null;
+  }
 
+  Future getOrderWithId(int id) async {
+    var token = await getToken();
+    if (token == null) {
+      print("token cannot be verifed");
+      return;
+    } else {
+      try {
+        dio.options.headers["Authorization"] = "Bearer $token";
+        var order = await dio.get('$baseUrl/api/order/$id');
+        return order.data;
+      } on DioError catch (e) {
+        switch (e.type) {
+          case DioErrorType.connectTimeout:
+            print("connection time out for the request");
+            break;
+          case DioErrorType.sendTimeout:
+            print("send time out for the request");
+            break;
+          case DioErrorType.receiveTimeout:
+            print("receive time out for the request");
+            break;
+          case DioErrorType.cancel:
+            print("The request has been cancelled");
+            break;
+          case DioErrorType.response:
+            print("Server Responded with incorrect status,4xx and 5xx");
+            break;
+          case DioErrorType.other:
+            print("undefined other type of error");
+            break;
+        }
+      }
+    }
+    return null;
+  }
+
+  Future cancelOrder(int orderId) async {
+    var token = await getToken();
+    if (token == null) {
+      print("token cannot be verifed");
+      return;
+    } else {
+      try {
+        dio.options.headers["Authorization"] = "Bearer $token";
+        var order = await dio.post('$baseUrl/api/order/$orderId/cancel');
+        return order.data;
+      } on DioError catch (e) {
+        switch (e.type) {
+          case DioErrorType.connectTimeout:
+            print("connection time out for the request");
+            break;
+          case DioErrorType.sendTimeout:
+            print("send time out for the request");
+            break;
+          case DioErrorType.receiveTimeout:
+            print("receive time out for the request");
+            break;
+          case DioErrorType.cancel:
+            print("The request has been cancelled");
+            break;
+          case DioErrorType.response:
+            print("Server Responded with incorrect status,4xx and 5xx");
+            break;
+          case DioErrorType.other:
+            print("undefined other type of error");
+            break;
+        }
+      }
+    }
+    return null;
   }
 }

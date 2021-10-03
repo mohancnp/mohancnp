@@ -40,9 +40,6 @@ class FirstHomeProductRow extends StatelessWidget {
                         Product p = pList.elementAt(index);
                         return GestureDetector(
                             onTap: () {
-
-                              Get.to(() => ProductDetail(), arguments:p);
-
                               // Navigator.pushNamedAndRemoveUntil(
                               //     context, '/ProductDetails', (route) => true);
                             },
@@ -158,7 +155,12 @@ class FirstHomeProductRow extends StatelessWidget {
                                                           child: Center(
                                                             child:
                                                                 GestureDetector(
-                                                              onTap: () {},
+                                                              onTap: () {
+                                                                Get.toNamed(
+                                                                    "/ProductDetails",
+                                                                    arguments:
+                                                                        p);
+                                                              },
                                                               child: Icon(
                                                                 Icons.favorite,
                                                                 color: Colors
@@ -190,12 +192,21 @@ class FirstHomeProductRow extends StatelessWidget {
                                       //          right: -35, top: -30,
                                       right: 0,
                                       top: 0,
-                                      child: Image.network(
-                                        baseUrl + p.image,
-                                        loadingBuilder: (context, widget,imageCunkEvent){
-                                          return widget;
-                                        },
-                                        width: screenwidth * 0.3012,
+                                      child: Hero(
+                                        tag: p.id,
+                                        child: Material(
+                                          child: InkWell(
+                                            onTap: () {},
+                                            child: Image.network(
+                                              baseUrl + p.image,
+                                              loadingBuilder: (context, widget,
+                                                  imageCunkEvent) {
+                                                return widget;
+                                              },
+                                              width: screenwidth * 0.3012,
+                                            ),
+                                          ),
+                                        ),
                                       )),
                                 ])));
                       },

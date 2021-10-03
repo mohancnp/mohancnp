@@ -26,20 +26,18 @@ class NewOrdersPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GetX<CartController>(
-                  builder: (cartController) {
-                    return Container(
-                      child: Text(
-                        "${cartController.cartDataList.length} items",
-                        style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff344141),
+                GetX<CartController>(builder: (cartController) {
+                  return Container(
+                    child: Text(
+                      "${cartController.cartDataList.length} items",
+                      style: getpoppins(TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff344141),
 //                        fontSize: 12.5
-                            fontSize: screenwidth * 0.0304)),
-                      ),
-                    );
-                  }
-                ),
+                          fontSize: screenwidth * 0.0304)),
+                    ),
+                  );
+                }),
                 GestureDetector(
                   onTap: () {
                     controller.emptyCart();
@@ -77,10 +75,11 @@ class NewOrdersPage extends StatelessWidget {
               itemCount: cartController.cartDataList.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
-                var c=cartController.cartDataList.elementAt(index);
+                var c = cartController.cartDataList.elementAt(index);
                 // print(c.name);
                 //gets the data for the product id
-                cartController.getProductDetailWithId(c.orderProducts.productVariantId);
+                cartController
+                    .getProductDetailWithId(c.orderProducts.productId);
                 return CartProductCard(
                     index: index,
                     cartData: cartController.cartDataList.elementAt(index));

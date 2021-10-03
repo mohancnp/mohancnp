@@ -7,6 +7,7 @@ import 'package:metrocoffee/GetXController/productcontroller/productdetailscontr
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/product_model.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
 import 'package:metrocoffee/screens/widgets/product/checkout_bottomnavigation.dart';
 import 'package:metrocoffee/screens/widgets/product/ratings_row_product_detail.dart';
 import 'package:metrocoffee/services/rest/config.dart';
@@ -35,44 +36,52 @@ class ProductDetail extends StatelessWidget {
         init: ProductDetailController(),
         initState: (v) {
           productDetailsController.getProductDetails(product.id);
-        },
-        dispose: (v) {
           productDetailsController.orderProducts = OrderProducts();
+          productDetailsController.totalPrice.value = 0.0;
+          productDetailsController.setsize(0);
         },
+        dispose: (v) {},
         builder: (productdetailscontroller) {
           final prod = productdetailscontroller.pd;
           return prod == null
-              ? Material(child: Center(child: Text("loading...")))
+              ? LoadingWidget()
               : Stack(
                   children: [
                     Scaffold(
                         backgroundColor: Color(0xffF3F5F5),
-                        body: Container(
-                          height: screenheight * 0.6,
-                          width: screenwidth,
-                          decoration: BoxDecoration(color: coffeecolor),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(
-                                    //        top: 85
-                                    top: screenwidth * 0.206),
-                                child: prod.imageUri != null
-                                    ? Image.network(
-                                        '$baseUrl${prod.imageUri}',
-                                        height: screenwidth * 0.362,
-                                        fit: BoxFit.contain,
-                                      )
-                                    : Image.asset(
-                                        "assets/images/productimages/burger_sandwich_PNG4114@3x.png",
-                                        //    height: 75,
-                                        height: screenwidth * 0.362,
-                                        fit: BoxFit.cover,
-                                      ),
-                              )
-                            ],
+                        body: Hero(
+                          tag: product.id,
+                          child: Material(
+                            child: InkWell(
+                              child: Container(
+                                height: screenheight * 0.6,
+                                width: screenwidth,
+                                decoration: BoxDecoration(color: coffeecolor),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          //        top: 85
+                                          top: screenwidth * 0.206),
+                                      child: prod.imageUri != null
+                                          ? Image.network(
+                                              '$baseUrl${prod.imageUri}',
+                                              height: screenwidth * 0.362,
+                                              fit: BoxFit.contain,
+                                            )
+                                          : Image.asset(
+                                              "assets/images/productimages/burger_sandwich_PNG4114@3x.png",
+                                              //    height: 75,
+                                              height: screenwidth * 0.362,
+                                              fit: BoxFit.cover,
+                                            ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                         )),
                     Scaffold(
@@ -80,6 +89,7 @@ class ProductDetail extends StatelessWidget {
                       bottomNavigationBar: CheckoutBottomNavigation(
                         id: prod.id,
                         orderProducts: productDetailsController.orderProducts,
+                        tag: 1,
                       ),
                       body: SingleChildScrollView(
                           physics: AlwaysScrollableScrollPhysics(),
@@ -92,6 +102,10 @@ class ProductDetail extends StatelessWidget {
                                   backgroundColor: Colors.transparent,
                                   leading: IconButton(
                                     onPressed: () {
+                                      productDetailsController.orderProducts =
+                                          OrderProducts();
+//                                      productDetailsController.setsize(0);
+
                                       Navigator.pop(context);
                                     },
                                     icon: Icon(
@@ -120,12 +134,23 @@ class ProductDetail extends StatelessWidget {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  productDetailsController
-                                                      .removeCount();
+                                                  var count =
+                                                      productdetailscontroller
+                                                          .orderProducts.qty;
+                                                  if (count > 1) {
+                                                    productdetailscontroller
+                                                        .removeCount();
+                                                  }
                                                 },
                                                 child: Icon(
                                                   CupertinoIcons.minus_circle,
-                                                  color: Colors.white,
+                                                  color:
+                                                      productdetailscontroller
+                                                                  .orderProducts
+                                                                  .qty >
+                                                              1
+                                                          ? Colors.white
+                                                          : Colors.white38,
                                                   //      size: 27.5,
                                                   size: screenwidth * 0.0669,
                                                 ),

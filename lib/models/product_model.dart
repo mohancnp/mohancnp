@@ -16,7 +16,7 @@ class Product {
         id: data["id"],
         name: data["name"],
         image: data["image"],
-        price: data["price"],
+        price: data["price"] as num,
         isFavorite: data["is_favourite"]);
     return productdetails;
   }

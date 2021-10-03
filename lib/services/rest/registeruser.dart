@@ -3,25 +3,45 @@ import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
 class RegisterUser {
-  Future<int> addUser(User user) async {
-    var dio = Dio(options);
-    var data = user.toJson();
+  RegisterUser._instance();
 
-    int? status = 0;
+  static final RegisterUser _registerUser = RegisterUser._instance();
+
+  factory RegisterUser.getInstance() {
+    return _registerUser;
+  }
+
+  Future<int> addUser(Map<String, dynamic> data) async {
+    var dio = Dio(options);
+
+    int status = 0;
 
     try {
       var response = await dio.post('/api/register', data: data);
-      print(response.statusMessage);
-      // print(response.data);
+      if (response.statusCode == 200) {
+        return 1;
+      }
     } on DioError catch (e) {
-      print(e.error);
-      throw e.response?.statusCode ?? unknownStatus;
-      // if (e.response != null) {
-      //   status = e.response?.statusCode;
-      //   if (status! >= 100 && status <= 200) {
-      //     return status;
-      //   }
-      // }
+      switch (e.type) {
+        case DioErrorType.connectTimeout:
+          print("connection time out for the request");
+          break;
+        case DioErrorType.sendTimeout:
+          print("send time out for the request");
+          break;
+        case DioErrorType.receiveTimeout:
+          print("receive time out for the request");
+          break;
+        case DioErrorType.cancel:
+          print("The request has been cancelled");
+          break;
+        case DioErrorType.response:
+          print("Server Responded with incorrect status,4xx and 5xx");
+          break;
+        case DioErrorType.other:
+          print("undefined other type of error");
+          break;
+      }
     }
     return status;
   }

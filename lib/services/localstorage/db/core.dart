@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -29,7 +28,7 @@ Future openDB() async {
           onCreate: (Database db, int version) async {
         // When creating the db, create the table
         await db.execute(
-            'CREATE TABLE Cart (id INTEGER PRIMARY KEY AUTOINCREMENT, orderId INTEGER UNIQUE, qty INTEGER,name TEXT)');
+            'CREATE TABLE Cart (id INTEGER PRIMARY KEY AUTOINCREMENT, productId INTEGER,price REAL,variantId INTEGER, qty INTEGER,name TEXT,imageUri TEXT,options TEXT, addons TEXT)');
       });
 
       return database;

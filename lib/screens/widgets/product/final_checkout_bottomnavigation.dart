@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 
 import '../../../theme.dart';
+
 class FinalCheckoutBottomNavigation extends StatelessWidget {
-  const FinalCheckoutBottomNavigation({Key? key}) : super(key: key);
+  final double finalAmount;
+  FinalCheckoutBottomNavigation({Key? key, required this.finalAmount})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +25,10 @@ class FinalCheckoutBottomNavigation extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(15),
-              topLeft: Radius.circular(15)),
+              topRight: Radius.circular(15), topLeft: Radius.circular(15)),
           boxShadow: [
             BoxShadow(
-                color: Colors.black12,
-                blurRadius: 25,
-                offset: Offset(0, -6))
+                color: Colors.black12, blurRadius: 25, offset: Offset(0, -6))
           ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,7 +39,7 @@ class FinalCheckoutBottomNavigation extends StatelessWidget {
             height: screenwidth * 0.1153,
             width: screenwidth * 0.4166,
             padding: EdgeInsets.symmetric(
-              //       horizontal: 22
+                //       horizontal: 22
                 horizontal: screenwidth * 0.0535),
             decoration: BoxDecoration(
                 color: darkgrey,
@@ -54,7 +55,7 @@ class FinalCheckoutBottomNavigation extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "\$3.00",
+                  "\$ $finalAmount",
                   style: getpoppins(TextStyle(
                       color: Colors.white,
                       //        fontSize: 16,
@@ -65,16 +66,19 @@ class FinalCheckoutBottomNavigation extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: (){
-              Navigator.pushNamedAndRemoveUntil(
-                 context, "/OrderSuccesfulPage", (route) => true);
+            onTap: () {
+              Get.offAllNamed(
+                '/OrderSuccesfulPage',
+              );
+              // Navigator.pushNamedAndRemoveUntil(
+              //     context, "/OrderSuccesfulPage", (route) => true);
             },
             child: Container(
               //       height: 47,
               height: screenwidth * 0.1153,
               width: screenwidth * 0.4166,
               padding: EdgeInsets.symmetric(
-                //       horizontal: 22
+                  //       horizontal: 22
                   horizontal: screenwidth * 0.0535),
               decoration: BoxDecoration(
                   color: coffeecolor,
@@ -92,19 +96,18 @@ class FinalCheckoutBottomNavigation extends StatelessWidget {
                   Text(
                     "Check Out",
                     textAlign: TextAlign.center,
-                    style: getpoppins(
-                        TextStyle(
-                            color: Colors.white,
-                            //        fontSize: 16,
-                            fontSize: screenwidth * 0.0389,
-                            fontWeight: FontWeight.w300)),
+                    style: getpoppins(TextStyle(
+                        color: Colors.white,
+                        //        fontSize: 16,
+                        fontSize: screenwidth * 0.0389,
+                        fontWeight: FontWeight.w300)),
                   ),
-
                 ],
               ),
             ),
           ),
         ],
       ),
-    );  }
+    );
+  }
 }

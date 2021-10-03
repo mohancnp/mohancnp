@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/initial/userpreferencecontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/cart_data.dart';
 
 class UserPreference extends StatelessWidget {
-  const UserPreference({Key? key}) : super(key: key);
+  List<CartData> orders;
+  final oldContext;
+  UserPreference({Key? key, required this.orders, required this.oldContext})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +27,21 @@ class UserPreference extends StatelessWidget {
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                      //      height: 115,
-                       height: screenwidth*0.279,
+                            //      height: 115,
+                            height: screenwidth * 0.279,
                             width: screenwidth,
                             child: Stack(children: [
                               Positioned(
-                           //       right: -55, top: -60,
-                                  right:- screenwidth*0.1338,
-                                  top: -screenwidth*0.1459,
+                                  //       right: -55, top: -60,
+                                  right: -screenwidth * 0.1338,
+                                  top: -screenwidth * 0.1459,
                                   child: Image.asset(
                                     "assets/images/nathan-dumlao-ikU3J1nr52w-unsplash@3x.png",
-                             //       width: 162,
-                               width:screenwidth*0.394,
+                                    //       width: 162,
+                                    width: screenwidth * 0.394,
                                   ))
                             ])),
                         Center(
@@ -45,29 +50,29 @@ class UserPreference extends StatelessWidget {
                             "How would you like to\nhave your order?",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              height: 1.4,
+                                height: 1.4,
                                 fontFamily: montserratsemibold,
                                 color: Color(0xff2A3434),
-                    //            fontSize: 17
-                      fontSize: screenwidth*0.0413
-                            ),
+                                //            fontSize: 17
+                                fontSize: screenwidth * 0.0413),
                           ),
                         )),
-                        userpreferencecontroller.preferenceoptions(context),
+                        userpreferencecontroller.preferenceoptions(
+                            oldContext, orders),
                         Container(
-                    //       height: 115,
-                            height: screenwidth*0.279,
+                            //       height: 115,
+                            height: screenwidth * 0.279,
                             width: screenwidth,
                             child: Stack(children: [
                               Positioned(
-                            //      left: -55,
-                           //       bottom: -60,
-                                  left:- screenwidth*0.1338,
-                                  bottom: -screenwidth*0.1459,
+                                  //      left: -55,
+                                  //       bottom: -60,
+                                  left: -screenwidth * 0.1338,
+                                  bottom: -screenwidth * 0.1459,
                                   child: Image.asset(
                                     "assets/images/nathan-dumlao-ikU3J1nr52w-unsplash@3x.png",
-                              //      width: 162,
-                                    width:screenwidth*0.394,
+                                    //      width: 162,
+                                    width: screenwidth * 0.394,
                                   ))
                             ])),
                       ],

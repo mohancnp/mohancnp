@@ -19,9 +19,9 @@ class Address {
   factory Address.fromJson(Map<dynamic, dynamic> data) {
     return Address.create(
       id: data['id'],
-      userId: data['user_id'],
+      userId: data['user_id'] ?? 0,
       lat: data['lat'],
-      long: data['long'],
+      long: data['long'] ?? "34.0",
       map: data['map'],
       addr1: data['addr_1'],
       addr2: data['addr_2'],

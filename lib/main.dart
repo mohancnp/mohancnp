@@ -15,6 +15,7 @@ import 'package:metrocoffee/screens/contents/homecontent/tabs/all_menu.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/favorite_products.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/my_order.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/personal_data.dart';
+import 'package:metrocoffee/screens/initial/splashscreen.dart';
 import 'package:metrocoffee/screens/maps/map.dart';
 
 // import 'package:metrocoffee/screens/initial/splashscreen.dart';
@@ -24,9 +25,12 @@ import 'package:metrocoffee/screens/sharables/order_details.dart';
 import 'package:metrocoffee/screens/sharables/order_succesful_page.dart';
 import 'package:metrocoffee/screens/sharables/payment_page.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart';
+import 'package:metrocoffee/test/ui_test.dart';
+
+import 'screens/authentication/register.dart';
 
 // import 'package:metrocoffee/test/apitest.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -47,10 +51,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.brown,
         ),
-        home: Base(),
+        home: SplashScreen(),
         routes: <String, WidgetBuilder>{
+          '/SplashScreen': (BuildContext context) => SplashScreen(),
           '/Login': (BuildContext context) => Login(),
           '/Base': (BuildContext context) => Base(),
+          '/SocialRegister': (BuildContext context) => SocialRegister(),
           '/DrinkDetails': (BuildContext context) => DrinkDetail(),
           '/AllMenu': (BuildContext context) => AllMenu(),
           '/ProductDetails': (BuildContext context) => ProductDetail(),
@@ -64,7 +70,7 @@ class MyApp extends StatelessWidget {
           '/OrderSuccesfulPage': (BuildContext context) => OrderSuccesfulPage(),
           '/EmailLoginPage': (BuildContext context) => EmailLogin(),
           '/GoogleMapPage': (BuildContext context) => GoogleMapScreen(),
-          '/MembershipLogin':(BuildContext context)=>MembershipLogin()
+          '/MembershipLogin': (BuildContext context) => MembershipLogin()
         },
       ),
     );

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/order_data.dart';
 
 import '../../../theme.dart';
+
 class OrderDetailRow extends StatelessWidget {
   final int? index;
-   OrderDetailRow({Key? key,@required this.index}) : super(key: key);
+  final UserOrder? userOrder;
+  OrderDetailRow({Key? key, this.userOrder, @required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +16,9 @@ class OrderDetailRow extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(
 //          top: 20
-          top: screenwidth*0.0486
-      ),
+          top: screenwidth * 0.0486),
       width: screenwidth,
-      child:
-      Column(
+      child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,59 +30,51 @@ class OrderDetailRow extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: darkgrey,
 //                      fontSize: 13.5
-                      fontSize: screenwidth*0.0328
-                  )),
+                      fontSize: screenwidth * 0.0328)),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children:[
-              Container(
-                margin: EdgeInsets.only(
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Container(
+                  margin: EdgeInsets.only(
 //                    right: 100
-                    right: screenwidth*0.2433
-                ),
-                child: Text(
-                  "1 cup",
-                  style: getpoppins(TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: darkgrey.withOpacity(0.8),
+                      right: screenwidth * 0.2433),
+                  child: Text(
+                    "${userOrder?.qty} unit",
+                    style: getpoppins(TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: darkgrey.withOpacity(0.8),
 //                      fontSize: 10
-                      fontSize: screenwidth*0.0243
-                  )),
+                        fontSize: screenwidth * 0.0243)),
+                  ),
                 ),
-              ),
-              Container(
-                child: Text(
-                  "\$ "+getpriceforrow1(index),
-                  style: getpoppins(TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: darkgrey.withOpacity(0.8),
+                Container(
+                  child: Text(
+                    "\$ " + "${userOrder?.cost}",
+                    style: getpoppins(TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: darkgrey.withOpacity(0.8),
 //                      fontSize: 10
-                      fontSize: screenwidth*0.0243
-                  )),
+                        fontSize: screenwidth * 0.0243)),
+                  ),
                 ),
-              ),])
-
+              ])
             ],
           ),
           Container(
             margin: EdgeInsets.only(
 //                top: 8
-                top: screenwidth*0.0194
-            ),
+                top: screenwidth * 0.0194),
             width: screenwidth,
             height: 2.5,
             decoration: BoxDecoration(
-              color: darkgrey.withOpacity(0.2),
-              borderRadius: BorderRadius.all(Radius.circular(10))
-            ),
+                color: darkgrey.withOpacity(0.2),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
           )
-
         ],
       ),
     );
   }
+
   getimageforrow1(int? index) {
     if (index == 0) {
       return "assets/images/coffee1.png";

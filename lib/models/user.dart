@@ -1,6 +1,6 @@
 class Client {
-  int id;
-  String? imageUri,membershipNo, name, email, phone, role, gender, status, job;
+  dynamic id;
+  String? imageUri, membershipNo, name, email, phone, role, gender, status, job;
 
   Client(
       {required this.id,
@@ -30,18 +30,20 @@ class Client {
 }
 
 class User {
-  String name, email, password, passwordConfirmation, phone;
+  String name, email, job, gender, provider, providerId;
+  String? password, passwordConfirmation, phone;
 
   User(this.name, this.email, this.password, this.passwordConfirmation,
-      this.phone);
+      this.phone, this.job, this.gender, this.provider, this.providerId);
 
   Map<String, dynamic> toJson() {
     var newUserData = {
       "name": this.name,
       "email": this.email,
-      "password": this.password,
-      "password_confirmation": this.passwordConfirmation,
-      "phone": this.phone
+      "job": this.job,
+      "gender": this.gender,
+      "provider": this.provider,
+      "provider_id": this.providerId
     };
     return newUserData;
   }

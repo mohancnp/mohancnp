@@ -5,12 +5,13 @@ import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/theme.dart';
 
 class PaymentPageController extends GetxController {
-  bool emailreceiptswitch=true;
+  bool emailreceiptswitch = true;
 
-  setemailreceiptswitch(){
-  emailreceiptswitch=!emailreceiptswitch;
-  update();
+  setemailreceiptswitch() {
+    emailreceiptswitch = !emailreceiptswitch;
+    update();
   }
+
   Widget paymentoptions(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return Container(
@@ -152,7 +153,7 @@ class PaymentPageController extends GetxController {
         ));
   }
 
-  Widget receiptemailswitchrow(BuildContext context){
+  Widget receiptemailswitchrow(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return Container(
       width: screenwidth,
@@ -162,13 +163,12 @@ class PaymentPageController extends GetxController {
       margin: EdgeInsets.only(
         top: screenwidth * 0.0535,
       ),
-      child:
-      Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             margin: EdgeInsets.only(
-              //        left: 11
+                //        left: 11
                 left: screenwidth * 0.02676),
             child: Text(
               "Send receipt to your email",
@@ -180,38 +180,36 @@ class PaymentPageController extends GetxController {
             ),
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               setemailreceiptswitch();
             },
             child: AnimatedContainer(
               padding: EdgeInsets.symmetric(
 //                  horizontal: 3
-                  horizontal: screenwidth*0.00729
-              ),
+                  horizontal: screenwidth * 0.00729),
 //              height: 27,width: 52,
-              height: screenwidth*0.0656,width: screenwidth*0.126,
+              height: screenwidth * 0.0656, width: screenwidth * 0.126,
               duration: Duration(milliseconds: 175),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(40)),
-              color: emailreceiptswitch?coffeecolor:Colors.transparent,
-              border: Border.all(color: emailreceiptswitch?Colors.transparent:
-                  darkgrey,width: 1.2)
-            ),
-              alignment: emailreceiptswitch?Alignment.centerRight:
-              Alignment.centerLeft,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  color: emailreceiptswitch ? coffeecolor : Colors.transparent,
+                  border: Border.all(
+                      color: emailreceiptswitch ? Colors.transparent : darkgrey,
+                      width: 1.2)),
+              alignment: emailreceiptswitch
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 175),
 //                  height: 20,width: 20,
-                height: screenwidth*0.0486,width: screenwidth*0.0486,
+                height: screenwidth * 0.0486, width: screenwidth * 0.0486,
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: emailreceiptswitch?Colors.white:darkgrey,
-                  ),
+                  shape: BoxShape.circle,
+                  color: emailreceiptswitch ? Colors.white : darkgrey,
                 ),
-
+              ),
             ),
           )
-
         ],
       ),
     );

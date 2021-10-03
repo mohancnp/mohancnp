@@ -15,8 +15,11 @@ import 'package:metrocoffee/services/rest/single_product.dart';
 class CartProductCard extends StatelessWidget {
   final int? index;
   final CartData? cartData;
+  //0 tag if products in checkout,can't be deleted
+  int tag;
 
-  CartProductCard({Key? key, this.index, this.cartData}) : super(key: key);
+  CartProductCard({Key? key, this.index, this.cartData, this.tag = 0})
+      : super(key: key);
 
   final CartController cartController = Get.find<CartController>();
 
@@ -89,7 +92,7 @@ class CartProductCard extends StatelessWidget {
                             ),
                             Container(
                               child: Text(
-                                '\$ ${3}',
+                                '\$ ${cartData?.price}',
                                 style: getpoppins(TextStyle(
                                     fontWeight: FontWeight.w500,
                                     color: Color(0xff550E1C),
@@ -154,7 +157,7 @@ class CartProductCard extends StatelessWidget {
                                           BorderRadius.all(Radius.circular(18)),
                                     ),
                                     children: [
-                                      DeleteOrderDialog()
+                                      // DeleteOrderDialog()
                                       //   OrderSuccesfulDialog()
                                       //  CancelOrderDialog()
                                       // DeleteOrderDialog()
@@ -163,7 +166,9 @@ class CartProductCard extends StatelessWidget {
                     },
                     child: GestureDetector(
                       onTap: () {
-                        cartController.removeOrderProducts(cartData!);
+                        if (tag == 0) {
+                          cartController.removeOrderProducts(cartData!);
+                        }
                       },
                       child: Icon(
                         CupertinoIcons.xmark_circle,

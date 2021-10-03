@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/screens/sharables/checkout.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/userpreference.dart';
 import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
 import 'package:metrocoffee/screens/widgets/product/finalpricecalculationcard.dart';
 import 'package:metrocoffee/screens/contents/cartcontent/neworderspage.dart';
@@ -15,7 +17,6 @@ class MyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    cartController.getOrderProducts();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
@@ -23,6 +24,9 @@ class MyCart extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<CartController>(
         init: CartController(),
+        initState: (v) {
+          cartController.getOrderProducts();
+        },
         builder: (cartcontroller) {
           return Scaffold(
               backgroundColor: Colors.transparent,
@@ -43,8 +47,16 @@ class MyCart extends StatelessWidget {
                   FloatingActionButtonLocation.centerFloat,
               floatingActionButton: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "/CheckoutPage", (route) => true);
+                  showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            content: UserPreference(
+                                orders: cartController.cartDataList,
+                                oldContext: context),
+                          ));
+
+                  // Navigator.pushNamedAndRemoveUntil(
+                  //     context, "/CheckoutPage", (route) => true);
                 },
                 child: Container(
                   margin: EdgeInsets.only(

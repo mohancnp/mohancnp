@@ -20,9 +20,9 @@ class CartController extends GetxController {
       ProductDetail(id: 0, isFavorite: false, price: 0, name: 'N/A', type: "1")
           .obs;
 
-  Future checkProductExistence(productVariantId) async {
+  Future checkProductExistence(productId) async {
     // print("id on check $productId");
-    var exists = await cartHandlerDB.getProductWithId(productVariantId);
+    var exists = await cartHandlerDB.getProductWithId(productId);
     status.value = exists;
 
     // for (int i = 0; i < cartProducts.length; i++) {
@@ -51,25 +51,44 @@ class CartController extends GetxController {
         // print(element['orderId']);
         // print(element['name']);
         OrderProducts orderProduct = OrderProducts();
-        orderProduct.productVariantId = element['orderId'];
+        orderProduct.productId = element['productId'];
+        orderProduct.productVariantId = element['variantId'];
         orderProduct.qty = element['qty'];
+        String options = element['options'];
+        print(options.split(',').last);
+        // orderProduct.orderProductOptions=element
         var item = CartData(
           orderProducts: orderProduct,
           name: element['name'],
+          price: element['price'],
+          imageUri: element['imageUri'],
         );
         cartDataList.add(item);
       });
-      // print(cartDataList.elementAt(0).name);
-      // print(cartDataList.elementAt(1).name);
     }
+    cartDataList.refresh();
   }
 
   addOrderProducts(CartData cartData) async {
+    var optionString = "";
+    var addonString = "";
+    cartData.orderProducts.orderProductOptions?.forEach((element) {
+      optionString = optionString + "$element,";
+    });
+    cartData.orderProducts.orderProductAddons?.forEach((element) {
+      addonString = addonString + "$element,";
+    });
     var orderData = {
-      'orderId': cartData.orderProducts.productVariantId,
+      'variantId': cartData.orderProducts.productVariantId,
+      'productId': cartData.orderProducts.productId,
       'qty': cartData.orderProducts.qty,
-      'name': cartData.name
+      'name': cartData.name,
+      'imageUri': cartData.imageUri,
+      'options': optionString,
+      'addons': addonString,
+      'price': cartData.price,
     };
+    print("storedData:- $orderData");
     var res = await cartHandlerDB.addToCart(orderData);
     if (res >= 1) {
       cartDataList.add(cartData);
@@ -84,25 +103,28 @@ class CartController extends GetxController {
 
   removeOrderProducts(CartData cartData) async {
     //remove from the database if exists
-    var res = await cartHandlerDB
-        .removeFromCart(cartData.orderProducts.productVariantId);
+    var res =
+        await cartHandlerDB.removeFromCart(cartData.orderProducts.productId);
+
     if (res <= 0) {
       print('error removing from db');
     } else {
       print('removed from db');
       cartDataList.remove(cartData);
-      cartDataList.refresh();
     }
+    cartDataList.refresh();
     print(" Cart Products after being removed: ${cartDataList.length}");
   }
 
   Future getProductDetailWithId(int id) async {
     productService.getSingleProduct(id: id).then((response) {
       // print("single product detail: $response");
-      var prodObj = ProductDetail.fromJson(response['data']);
-      print("Cart widget data $prodObj");
-      pd.value = prodObj;
-      pd.refresh();
+      if (response != null) {
+        var prodObj = ProductDetail.fromJson(response['data']);
+        print("Cart widget data $prodObj");
+        pd.value = prodObj;
+        pd.refresh();
+      }
     });
   }
 }

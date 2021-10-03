@@ -1,5 +1,4 @@
 import 'package:metrocoffee/services/localstorage/db/core.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class CartHandlerDB {
@@ -31,7 +30,7 @@ class CartHandlerDB {
     try {
       if (db != null) {
         status =
-            await db.delete(cartTable, where: 'orderId = ?', whereArgs: [id]);
+            await db.delete(cartTable, where: 'productId = ?', whereArgs: [id]);
         print('remove status $status');
       }
     } on Exception catch (e) {
@@ -68,14 +67,15 @@ class CartHandlerDB {
     return list;
   }
 
-  Future<bool> getProductWithId(int orderId) async {
+  Future<bool> getProductWithId(int productId) async {
     bool exists = false;
     Database? db = await openDB();
     if (db != null) {
       var data = await db.query(cartTable,
-          columns: ['id', 'orderId', 'qty', 'name'],
-          where: 'orderId = ?',
-          whereArgs: [orderId]);
+          columns: ['id', 'productId', 'price', 'variantId', 'qty', 'name'],
+          where: 'productId = ?',
+          whereArgs: [productId]);
+
       if (data.length > 0) {
         exists = !exists;
       }

@@ -13,7 +13,7 @@ class PaymentPage extends StatelessWidget {
   PaymentPage({Key? key}) : super(key: key);
   final PaymentPageController paymentPageController =
       Get.put(PaymentPageController());
-
+  double total = 0;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -23,12 +23,16 @@ class PaymentPage extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
     return GetBuilder<PaymentPageController>(
-        initState: (v) {},
+        initState: (v) {
+          total = Get.arguments ?? 0.0;
+        },
         init: PaymentPageController(),
         builder: (paymentpagecontroller) {
           return Scaffold(
             backgroundColor: Color(0xffF3F5F5),
-            bottomNavigationBar: FinalCheckoutBottomNavigation(),
+            bottomNavigationBar: FinalCheckoutBottomNavigation(
+              finalAmount: total,
+            ),
             body: SingleChildScrollView(
               physics: AlwaysScrollableScrollPhysics(),
               child: Container(

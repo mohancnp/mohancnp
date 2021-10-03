@@ -3,7 +3,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -11,7 +10,7 @@
         android:label="Metro Coffee">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCFz5Xn-earJevt3tpcRW2crD1fYlee9Zo" />
+            android:value="AIzaSyAeQovUYnp9qL_ss6vcGLx18hBMJhkpXYI" />
 
         <activity
             android:name=".MainActivity"

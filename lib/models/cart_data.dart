@@ -4,6 +4,7 @@ class CartData {
   OrderProducts orderProducts;
   String? name;
   String? imageUri;
+  double? price;
 
-  CartData({required this.orderProducts, this.name, this.imageUri});
+  CartData({required this.orderProducts, this.name, this.imageUri, this.price});
 }
