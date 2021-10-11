@@ -47,13 +47,17 @@ class MyCart extends StatelessWidget {
                   FloatingActionButtonLocation.centerFloat,
               floatingActionButton: GestureDetector(
                 onTap: () {
-                  showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                            content: UserPreference(
-                                orders: cartController.cartDataList,
-                                oldContext: context),
-                          ));
+                  if (cartController.cartDataList.length < 1) {
+                    print("no product");
+                  } else {
+                    showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                              content: UserPreference(
+                                  orders: cartController.cartDataList,
+                                  oldContext: context),
+                            ));
+                  }
 
                   // Navigator.pushNamedAndRemoveUntil(
                   //     context, "/CheckoutPage", (route) => true);
