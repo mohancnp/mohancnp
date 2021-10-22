@@ -49,9 +49,7 @@ class ProductDetailController extends GetxController {
 
   List<Variant> sortList(variants) {
     if (variants.isNotEmpty && variants.length > 2) {
-      // print("variants: ${variants[0].name}");
-      // print("variants: ${variants[1].name}");
-      // print("variants: ${variants[2].name}");
+
       List<Variant> newList = [variants[0], variants[0], variants[0]];
       variants.forEach((element) {
         if (element.name == "Small") {
@@ -74,11 +72,13 @@ class ProductDetailController extends GetxController {
       if (productDetail != null) {
         double priceOfAVariant =
             (productDetail?.allVariants?.elementAt(this.currentsize).price);
-        print("price of product variant: $priceOfAVariant");
-        print("quanity ${orderProducts.qty}");
+        // print("product Id: ${productDetail.id}");
+
+        // print("price of product variant: $priceOfAVariant");
+        // print("quanity ${orderProducts.qty}");
 
         controller.totalPrice.value = priceOfAVariant * orderProducts.qty;
-        print("total price: ${controller.totalPrice.value}");
+        // print("total price: ${controller.totalPrice.value}");
       }
       return Text(
         "\$ ${controller.totalPrice.value.toPrecision(2)}",

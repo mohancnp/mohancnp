@@ -153,7 +153,9 @@ class TimeFrameOrderDetails extends StatelessWidget {
                     left: screenwidth * 0.0097,
                     bottom: screenwidth * 0.00608),
                 child: Text(
-                  "${orderDetail!.address!.addr1}",
+                  (orderDetail?.address == null)
+                      ? "N/A"
+                      : "${orderDetail?.address?.addr1}",
                   style: getpoppins(TextStyle(
                       fontWeight: FontWeight.w400,
                       color: coffeecolor,

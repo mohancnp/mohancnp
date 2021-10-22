@@ -21,6 +21,7 @@ class CheckoutBottomNavigation extends StatefulWidget {
   final int id;
   final OrderProducts orderProducts;
   final int? tag;
+
   //tag 0 means drinkdetail, 1 means productdetail
 
   const CheckoutBottomNavigation({
@@ -47,7 +48,6 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
   void initState() {
     // print("checkout page detected");
     super.initState();
-    // print(drinkDetailsController.totalPrice.value);
     drinkDetailsController.getProductDetails(widget.id).then((value) {
       setState(() {
         productDetail = value;

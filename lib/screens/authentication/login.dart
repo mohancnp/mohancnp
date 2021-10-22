@@ -142,7 +142,7 @@ class Login extends StatelessWidget {
                               child: GestureDetector(
                                   onTap: () async {
                                     //goggle sign in
-                                    // logincontroller.performGoogleSignin();
+                                    logincontroller.performGoogleSignin();
                                   },
                                   child: Container(
                                     margin: EdgeInsets.only(
@@ -197,7 +197,7 @@ class Login extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () async {
                                   //login through facebook
-                                  // socialLoginController.performFacebookLogin();
+                                  socialLoginController.performFacebookLogin();
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(

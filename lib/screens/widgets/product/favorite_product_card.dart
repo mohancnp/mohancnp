@@ -110,40 +110,4 @@ class FavoriteProductCard extends StatelessWidget {
       ),
     );
   }
-
-  getimageforrow1(int? index) {
-    if (index == 0) {
-      return "assets/images/coffee1.png";
-    }
-    if (index == 1) {
-      return "assets/images/coffe2.png";
-    }
-    if (index == 2) {
-      return "assets/images/coffee4.png";
-    }
-  }
-
-  gettitleforrow1(int? index) {
-    if (index == 0) {
-      return "Café Latte";
-    }
-    if (index == 1) {
-      return "Latte Machiato";
-    }
-    if (index == 2) {
-      return "Café Americano";
-    }
-  }
-
-  getpriceforrow1(int? index) {
-    if (index == 0) {
-      return "3.00";
-    }
-    if (index == 1) {
-      return "2.00";
-    }
-    if (index == 2) {
-      return "4.00";
-    }
-  }
 }

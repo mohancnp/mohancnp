@@ -56,6 +56,15 @@ class _SplashScreenState extends State<SplashScreen>
     });
   }
 
+  @override
+  void dispose() {
+    _imagescaleanimationcontroller.dispose();
+    _textscaleanimationcontroller.dispose();
+    _fadeanimationcontroller.dispose();
+    _downscaleanimationcontroller.dispose();
+    super.dispose();
+  }
+
   // Future<int> _getloginstatus() async {
   //   final prefs = await SharedPreferences.getInstance();
   //   final loginstatus = prefs.getInt('loginstatus');

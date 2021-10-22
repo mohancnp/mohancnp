@@ -11,8 +11,8 @@ import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 import 'package:metrocoffee/services/rest/login.dart';
 
 class SocialLoginController extends GetxController {
-  BaseController? baseController;
-  HomeTabController? homeTabController;
+  // BaseController? baseController;
+  // HomeTabController? homeTabController;
   bool isLoggedIn = false;
 
   UIState state = UIState.passive;
@@ -29,8 +29,8 @@ class SocialLoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    baseController = Get.find<BaseController>();
-    homeTabController = Get.find<HomeTabController>();
+    // baseController = Get.find<BaseController>();
+    // homeTabController = Get.find<HomeTabController>();
   }
 
   Future performFacebookLogin() async {
@@ -76,19 +76,21 @@ class SocialLoginController extends GetxController {
                   name: response['data']['name'],
                   email: response['data']['email'],
                   id: response['data']['id']);
-              homeTabController?.initializeAllData();
-              baseController?.setUserVerified();
+              // homeTabController?.initializeAllData();
+              // baseController?.setUserVerified();
               setActivity(UIState.completed);
               Get.offNamedUntil('/Base', (route) => false);
             } else {
-              Get.offNamedUntil('/SocialRegister', (route) => false,
-                  arguments: {
-                    "token": token,
-                    "provider": "facebook",
-                    "name": response['data']['name'],
-                    "email": response['data']['email'],
-                    "provider_id": response['data']['id'],
-                  });
+              print("Error logging into facebook");
+              // setActivity(UIState.error);
+              // Get.offNamedUntil('/SocialRegister', (route) => false,
+              //     arguments: {
+              //       "token": token,
+              //       "provider": "facebook",
+              //       "name": response['data']['name'],
+              //       "email": response['data']['email'],
+              //       "provider_id": response['data']['id'],
+              //     });
             }
             // print("server response data: $data");
           } else {
@@ -107,27 +109,26 @@ class SocialLoginController extends GetxController {
   Future performGoogleSignin() async {
     final googleSignIn = GoogleSignIn();
     try {
-      final user = await googleSignIn.signIn();
-      if (user == null) {
-        print('user is null');
-        // Navigator.pushNamedAndRemoveUntil(context, "/Base", (route) => false);
-        return;
-      } else {
-        // _setloginstatus();
-        // setloggingstatefalse();
-        print('user is not null');
-        final googleAuth = await user.authentication;
-        print(googleAuth.accessToken.toString());
-        //send this accessToken to the server
+      GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
+      GoogleSignInAccount? user = await _googleSignIn.signIn();
+      // _setloginstatus();
+      // setloggingstatefalse();
+      // print('user is not null');
+      final googleAuth = await user?.authentication;
+      print(" google access token: ${googleAuth?.accessToken.toString()}");
+      //send this accessToken to the server
+      if (googleAuth != null) {
         LoginService()
             .socialLogin(
                 accessToken: googleAuth.accessToken.toString(),
                 provider: 'google')
             .then((response) {
-          print("Response from Google Login: $response['message']");
+          print("Response from Google Sign in : $response['message']");
+          Get.offAllNamed("/Base");
         });
-        // Navigator.pushNamedAndRemoveUntil(context, "/Base", (route) => false);
       }
+      // Navigator.pushNamedAndRemoveUntil(context, "/Base", (route) => false);
+
     } catch (e) {
       print("Google Signing Error: $e");
     }

@@ -19,6 +19,7 @@ class OrderData {
       required this.userId});
 
   factory OrderData.fromJson(Map<dynamic, dynamic> data) {
+
     return OrderData.create(
         orderCount: data['order_products_count'],
         orderImage: data["order_image"],
@@ -51,7 +52,10 @@ class OrderDetail {
       this.address});
 
   factory OrderDetail.fromJson(Map<dynamic, dynamic> map) {
-    Address newAddress = Address.fromJson(map['address']);
+    Address? newAddress;
+    if(map['address']!=null){
+      Address newAddress = Address.fromJson(map['address']);
+    }
     List<UserOrder> userOrder = [];
     List<dynamic> opds = map['order_products'];
     List<UserOrder> usl = [];

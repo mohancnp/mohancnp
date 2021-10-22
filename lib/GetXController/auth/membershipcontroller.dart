@@ -17,14 +17,14 @@ class MemberShipController extends GetxController {
   bool showpassword = false;
   bool eye = false;
   String? memberShipLoginErrorMsg;
-  BaseController? baseController;
-  HomeTabController? homeTabController;
+  // BaseController? baseController;
+  // HomeTabController? homeTabController;
 
   @override
   void onInit() {
     super.onInit();
-    baseController = Get.find<BaseController>();
-    homeTabController = Get.find<HomeTabController>();
+    // baseController = Get.find<BaseController>();
+    // homeTabController = Get.find<HomeTabController>();
   }
 
   //to change ui based on the status of the future result(like api call file io etc)
@@ -65,8 +65,8 @@ class MemberShipController extends GetxController {
                   name: response['data']['user']['name'] ?? "",
                   email: response['data']['user']['email'] ?? "",
                   id: response['data']['user']['id'] ?? 0);
-          baseController?.setUserVerified();
-          homeTabController?.initializeAllData();
+          // baseController?.setUserVerified();
+          // homeTabController?.initializeAllData();
           setUiState(UIState.completed);
           Get.offNamedUntil('/Base', (route) => false);
         }

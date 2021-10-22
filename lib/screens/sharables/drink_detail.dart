@@ -32,7 +32,6 @@ class DrinkDetail extends StatelessWidget {
 
     return GetBuilder<DrinkDetailsController>(
         initState: (v) {
-          // print('inistate called');
           drinkDetailsController.addlistenertoexpand();
           drinkDetailsController.getProductDetails(drink.id);
           drinkDetailsController.orderProducts = OrderProducts();
@@ -43,9 +42,9 @@ class DrinkDetail extends StatelessWidget {
         },
         dispose: (v) {},
         init: DrinkDetailsController(),
-        builder: (productdetailscontroller) {
+        builder: (drinksDetailController) {
           // print(drinkDetailsController.pd?.isFavorite);
-          return productdetailscontroller.pd == null
+          return drinksDetailController.pd == null
               ? LoadingWidget()
               : Stack(
                   children: [
@@ -89,7 +88,7 @@ class DrinkDetail extends StatelessWidget {
                     Scaffold(
                       bottomNavigationBar: CheckoutBottomNavigation(
                         id: drink.id,
-                        orderProducts: productdetailscontroller.orderProducts,
+                        orderProducts: drinksDetailController.orderProducts,
                       ),
                       backgroundColor: Colors.transparent,
                       //    appBar:
@@ -130,16 +129,16 @@ class DrinkDetail extends StatelessWidget {
                                           onTap: () {
                                             // print(productdetailscontroller
                                             //     .productOrderCount);
-                                            var count = productdetailscontroller
+                                            var count = drinksDetailController
                                                 .orderProducts.qty;
                                             if (count > 1) {
-                                              productdetailscontroller
+                                              drinksDetailController
                                                   .removeCount();
                                             }
                                           },
                                           child: Icon(
                                             CupertinoIcons.minus_circle,
-                                            color: productdetailscontroller
+                                            color: drinksDetailController
                                                         .orderProducts.qty >
                                                     1
                                                 ? Colors.white
@@ -153,7 +152,7 @@ class DrinkDetail extends StatelessWidget {
                                               //          horizontal: 22
                                               horizontal: screenwidth * 0.0535),
                                           child: Text(
-                                            productdetailscontroller
+                                            drinksDetailController
                                                 .orderProducts.qty
                                                 .toString(),
                                             style: getpoppins(TextStyle(
@@ -166,7 +165,7 @@ class DrinkDetail extends StatelessWidget {
                                         GestureDetector(
                                           onTap: () {
                                             // add products to be orderd in cart
-                                            productdetailscontroller.addCount();
+                                            drinksDetailController.addCount();
                                           },
                                           child: Icon(
                                             CupertinoIcons.plus_circle,
@@ -225,7 +224,7 @@ class DrinkDetail extends StatelessWidget {
                                                     right:
                                                         screenwidth * 0.0535),
                                                 child: Text(
-                                                  "${productdetailscontroller.pd?.name ?? 'N/A'}",
+                                                  "${drinksDetailController.pd?.name ?? 'N/A'}",
                                                   style: getpoppins(TextStyle(
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -244,7 +243,7 @@ class DrinkDetail extends StatelessWidget {
                                                                 .id); // print(status);
                                                   },
                                                   child: getFavoriteWidget(
-                                                      productdetailscontroller,
+                                                      drinksDetailController,
                                                       screenwidth,
                                                       screenheight)),
                                             ],
@@ -255,14 +254,14 @@ class DrinkDetail extends StatelessWidget {
                                                 left: screenwidth * 0.0535,
                                                 right: screenwidth * 0.0535),
                                             child: Text(
-                                              (productdetailscontroller
+                                              (drinksDetailController
                                                           .pd?.ingredients ==
                                                       null)
                                                   ? "Caffe latte is a coffee drink "
                                                       "made with espresso and steamed milk. "
                                                       "The word comes from the Italian caffè e "
                                                       'which means "coffee & milk".'
-                                                  : "${productdetailscontroller.pd?.ingredients}",
+                                                  : "${drinksDetailController.pd?.ingredients}",
                                               style: getpoppins(TextStyle(
                                                   fontWeight: FontWeight.w300,
                                                   color:
@@ -275,23 +274,23 @@ class DrinkDetail extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    productdetailscontroller
+                                    drinksDetailController
                                         .drinktemperatureoption(context),
-                                    productdetailscontroller.drinksize(context),
-                                    (productdetailscontroller.pd != null)
-                                        ? productdetailscontroller
+                                    drinksDetailController.drinksize(context),
+                                    (drinksDetailController.pd != null)
+                                        ? drinksDetailController
                                             .toppingsoptions(context)
                                         : SizedBox(
                                             height: 0,
                                           ),
-                                    (productdetailscontroller.pd != null)
-                                        ? productdetailscontroller
+                                    (drinksDetailController.pd != null)
+                                        ? drinksDetailController
                                             .milkoptions(context)
                                         : SizedBox(
                                             height: 0,
                                           ),
-                                    (productdetailscontroller.pd != null)
-                                        ? productdetailscontroller
+                                    (drinksDetailController.pd != null)
+                                        ? drinksDetailController
                                             .extrasrow(context)
                                         : SizedBox(
                                             height: 0,

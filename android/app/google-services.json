@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:873800795701:android:ddf86f5bec5d378f0e937c",
+        "mobilesdk_app_id": "1:873800795701:android:502f8fe3cd4362390e937c",
         "android_client_info": {
-          "package_name": "com.metrocoffee.metrocoffee"
+          "package_name": "com.clickandpress.metrocoffee"
         }
       },
       "oauth_client": [
         {
-          "client_id": "873800795701-1sl6fcvdruhdgsgdl6l8g6tvcp8o0rfq.apps.googleusercontent.com",
+          "client_id": "873800795701-kae3ehavfo3dfr61kfn88h4786ha6k85.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.metrocoffee.metrocoffee",
-            "certificate_hash": "4d6abeab18d6cb57a1fc7746fd11cce9d6bf5c0d"
+            "package_name": "com.clickandpress.metrocoffee",
+            "certificate_hash": "fece17a829870ffc8b0560d83289cf2c678423f8"
           }
         },
         {

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/constants/instances.dart';
-import 'package:metrocoffee/models/order.dart';
+import 'package:metrocoffee/enums/uistate.dart';
 import 'package:metrocoffee/models/order_data.dart';
-import 'package:metrocoffee/screens/widgets/product/singletimeframeorders.dart';
 import 'package:metrocoffee/screens/widgets/product/timeframeorders.dart';
 import '../../../theme.dart';
 
@@ -17,22 +17,33 @@ class MyOrderPage extends StatefulWidget {
 }
 
 class _MyOrderPageState extends State<MyOrderPage> {
-  List<OrderData> myOrderList = [];
+  List<dynamic> myOrderList = [];
+  UIState status = UIState.processing;
 
   @override
   void initState() {
     orderService.getOrders().then((value) {
-      List<OrderData> newList = [];
-
+      List<OrderData> todaysOrder = [];
+      List<OrderData> thisMonthOrder = [];
       if (value != null) {
         List<dynamic> data = value.data['data']['data'];
         data.forEach((element) {
           OrderData orderData = OrderData.fromJson(element);
-          newList.add(orderData);
+          var dateTime = DateTime.parse(orderData.createdAt.substring(0, 16));
+          var thisMonth = "${DateTime.now().year}/${DateTime.now().month}";
+          var orderMonth = "${dateTime.year}/${dateTime.month}";
+          if (thisMonth == orderMonth) {
+            thisMonthOrder.add(orderData);
+          }
         });
       }
+      myOrderList.add(0);
+      myOrderList.addAll(todaysOrder);
+      myOrderList.add(1);
+      myOrderList.addAll(thisMonthOrder);
+
       setState(() {
-        myOrderList = newList;
+        status = UIState.completed;
       });
     });
     super.initState();
@@ -100,26 +111,50 @@ class _MyOrderPageState extends State<MyOrderPage> {
                     left: screenwidth * 0.0535,
                     right: screenwidth * 0.0535,
                   ),
-                  child: myOrderList.isEmpty
-                      ? SizedBox(
-                          child: Center(
-                            child: Text('no order yet '),
-                          ),
+                  child: status == UIState.processing
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SpinKitCubeGrid(
+                              color: Colors.blue,
+                            ),
+                          ],
                         )
-                      : ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: myOrderList.length,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            OrderData newData = myOrderList.elementAt(index);
-                            return TimeFrameOrders(
-                                index: index, orderData: newData);
-                            // return SingleTimeFrameReorders(
-                            //   index: index,
-                            //   orderData: newData,
-                            // );
-                          }))
+                      : (status == UIState.error)
+                          ? SizedBox(
+                              child: Center(
+                                child: Text('Error retrieving your order'),
+                              ),
+                            )
+                          : ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: myOrderList.length,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                if (myOrderList.elementAt(index) == 0) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, bottom: 8.0),
+                                    child: Text("Today"),
+                                  );
+                                }
+                                if (myOrderList.elementAt(index) == 1) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, bottom: 8.0),
+                                    child: Text("This Month"),
+                                  );
+                                }
+                                OrderData newData =
+                                    myOrderList.elementAt(index);
+                                return TimeFrameOrders(
+                                    index: index, orderData: newData);
+                                // return SingleTimeFrameReorders(
+                                //   index: index,
+                                //   orderData: newData,
+                                // );
+                              }))
             ],
           ),
         ),

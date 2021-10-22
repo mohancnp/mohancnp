@@ -84,7 +84,10 @@ class DrinkDetailsController extends GetxController {
     });
   }
 
+  //prices value differ according to the default selection of the drinksize initially
+  //hence price  might differ from  that  in drink listing page in detail page.
   Widget reflectPriceForDrinks(screenwidth, orderProducts, productDetail) {
+
     return GetX<DrinkDetailsController>(builder: (controller) {
       if (productDetail != null) {
         double total = this.totalPrice.value;
@@ -94,6 +97,8 @@ class DrinkDetailsController extends GetxController {
 
         //getting variant object o the above index
         Variant? v = productDetail?.allVariants?.elementAt(variantIndex);
+        print("${this.totalPrice}");
+
         //getting price of the addons selected
         double priceOfAddons = this.selectedPrice.value;
 

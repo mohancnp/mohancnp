@@ -72,15 +72,13 @@ class TimeFrameOrders extends StatelessWidget {
                               fontSize: screenwidth * 0.03527)),
                         ),
                       ),
-                      Container(
-                        child: Text(
-                          "Date: ${orderData.createdAt.substring(0, 17)}",
-                          style: getpoppins(TextStyle(
-                              fontWeight: FontWeight.w300,
-                              color: Color(0xff404D4D),
-                              //         fontSize: 11.5
-                              fontSize: screenwidth * 0.0279)),
-                        ),
+                      Text(
+                        "Date: ${DateTime.parse('${orderData.createdAt.substring(0, 16).toString()}').toString().substring(0, 16)}",
+                        style: getpoppins(TextStyle(
+                            fontWeight: FontWeight.w300,
+                            color: Color(0xff404D4D),
+                            //         fontSize: 11.5
+                            fontSize: screenwidth * 0.0279)),
                       ),
                       Container(
                           child: Text(

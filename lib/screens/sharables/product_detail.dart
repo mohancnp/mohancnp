@@ -23,6 +23,7 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Product product = ModalRoute.of(context)!.settings.arguments as Product;
+    // print("Id sent ${product.id}");
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
@@ -87,7 +88,7 @@ class ProductDetail extends StatelessWidget {
                     Scaffold(
                       backgroundColor: Colors.transparent,
                       bottomNavigationBar: CheckoutBottomNavigation(
-                        id: prod.id,
+                        id: product.id,
                         orderProducts: productDetailsController.orderProducts,
                         tag: 1,
                       ),

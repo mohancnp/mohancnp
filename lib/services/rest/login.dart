@@ -52,16 +52,11 @@ class LoginService {
     var user = {
       "access_token": accessToken,
       "provider": provider,
-      "grant_type": "social",
-      "client_id": 1,
-      "client_secret": "HbOPLQY8p3D7jIdFOtClxDDudDSIil7YjSM99oEj",
-      "job": "random",
-      "gender": "male",
     };
 
     try {
       var response = await dio.post("$baseUrl/oauth/token", data: user);
-      // print(response.statusMessage);
+      print(" server response code social login: ${response.statusMessage}");
       return response.data;
     } on DioError catch (exp) {
       print(" $provider Login Exception: ${exp.response?.data}");

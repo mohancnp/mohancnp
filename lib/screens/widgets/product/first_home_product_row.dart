@@ -40,8 +40,7 @@ class FirstHomeProductRow extends StatelessWidget {
                         Product p = pList.elementAt(index);
                         return GestureDetector(
                             onTap: () {
-                              // Navigator.pushNamedAndRemoveUntil(
-                              //     context, '/ProductDetails', (route) => true);
+                              Get.toNamed("/ProductDetails", arguments: p);
                             },
                             child: Container(
                                 margin: EdgeInsets.only(
@@ -155,12 +154,7 @@ class FirstHomeProductRow extends StatelessWidget {
                                                           child: Center(
                                                             child:
                                                                 GestureDetector(
-                                                              onTap: () {
-                                                                Get.toNamed(
-                                                                    "/ProductDetails",
-                                                                    arguments:
-                                                                        p);
-                                                              },
+                                                              onTap: () {},
                                                               child: Icon(
                                                                 Icons.favorite,
                                                                 color: Colors
@@ -177,14 +171,14 @@ class FirstHomeProductRow extends StatelessWidget {
                                                     ),
                                                   ],
                                                 ),
-                                                Positioned(
-                                                    left: 0,
-                                                    //     top: 12,
-                                                    top: screenwidth * 0.02919,
-                                                    child: RatingsRow(
-                                                      rating: 4.5,
-                                                      backgrounddark: false,
-                                                    )),
+                                                // Positioned(
+                                                //     left: 0,
+                                                //     //     top: 12,
+                                                //     top: screenwidth * 0.02919,
+                                                //     child: RatingsRow(
+                                                //       rating: 4.5,
+                                                //       backgrounddark: false,
+                                                //     )),
                                               ]),
                                             )),
                                       )),
@@ -213,40 +207,4 @@ class FirstHomeProductRow extends StatelessWidget {
                     ));
     });
   }
-
-// getimageforrow1(int index) {
-//   if (index == 0) {
-//     return "assets/images/productimages/burgermetrocoffee.png";
-//   }
-//   if (index == 1) {
-//     return "assets/images/productimages/correctsandwich.png";
-//   }
-//   if (index == 2) {
-//     return "assets/images/productimages/pngfind.com-pizza-emoji-png-800270@3x.png";
-//   }
-// }
-//
-// gettitleforrow1(int index) {
-//   if (index == 0) {
-//     return "Burger";
-//   }
-//   if (index == 1) {
-//     return "Sandwich";
-//   }
-//   if (index == 2) {
-//     return "Pizza";
-//   }
-// }
-//
-// getpriceforrow1(int index) {
-//   if (index == 0) {
-//     return "3.00";
-//   }
-//   if (index == 1) {
-//     return "2.00";
-//   }
-//   if (index == 2) {
-//     return "4.00";
-//   }
-// }
 }
