@@ -4,14 +4,16 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/models/order_data.dart';
+import 'package:metrocoffee/screens/sharables/order_details.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
 class TimeFrameOrders extends StatelessWidget {
   final int? index;
   final OrderData orderData;
+  final bool? reorder;
 
   const TimeFrameOrders(
-      {Key? key, @required this.index, required this.orderData})
+      {Key? key, @required this.index, this.reorder, required this.orderData})
       : super(key: key);
 
   @override
@@ -97,11 +99,19 @@ class TimeFrameOrders extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              print("sent id : ${orderData.id}");
-              Get.toNamed(
-                '/OrderDetails',
-                arguments: orderData.id,
-              );
+              // print("sent id : ${orderData.id}");
+              if (reorder != null) {
+                Get.to(
+                    () => OrderDetails(
+                          reorder: reorder,
+                        ),
+                    arguments: orderData.id);
+              } else {
+                Get.toNamed(
+                  '/OrderDetails',
+                  arguments: orderData.id,
+                );
+              }
             },
             child: Container(
               child: Row(

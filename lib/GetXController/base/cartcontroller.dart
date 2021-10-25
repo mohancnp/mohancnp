@@ -9,7 +9,7 @@ class CartController extends GetxController {
 
   settabindex(int index) {
     tabindex = index;
-    // update();
+    update();
   }
 
   Rx<bool> status = false.obs;
@@ -126,5 +126,18 @@ class CartController extends GetxController {
         pd.refresh();
       }
     });
+  }
+
+  Future updateCartProductCountWithId(int atIndex, int id, int count) async {
+    //update the database if exists
+    bool affected = await cartHandlerDB.updateCart(id, count);
+
+    if (!affected) {
+      print('error updating cart in db');
+    } else {
+      cartDataList[atIndex].orderProducts.qty = count;
+    }
+    cartDataList.refresh();
+    print(" Cart Products count updated to $count");
   }
 }

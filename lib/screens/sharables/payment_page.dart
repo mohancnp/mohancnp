@@ -6,8 +6,8 @@ import 'package:metrocoffee/GetXController/payment/payment_page_controller.dart'
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/payment/credit_card_box.dart';
 import 'package:metrocoffee/screens/widgets/product/final_checkout_bottomnavigation.dart';
-
 import '../../theme.dart';
+
 
 class PaymentPage extends StatelessWidget {
   PaymentPage({Key? key}) : super(key: key);
@@ -48,7 +48,7 @@ class PaymentPage extends StatelessWidget {
                       centerTitle: true,
                       leading: IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
                         },
                         icon: Icon(
                           CupertinoIcons.back,

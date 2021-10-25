@@ -82,4 +82,19 @@ class CartHandlerDB {
     }
     return exists;
   }
+
+  Future<bool> updateCart(int productId, int count) async {
+    bool affected = false;
+
+    Database? db = await openDB();
+    if (db != null) {
+      Map<String, dynamic> updatedCart = {'qty': count};
+      var affectedRows = await db.update(cartTable, updatedCart,
+          where: 'productId = ?', whereArgs: [productId]);
+      if (affectedRows > 0) {
+        affected = true;
+      }
+    }
+    return affected;
+  }
 }

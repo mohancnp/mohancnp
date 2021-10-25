@@ -278,7 +278,6 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                           ?.elementAt(productDetailsController.currentsize)
                           .id;
                     }
-
                     widget.orderProducts.productId = widget.id;
 
                     //building the selected option

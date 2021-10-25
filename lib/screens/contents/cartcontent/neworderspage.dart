@@ -3,20 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/userpreference.dart';
 import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../widgets/product/finalpricecalculationcard.dart';
 
 class NewOrdersPage extends StatelessWidget {
-  final CartController controller = Get.find<CartController>();
+  final CartController cartController = Get.find<CartController>();
 
   NewOrdersPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      // mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
@@ -40,7 +43,7 @@ class NewOrdersPage extends StatelessWidget {
                 }),
                 GestureDetector(
                   onTap: () {
-                    controller.emptyCart();
+                    // cartController.emptyCart();
                   },
                   child: Container(
                       child: Row(
@@ -76,7 +79,6 @@ class NewOrdersPage extends StatelessWidget {
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
                 var c = cartController.cartDataList.elementAt(index);
-                // print(c.name);
                 //gets the data for the product id
                 cartController
                     .getProductDetailWithId(c.orderProducts.productId);
@@ -96,7 +98,50 @@ class NewOrdersPage extends StatelessWidget {
             color: Color(0xffA5A5A5).withOpacity(0.4),
           ),
         ),
-        FinalProductCalculationCard()
+        FinalProductCalculationCard(),
+        GestureDetector(
+          onTap: () {
+            if (cartController.cartDataList.length < 1) {
+              print("No products Available");
+            } else {
+              showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        content: UserPreference(
+                            orders: cartController.cartDataList,
+                            oldContext: context),
+                      ));
+            }
+          },
+          child: Container(
+            margin: EdgeInsets.only(
+//                    bottom: 12
+                bottom: screenwidth * 0.0291,
+                top: 41.h),
+//                height: 47, width: 245,
+            height: screenwidth * 0.114,
+            width: screenwidth * 0.5961,
+            decoration: BoxDecoration(
+                color: Color(0xff550E1C),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color(0xffC3916A).withOpacity(0.5),
+                      blurRadius: 30,
+                      offset: Offset(0, 9))
+                ]),
+            child: Center(
+              child: Text(
+                "Proceed to Checkout",
+                style: getpoppins(TextStyle(
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white,
+                    //       fontSize: 15
+                    fontSize: screenwidth * 0.0364)),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

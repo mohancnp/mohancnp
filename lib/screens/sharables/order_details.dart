@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/constants/instances.dart';
+import 'package:metrocoffee/enums/uistate.dart';
 import 'package:metrocoffee/models/order_data.dart';
 import 'package:metrocoffee/screens/widgets/product/singletimeframeorderdetails.dart';
 import 'package:metrocoffee/screens/widgets/product/timeframeorderdetails.dart';
@@ -11,7 +13,9 @@ import 'package:metrocoffee/screens/widgets/product/timeframeorderdetails.dart';
 import '../../theme.dart';
 
 class OrderDetails extends StatefulWidget {
-  const OrderDetails({Key? key}) : super(key: key);
+  final bool? reorder;
+
+  const OrderDetails({Key? key, this.reorder}) : super(key: key);
 
   @override
   _OrderDetailsState createState() => _OrderDetailsState();
@@ -19,16 +23,22 @@ class OrderDetails extends StatefulWidget {
 
 class _OrderDetailsState extends State<OrderDetails> {
   OrderDetail? orderDetail;
+  UIState status = UIState.processing;
+
   @override
   void initState() {
     super.initState();
     int orderId = Get.arguments ?? 0;
-    print("receoved Id: $orderId");
-
+    // print("received Id: $orderId");
     orderService.getOrderWithId(orderId).then((value) {
       if (value != null) {
+        orderDetail = OrderDetail.fromJson(value['data']);
         setState(() {
-          orderDetail = OrderDetail.fromJson(value['data']);
+          if (orderDetail == null) {
+            status = UIState.passive;
+          } else {
+            status = UIState.completed;
+          }
         });
       }
     });
@@ -88,19 +98,24 @@ class _OrderDetailsState extends State<OrderDetails> {
                 color: Color(0xffA5A5A5).withOpacity(0.4),
               ),
             ),
-            orderDetail == null
+            status == UIState.passive
                 ? SizedBox()
-                : ListView.builder(
-                    itemCount: 1,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return TimeFrameOrderDetails(
-                        index: index,
-                        orderDetail: orderDetail,
-                      );
-                    })
+                : (status == UIState.processing)
+                    ? SpinKitCubeGrid(
+                        color: coffeecolor,
+                      )
+                    : ListView.builder(
+                        itemCount: 1,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return TimeFrameOrderDetails(
+                            index: index,
+                            reorder: widget.reorder,
+                            orderDetail: orderDetail,
+                          );
+                        })
           ],
         ),
       ),

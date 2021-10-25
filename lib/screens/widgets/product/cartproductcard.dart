@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/constants/instances.dart';
 import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/add_card_dialog.dart';
@@ -15,6 +16,7 @@ import 'package:metrocoffee/services/rest/single_product.dart';
 class CartProductCard extends StatelessWidget {
   final int? index;
   final CartData? cartData;
+
   //0 tag if products in checkout,can't be deleted
   int tag;
 
@@ -126,7 +128,20 @@ class CartProductCard extends StatelessWidget {
                                     ),
                                   ),
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () async {
+                                      int newCount = 0;
+                                      if (cartData?.orderProducts != null) {
+                                        var op = cartData!.orderProducts;
+                                        newCount = op.qty++;
+                                      }
+                                      //increase the product count
+                                      await cartController
+                                          .updateCartProductCountWithId(
+                                              index ?? 0,
+                                              cartData?.orderProducts
+                                                  .productVariantId,
+                                              newCount);
+                                    },
                                     child: Icon(
                                       CupertinoIcons.plus_circle,
                                       //      size: 20,

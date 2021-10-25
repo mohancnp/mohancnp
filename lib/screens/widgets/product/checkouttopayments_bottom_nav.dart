@@ -87,14 +87,12 @@ class CheckoutoPaymentsBottomNav extends StatelessWidget {
                           onTap: () async {
                             cart.setUIState(UIState.processing);
                             int i = cart.selectedAddressIndex.value;
-                            // print("${controller.addresses}${controller.timeFromEnd}");
                             if (orders != null) {
                               Order order = new Order();
                               orders!.forEach((element) {
                                 order.orderProductList
                                     ?.add(element.orderProducts);
                               });
-                              // print("index in use $i");
                               order.addressId =
                                   controller.addresses.elementAt(i).id;
                               order.deliveryTimeFrom =

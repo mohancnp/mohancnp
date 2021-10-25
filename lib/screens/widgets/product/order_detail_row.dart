@@ -7,7 +7,8 @@ import '../../../theme.dart';
 class OrderDetailRow extends StatelessWidget {
   final int? index;
   final UserOrder? userOrder;
-  OrderDetailRow({Key? key, this.userOrder, @required this.index})
+  final bool? reorder;
+  OrderDetailRow({Key? key,this.reorder, this.userOrder, @required this.index})
       : super(key: key);
 
   @override
@@ -47,15 +48,13 @@ class OrderDetailRow extends StatelessWidget {
                         fontSize: screenwidth * 0.0243)),
                   ),
                 ),
-                Container(
-                  child: Text(
-                    "\$ " + "${userOrder?.cost}",
-                    style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: darkgrey.withOpacity(0.8),
+                Text(
+                  "\$ " + "${userOrder?.cost}",
+                  style: getpoppins(TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: darkgrey.withOpacity(0.8),
 //                      fontSize: 10
-                        fontSize: screenwidth * 0.0243)),
-                  ),
+                      fontSize: screenwidth * 0.0243)),
                 ),
               ])
             ],

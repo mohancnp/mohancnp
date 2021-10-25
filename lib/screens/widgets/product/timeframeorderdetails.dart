@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/order_data.dart';
+import 'package:metrocoffee/screens/sharables/payment_page.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/cancel_order_dialog.dart';
 import 'package:metrocoffee/screens/widgets/product/order_detail_row.dart';
 import 'package:metrocoffee/theme.dart';
@@ -9,9 +13,12 @@ import 'package:metrocoffee/theme.dart';
 class TimeFrameOrderDetails extends StatelessWidget {
   final int? index;
   final OrderDetail? orderDetail;
+  final bool? reorder;
 
-  TimeFrameOrderDetails({Key? key, @required this.index, this.orderDetail})
+  TimeFrameOrderDetails(
+      {Key? key, this.reorder, @required this.index, this.orderDetail})
       : super(key: key);
+  final checkoutController = Get.put(CheckoutController());
 
   @override
   Widget build(BuildContext context) {
@@ -232,6 +239,22 @@ class TimeFrameOrderDetails extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
+              if (reorder != null) {
+                if (reorder == true) {
+                  //order the product from here and go to the payments page
+                  //build the order
+                  // Order order=new Order();
+                  // order.addressId=orderDetail?.addressId;
+                  // order.deliveryTimeFrom=orderDetail?.deliveryTimeFrom;
+                  // order.deliveryTimeEnd=orderDetail?.deliveryTimeEnd;
+                  // OrderProducts opl=OrderProducts();
+
+                  // checkoutController.sendOrderToServer(order);
+
+                  // Get.toNamed("/PaymentsPage", arguments: orderDetail!.cost);
+                }
+              }
+              //allow to cancel order if it is pending
               if (orderDetail?.status == "pending") {
                 showDialog(
                     context: context,
@@ -257,17 +280,18 @@ class TimeFrameOrderDetails extends StatelessWidget {
 //            height: 31,width: 123,
               height: screenwidth * 0.0754, width: screenwidth * 0.299,
               decoration: BoxDecoration(
-                  color: Colors.transparent,
+                  color: reorder == true ? coffeecolor : Colors.transparent,
                   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(color: Colors.redAccent, width: 1.5)),
+                  border: reorder == true
+                      ? null
+                      : Border.all(color: Colors.redAccent, width: 1.5)),
               child: Center(
                 child: Text(
-                  orderDetail?.status == "pending"
-                      ? "Cancel Order"
-                      : "${orderDetail?.status}",
+                  getTextAccordingToStatus(),
                   style: getpoppins(TextStyle(
                       fontWeight: FontWeight.w400,
-                      color: Colors.redAccent,
+                      color:
+                          (reorder == true) ? Colors.white : Colors.redAccent,
 //                      fontSize: 12.5
                       fontSize: screenwidth * 0.0304)),
                 ),
@@ -277,5 +301,17 @@ class TimeFrameOrderDetails extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String getTextAccordingToStatus() {
+    if (reorder != null) {
+      if (reorder == true) {
+        return "Re Order";
+      }
+    }
+    if (orderDetail?.status == "Pending") {
+      return "Cancel Order";
+    }
+    return orderDetail?.status ?? "N/A";
   }
 }
