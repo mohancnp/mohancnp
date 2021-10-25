@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:metrocoffee/services/dioerror_catcher.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
@@ -31,7 +32,7 @@ class AddressService {
         else
           return null;
       } on DioError catch (e) {
-        catchDioError(e);
+        catchAndPrintDioError(e);
       }
       return null;
     }
@@ -51,7 +52,7 @@ class AddressService {
         }
         return null;
       } on DioError catch (e) {
-        catchDioError(e);
+        catchAndPrintDioError(e);
       }
     }
     return null;
@@ -68,7 +69,6 @@ class AddressService {
         dio.options.headers["Authorization"] = "Bearer $token";
         dio.options.headers["Content-Type"] =
             "application/x-www-form-urlencoded";
-
         var response =
             await dio.post('$baseUrl/api/address', data: addressToAdd);
         if (response.statusCode == 200) {
@@ -76,7 +76,7 @@ class AddressService {
         } else
           return false;
       } on DioError catch (e) {
-        catchDioError(e);
+        catchAndPrintDioError(e);
       }
     }
     return false;
@@ -96,7 +96,7 @@ class AddressService {
         } else
           return false;
       } on DioError catch (e) {
-        catchDioError(e);
+        catchAndPrintDioError(e);
       }
     }
     return false;
@@ -116,33 +116,10 @@ class AddressService {
         } else
           return false;
       } on DioError catch (e) {
-        catchDioError(e);
+        catchAndPrintDioError(e);
       }
     }
     return false;
   }
 
-  void catchDioError(DioError e) {
-    switch (e.type) {
-      case DioErrorType.connectTimeout:
-        print("connection time out for the request");
-        break;
-      case DioErrorType.sendTimeout:
-        print("send time out for the request");
-        break;
-      case DioErrorType.receiveTimeout:
-        print("receive time out for the request");
-        break;
-      case DioErrorType.cancel:
-        print("The request has been cancelled");
-        break;
-      case DioErrorType.response:
-        print(e.message + "${e.response?.data}" + e.error);
-        print("Server Responded with incorrect status,4xx and 5xx");
-        break;
-      case DioErrorType.other:
-        print("undefined other type of error");
-        break;
-    }
-  }
 }

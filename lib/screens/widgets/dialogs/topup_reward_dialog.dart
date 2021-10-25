@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/theme.dart';
 class TopUpRewardDialog extends StatelessWidget {
-  const TopUpRewardDialog({Key? key}) : super(key: key);
-
+  const TopUpRewardDialog({Key? key,this.rewardPoint}) : super(key: key);
+  final String? rewardPoint;
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;

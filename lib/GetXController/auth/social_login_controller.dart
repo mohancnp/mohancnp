@@ -29,8 +29,6 @@ class SocialLoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // baseController = Get.find<BaseController>();
-    // homeTabController = Get.find<HomeTabController>();
   }
 
   Future performFacebookLogin() async {

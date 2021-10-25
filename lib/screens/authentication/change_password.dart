@@ -5,13 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/profile/personaldatapagecontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
-
 import '../../theme.dart';
 
 class ChangePasswordPage extends StatelessWidget {
   ChangePasswordPage({Key? key}) : super(key: key);
   final PersonalDataPageController personalDataPageController =
-      Get.put(PersonalDataPageController());
+      Get.find<PersonalDataPageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,11 @@ class ChangePasswordPage extends StatelessWidget {
     ]);
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<PersonalDataPageController>(
-        initState: (v) {},
+        initState: (v) {
+          personalDataPageController.currentpasswordcontroller.text = "";
+          personalDataPageController.newpasswordcontroller.text = "";
+          personalDataPageController.confirmpasswordcontroller.text = "";
+        },
         init: PersonalDataPageController(),
         builder: (personaldatacontroller) {
           return Scaffold(
@@ -57,7 +60,7 @@ class ChangePasswordPage extends StatelessWidget {
                             margin: EdgeInsets.only(left: 11),
                             child: Center(
                               child: Text(
-                                "Password changes succesfully",
+                                "Password changes successfully",
                                 style: getpoppins(TextStyle(
                                     fontWeight: FontWeight.w400,
                                     color: Colors.white,
@@ -90,6 +93,8 @@ class ChangePasswordPage extends StatelessWidget {
                       centerTitle: true,
                       leading: IconButton(
                         onPressed: () {
+                          personalDataPageController
+                              .passwordchangedsuccesfully = false;
                           Navigator.pop(context);
                         },
                         icon: Icon(
@@ -162,7 +167,7 @@ class ChangePasswordPage extends StatelessWidget {
                         children: [
                           Container(
                             child: Text(
-                              "Create new pasword",
+                              "Create new password",
                               style: getpoppins(TextStyle(
                                   fontWeight: FontWeight.w500,
 //                                  fontSize: 22.5,
@@ -200,6 +205,10 @@ class ChangePasswordPage extends StatelessWidget {
                           ],
                         )),
                     personaldatacontroller.changepasswordtextfields(context),
+                    Text(
+                      "${personalDataPageController.errorMessage ?? ''}",
+                      style: TextStyle(color: Colors.red, fontSize: 12),
+                    ),
                     personaldatacontroller.changepasswordbutton(context),
                   ],
                 ),

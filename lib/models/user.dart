@@ -1,6 +1,9 @@
 class Client {
   dynamic id;
   String? imageUri, membershipNo, name, email, phone, role, gender, status, job;
+  dynamic points;
+
+  Client.update(this.name, this.email, this.imageUri);
 
   Client(
       {required this.id,
@@ -12,6 +15,7 @@ class Client {
       required this.gender,
       required this.status,
       required this.job,
+      this.points,
       required this.membershipNo});
 
   factory Client.fromJson(Map<String, dynamic> client) {
@@ -25,7 +29,28 @@ class Client {
         gender: client['customer'],
         status: client['status'],
         job: client['job'],
+        points: client['points'],
         membershipNo: client['membership_no']);
+  }
+
+  Map<String, dynamic> jsonToUpdate() {
+
+
+    var newUserData = {
+      "name": this.name,
+      "email": this.email,
+      "job":this.job,
+      "gender":this.gender,
+      "profile_pic": this.imageUri,
+    };
+    if(this.job==null){
+      newUserData.remove("job");
+    }
+    if(this.gender==null){
+      newUserData.remove("gender");
+    }
+
+    return newUserData;
   }
 }
 

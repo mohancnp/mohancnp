@@ -3,8 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/constants/instances.dart';
+import 'package:metrocoffee/enums/uistate.dart';
 import 'package:metrocoffee/models/UserprofileModel.dart';
+import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/api_service.dart';
+import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/theme.dart';
 
 import '../../../locator.dart';
@@ -16,20 +20,57 @@ class PersonalDataPageController extends GetxController {
   TextEditingController jobcontroller = TextEditingController();
   TextEditingController membershipcontroller = TextEditingController();
   TextEditingController newpasswordcontroller = TextEditingController();
-  TextEditingController confirmpasswordcontroller=TextEditingController();
+  TextEditingController confirmpasswordcontroller = TextEditingController();
   bool obscurecurrentpassword = true;
   String? gender;
-  bool changesmade=false;
-  bool passwordchangedsuccesfully=false;
+  bool changesmade = false;
+  bool passwordchangedsuccesfully = false;
+  String? imageUri;
+  String? errorMessage;
 
-  setpasswordchangestate(){
-    passwordchangedsuccesfully=!passwordchangedsuccesfully;
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  getUserDataFromServer() async {
+    var token = await getToken();
+    var user = await profileService.getUserProfileDataWithToken(token);
+    Client existingUser = Client.fromJson(user['data']);
+    namecontroller.text = existingUser.name!;
+    emailcontroller.text = existingUser.email!;
+    jobcontroller.text = existingUser.job ?? "Add Your Job";
+    imageUri = existingUser.imageUri;
     update();
   }
-  setchangesmadetrue(){
-    changesmade=true;
+
+  Future<UIState> updateUserInfoInServer(
+      Map<String, dynamic> dataToUpdate) async {
+    // print(dataToUpdate);
+    UIState uiState = await Future.delayed(Duration(seconds: 2)).then((value) {
+      print(dataToUpdate);
+      return UIState.completed;
+      // print(uiState);
+    });
+    return uiState;
+    // var response = await profileService.updateUserProfile(dataToUpdate);
+    // if (response == null) {
+    //   print("Update Failed");
+    // } else {
+    //   print("profile update sucessfull");
+    // }
+  }
+
+  setpasswordchangestate() {
+    passwordchangedsuccesfully = !passwordchangedsuccesfully;
     update();
   }
+
+  setchangesmadetrue() {
+    changesmade = true;
+    update();
+  }
+
   setcurrentpasswordview() {
     obscurecurrentpassword = !obscurecurrentpassword;
     update();
@@ -37,28 +78,6 @@ class PersonalDataPageController extends GetxController {
 
   setgender(String Gender) {
     gender = Gender;
-    update();
-  }
-
-  profiledata()async{
-    Map response=await locator<ApiService>().getprofiledata();
-    print(response.values);
-  }
-
-  setinitialdata() async{
-      Map<String,dynamic> response=await locator<ApiService>().getprofiledata();
-      print(response.values);
-      UserProfile user=UserProfile.fromJson(response["data"]);
-      print(user.name);
-      print(user.membershipnumber);
-      print(user.status);
-      print(user.createdat);
-      namecontroller.text = user.name!;
- //   currentpasswordcontroller.text = "testpassword";
-    emailcontroller.text = user.email!;
-    jobcontroller.text = user.job!;
-    membershipcontroller.text =user.membershipnumber!;
-    gender = 'male';
     update();
   }
 
@@ -142,7 +161,7 @@ class PersonalDataPageController extends GetxController {
                     //         left: 4
                     left: screenwidth * 0.0097),
                 child: Text(
-                  "Current pasword",
+                  "Current password",
                   style: getpoppins(TextStyle(
                     fontWeight: FontWeight.w400,
 //                  fontSize: 12.5,
@@ -153,7 +172,8 @@ class PersonalDataPageController extends GetxController {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(context, "/ChangePassword", (route) => true);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, "/ChangePassword", (route) => true);
                 },
                 child: Container(
                   margin: EdgeInsets.only(
@@ -465,7 +485,8 @@ class PersonalDataPageController extends GetxController {
                               ? CupertinoIcons.largecircle_fill_circle
                               : CupertinoIcons.circle,
                           color: gender == 'male'
-                              ? Color(0xff1A1C1C):Colors.grey[600],
+                              ? Color(0xff1A1C1C)
+                              : Colors.grey[600],
                           //   size: 20,
                           size: screenwidth * 0.04866,
                         ),
@@ -516,7 +537,8 @@ class PersonalDataPageController extends GetxController {
                                 ? CupertinoIcons.largecircle_fill_circle
                                 : CupertinoIcons.circle,
                             color: gender == 'female'
-                                ? Color(0xff1A1C1C):Colors.grey[600],
+                                ? Color(0xff1A1C1C)
+                                : Colors.grey[600],
                             //   size: 20,
                             size: screenwidth * 0.04866,
                           ),
@@ -544,7 +566,8 @@ class PersonalDataPageController extends GetxController {
       ),
     );
   }
-  Widget changepasswordtextfields(BuildContext context){
+
+  Widget changepasswordtextfields(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return Container(
       width: screenwidth,
@@ -562,7 +585,7 @@ class PersonalDataPageController extends GetxController {
             children: [
               Container(
                 margin: EdgeInsets.only(
-                  //         left: 4
+                    //         left: 4
                     left: screenwidth * 0.0097),
                 child: Text(
                   "Current Password",
@@ -576,7 +599,6 @@ class PersonalDataPageController extends GetxController {
               )
             ],
           ),
-
           Container(
             margin: EdgeInsets.only(
 //                top: 7.5,bottom: 20
@@ -596,9 +618,10 @@ class PersonalDataPageController extends GetxController {
                       offset: Offset(0, 3))
                 ]),
             child: TextField(
-              onChanged: (v){
+              onChanged: (v) {
                 setchangesmadetrue();
-              }, style: getpoppins(
+              },
+              style: getpoppins(
                 TextStyle(
                     fontWeight: FontWeight.w400,
                     //    fontSize: 13.5,
@@ -639,7 +662,7 @@ class PersonalDataPageController extends GetxController {
             children: [
               Container(
                 margin: EdgeInsets.only(
-                  //         left: 4
+                    //         left: 4
                     left: screenwidth * 0.0097),
                 child: Text(
                   "New Password",
@@ -653,7 +676,6 @@ class PersonalDataPageController extends GetxController {
               )
             ],
           ),
-
           Container(
             margin: EdgeInsets.only(
 //                top: 7.5,bottom: 20
@@ -674,9 +696,10 @@ class PersonalDataPageController extends GetxController {
                 ]),
             child: TextField(
               textInputAction: TextInputAction.next,
-              onChanged: (v){
+              onChanged: (v) {
                 setchangesmadetrue();
-              }, style: getpoppins(
+              },
+              style: getpoppins(
                 TextStyle(
                     fontWeight: FontWeight.w400,
                     //    fontSize: 13.5,
@@ -716,7 +739,7 @@ class PersonalDataPageController extends GetxController {
             children: [
               Container(
                 margin: EdgeInsets.only(
-                  //         left: 4
+                    //         left: 4
                     left: screenwidth * 0.0097),
                 child: Text(
                   "Confirm Password",
@@ -750,7 +773,7 @@ class PersonalDataPageController extends GetxController {
                 ]),
             child: TextField(
               textInputAction: TextInputAction.done,
-              onChanged: (v){
+              onChanged: (v) {
                 setchangesmadetrue();
               },
               style: getpoppins(
@@ -792,62 +815,75 @@ class PersonalDataPageController extends GetxController {
       ),
     );
   }
-  changepassword(String? currentpass,String? newpass,String? confirmnewpass,)async{
-    Map response=await locator<ApiService>().changepassword(
-        currentpassword:currentpass ,newpassword: newpass,confirmnewpassword: confirmnewpass
-    );
-    if(response.containsKey("data")){
+
+  changepassword(
+    String currentpass,
+    String newpass,
+    String confirmnewpass,
+  ) async {
+    print(
+        "current: $currentpass , newpass : $newpass, confirmpass: $confirmnewpass");
+    var response = await profileService.changePassword(
+        oldPassword: currentpass,
+        newPassword: newpass,
+        confirmPassword: confirmnewpass);
+
+    if (response != null && response['success'] == true) {
+      errorMessage = "";
       setpasswordchangestate();
-      Future.delayed(Duration(seconds: 5),setpasswordchangestate);
+      // print(response);
+    } else {
+      errorMessage = "Error Occured Try again";
+
+      update();
     }
-    emptychangepasswordtextfields();
-    print(response.values);
   }
-  emptychangepasswordtextfields(){
-    currentpasswordcontroller.text="";
-    newpasswordcontroller.text="";
-    confirmpasswordcontroller.text="";
+
+  emptychangepasswordtextfields() {
+    currentpasswordcontroller.text = "";
+    newpasswordcontroller.text = "";
+    confirmpasswordcontroller.text = "";
     update();
   }
 
-  Widget changepasswordbutton(BuildContext context){
+  Widget changepasswordbutton(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
-    return
-      GestureDetector(
-        onTap: (){
-          if(changesmade){
-          changepassword(currentpasswordcontroller.text, newpasswordcontroller.text,
-              confirmpasswordcontroller.text);
-
+    return GestureDetector(
+        onTap: () {
+          if (changesmade) {
+            changepassword(currentpasswordcontroller.text,
+                newpasswordcontroller.text, confirmpasswordcontroller.text);
           }
         },
-        child:Container(
-      margin: EdgeInsets.only(
-            //          horizontal: 22
-            left: screenwidth * 0.0535,
-            right: screenwidth * 0.0535,
+        child: Container(
+          margin: EdgeInsets.only(
+              //          horizontal: 22
+              left: screenwidth * 0.0535,
+              right: screenwidth * 0.0535,
 //          top: 26
-          top: screenwidth*0.0632
-      ),
+              top: screenwidth * 0.0632),
 //      width: 267,height: 46,
-          width: screenwidth*0.6496,height: screenwidth*0.1119,
+          width: screenwidth * 0.6496,
+          height: screenwidth * 0.1119,
           decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: coffeecolor,
-        boxShadow: [BoxShadow(color: Color(0xffC3916A4D).withOpacity(0.38),
-        blurRadius: 30,offset: Offset(0,9)
-        )]
-      ),
-      child: Center(
-        child: Text("Change Password",style: getpoppins(
-          TextStyle(
-            fontWeight: FontWeight.w300,
-            color: Colors.white,
-        //    fontSize: 14.5
-         fontSize: screenwidth*0.0352
-          )
-        ),),
-      ),
-    ));
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: coffeecolor,
+              boxShadow: [
+                BoxShadow(
+                    color: Color(0xffC3916A4D).withOpacity(0.38),
+                    blurRadius: 30,
+                    offset: Offset(0, 9))
+              ]),
+          child: Center(
+            child: Text(
+              "Change Password",
+              style: getpoppins(TextStyle(
+                  fontWeight: FontWeight.w300,
+                  color: Colors.white,
+                  //    fontSize: 14.5
+                  fontSize: screenwidth * 0.0352)),
+            ),
+          ),
+        ));
   }
 }

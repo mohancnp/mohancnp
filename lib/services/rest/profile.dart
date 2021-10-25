@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:metrocoffee/services/dioerror_catcher.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 
 import 'config.dart';
@@ -14,42 +17,77 @@ class ProfileService {
 
   var dio = Dio(options);
 
-  Future getUserAddresses() async {
+  Future getUserProfileDataWithToken(token) async {
+    try {
+      dio.options.headers["Authorization"] = "Bearer ${token}";
+      var profile = await dio.get('$baseUrl/api/profile');
+      if (profile.statusCode == 200)
+        return profile.data;
+      else
+        return null;
+    } on DioError catch (e) {
+      catchAndPrintDioError(e);
+    }
+  }
+
+  Future updateUserProfile(dataToUpdate) async {
     var token = await getToken();
+    dio.options.headers["Authorization"] = "Bearer $token";
+    dio.options.headers["Accept"] = "application/json";
+    dio.options.headers["Content-Type"] = "application/json";
+    var data = dataToUpdate;
     if (token == null) {
       print("token cannot be verifed");
-      return;
+      return null;
     } else {
       try {
-        dio.options.headers["Authorization"] = "Bearer ${token}";
-        var addresses = await dio.get('$baseUrl/api/address');
-        if (addresses.statusCode == 200)
-          return addresses.data;
+        var afterUpdate = await dio.put(
+          '$baseUrl/api/profile/update',
+          data: data,
+        );
+        if (afterUpdate.statusCode == 200)
+          return afterUpdate.data;
         else
           return null;
       } on DioError catch (e) {
-        switch (e.type) {
-          case DioErrorType.connectTimeout:
-            print("connection time out for the request");
-            break;
-          case DioErrorType.sendTimeout:
-            print("send time out for the request");
-            break;
-          case DioErrorType.receiveTimeout:
-            print("receive time out for the request");
-            break;
-          case DioErrorType.cancel:
-            print("The request has been cancelled");
-            break;
-          case DioErrorType.response:
-            print("Server Responded with incorrect status,4xx and 5xx");
-            break;
-          case DioErrorType.other:
-            print("undefined other type of error");
-            break;
-        }
+        catchAndPrintDioError(e);
       }
       return null;
     }
   }
+
+  Future changePassword(
+      {required String newPassword,
+      required String confirmPassword,
+      required String oldPassword}) async {
+    var token = await getToken();
+    // print(token);
+    dio.options.headers["Authorization"] = "Bearer $token";
+    dio.options.headers["Accept"] = "application/json";
+    dio.options.headers["Content-Type"] = "application/x-www-form-urlencoded";
+    var data = {
+      "current_password": oldPassword,
+      "new_password": newPassword,
+      "new_password_confirmation": confirmPassword
+    };
+
+    if (token == null) {
+      print("token cannot be verifed");
+      return null;
+    } else {
+      try {
+        // print(data);
+        var afterUpdate = await dio.post(
+          '$baseUrl/api/profile/change-password',
+          data: data,
+        );
+        return afterUpdate.data;
+      } on DioError catch (e) {
+        catchAndPrintDioError(e);
+        print("${e.message}${e.requestOptions.path}");
+      }
+      return null;
+    }
+  }
+
 }

@@ -83,16 +83,19 @@ class CartHandlerDB {
     return exists;
   }
 
-  Future<bool> updateCart(int productId, int count) async {
+  Future updateCart(int variantId, int count) async {
+    print("Product Id received for update: $variantId");
     bool affected = false;
-
     Database? db = await openDB();
     if (db != null) {
-      Map<String, dynamic> updatedCart = {'qty': count};
-      var affectedRows = await db.update(cartTable, updatedCart,
-          where: 'productId = ?', whereArgs: [productId]);
-      if (affectedRows > 0) {
-        affected = true;
+      try {
+        var affectedRows = await db.rawUpdate(
+            "UPDATE $cartTable SET qty=$count where variantId=$variantId");
+        if (affectedRows > 0) {
+          affected = true;
+        }
+      } on Exception catch (e) {
+        print(e.toString());
       }
     }
     return affected;

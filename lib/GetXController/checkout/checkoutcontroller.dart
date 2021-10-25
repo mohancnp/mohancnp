@@ -95,7 +95,7 @@ class CheckoutController extends GetxController {
   }
 
   Future getLocations() async {
-    var response = await profileService.getUserAddresses();
+    var response = await addressService.getAddresses();
     if (response != null) {
       List<dynamic> addresses = response['data']['data'];
       this.addresses.clear();

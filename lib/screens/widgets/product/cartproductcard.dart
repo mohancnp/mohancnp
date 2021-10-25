@@ -27,174 +27,197 @@ class CartProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
+    double screenwidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     return (cartData == null)
         ? SizedBox(child: Center(child: Text('No Product for checkout')))
         : Container(
-            padding: EdgeInsets.symmetric(
-                //        horizontal: 8,vertical: 6
-                horizontal: screenwidth * 0.0194,
-                vertical: screenwidth * 0.0145),
-            margin: EdgeInsets.only(
-                //     bottom: 20
-                bottom: screenwidth * 0.0486),
-            decoration: BoxDecoration(
-                color: Color(0xffFBFBFB),
-                borderRadius: BorderRadius.all(Radius.circular(9)),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      offset: Offset(0, 3),
-                      blurRadius: 10)
-                ]),
+      padding: EdgeInsets.symmetric(
+        //        horizontal: 8,vertical: 6
+          horizontal: screenwidth * 0.0194,
+          vertical: screenwidth * 0.0145),
+      margin: EdgeInsets.only(
+        //     bottom: 20
+          bottom: screenwidth * 0.0486),
+      decoration: BoxDecoration(
+          color: Color(0xffFBFBFB),
+          borderRadius: BorderRadius.all(Radius.circular(9)),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                offset: Offset(0, 3),
+                blurRadius: 10)
+          ]),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  //     height: 100, width: 100,
+                  height: screenwidth * 0.2433,
+                  width: screenwidth * 0.2433,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(9)),
+                  ),
+                  child: (cartData?.imageUri != null)
+                      ? Image.network(
+                    "$baseUrl/${cartData?.imageUri}",
+                    fit: BoxFit.cover,
+                  )
+                      : Image.asset(
+                    getimageforrow1(index),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(
+                  //  height: 76,
+                  height: screenwidth * 0.1849,
+                  margin: EdgeInsets.only(
+                    //        left: 18
+                      left: screenwidth * 0.0437),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        //     height: 100, width: 100,
-                        height: screenwidth * 0.2433,
-                        width: screenwidth * 0.2433,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(9)),
+                        child: Text(
+                          "${cartData?.name}",
+                          style: getpoppins(TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff404D4D),
+                              //       fontSize: 14.5
+                              fontSize: screenwidth * 0.03527)),
                         ),
-                        child: (cartData?.imageUri != null)
-                            ? Image.network(
-                                "$baseUrl/${cartData?.imageUri}",
-                                fit: BoxFit.cover,
-                              )
-                            : Image.asset(
-                                getimageforrow1(index),
-                                fit: BoxFit.cover,
-                              ),
                       ),
                       Container(
-                        //  height: 76,
-                        height: screenwidth * 0.1849,
-                        margin: EdgeInsets.only(
-                            //        left: 18
-                            left: screenwidth * 0.0437),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Text(
+                          '\$ ${cartData?.price}',
+                          style: getpoppins(TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff550E1C),
+                              //         fontSize: 14.5
+                              fontSize: screenwidth * 0.03527)),
+                        ),
+                      ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              child: Text(
-                                "${cartData?.name}",
-                                style: getpoppins(TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff404D4D),
-                                    //       fontSize: 14.5
-                                    fontSize: screenwidth * 0.03527)),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                '\$ ${cartData?.price}',
-                                style: getpoppins(TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff550E1C),
-                                    //         fontSize: 14.5
-                                    fontSize: screenwidth * 0.03527)),
-                              ),
-                            ),
-                            Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Icon(
-                                      CupertinoIcons.minus_circle,
+                            GestureDetector(
+                              onTap: () async {
+                                int newCount = 1;
+                                if (cartData?.orderProducts != null) {
+                                  var op = cartData!.orderProducts;
+                                  if (op.qty > 1) {
+                                    // print("current count: ${op.qty}");
+                                    newCount = --op.qty;
+                                    // print("new count: $newCount");
 
-                                      //       size: 20,
-                                      size: screenwidth * 0.0486,
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                        //         horizontal: 6
-                                        horizontal: screenwidth * 0.01459),
-                                    child: Text(
-                                      "${cartData?.orderProducts.qty}",
-                                      style: getpoppins(TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                          color: Colors.black54)),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      int newCount = 0;
-                                      if (cartData?.orderProducts != null) {
-                                        var op = cartData!.orderProducts;
-                                        newCount = op.qty++;
-                                      }
-                                      //increase the product count
-                                      await cartController
-                                          .updateCartProductCountWithId(
-                                              index ?? 0,
-                                              cartData?.orderProducts
-                                                  .productVariantId,
-                                              newCount);
-                                    },
-                                    child: Icon(
-                                      CupertinoIcons.plus_circle,
-                                      //      size: 20,
-                                      size: screenwidth * 0.0486,
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ],
+                                  }
+                                }
+                                //increase the product count
+                                await cartController
+                                    .updateCartProductCountWithId(
+                                    index ?? 0,
+                                    cartData?.orderProducts
+                                        .productVariantId,
+                                    newCount);
+                              },
+                              child: Icon(
+                                CupertinoIcons.minus_circle,
+
+                                //       size: 20,
+                                size: screenwidth * 0.0486,
+                                color: Colors.black54,
                               ),
-                            )
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                //         horizontal: 6
+                                  horizontal: screenwidth * 0.01459),
+                              child: Text(
+                                "${cartData?.orderProducts.qty}",
+                                style: getpoppins(TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.black54)),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () async {
+                                int newCount = 1;
+                                if (cartData?.orderProducts != null) {
+                                  var op = cartData!.orderProducts;
+                                  print("current count: ${op.qty}");
+                                  newCount = ++op.qty;
+                                  print("new count: $newCount");
+                                }
+                                //increase the product count
+                                await cartController
+                                    .updateCartProductCountWithId(
+                                    index ?? 0,
+                                    cartData?.orderProducts
+                                        .productVariantId,
+                                    newCount);
+                              },
+                              child: Icon(
+                                CupertinoIcons.plus_circle,
+                                //      size: 20,
+                                size: screenwidth * 0.0486,
+                                color: Colors.black54,
+                              ),
+                            ),
                           ],
                         ),
                       )
                     ],
                   ),
-                ),
-                GestureDetector(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) {
-                            return ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18)),
-                                child: SimpleDialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(18)),
-                                    ),
-                                    children: [
-                                      // DeleteOrderDialog()
-                                      //   OrderSuccesfulDialog()
-                                      //  CancelOrderDialog()
-                                      // DeleteOrderDialog()
-                                    ]));
-                          });
-                    },
-                    child: GestureDetector(
-                      onTap: () {
-                        if (tag == 0) {
-                          cartController.removeOrderProducts(cartData!);
-                        }
-                      },
-                      child: Icon(
-                        CupertinoIcons.xmark_circle,
-                        //    size: 18,
-                        size: screenwidth * 0.0437,
-                        color: Colors.redAccent,
-                      ),
-                    ))
+                )
               ],
             ),
-          );
+          ),
+          GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (_) {
+                      return ClipRRect(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(18)),
+                          child: SimpleDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(18)),
+                              ),
+                              children: [
+                                // DeleteOrderDialog()
+                                //   OrderSuccesfulDialog()
+                                //  CancelOrderDialog()
+                                // DeleteOrderDialog()
+                              ]));
+                    });
+              },
+              child: GestureDetector(
+                onTap: () {
+                  if (tag == 0) {
+                    cartController.removeOrderProducts(cartData!);
+                  }
+                },
+                child: Icon(
+                  CupertinoIcons.xmark_circle,
+                  //    size: 18,
+                  size: screenwidth * 0.0437,
+                  color: Colors.redAccent,
+                ),
+              ))
+        ],
+      ),
+    );
   }
 
   getimageforrow1(int? index) {
@@ -221,15 +244,4 @@ class CartProductCard extends StatelessWidget {
     }
   }
 
-  getpriceforrow1(int? index) {
-    if (index == 0) {
-      return "3.00";
-    }
-    if (index == 1) {
-      return "2.00";
-    }
-    if (index == 2) {
-      return "4.00";
-    }
-  }
 }
