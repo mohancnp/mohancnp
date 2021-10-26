@@ -121,7 +121,7 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                             Future.delayed(Duration.zero).then((value) {
                               v.controller
                                   ?.checkProductExistence(widget.id)
-                                  .then((value) {});
+                                  .then((value) => null);
                             });
                           },
                           dispose: (v) {},
@@ -133,7 +133,6 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                                 GestureDetector(
                                   onTap: () async {
                                     cartController.status.toggle();
-
                                     //variant id of selected variant type
                                     int selectedVariantIndex = 0;
                                     if (widget.tag == 1) {
@@ -152,7 +151,7 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                                     //actual product id
                                     widget.orderProducts.productId = widget.id;
 
-                                    //for drink otpions only
+                                    //for drink options only
                                     if (widget.tag == 0) {
                                       //....building temprature option......///
                                       String name = productDetail?.options
@@ -196,8 +195,11 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                                       orderProducts: widget.orderProducts,
                                       name: productDetail?.name,
                                       imageUri: productDetail?.imageUri,
-                                      price: drinkDetailsController
-                                          .totalPrice.value,
+                                      price: (widget.tag == 0)
+                                          ? drinkDetailsController
+                                              .totalPrice.value
+                                          : productDetailsController
+                                              .totalPrice.value,
                                     );
 
                                     //check before adding new data to the cart

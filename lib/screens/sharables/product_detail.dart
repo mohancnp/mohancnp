@@ -23,7 +23,6 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Product product = ModalRoute.of(context)!.settings.arguments as Product;
-    // print("Id sent ${product.id}");
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,

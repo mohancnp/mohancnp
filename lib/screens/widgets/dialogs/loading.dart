@@ -9,7 +9,7 @@ class LoadingPage extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.black26,
+      backgroundColor: Colors.white,
       body: Container(
         width: screenwidth,
         height: screenheight,

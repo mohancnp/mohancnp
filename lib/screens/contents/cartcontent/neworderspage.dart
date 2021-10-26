@@ -79,9 +79,10 @@ class NewOrdersPage extends StatelessWidget {
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
                 var c = cartController.cartDataList.elementAt(index);
-                //gets the data for the product id
-                cartController
-                    .getProductDetailWithId(c.orderProducts.productId);
+                //gets the data for the product
+                // print("${cartController.cartDataList.elementAt(index).price}");
+                // cartController
+                //     .getProductDetailWithId(c.orderProducts.productVariantId);
                 return CartProductCard(
                     index: index,
                     cartData: cartController.cartDataList.elementAt(index));

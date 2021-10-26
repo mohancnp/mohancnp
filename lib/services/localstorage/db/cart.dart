@@ -84,13 +84,14 @@ class CartHandlerDB {
   }
 
   Future updateCart(int variantId, int count) async {
-    print("Product Id received for update: $variantId");
+    // print("Product Id received for update: $variantId");
     bool affected = false;
     Database? db = await openDB();
     if (db != null) {
       try {
         var affectedRows = await db.rawUpdate(
             "UPDATE $cartTable SET qty=$count where variantId=$variantId");
+        // var elements=db.rawQuery("SELECT price, count from $cartTable where variantId=$variantId");
         if (affectedRows > 0) {
           affected = true;
         }

@@ -121,7 +121,7 @@ class CartController extends GetxController {
       // print("single product detail: $response");
       if (response != null) {
         var prodObj = ProductDetail.fromJson(response['data']);
-        print("Cart widget data $prodObj");
+        // print("Cart widget data $prodObj");
         pd.value = prodObj;
         pd.refresh();
       }
@@ -130,14 +130,17 @@ class CartController extends GetxController {
 
   Future updateCartProductCountWithId(int atIndex, int id, int count) async {
     //update the database if exists
+    // print("product detail Price: ${pd.value?.price}");
     bool affected = await cartHandlerDB.updateCart(id, count);
 
+    // print(count);
     if (!affected) {
       print('error updating cart in db');
     } else {
-      cartDataList[atIndex].orderProducts.qty = count;
+      cartDataList.elementAt(atIndex).orderProducts.qty = count;
+      // print(cartDataList[atIndex]);
     }
     cartDataList.refresh();
-    print(" Cart Products count updated to $count");
+    // print(" Cart Products count updated to $count");
   }
 }

@@ -841,7 +841,6 @@ class PersonalDataPageController extends GetxController {
 
   emptychangepasswordtextfields() {
     currentpasswordcontroller.text = "";
-    newpasswordcontroller.text = "";
     confirmpasswordcontroller.text = "";
     update();
   }
