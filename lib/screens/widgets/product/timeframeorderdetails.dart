@@ -14,9 +14,14 @@ class TimeFrameOrderDetails extends StatelessWidget {
   final int? index;
   final OrderDetail? orderDetail;
   final bool? reorder;
+  final int? orderId;
 
   TimeFrameOrderDetails(
-      {Key? key, this.reorder, @required this.index, this.orderDetail})
+      {Key? key,
+      this.reorder,
+      this.orderId,
+      @required this.index,
+      this.orderDetail})
       : super(key: key);
   final checkoutController = Get.put(CheckoutController());
 
@@ -82,8 +87,12 @@ class TimeFrameOrderDetails extends StatelessWidget {
                       child: Row(
                         children: [
                           Icon(
-                            CupertinoIcons.timer_fill,
-                            color: Color(0xffE1C40D),
+                            orderDetail!.status == "cancelled"
+                                ? Icons.cancel_rounded
+                                : CupertinoIcons.timer_fill,
+                            color: orderDetail!.status == "cancelled"
+                                ? coffeecolor
+                                : Color(0xffE1C40D),
 //                            size: 15,
                             size: screenwidth * 0.0364,
                           ),
@@ -95,7 +104,9 @@ class TimeFrameOrderDetails extends StatelessWidget {
                               "${orderDetail!.status}",
                               style: getpoppins(TextStyle(
                                   fontWeight: FontWeight.w300,
-                                  color: Color(0xffE1C40D),
+                                  color: orderDetail!.status == "cancelled"
+                                      ? coffeecolor
+                                      : Color(0xffE1C40D),
 //                                  fontSize: 10.5
                                   fontSize: screenwidth * 0.0255)),
                             ),
@@ -239,21 +250,6 @@ class TimeFrameOrderDetails extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              if (reorder != null) {
-                if (reorder == true) {
-                  //order the product from here and go to the payments page
-                  //build the order
-                  // Order order=new Order();
-                  // order.addressId=orderDetail?.addressId;
-                  // order.deliveryTimeFrom=orderDetail?.deliveryTimeFrom;
-                  // order.deliveryTimeEnd=orderDetail?.deliveryTimeEnd;
-                  // OrderProducts opl=OrderProducts();
-
-                  // checkoutController.sendOrderToServer(order);
-
-                  // Get.toNamed("/PaymentsPage", arguments: orderDetail!.cost);
-                }
-              }
               //allow to cancel order if it is pending
               if (orderDetail?.status == "pending") {
                 showDialog(
@@ -274,6 +270,14 @@ class TimeFrameOrderDetails extends StatelessWidget {
                                 )
                               ]));
                     });
+              } else {
+                if (reorder != null) {
+                  if (reorder == true) {
+                    print("Order Id sent : $orderId");
+                    checkoutController.reorder(orderId ?? 0);
+                    Get.toNamed("/PaymentsPage", arguments: orderDetail!.cost);
+                  }
+                }
               }
             },
             child: Container(

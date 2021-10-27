@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/social_login_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
@@ -30,10 +31,7 @@ class Login extends StatelessWidget {
         initState: (v) {},
         builder: (logincontroller) {
           return logincontroller.state == UIState.processing
-              ? SizedBox(
-                  height: screenwidth * 0.1,
-                  width: screenwidth * 0.4,
-                  child: CircularProgressIndicator())
+              ? LoadingPage()
               : Stack(
                   children: [
                     Scaffold(
@@ -142,7 +140,7 @@ class Login extends StatelessWidget {
                               child: GestureDetector(
                                   onTap: () async {
                                     //goggle sign in
-                                    logincontroller.performGoogleSignin();
+                                    // logincontroller.performGoogleSignin();
                                   },
                                   child: Container(
                                     margin: EdgeInsets.only(
@@ -197,7 +195,7 @@ class Login extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () async {
                                   //login through facebook
-                                  socialLoginController.performFacebookLogin();
+                                  // socialLoginController.performFacebookLogin();
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(

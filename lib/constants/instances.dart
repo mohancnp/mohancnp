@@ -7,11 +7,12 @@ import 'package:metrocoffee/services/rest/single_product.dart';
 import 'package:metrocoffee/services/localstorage/db/cart.dart';
 
 //rest instances
-ProductService productService = ProductService.getInstance();
-SingleProductService singleProductService = SingleProductService.getInstance();
-ProfileService profileService = ProfileService.getInstance();
-OrderService orderService = OrderService.getInstance();
-RegisterUser registerService = RegisterUser.getInstance();
-AddressService addressService = AddressService.getInstance();
+final ProductService productService = ProductService.getInstance();
+final SingleProductService singleProductService =
+    SingleProductService.getInstance();
+final ProfileService profileService = ProfileService.getInstance();
+final OrderService orderService = OrderService.getInstance();
+final RegisterUser registerService = RegisterUser.getInstance();
+final AddressService addressService = AddressService.getInstance();
 //db instances
-CartHandlerDB cartHandlerDB = CartHandlerDB.getInstance();
+final CartHandlerDB cartHandlerDB = CartHandlerDB.getInstance();

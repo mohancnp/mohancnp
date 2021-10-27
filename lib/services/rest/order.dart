@@ -42,6 +42,32 @@ class OrderService {
     }
   }
 
+  Future reorder(data) async {
+    var token = await getToken();
+    dio.options.headers["Authorization"] = "Bearer $token";
+    dio.options.headers["Accept"] = "application/json";
+    dio.options.headers["Content-Type"] = "application/json";
+    if (token == null) {
+      print("token cannot be verifed");
+      return null;
+    } else {
+      try {
+        var afterOrder = await dio.post(
+          '$baseUrl/api/order/reorder',
+          data: data,
+        );
+        if (afterOrder.statusCode == 200)
+          return afterOrder.data;
+        else
+          return null;
+      } on DioError catch (e) {
+        print(e.message);
+        catchAndPrintDioError(e);
+      }
+      return null;
+    }
+  }
+
   Future getOrders() async {
     var token = await getToken();
     if (token == null) {

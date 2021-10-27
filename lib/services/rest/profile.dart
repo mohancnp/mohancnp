@@ -34,6 +34,7 @@ class ProfileService {
     dio.options.headers["Authorization"] = "Bearer $token";
     dio.options.headers["Accept"] = "application/json";
     dio.options.headers["Content-Type"] = "application/json";
+    print(dataToUpdate);
     var data = dataToUpdate;
     if (token == null) {
       print("token cannot be verifed");
@@ -50,6 +51,7 @@ class ProfileService {
           return null;
       } on DioError catch (e) {
         catchAndPrintDioError(e);
+        print("${e.message}${e.response}");
       }
       return null;
     }
@@ -83,10 +85,8 @@ class ProfileService {
         return afterUpdate.data;
       } on DioError catch (e) {
         catchAndPrintDioError(e);
-        print("${e.message}${e.requestOptions.path}");
       }
       return null;
     }
   }
-
 }

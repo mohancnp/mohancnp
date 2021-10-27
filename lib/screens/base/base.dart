@@ -36,6 +36,7 @@ class Base extends StatelessWidget {
     return GetBuilder<BaseController>(
         init: BaseController(),
         initState: (v) {
+          // print("Base initsate called");
           homeTabController.setUserName();
           homeTabController.initializeAllData().then((value) {
             baseController.setUserVerified();

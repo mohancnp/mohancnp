@@ -53,6 +53,7 @@ class ProductService {
 
   Future getProductsOfType({required String type}) async {
     var token = await getToken();
+    // print("call reached for api");
 
     if (token == null) {
       print("token cannot be verifed");

@@ -24,11 +24,11 @@ class OrderDetails extends StatefulWidget {
 class _OrderDetailsState extends State<OrderDetails> {
   OrderDetail? orderDetail;
   UIState status = UIState.processing;
-
+  int orderId = 0;
   @override
   void initState() {
     super.initState();
-    int orderId = Get.arguments ?? 0;
+    orderId = Get.arguments;
     // print("received Id: $orderId");
     orderService.getOrderWithId(orderId).then((value) {
       if (value != null) {
@@ -113,6 +113,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                           return TimeFrameOrderDetails(
                             index: index,
                             reorder: widget.reorder,
+                            orderId: orderId,
                             orderDetail: orderDetail,
                           );
                         })

@@ -3,20 +3,17 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/constants/instances.dart';
+import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 
 class ProfileController extends GetxController {
-  String? userName = "";
-  String? email = "";
-  String? rewardPoint = "";
+  Client? newClient;
 
   Future getUserData() async {
     var token = await getToken();
     var user = await profileService.getUserProfileDataWithToken(token);
-    userName = user['data']['name'];
-    rewardPoint = user['data']['points'].toString();
-    email = user['data']['email'];
+    newClient = Client.fromJson(user['data']);
     update();
   }
 

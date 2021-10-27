@@ -17,7 +17,6 @@ import 'package:metrocoffee/screens/contents/profilecontent/my_order.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/personal_data.dart';
 import 'package:metrocoffee/screens/initial/splashscreen.dart';
 import 'package:metrocoffee/screens/maps/map.dart';
-
 // import 'package:metrocoffee/screens/initial/splashscreen.dart';
 import 'package:metrocoffee/screens/sharables/checkout.dart';
 import 'package:metrocoffee/screens/sharables/drink_detail.dart';
@@ -25,8 +24,6 @@ import 'package:metrocoffee/screens/sharables/order_details.dart';
 import 'package:metrocoffee/screens/sharables/order_succesful_page.dart';
 import 'package:metrocoffee/screens/sharables/payment_page.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart';
-import 'package:metrocoffee/test/ui_test.dart';
-
 import 'screens/authentication/register.dart';
 
 // import 'package:metrocoffee/test/apitest.dart';

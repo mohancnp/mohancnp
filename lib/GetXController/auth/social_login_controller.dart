@@ -64,18 +64,16 @@ class SocialLoginController extends GetxController {
             var data = response['data'];
             var token = data['token'];
             var user = data['user'];
-            bool userVerified = data['user_registered'];
+            // bool userVerified = data['user_registered'];
 
-            if (userVerified) {
-              var newClient = Client.fromJson(user);
+            if (token != null && user != null) {
+              // var newClient = Client.fromJson(user);
 
               addToken(provider: 'facebook', token: token.toString());
-              addUserDetail(
-                  name: response['data']['name'],
-                  email: response['data']['email'],
-                  id: response['data']['id']);
-              // homeTabController?.initializeAllData();
-              // baseController?.setUserVerified();
+              // addUserDetail(
+              //     name: response['data']['name'],
+              //     email: response['data']['email'],
+              //     id: response['data']['id']);
               setActivity(UIState.completed);
               Get.offNamedUntil('/Base', (route) => false);
             } else {

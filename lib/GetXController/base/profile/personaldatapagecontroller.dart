@@ -46,19 +46,15 @@ class PersonalDataPageController extends GetxController {
 
   Future<UIState> updateUserInfoInServer(
       Map<String, dynamic> dataToUpdate) async {
-    // print(dataToUpdate);
-    UIState uiState = await Future.delayed(Duration(seconds: 2)).then((value) {
-      print(dataToUpdate);
+    // return uiState;
+    var response = await profileService.updateUserProfile(dataToUpdate);
+    if (response == null) {
+      print("Update Failed");
+      return UIState.error;
+    } else {
+      print("profile update sucessfull");
       return UIState.completed;
-      // print(uiState);
-    });
-    return uiState;
-    // var response = await profileService.updateUserProfile(dataToUpdate);
-    // if (response == null) {
-    //   print("Update Failed");
-    // } else {
-    //   print("profile update sucessfull");
-    // }
+    }
   }
 
   setpasswordchangestate() {

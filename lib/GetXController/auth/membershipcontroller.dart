@@ -62,12 +62,16 @@ class MemberShipController extends GetxController {
           addToken(provider: 'membership', token: token.toString());
 
           addUserDetail(
-                  name: response['data']['user']['name'] ?? "",
-                  email: response['data']['user']['email'] ?? "",
-                  id: response['data']['user']['id'] ?? 0);
+              name: response['data']['user']['name'] ?? "",
+              email: response['data']['user']['email'] ?? "",
+              id: response['data']['user']['id'] ?? 0);
           // baseController?.setUserVerified();
           // homeTabController?.initializeAllData();
           setUiState(UIState.completed);
+          membershipnumbercontroller.text = "";
+          memberShipLoginErrorMsg = "";
+          passwordcontroller.text = "";
+
           Get.offNamedUntil('/Base', (route) => false);
         }
       } else {

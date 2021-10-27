@@ -67,7 +67,7 @@ class CheckoutController extends GetxController {
       "order_products": list
     };
     var encodedData = jsonEncode(dataToSend);
-    print(encodedData);
+    // print(encodedData);
     var addOrderStatus = await orderService.addOrder(encodedData);
     // print({
     //   "address_id": order.addressId,
@@ -75,6 +75,19 @@ class CheckoutController extends GetxController {
     //   "delivery_time_end": order.deliveryTimeEnd,
     //   "order_products": list
     // });
+    if (addOrderStatus != null) {
+      print('order placed sucessfully');
+      return true;
+    } else {
+      print('error placing order, try again');
+    }
+  }
+
+  Future reorder(int orderId, [int? addressId]) async {
+    var dataToSend = {
+      "order_id": orderId,
+    };
+    var addOrderStatus = await orderService.reorder(dataToSend);
     if (addOrderStatus != null) {
       print('order placed sucessfully');
       return true;

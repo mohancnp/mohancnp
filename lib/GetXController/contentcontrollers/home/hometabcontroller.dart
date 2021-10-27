@@ -124,14 +124,14 @@ class HomeTabController extends GetxController {
   }
 
   Future getProductsOfType(String type) async {
+    // this.allBakery.refresh();
+    // this.mostPopularBakery.refresh();
+    // this.recommendedBakery.refresh();
+
     var response = await productService.getProductsOfType(type: type);
-    print("$type:$response");
+    // print("$type:$response");
     if (response != null) {
       if (type == ProductType.bakery) {
-        allBakery.clear();
-        this.mostPopularBakery.clear();
-        this.recommendedBakery.clear();
-
         //getting products for different categories
         List<dynamic> products = response['data']['products'];
         List<dynamic> mostPopularBakery = response['data']['most_popular'];
@@ -156,8 +156,6 @@ class HomeTabController extends GetxController {
         this.recommendedBakery.refresh();
         this.mostPopularBakery.refresh();
       } else if (type == ProductType.drinks) {
-        allDrinks.clear();
-
         List<dynamic> products = response['data']['products'];
         List<dynamic> mostPopularDrinks = response['data']['most_popular'];
         List<dynamic> recommendedDrinks = response['data']['recommendation'];
@@ -180,7 +178,6 @@ class HomeTabController extends GetxController {
         this.mostPopularDrinks.refresh();
         allDrinks.refresh();
       } else if (type == ProductType.snacks) {
-        allSnacks.clear();
         //getting products for different categories
         List<dynamic> products = response['data']['products'];
         List<dynamic> mostPopularSnacks = response['data']['most_popular'];

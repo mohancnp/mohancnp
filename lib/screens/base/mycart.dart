@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/screens/sharables/checkout.dart';
-import 'package:metrocoffee/screens/widgets/dialogs/userpreference.dart';
 import 'package:metrocoffee/screens/contents/cartcontent/neworderspage.dart';
 import 'package:metrocoffee/screens/contents/cartcontent/reorderpage.dart';
 

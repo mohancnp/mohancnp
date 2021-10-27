@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
-void catchAndPrintDioError(DioError e){
+void catchAndPrintDioError(DioError e) {
+  print("Exception Message: ${e.message}");
   switch (e.type) {
     case DioErrorType.connectTimeout:
       print("connection time out for the request");
@@ -21,5 +22,4 @@ void catchAndPrintDioError(DioError e){
       print("undefined other type of error");
       break;
   }
-
 }

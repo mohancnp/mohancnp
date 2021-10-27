@@ -89,10 +89,18 @@ class PersonalData extends StatelessWidget {
                                       offset: Offset(0, 3))
                                 ]),
                             child: personalDataPageController.imageUri != null
-                                ? Image.network(
-                                    "$baseUrl${personaldatacontroller.imageUri!}",
-                                    width: screenwidth * 0.2007,
-                                    fit: BoxFit.cover,
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        screenwidth * 0.2007 * 0.5),
+                                    child: Image.network(
+                                      "$baseUrl${personaldatacontroller.imageUri!}",
+                                      width: screenwidth * 0.2007,
+                                      loadingBuilder:
+                                          (context, widget, imageChunkEvent) {
+                                        return widget;
+                                      },
+                                      fit: BoxFit.fill,
+                                    ),
                                   )
                                 : Image.asset(
                                     "assets/images/profilep.png",
@@ -133,11 +141,11 @@ class PersonalData extends StatelessWidget {
                             Client client = new Client.update(
                                 personaldatacontroller.namecontroller.text,
                                 personalDataPageController.emailcontroller.text,
-                                personaldatacontroller.imageUri);
+                                "$baseUrl${personaldatacontroller.imageUri}");
                             if (personaldatacontroller.gender != null) {
                               client.gender = personaldatacontroller.gender;
                             }
-                           var dialog =showDialog(
+                            var dialog = showDialog(
                                 context: context,
                                 barrierDismissible: false,
                                 builder: (context) {
@@ -156,8 +164,13 @@ class PersonalData extends StatelessWidget {
                                   SnackBar(content: Text('Profile Updated'));
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
+                            } else if (uiState == UIState.error) {
+                              Navigator.pop(context);
+                              final snackBar = SnackBar(
+                                  content: Text('Profile update failed'));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             }
-                            // Navigator.pop(context);
                           },
                         ),
                       )

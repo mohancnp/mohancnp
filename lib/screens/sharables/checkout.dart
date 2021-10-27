@@ -6,7 +6,6 @@ import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/GetXController/maps/map_controller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/enums/checkout_type.dart';
 import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/profile.dart';
 import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';

@@ -30,13 +30,19 @@ class _MyOrderPageState extends State<MyOrderPage> {
         data.forEach((element) {
           OrderData orderData = OrderData.fromJson(element);
           var dateTime = DateTime.parse(orderData.createdAt.substring(0, 16));
+          var todaysDate = DateTime.now();
           var thisMonth = "${DateTime.now().year}/${DateTime.now().month}";
           var orderMonth = "${dateTime.year}/${dateTime.month}";
+          if ((todaysDate.difference(dateTime)).inDays <= 1) {
+            todaysOrder.add(orderData);
+          }
+
           if (thisMonth == orderMonth) {
             thisMonthOrder.add(orderData);
           }
         });
       }
+
       myOrderList.add(0);
       myOrderList.addAll(todaysOrder);
       myOrderList.add(1);

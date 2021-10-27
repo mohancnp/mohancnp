@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/topup_reward_dialog.dart';
+import 'package:metrocoffee/services/rest/config.dart';
 
 class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
@@ -77,10 +78,27 @@ class Profile extends StatelessWidget {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(9)),
                                   ),
-                                  child: Image.asset(
-                                    "assets/images/profilep.png",
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: profileController
+                                              .newClient?.imageUri ==
+                                          null
+                                      ? Image.asset(
+                                          "assets/images/profilep.png",
+                                          fit: BoxFit.cover,
+                                        )
+                                      : ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              screenwidth * 0.1733 * 0.5),
+                                          child: Image.network(
+                                            "$baseUrl${profileController.newClient!.imageUri}",
+                                            fit: BoxFit.cover,
+                                            height: screenwidth * 0.1733,
+                                            width: screenwidth * 0.1733,
+                                            loadingBuilder:
+                                                (context, widget, a) {
+                                              return widget;
+                                            },
+                                          ),
+                                        ),
                                 ),
                                 Container(
                                     //  height: 76,
@@ -103,7 +121,7 @@ class Profile extends StatelessWidget {
                                               fontSize: screenwidth * 0.0279)),
                                         ),
                                         Text(
-                                          profileController.userName ??
+                                          profileController.newClient?.name ??
                                               "Dummy Name",
                                           style: getpoppins(TextStyle(
                                               fontWeight: FontWeight.w500,
@@ -112,7 +130,7 @@ class Profile extends StatelessWidget {
                                               fontSize: screenwidth * 0.03527)),
                                         ),
                                         Text(
-                                          profileController.email ??
+                                          profileController.newClient?.email ??
                                               "dummyemail@gmail.com",
                                           style: getpoppins(TextStyle(
                                               fontWeight: FontWeight.w300,
@@ -159,7 +177,7 @@ class Profile extends StatelessWidget {
                                                 )),
                                             child: Center(
                                               child: Text(
-                                                "${profileController.rewardPoint}",
+                                                "${profileController.newClient?.points}",
                                                 style: getpoppins(TextStyle(
                                                     fontWeight: FontWeight.w500,
                                                     color: Color(0xff404D4D),
@@ -475,9 +493,9 @@ class Profile extends StatelessWidget {
                     onTap: () async {
                       controller.logout().then((removed) {
                         if (removed) {
-                          Get.offAllNamed('/Login',
-                              predicate: (route) => false);
-                          // Get.reloadAll(force: true);
+                          Get.offNamedUntil(
+                              "/Login", ModalRoute.withName('/Login'));
+                          // Get.until((route) => Get.currentRoute == '/Base');
                           // Get.reset();
                         }
                       });

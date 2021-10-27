@@ -4,7 +4,6 @@ import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/constants/instances.dart';
-import 'package:metrocoffee/enums/checkout_type.dart';
 import 'package:metrocoffee/enums/uistate.dart';
 import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/order.dart';
