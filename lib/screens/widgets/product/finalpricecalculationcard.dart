@@ -95,11 +95,13 @@ class FinalProductCalculationCard extends StatelessWidget {
                   child: GetX<CartController>(builder: (controller) {
                     double totalAmount = 0.0;
                     controller.cartDataList.forEach((element) {
-                      totalAmount += element.price as double;
+                      var newPrice =
+                          (element.price! * element.orderProducts.qty);
+                      totalAmount += newPrice;
                     });
 
                     return Text(
-                      "\$ $totalAmount",
+                      "\$ ${totalAmount.toPrecision(2)}",
                       style: getpoppins(TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Color(0xff404D4D),

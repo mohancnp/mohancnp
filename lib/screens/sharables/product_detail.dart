@@ -105,7 +105,6 @@ class ProductDetail extends StatelessWidget {
                                       productDetailsController.orderProducts =
                                           OrderProducts();
 //                                      productDetailsController.setsize(0);
-
                                       Navigator.pop(context);
                                     },
                                     icon: Icon(
@@ -235,20 +234,38 @@ class ProductDetail extends StatelessWidget {
                                                           screenwidth * 0.0535,
                                                       right:
                                                           screenwidth * 0.0535),
-                                                  child: Text(
-                                                    "${prod.name}",
-                                                    style: getpoppins(TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: darkgrey,
-                                                        //         fontSize: 26
-                                                        fontSize: screenwidth *
-                                                            0.0632)),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        "${prod.name}",
+                                                        style: getpoppins(
+                                                            TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: darkgrey,
+                                                                //         fontSize: 26
+                                                                fontSize:
+                                                                    screenwidth *
+                                                                        0.0532)),
+                                                      ),
+                                                      GestureDetector(
+                                                          onTap: () {
+                                                            var status =
+                                                                productDetailsController
+                                                                    .updateFavoriteWithId(
+                                                                        product
+                                                                            .id); // print(status);
+                                                          },
+                                                          child: getFavoriteWidget(
+                                                              productdetailscontroller,
+                                                              screenwidth,
+                                                              screenheight)),
+                                                    ],
                                                   ),
-                                                ),
-                                                RatingsRowProductDetails(
-                                                  rating: 4.5,
-                                                  backgrounddark: false,
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.only(
@@ -290,5 +307,33 @@ class ProductDetail extends StatelessWidget {
                   ],
                 );
         });
+  }
+
+  Widget getFavoriteWidget(controller, screenwidth, screenheight) {
+    return Container(
+      height: screenwidth * (30 / 375),
+      width: screenwidth * (30 / 375),
+      margin: EdgeInsets.only(right: screenwidth * 0.0335),
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+          boxShadow: controller.pd!.isFavorite
+              ? [BoxShadow(color: Colors.black26, blurRadius: 10)]
+              : null),
+      child: Center(
+          child: controller.pd!.isFavorite
+              ? Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                  // size: 17,
+                  size: screenwidth * (17 / 375),
+                )
+              : Icon(
+                  Icons.favorite_outline,
+                  color: null,
+                  // size: 17,
+                  size: screenwidth * (17 / 375),
+                )),
+    );
   }
 }

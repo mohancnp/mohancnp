@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:metrocoffee/config.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/constants/product_type.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/theme.dart';
 
@@ -16,8 +18,12 @@ class FavoriteProductCard extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamedAndRemoveUntil(
-        //     context, "/DrinkDetails", (route) => true);
+        if (product.type == ProductType.bakery ||
+            product.type == ProductType.snacks) {
+          Get.toNamed("/ProductDetails", arguments: product);
+        } else {
+          Get.toNamed("/DrinkDetails", arguments: product);
+        }
       },
       child: Container(
         padding: EdgeInsets.symmetric(

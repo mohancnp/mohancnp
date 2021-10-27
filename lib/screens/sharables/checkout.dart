@@ -37,7 +37,7 @@ class CheckoutPage extends StatelessWidget {
     return GetBuilder<CheckoutController>(
         init: CheckoutController(),
         initState: (v) {
-          type = Get.arguments;
+          type = Get.arguments ?? 1;
         },
         builder: (checkoutcontroller) {
           // print(productDetailsController.orderProducts);

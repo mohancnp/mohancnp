@@ -410,7 +410,7 @@ class PersonalDataPageController extends GetxController {
                     color: Color(0xff1A1C1C)),
               ),
               cursorColor: Color(0xff1A1C1C),
-              controller: jobcontroller,
+              controller: membershipcontroller,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                   border: InputBorder.none,

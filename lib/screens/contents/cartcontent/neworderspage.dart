@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/screens/sharables/customsnackbar.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/userpreference.dart';
 import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,7 +45,7 @@ class NewOrdersPage extends StatelessWidget {
                 }),
                 GestureDetector(
                   onTap: () {
-                    // cartController.emptyCart();
+                    Get.find<BaseController>().setindex(0);
                   },
                   child: Container(
                       child: Row(
@@ -101,9 +103,12 @@ class NewOrdersPage extends StatelessWidget {
         ),
         FinalProductCalculationCard(),
         GestureDetector(
-          onTap: () {
+          onTap: () async {
             if (cartController.cartDataList.length < 1) {
               print("No products Available");
+              showCustomSnackBar(context, "Please add items");
+              // await Future.delayed(Duration(milliseconds: 500));
+              Get.find<BaseController>().setindex(0);
             } else {
               showDialog<String>(
                   context: context,

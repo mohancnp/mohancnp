@@ -13,7 +13,6 @@ import 'package:metrocoffee/screens/base/mycart.dart';
 import 'package:metrocoffee/screens/base/notifications.dart';
 import 'package:metrocoffee/screens/base/profile.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
-import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 
 class Base extends StatelessWidget {
   final HomeTabController homeTabController = Get.put(HomeTabController());
@@ -35,24 +34,6 @@ class Base extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<BaseController>(
         init: BaseController(),
-        initState: (v) {
-          // print("Base initsate called");
-          homeTabController.setUserName();
-          homeTabController.initializeAllData().then((value) {
-            baseController.setUserVerified();
-          });
-
-          // verifyToken().then((status) {
-          //   print('verification status: $status');
-          //   if (status == false) {
-          //     Get.offAllNamed('/Login');
-          //     // Future.delayed(Duration.zero).then((value) => Get.offNamed('/Login'));
-          //   } else {
-          //     homeTabController.setUserName();
-          //     homeTabController.initializeAllData();
-          //   }
-          // });
-        },
         builder: (basecontroller) {
           return basecontroller.userIsVerified
               ? Scaffold(

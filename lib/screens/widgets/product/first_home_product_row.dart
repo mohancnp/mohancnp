@@ -112,8 +112,7 @@ class FirstHomeProductRow extends StatelessWidget {
                                                           CrossAxisAlignment
                                                               .end,
                                                       children: [
-                                                        Container(
-                                                            child: Text(
+                                                        Text(
                                                           "\$ " +
                                                               p.price
                                                                   .toString(),
@@ -128,57 +127,69 @@ class FirstHomeProductRow extends StatelessWidget {
                                                                   fontSize:
                                                                       screenwidth *
                                                                           0.0364)),
-                                                        )),
-                                                        Container(
-                                                          //      height: 29,width: 29,
-                                                          height: screenwidth *
-                                                              0.07055,
-                                                          width: screenwidth *
-                                                              0.07055,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        color: Colors.black.withOpacity(
-                                                                            0.2),
-                                                                        blurRadius:
-                                                                            15,
-                                                                        offset: Offset(
-                                                                            0,
-                                                                            3)),
-                                                                  ],
-                                                                  shape: BoxShape
-                                                                      .circle),
-                                                          child: Center(
-                                                            child:
-                                                                GestureDetector(
-                                                              onTap: () {},
-                                                              child: Icon(
-                                                                Icons.favorite,
-                                                                color: Colors
-                                                                    .redAccent,
-                                                                //    size: 17,
-                                                                size:
-                                                                    screenwidth *
-                                                                        0.04136,
-                                                              ),
-                                                            ),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            controller
+                                                                .updateFavoriteProductAtId(
+                                                                    p.id,
+                                                                    !p.isFavorite,
+                                                                    true);
+                                                          },
+                                                          child: Container(
+                                                            //      height: 29,width: 29,
+                                                            height:
+                                                                screenwidth *
+                                                                    0.07055,
+                                                            width: screenwidth *
+                                                                0.07055,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.black.withOpacity(
+                                                                              0.2),
+                                                                          blurRadius:
+                                                                              15,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3))
+                                                                    ],
+                                                                    shape: BoxShape
+                                                                        .circle),
+                                                            child: p.isFavorite
+                                                                ? Center(
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .favorite,
+                                                                      color: Colors
+                                                                          .red,
+                                                                      // size: 17,
+                                                                      size: screenwidth *
+                                                                          (17 /
+                                                                              375),
+                                                                    ),
+                                                                  )
+                                                                : Center(
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .favorite_outline,
+                                                                      color:
+                                                                          null,
+                                                                      // size: 17,
+                                                                      size: screenwidth *
+                                                                          (17 /
+                                                                              375),
+                                                                    ),
+                                                                  ),
                                                           ),
                                                         )
                                                       ],
                                                     ),
                                                   ],
                                                 ),
-                                                // Positioned(
-                                                //     left: 0,
-                                                //     //     top: 12,
-                                                //     top: screenwidth * 0.02919,
-                                                //     child: RatingsRow(
-                                                //       rating: 4.5,
-                                                //       backgrounddark: false,
-                                                //     )),
                                               ]),
                                             )),
                                       )),

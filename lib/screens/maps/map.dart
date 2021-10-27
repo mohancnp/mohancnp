@@ -78,9 +78,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     return Scaffold(
         appBar: AppBar(
-            title: Text('Google Map'),
+            title: Text('SET LOCATION'),
             elevation: 0,
-            // backgroundColor: Colors.transparent,
+            foregroundColor: Colors.black.withOpacity(0.7),
+            backgroundColor: Color(0xffF3F5F5),
             leading: GestureDetector(
                 onTap: () async {
                   CustomLocation newLocation = mapController
@@ -198,153 +199,55 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                 Container(
                                   margin: EdgeInsets.only(top: 11, bottom: 10),
                                 ),
-
                                 getDeliveryAddressFeild(size),
-                                // _expanding
-                                //     ? getSearchYourAddressFeild(size)
-                                //     : SizedBox(),
-                                // _expanding == false
-                                //     ? Container(
-                                //         margin: EdgeInsets.only(
-                                //           top: 11,
-                                //         ),
-                                //       )
-                                //     : Container(
-                                //         margin: EdgeInsets.only(
-                                //             top: 11, bottom: 18),
-                                //         width: size.width * (290 / 375),
-                                //         height: 1,
-                                //         color: Color(0xFF9B9B9B),
-                                //         // decoration: BoxDecoration(
-                                //         //     borderRadius: BorderRadius.circular(3),
-                                //         //     border:
-                                //         //         Border.all(color: Color(0xFF9B9B9B))),
-                                //       ),
+                                _expanding
+                                    ? getSearchYourAddressFeild(size)
+                                    : SizedBox(),
+                                _expanding == false
+                                    ? Container(
+                                        margin: EdgeInsets.only(
+                                          top: 11,
+                                        ),
+                                      )
+                                    : Container(
+                                        margin: EdgeInsets.only(
+                                            top: 11, bottom: 18),
+                                        width: size.width * (290 / 375),
+                                        height: 1,
+                                        color: Color(0xFF9B9B9B),
+                                        // decoration: BoxDecoration(
+                                        //     borderRadius: BorderRadius.circular(3),
+                                        //     border:
+                                        //         Border.all(color: Color(0xFF9B9B9B))),
+                                      ),
                                 Text(
                                   'double tap to select the address from below',
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 8),
                                 ),
                                 SizedBox(
-                                  width: size.width,
-                                  height: size.height * 0.20,
-                                  child:
-                                      GetX<MapController>(builder: (location) {
-                                    print(location.selectedAddressIndex);
-                                    return ListView.builder(
-                                        itemCount: location
-                                            .deliveryLocationList.length,
-                                        scrollDirection: Axis.vertical,
-                                        physics:
-                                            AlwaysScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemBuilder: (context, index) {
-                                          CustomLocation cl = location
-                                              .deliveryLocationList
-                                              .elementAt(index);
-                                          return GestureDetector(
-                                            onDoubleTap: () {
-                                              location.selectedAddressIndex
-                                                  .value = index;
-                                            },
-                                            child: Container(
-                                              width: 320.w,
-                                              height: 64.h,
-                                              margin: EdgeInsets.only(
-                                                  top: 5, left: 5, right: 5),
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xFFFFFFFF),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  border: Border.all(
-                                                      color: (location
-                                                                  .selectedAddressIndex
-                                                                  .value ==
-                                                              index)
-                                                          ? coffeecolor
-                                                          : Colors.white),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                        blurRadius: 10,
-                                                        color:
-                                                            Color(0x08000000),
-                                                        offset: Offset(0, 3))
-                                                  ]),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                    width: 40.w,
-                                                    height: 40.h,
-                                                    margin: EdgeInsets.all(5),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              9),
-                                                      color: Color(0xFFF3F3F3),
-                                                    ),
-                                                    child: Center(
-                                                      child: Icon(
-                                                        Icons.location_on,
-                                                        color: coffeecolor,
-                                                        //    size: 22,
-                                                        size:
-                                                            size.width * 0.0535,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        cl.mainLocation,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            fontSize: 13),
-                                                      ),
-                                                      Text(
-                                                        cl.subLocation,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            fontSize: 10),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: SizedBox(
-                                                      width: 50.w,
-                                                    ),
-                                                  ),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      mapController
-                                                          .removeLocationWIthIndex(
-                                                        index,
-                                                      );
-                                                    },
-                                                    child: Icon(
-                                                      CupertinoIcons.delete,
-                                                      color: Colors.redAccent,
-                                                      //       size: 19,
-                                                      size: size.width * 0.0462,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          );
-                                        });
-                                  }),
-                                ),
+                                    width: size.width,
+                                    height: 70.h,
+                                    child: SelectedLocatioin(
+                                      size: size,
+                                    )
+                                    //     GetX<MapController>(builder: (location) {
+                                    //   // print(location.selectedAddressIndex);
+                                    //   return ListView.builder(
+                                    //       itemCount: location
+                                    //           .deliveryLocationList.length,
+                                    //       scrollDirection: Axis.vertical,
+                                    //       physics:
+                                    //           AlwaysScrollableScrollPhysics(),
+                                    //       shrinkWrap: true,
+                                    //       itemBuilder: (context, index) {
+                                    //         CustomLocation cl = location
+                                    //             .deliveryLocationList
+                                    //             .elementAt(index);
+                                    //         return SelectedLocatioin(size: size, cl: cl, mapController: mapController);
+                                    //       });
+                                    // }),
+                                    ),
                                 (_expanding == false)
                                     ? Container(
                                         margin: EdgeInsets.only(
@@ -379,5 +282,94 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             ),
           ],
         ));
+  }
+}
+
+class SelectedLocatioin extends StatelessWidget {
+  const SelectedLocatioin({Key? key, required this.size}) : super(key: key);
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onDoubleTap: () {
+        // location.selectedAddressIndex
+        //     .value = index;
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 5.w, left: 5.w, right: 5.w),
+        decoration: BoxDecoration(
+            color: Color(0xFFF3F3F3),
+            borderRadius: BorderRadius.circular(5),
+            // border: Border.all(color: coffeecolor),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 10,
+                  color: Color(0x08000000),
+                  offset: Offset(0, 3))
+            ]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              width: 40.w,
+              height: 40.h,
+              margin: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(9),
+                  color: Color(0xFFFEFEFE),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: Offset(0, 3),
+                        color: Color(0x08000000),
+                        blurRadius: 10.r)
+                  ]),
+              child: Center(
+                child: Icon(
+                  Icons.work,
+                  color: Color(0x6D6262),
+                  //    size: 22,
+                  size: size.width * 0.0535,
+                ),
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "2 Saint Street. st",
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 13),
+                ),
+                Text(
+                  "Park In, United Kingdom",
+                  style: TextStyle(fontWeight: FontWeight.w300, fontSize: 10),
+                )
+              ],
+            ),
+            Expanded(
+              flex: 1,
+              child: SizedBox(
+                width: 50.w,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                // mapController.removeLocationWIthIndex(
+                //   index,
+                // );
+              },
+              child: Icon(
+                CupertinoIcons.delete,
+                color: Colors.redAccent,
+                //       size: 19,
+                size: size.width * 0.0462,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

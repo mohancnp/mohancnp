@@ -3,7 +3,7 @@ class Client {
   String? imageUri, membershipNo, name, email, phone, role, gender, status, job;
   dynamic points;
 
-  Client.update(this.name, this.email, this.imageUri);
+  Client.update(this.name, this.email);
 
   Client(
       {required this.id,
@@ -34,19 +34,17 @@ class Client {
   }
 
   Map<String, dynamic> jsonToUpdate() {
-
-
     var newUserData = {
       "name": this.name,
       "email": this.email,
-      "job":this.job,
-      "gender":this.gender,
+      "job": this.job,
+      "gender": this.gender,
       "profile_pic": this.imageUri,
     };
-    if(this.job==null){
+    if (this.job == null) {
       newUserData.remove("job");
     }
-    if(this.gender==null){
+    if (this.gender == null) {
       newUserData.remove("gender");
     }
 

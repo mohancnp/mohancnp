@@ -3,6 +3,7 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/config.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/models/order.dart';
@@ -87,7 +88,6 @@ class DrinkDetailsController extends GetxController {
   //prices value differ according to the default selection of the drinksize initially
   //hence price  might differ from  that  in drink listing page in detail page.
   Widget reflectPriceForDrinks(screenwidth, orderProducts, productDetail) {
-
     return GetX<DrinkDetailsController>(builder: (controller) {
       if (productDetail != null) {
         double total = this.totalPrice.value;
@@ -150,12 +150,10 @@ class DrinkDetailsController extends GetxController {
   //if favorites
 
   Future toggleFavorite(int id) async {
-    pd!.isFavorite = !(pd!.isFavorite);
-    _singleProduct.toggleFavoriteStatus(id: id).then((status) {
-      // print(status);
-      pd!.isFavorite = status;
-    });
+    bool status = pd!.isFavorite = !(pd!.isFavorite);
     update();
+    Get.find<HomeTabController>().updateFavoriteDrinksAtId(id, status);
+    await _singleProduct.toggleFavoriteStatus(id: id);
   }
 
   Widget drinktemperatureoption(BuildContext context) {

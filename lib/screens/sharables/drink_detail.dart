@@ -12,11 +12,12 @@ import 'package:metrocoffee/screens/widgets/product/checkout_bottomnavigation.da
 import 'package:metrocoffee/theme.dart';
 
 class DrinkDetail extends StatelessWidget {
-  DrinkDetail({Key? key}) : super(key: key);
+  final int? atIndex;
+  const DrinkDetail({Key? key, this.atIndex}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 2.0; // 1.0 means normal animation speed.
+    timeDilation = 1.0; // 1.0 means normal animation speed.
 
     Product drink = ModalRoute.of(context)!.settings.arguments as Product;
     final DrinkDetailsController drinkDetailsController =
@@ -112,7 +113,7 @@ class DrinkDetail extends StatelessWidget {
                           Container(
                               width: screenwidth,
                               padding: EdgeInsets.only(
-//                          top: 175, bottom: 40
+                                  //                          top: 175, bottom: 40
                                   top: screenwidth * 0.4257,
                                   bottom: screenwidth * 0.09732),
                               child: Stack(children: [
@@ -231,7 +232,7 @@ class DrinkDetail extends StatelessWidget {
                                                       color: darkgrey,
                                                       //         fontSize: 26
                                                       fontSize: screenwidth *
-                                                          0.0632)),
+                                                          0.0532)),
                                                 ),
                                               ),
                                               GestureDetector(

@@ -20,9 +20,6 @@ class MyCart extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<CartController>(
         init: CartController(),
-        initState: (v) {
-          cartController.getOrderProducts();
-        },
         builder: (cartcontroller) {
           return Scaffold(
               backgroundColor: Colors.transparent,

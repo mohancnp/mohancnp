@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/constants/instances.dart';
 import 'package:metrocoffee/constants/product_type.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/models/variants.dart';
@@ -41,13 +42,67 @@ class HomeTabController extends GetxController {
     // streamSubscription?.cancel();
   }
 
+  /*...from list page pass true to update in server as well
+  .....no need to update server in case of detail page as it is done from detail controller*/
+
+  Future updateFavoriteDrinksAtId(int id, status,
+      [bool fromListPage = false]) async {
+    for (int i = 0; i < this.allDrinks.length; i++) {
+      var element = this.allDrinks[i];
+      if (element.id == id) {
+        element.isFavorite = status;
+        break;
+      }
+    }
+    this.allDrinks.refresh();
+    if (fromListPage) {
+      await singleProductService.toggleFavoriteStatus(id: id);
+    }
+  }
+
+  /*...from list page pass true to update in server as well
+  .....no need to update server in case of detail page as it is done from detail controller*/
+  Future updateFavoriteProductAtId(int id, status,
+      [bool fromListPage = false]) async {
+    bool found = false;
+    for (int i = 0; i < this.allBakery.length; i++) {
+      // print("Index $i");
+      var element = this.allBakery[i];
+      if (element.id == id) {
+        // print("bakery found");
+        element.isFavorite = status;
+        this.allBakery.refresh();
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      for (int i = 0; i < this.allSnacks.length; i++) {
+        var element = this.allSnacks[i];
+        if (element.id == id) {
+          // print("snacks found");
+          element.isFavorite = status;
+          this.allSnacks.refresh();
+          break;
+        }
+      }
+    }
+    if (fromListPage) {
+      print("from list page: $id");
+      await singleProductService.toggleFavoriteStatus(id: id);
+    }
+  }
+
   Future initializeAllData() async {
+    // print("data initialized");
     var ready = await checkInternet();
     if (ready) {
       internetConnected = true;
+      await getProductsOfType(ProductType.bakery);
       await getProductsOfType(ProductType.drinks);
       await getProductsOfType(ProductType.snacks);
-      await getProductsOfType(ProductType.bakery);
+      //for the all menu page
       await getProducts();
       return true;
     }
@@ -109,7 +164,7 @@ class HomeTabController extends GetxController {
     if (internetConnected) {
       productService.getAllProducts().then((products) {
         if (products != null) {
-          print('product not null');
+          // print('product not null');
 
           var list = products.data['data']['data'];
           list.forEach((element) {
@@ -124,10 +179,6 @@ class HomeTabController extends GetxController {
   }
 
   Future getProductsOfType(String type) async {
-    // this.allBakery.refresh();
-    // this.mostPopularBakery.refresh();
-    // this.recommendedBakery.refresh();
-
     var response = await productService.getProductsOfType(type: type);
     // print("$type:$response");
     if (response != null) {
@@ -136,6 +187,9 @@ class HomeTabController extends GetxController {
         List<dynamic> products = response['data']['products'];
         List<dynamic> mostPopularBakery = response['data']['most_popular'];
         List<dynamic> recommendedBakery = response['data']['recommendation'];
+        allBakery.clear();
+        this.mostPopularBakery.clear();
+        this.recommendedBakery.clear();
 
         //converting json to dart objects
         products.forEach((element) {
@@ -156,6 +210,10 @@ class HomeTabController extends GetxController {
         this.recommendedBakery.refresh();
         this.mostPopularBakery.refresh();
       } else if (type == ProductType.drinks) {
+        allDrinks.clear();
+        this.mostPopularDrinks.clear();
+        this.recommendedDrinks.clear();
+
         List<dynamic> products = response['data']['products'];
         List<dynamic> mostPopularDrinks = response['data']['most_popular'];
         List<dynamic> recommendedDrinks = response['data']['recommendation'];
@@ -173,11 +231,16 @@ class HomeTabController extends GetxController {
           var rcd = Product.fromJson(element);
           this.recommendedDrinks.add(rcd);
         });
-        //refreshing all the reactive list
+        // print(allDrinks.elementAt(0).name);
+        //refreshing all the reactive
+        allDrinks.refresh();
         this.recommendedDrinks.refresh();
         this.mostPopularDrinks.refresh();
-        allDrinks.refresh();
       } else if (type == ProductType.snacks) {
+        allSnacks.clear();
+        this.mostPopularSnacks.clear();
+        this.recommendedSnacks.clear();
+
         //getting products for different categories
         List<dynamic> products = response['data']['products'];
         List<dynamic> mostPopularSnacks = response['data']['most_popular'];

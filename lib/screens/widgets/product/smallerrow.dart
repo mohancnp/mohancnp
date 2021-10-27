@@ -16,24 +16,26 @@ class SmallProductRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
-    return GestureDetector(
-      onTap: () {},
-      child: GetX<HomeTabController>(builder: (controller) {
-        return Container(
+    return GetX<HomeTabController>(builder: (controller) {
+      return Container(
 //        height: 184,
-            height: screenwidth * 0.4476,
-            child: ListView.builder(
-              itemCount: provideCount(controller, tag),
-              scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                Product? mpd;
-                if (tag == Section.mostPopular) {
-                  mpd = controller.mostPopularDrinks.elementAt(index);
-                } else if (tag == Section.recommendation) {
-                  mpd = controller.recommendedDrinks.elementAt(index);
-                }
-                return Column(
+          height: screenwidth * 0.4476,
+          child: ListView.builder(
+            itemCount: provideCount(controller, tag),
+            scrollDirection: Axis.horizontal,
+            physics: BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              Product? mpd;
+              if (tag == Section.mostPopular) {
+                mpd = controller.mostPopularDrinks.elementAt(index);
+              } else if (tag == Section.recommendation) {
+                mpd = controller.recommendedDrinks.elementAt(index);
+              }
+              return GestureDetector(
+                onTap: () {
+                  Get.toNamed("/DrinkDetails", arguments: mpd);
+                },
+                child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
@@ -78,7 +80,7 @@ class SmallProductRow extends StatelessWidget {
                                       left: screenwidth * 0.02919,
                                       right: screenwidth * 0.0243,
                                       bottom: screenwidth * 0.0243),
-//                            height: 118,width: 174,
+                                  //                            height: 118,width: 174,
                                   height: screenwidth * 0.287,
                                   width: screenwidth * 0.423,
                                   child: Column(
@@ -119,11 +121,11 @@ class SmallProductRow extends StatelessWidget {
                               ],
                             )),
                       )
-                    ]);
-              },
-            ));
-      }),
-    );
+                    ]),
+              );
+            },
+          ));
+    });
   }
 
   getimageforrow2(int index) {

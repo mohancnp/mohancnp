@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/constants/instances.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/services/rest/products.dart';
@@ -13,7 +15,6 @@ class ProductDetailController extends GetxController {
   int productOrderCount = 1;
   Rx<double> totalPrice = (0.0).obs;
   OrderProducts orderProducts = OrderProducts();
-  // Order order= Order();
 
   setsize(int index) {
     currentsize = index;
@@ -47,9 +48,15 @@ class ProductDetailController extends GetxController {
     });
   }
 
+  Future updateFavoriteWithId(int id) async {
+    bool status = this.pd!.isFavorite = !(this.pd!.isFavorite);
+    update();
+    await singleProductService.toggleFavoriteStatus(id: id);
+    Get.find<HomeTabController>().updateFavoriteProductAtId(id, status);
+  }
+
   List<Variant> sortList(variants) {
     if (variants.isNotEmpty && variants.length > 2) {
-
       List<Variant> newList = [variants[0], variants[0], variants[0]];
       variants.forEach((element) {
         if (element.name == "Small") {

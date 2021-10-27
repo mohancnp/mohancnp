@@ -6,18 +6,15 @@ import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontrol
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/contents/homecontent/mostpopular.dart';
 import 'package:metrocoffee/screens/contents/homecontent/recommendation.dart';
-import 'package:metrocoffee/screens/sharables/drink_detail.dart';
-import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
-class DrinksTab extends StatelessWidget {
+class DrinksTab extends StatelessWidget with WidgetsBindingObserver {
   DrinksTab({Key? key}) : super(key: key);
+  final c = Get.put(DrinkDetailsController());
+  final homeTabController = Get.find<HomeTabController>();
 
   @override
   Widget build(BuildContext context) {
-    final c = Get.put(DrinkDetailsController());
-    final homeTabController = Get.find<HomeTabController>();
-
     double screenwidth = MediaQuery.of(context).size.width;
     return Container(
       child: Column(
@@ -29,8 +26,9 @@ class DrinksTab extends StatelessWidget {
   Widget firstrow(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetX<HomeTabController>(builder: (controller) {
+      print(controller.allDrinks.length);
       return controller.allDrinks.length < 1
-          ? LoadingWidget()
+          ? SizedBox()
           : Container(
               height: screenwidth * 0.5596,
               child: ListView.builder(
@@ -136,7 +134,13 @@ class DrinksTab extends StatelessWidget {
                                               shape: BoxShape.circle),
                                           child: Center(
                                               child: GestureDetector(
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    controller
+                                                        .updateFavoriteDrinksAtId(
+                                                            drink.id,
+                                                            !drink.isFavorite,
+                                                            true);
+                                                  },
                                                   child: drink.isFavorite
                                                       ? Icon(
                                                           Icons.favorite,

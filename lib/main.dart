@@ -10,7 +10,6 @@ import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 
 // import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 import 'package:metrocoffee/screens/base/base.dart';
-import 'package:metrocoffee/screens/base/profile.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/all_menu.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/favorite_products.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/my_order.dart';
@@ -24,6 +23,7 @@ import 'package:metrocoffee/screens/sharables/order_details.dart';
 import 'package:metrocoffee/screens/sharables/order_succesful_page.dart';
 import 'package:metrocoffee/screens/sharables/payment_page.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart';
+import 'package:metrocoffee/theme.dart';
 import 'screens/authentication/register.dart';
 
 // import 'package:metrocoffee/test/apitest.dart';

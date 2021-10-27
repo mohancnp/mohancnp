@@ -8,7 +8,7 @@ class OrderDetailRow extends StatelessWidget {
   final int? index;
   final UserOrder? userOrder;
   final bool? reorder;
-  OrderDetailRow({Key? key,this.reorder, this.userOrder, @required this.index})
+  OrderDetailRow({Key? key, this.reorder, this.userOrder, @required this.index})
       : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class OrderDetailRow extends StatelessWidget {
             children: [
               Container(
                 child: Text(
-                  gettitleforrow1(index),
+                  "${userOrder?.variant?.productName}",
                   style: getpoppins(TextStyle(
                       fontWeight: FontWeight.w500,
                       color: darkgrey,

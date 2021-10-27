@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:metrocoffee/GetXController/maps/map_controller.dart';
+import 'package:metrocoffee/constants/fontconstants.dart';
 
 Widget getSetOnMapFeild(size) {
   return Container(
@@ -51,8 +52,8 @@ Widget getSetOnMapFeild(size) {
 
 Widget getDeliveryAddressFeild(size) {
   return Container(
-    height: size.width * (34 / 375),
-    width: size.width * (302 / 375),
+    height: 34.h,
+    width: 302.w,
     margin: EdgeInsets.only(bottom: 18),
     decoration: BoxDecoration(
         color: Color(0xffF3F3F3), borderRadius: BorderRadius.circular(8)),
@@ -68,17 +69,21 @@ Widget getDeliveryAddressFeild(size) {
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Icon(
-                Icons.location_on_rounded,
+                Icons.location_on,
                 size: 11.w,
                 color: Colors.red,
               ),
             ),
-            Expanded(
+            Flexible(
+              fit: FlexFit.tight,
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: GetX<MapController>(builder: (mapC) {
                   var loc = mapC.current.value;
-                  return Text("${loc.mainLocation},${loc.subLocation}");
+                  return Text(
+                    "${loc.mainLocation},${loc.subLocation}",
+                    style: getpoppins(TextStyle(fontSize: 11)),
+                  );
                 }),
               ),
             ),

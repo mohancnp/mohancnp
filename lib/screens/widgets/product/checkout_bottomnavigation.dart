@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:dartz/dartz.dart' as d;
+import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
@@ -265,110 +266,123 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                     ],
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    if (widget.tag == 0) {
-                      //the size selected(variant) med,small or large is detected here
-                      widget.orderProducts.productVariantId = productDetail
-                          ?.allVariants
-                          ?.elementAt(drinkDetailsController.currentsize)
-                          .id;
-                    } else {
-                      //the size selected(variant) med,small or large is detected here
-                      widget.orderProducts.productVariantId = productDetail
-                          ?.allVariants
-                          ?.elementAt(productDetailsController.currentsize)
-                          .id;
-                    }
-                    widget.orderProducts.productId = widget.id;
+                GetBuilder(
+                    init: CartController(),
+                    builder: (CartController cartController) {
+                      return GestureDetector(
+                        onTap: () {
+                          if (widget.tag == 0) {
+                            //the size selected(variant) med,small or large is detected here
+                            widget.orderProducts.productVariantId =
+                                productDetail?.allVariants
+                                    ?.elementAt(
+                                        drinkDetailsController.currentsize)
+                                    .id;
+                            //....building temprature option......///
+                            int id =
+                                productDetail?.options?.elementAt(1).id ?? -1;
+                            String name =
+                                productDetail?.options?.elementAt(1).name ??
+                                    "None";
 
-                    //building the selected option
+                            String selectedTemprature = productDetail?.options
+                                    ?.elementAt(1)
+                                    .options
+                                    .elementAt(drinkDetailsController
+                                        .currenttabindex) ??
+                                "Error";
+                            var tempOption = ProductOption(
+                                    id: id,
+                                    options: [selectedTemprature],
+                                    defaultValue: "0",
+                                    name: name)
+                                .toJson();
 
-                    //....building temprature option......///
-                    int id = productDetail?.options?.elementAt(1).id ?? -1;
-                    String name =
-                        productDetail?.options?.elementAt(1).name ?? "None";
+                            String selectedToppings =
+                                drinkDetailsController.currenttopping;
 
-                    String selectedTemprature = productDetail?.options
-                            ?.elementAt(1)
-                            .options
-                            .elementAt(
-                                drinkDetailsController.currenttabindex) ??
-                        "Error";
-                    var tempOption = ProductOption(
-                            id: id,
-                            options: [selectedTemprature],
-                            defaultValue: "0",
-                            name: name)
-                        .toJson();
+                            //.....building milk options...//
+                            String selectedMilk =
+                                drinkDetailsController.currentmilk;
 
-                    String selectedToppings =
-                        drinkDetailsController.currenttopping;
+                            //collecting the option and build the order
+                            widget.orderProducts.orderProductOptions = [
+                              selectedMilk,
+                              selectedTemprature,
+                              selectedToppings
+                            ];
 
-                    //.....building milk options...//
-                    String selectedMilk = drinkDetailsController.currentmilk;
+                            //collecting the addons
+                            widget.orderProducts.orderProductAddons =
+                                drinkDetailsController.selectedIds;
+                          } else {
+                            //the size selected(variant) med,small or large is detected here
+                            widget.orderProducts.productVariantId =
+                                productDetail?.allVariants
+                                    ?.elementAt(
+                                        productDetailsController.currentsize)
+                                    .id;
+                          }
+                          widget.orderProducts.productId = widget.id;
 
-                    //collecting the option and build the order
-                    widget.orderProducts.orderProductOptions = [
-                      selectedMilk,
-                      selectedTemprature,
-                      selectedToppings
-                    ];
-
-                    //collecting the addons
-                    widget.orderProducts.orderProductAddons =
-                        drinkDetailsController.selectedIds;
-
-                    CartData cartData = CartData(
-                      orderProducts: widget.orderProducts,
-                      name: productDetail?.name,
-                      imageUri: productDetail?.imageUri,
-                      price: drinkDetailsController.totalPrice.value,
-                    );
-                    List<CartData> orders = <CartData>[
-                      cartData,
-                    ];
-
-                    showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                              content: UserPreference(
-                                  orders: orders, oldContext: context),
-                            ));
-                  },
-                  child: Container(
-                    //       height: 47,
-                    height: screenwidth * 0.1153,
-                    width: screenwidth * 0.3966,
-                    padding: EdgeInsets.symmetric(
-                        //       horizontal: 22
-                        horizontal: screenwidth * 0.0535),
-                    decoration: BoxDecoration(
-                        color: coffeecolor,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color(0xffC3916A).withOpacity(0.25),
-                              blurRadius: 30,
-                              offset: Offset(0, 9))
-                        ]),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Order Now",
-                          textAlign: TextAlign.center,
-                          style: getpoppins(TextStyle(
-                              color: Colors.white,
-                              //        fontSize: 16,
-                              fontSize: screenwidth * 0.0389,
-                              fontWeight: FontWeight.w300)),
+                          //building the selected option
+                          // print("reached here");
+                          CartData cartData = CartData(
+                            orderProducts: widget.orderProducts,
+                            name: productDetail?.name,
+                            imageUri: productDetail?.imageUri,
+                            price: drinkDetailsController.totalPrice.value,
+                          );
+                          List<CartData> orders = <CartData>[
+                            cartData,
+                          ];
+                          if (cartController.status.isTrue) {
+                            Get.find<BaseController>().setindex(2);
+                            Get.back();
+                          } else {
+                            showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                      content: UserPreference(
+                                          orders: orders, oldContext: context),
+                                    ));
+                          }
+                        },
+                        child: Container(
+                          //       height: 47,
+                          height: screenwidth * 0.1153,
+                          width: screenwidth * 0.3966,
+                          padding: EdgeInsets.symmetric(
+                              //       horizontal: 22
+                              horizontal: screenwidth * 0.0535),
+                          decoration: BoxDecoration(
+                              color: coffeecolor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xffC3916A).withOpacity(0.25),
+                                    blurRadius: 30,
+                                    offset: Offset(0, 9))
+                              ]),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Order Now",
+                                textAlign: TextAlign.center,
+                                style: getpoppins(TextStyle(
+                                    color: Colors.white,
+                                    //        fontSize: 16,
+                                    fontSize: screenwidth * 0.0389,
+                                    fontWeight: FontWeight.w300)),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
+                      );
+                    }),
               ],
             ),
           );

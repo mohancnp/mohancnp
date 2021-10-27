@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/profile/personaldatapagecontroller.dart';
+import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
 import 'package:metrocoffee/constants/fontconstants.dart';
 import 'package:metrocoffee/enums/uistate.dart';
 import 'package:metrocoffee/models/user.dart';
@@ -140,8 +141,8 @@ class PersonalData extends StatelessWidget {
                           onPressed: () async {
                             Client client = new Client.update(
                                 personaldatacontroller.namecontroller.text,
-                                personalDataPageController.emailcontroller.text,
-                                "$baseUrl${personaldatacontroller.imageUri}");
+                                personalDataPageController
+                                    .emailcontroller.text);
                             if (personaldatacontroller.gender != null) {
                               client.gender = personaldatacontroller.gender;
                             }
@@ -157,8 +158,8 @@ class PersonalData extends StatelessWidget {
                                 });
                             UIState uiState = await personalDataPageController
                                 .updateUserInfoInServer(client.jsonToUpdate());
-
                             if (uiState == UIState.completed) {
+                              Get.find<ProfileController>().getUserData();
                               Navigator.pop(context);
                               final snackBar =
                                   SnackBar(content: Text('Profile Updated'));

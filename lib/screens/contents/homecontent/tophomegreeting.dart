@@ -30,8 +30,7 @@ class TopHomeGreeting extends StatelessWidget {
                   var firstName = controller.name.split(' ')?.elementAt(0);
                   return Container(
                       child: Text(
-                    int.parse(DateFormat.H('en_US').format(DateTime.now())) <
-                            12
+                    int.parse(DateFormat.H('en_US').format(DateTime.now())) < 12
                         ? 'Good Morning,' + ' $firstName'
                         : int.parse(DateFormat.H('en_US')
                                     .format(DateTime.now())) <
@@ -50,7 +49,7 @@ class TopHomeGreeting extends StatelessWidget {
                         //        top: 3
                         top: screenwidth * 0.00729),
                     child: Text(
-                      "You can order drinks to take away.",
+                      "You can order drinks for collections or Delivery.",
                       style: TextStyle(
                           fontFamily: poppinslight,
                           color: Color(0xF3F3F3D6),
