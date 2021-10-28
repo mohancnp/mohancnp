@@ -1,3 +1,4 @@
+import 'package:metrocoffee/services/localstorage/db/user.dart';
 import 'package:metrocoffee/services/rest/address.dart';
 import 'package:metrocoffee/services/rest/order.dart';
 import 'package:metrocoffee/services/rest/products.dart';
@@ -16,3 +17,4 @@ final RegisterUser registerService = RegisterUser.getInstance();
 final AddressService addressService = AddressService.getInstance();
 //db instances
 final CartHandlerDB cartHandlerDB = CartHandlerDB.getInstance();
+final UserTableHandler userTableHandler = UserTableHandler.getInstance();

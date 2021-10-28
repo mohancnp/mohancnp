@@ -122,7 +122,7 @@ class Profile extends StatelessWidget {
                                         ),
                                         Text(
                                           profileController.newClient?.name ??
-                                              "Dummy Name",
+                                              "loading...",
                                           style: getpoppins(TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Color(0xff404D4D),
@@ -131,7 +131,7 @@ class Profile extends StatelessWidget {
                                         ),
                                         Text(
                                           profileController.newClient?.email ??
-                                              "dummyemail@gmail.com",
+                                              "loading...",
                                           style: getpoppins(TextStyle(
                                               fontWeight: FontWeight.w300,
                                               color: Color(0xff404D4D),

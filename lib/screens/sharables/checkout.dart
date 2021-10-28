@@ -20,12 +20,12 @@ class CheckoutPage extends StatelessWidget {
   }) : super(key: key);
   final CheckoutController checkoutController = Get.put(CheckoutController());
   final MapController mapController = Get.put(MapController());
+
+  //0 self pickup and 1 delivery
   int type = 1;
 
   @override
   Widget build(BuildContext context) {
-    //0 self pickup and 1 delivery
-
     final ProductDetailController productDetailsController =
         Get.find<ProductDetailController>();
     SystemChrome.setPreferredOrientations([

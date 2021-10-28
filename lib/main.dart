@@ -26,9 +26,6 @@ import 'package:metrocoffee/screens/sharables/product_detail.dart';
 import 'package:metrocoffee/theme.dart';
 import 'screens/authentication/register.dart';
 
-// import 'package:metrocoffee/test/apitest.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-
 GetIt getIt = GetIt.instance;
 
 void main() async {

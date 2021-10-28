@@ -35,6 +35,9 @@ class Base extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<BaseController>(
         init: BaseController(),
+        initState: (v) {
+          baseController.initializeData();
+        },
         builder: (basecontroller) {
           return basecontroller.userIsVerified
               ? Scaffold(

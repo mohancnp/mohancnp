@@ -1,12 +1,12 @@
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:metrocoffee/constants/instances.dart';
 import 'package:metrocoffee/enums/uistate.dart';
-import 'package:metrocoffee/screens/widgets/dialogs/discount_dialog.dart';
+import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/api_service.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
-
 import 'package:metrocoffee/services/rest/login.dart';
 import '../../locator.dart';
 
@@ -52,10 +52,8 @@ class LoginController extends GetxController {
       if (response.containsKey("success")) {
         if (response["success"]) {
           addToken(provider: 'email', token: response['data']['token']);
-          addUserDetail(
-              name: response['data']['user']['name'] ?? "",
-              email: response['data']['user']['email'] ?? "",
-              id: response['data']['user']['id'] ?? 0);
+          Client client = Client.fromJson(response['data']['user']);
+          userTableHandler.addUser(client);
           Get.offNamedUntil('/Base', (route) => false);
         }
         // setloggingstatefalse();

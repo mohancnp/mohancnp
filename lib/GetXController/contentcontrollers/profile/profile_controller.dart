@@ -31,11 +31,13 @@ class ProfileController extends GetxController {
     String provider = await getProvider();
     bool tokenRemoved = await removeToken();
     bool userRemoved = await removeUserDetail();
+    userTableHandler.removeUser();
     if (provider == "facebook") {
       final fb = FacebookLogin();
       fb.logOut();
     }
     Get.find<BaseController>().setindex(0);
+    Get.find<BaseController>().unverifyUser();
     return (tokenRemoved && userRemoved) ? true : false;
   }
 }

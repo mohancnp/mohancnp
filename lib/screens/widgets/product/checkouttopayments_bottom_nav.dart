@@ -22,7 +22,7 @@ class CheckoutoPaymentsBottomNav extends StatelessWidget {
     double totalPrice = 0.0;
 
     orders?.forEach((element) {
-      totalPrice += element.price ?? 0.0;
+      totalPrice += (element.price! * element.orderProducts.qty);
     });
 
     return Container(

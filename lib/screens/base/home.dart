@@ -27,7 +27,6 @@ class Home extends StatelessWidget {
         builder: (hometabcontroller) {
           return Scaffold(
               // backgroundColor: Colors.transparent,
-
               body: Stack(
             children: [
               Scaffold(

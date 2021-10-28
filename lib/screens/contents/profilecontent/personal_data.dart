@@ -139,39 +139,7 @@ class PersonalData extends StatelessWidget {
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () async {
-                            Client client = new Client.update(
-                                personaldatacontroller.namecontroller.text,
-                                personalDataPageController
-                                    .emailcontroller.text);
-                            if (personaldatacontroller.gender != null) {
-                              client.gender = personaldatacontroller.gender;
-                            }
-                            var dialog = showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (context) {
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      color: coffeecolor,
-                                    ),
-                                  );
-                                });
-                            UIState uiState = await personalDataPageController
-                                .updateUserInfoInServer(client.jsonToUpdate());
-                            if (uiState == UIState.completed) {
-                              Get.find<ProfileController>().getUserData();
-                              Navigator.pop(context);
-                              final snackBar =
-                                  SnackBar(content: Text('Profile Updated'));
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } else if (uiState == UIState.error) {
-                              Navigator.pop(context);
-                              final snackBar = SnackBar(
-                                  content: Text('Profile update failed'));
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            }
+                            personaldatacontroller.updateUserInfo(context);
                           },
                         ),
                       )

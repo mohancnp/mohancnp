@@ -27,7 +27,11 @@ class TopHomeGreeting extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GetX<HomeTabController>(builder: (controller) {
-                  var firstName = controller.name.split(' ')?.elementAt(0);
+                  var user = controller.newUser.value;
+                  var firstName = "...";
+                  if (user != null) {
+                    firstName = user.name!.split(' ').elementAt(0);
+                  }
                   return Container(
                       child: Text(
                     int.parse(DateFormat.H('en_US').format(DateTime.now())) < 12

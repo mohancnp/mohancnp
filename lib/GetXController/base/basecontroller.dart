@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
+import 'package:metrocoffee/constants/instances.dart';
+import 'package:metrocoffee/models/user.dart';
 
 class BaseController extends GetxController {
   int currentindex = 0;
@@ -16,13 +18,20 @@ class BaseController extends GetxController {
     update();
   }
 
+  unverifyUser() {
+    userIsVerified = false;
+  }
+
   @override
   void onInit() {
     super.onInit();
+  }
+
+  initializeData() {
     Get.find<CartController>().getOrderProducts();
     Get.find<HomeTabController>().initializeAllData().then((value) {
       Get.find<BaseController>().setUserVerified();
     });
-    Get.find<HomeTabController>().setUserName();
+    Get.find<HomeTabController>().setUserDetail();
   }
 }

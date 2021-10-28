@@ -4,6 +4,7 @@ class Client {
   dynamic points;
 
   Client.update(this.name, this.email);
+  Client.empty();
 
   Client(
       {required this.id,

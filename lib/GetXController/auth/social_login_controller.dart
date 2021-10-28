@@ -1,11 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:metrocoffee/GetXController/base/basecontroller.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/enums/uistate.dart';
-import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 import 'package:metrocoffee/services/rest/login.dart';
@@ -70,10 +66,6 @@ class SocialLoginController extends GetxController {
               // var newClient = Client.fromJson(user);
 
               addToken(provider: 'facebook', token: token.toString());
-              // addUserDetail(
-              //     name: response['data']['name'],
-              //     email: response['data']['email'],
-              //     id: response['data']['id']);
               setActivity(UIState.completed);
               Get.offNamedUntil('/Base', (route) => false);
             } else {

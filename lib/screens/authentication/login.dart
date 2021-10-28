@@ -195,7 +195,7 @@ class Login extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () async {
                                   //login through facebook
-                                  // socialLoginController.performFacebookLogin();
+                                  socialLoginController.performFacebookLogin();
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(

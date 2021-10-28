@@ -1,8 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/base/basecontroller.dart';
+import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
+import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/constants/instances.dart';
 import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/variants.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/userpreference.dart';
+import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 
 class CartController extends GetxController {
   int tabindex = 0;
@@ -43,6 +49,8 @@ class CartController extends GetxController {
 
   Future getOrderProducts() async {
     cartDataList.clear();
+    var id = await getUserId();
+    // if(id==null &&)
     var allData = await cartHandlerDB.getCartProducts();
     if (allData.length < 1) {
       print('no data returned from local db');
@@ -141,6 +149,148 @@ class CartController extends GetxController {
       // print(cartDataList[atIndex]);
     }
     cartDataList.refresh();
-    // print(" Cart Products count updated to $count");
+    // print(" Cart Products count updated
+    // to $count");
+  }
+
+  Future buildDataAndAddToCart(
+      {required ProductDetail? productDetail,
+      required int id,
+      required int? tag,
+      required ProductDetailController productDetailsController,
+      required DrinkDetailsController drinkDetailsController,
+      required OrderProducts orderProducts}) async {
+    status.toggle();
+    //variant id of selected variant type
+    int selectedVariantIndex = 0;
+    if (tag == 1) {
+      //for snacks
+      selectedVariantIndex = productDetailsController.currentsize;
+    } else {
+      //for drinks
+      selectedVariantIndex = drinkDetailsController.currentsize;
+    }
+    orderProducts.productVariantId =
+        productDetail?.allVariants?.elementAt(selectedVariantIndex).id;
+    //actual product id
+    orderProducts.productId = id;
+
+    //for drink options only
+    if (tag == 0) {
+      //....building temprature option......///
+      String name = productDetail?.options?.elementAt(1).name ?? "None";
+
+      String selectedTemprature = productDetail?.options
+              ?.elementAt(1)
+              .options
+              .elementAt(drinkDetailsController.currenttabindex) ??
+          "Error";
+
+      int id = productDetail?.options?.elementAt(1).id ?? -1;
+
+      //....building toppings opions.....//
+      String selectedToppings = drinkDetailsController.currenttopping;
+      //.....building milk options...//
+      String selectedMilk = drinkDetailsController.currentmilk;
+
+      //collecting the option and build the order
+      orderProducts.orderProductOptions = [
+        selectedMilk,
+        selectedTemprature,
+        selectedToppings
+      ];
+
+      //collecting the addons
+      orderProducts.orderProductAddons = drinkDetailsController.selectedIds;
+    }
+    CartData cartData = CartData(
+      orderProducts: orderProducts,
+      name: productDetail?.name,
+      imageUri: productDetail?.imageUri,
+      price: (tag == 0)
+          ? drinkDetailsController.totalPrice.value
+          : productDetailsController.totalPrice.value,
+    );
+
+    //check before adding new data to the cart
+    if (status.isTrue) {
+      addOrderProducts(cartData);
+    } else if (status.isFalse) {
+      removeOrderProducts(cartData);
+    }
+  }
+
+  Future buildAndProcessOrder(
+      {required int? tag,
+      required BuildContext context,
+      required ProductDetail? productDetail,
+      required OrderProducts orderProducts,
+      required DrinkDetailsController drinkDetailsController,
+      required ProductDetailController productDetailsController,
+      required int id}) async {
+    if (tag == 0) {
+      //the size selected(variant) med,small or large is detected here
+      orderProducts.productVariantId = productDetail?.allVariants
+          ?.elementAt(drinkDetailsController.currentsize)
+          .id;
+      //....building temprature option......///
+      int id = productDetail?.options?.elementAt(1).id ?? -1;
+      String name = productDetail?.options?.elementAt(1).name ?? "None";
+
+      String selectedTemprature = productDetail?.options
+              ?.elementAt(1)
+              .options
+              .elementAt(drinkDetailsController.currenttabindex) ??
+          "Error";
+      var tempOption = ProductOption(
+              id: id,
+              options: [selectedTemprature],
+              defaultValue: "0",
+              name: name)
+          .toJson();
+
+      String selectedToppings = drinkDetailsController.currenttopping;
+
+      //.....building milk options...//
+      String selectedMilk = drinkDetailsController.currentmilk;
+
+      //collecting the option and build the order
+      orderProducts.orderProductOptions = [
+        selectedMilk,
+        selectedTemprature,
+        selectedToppings
+      ];
+
+      //collecting the addons
+      orderProducts.orderProductAddons = drinkDetailsController.selectedIds;
+    } else {
+      //the size selected(variant) med,small or large is detected here
+      orderProducts.productVariantId = productDetail?.allVariants
+          ?.elementAt(productDetailsController.currentsize)
+          .id;
+    }
+    orderProducts.productId = id;
+
+    //building the selected option
+    // print("reached here");
+    CartData cartData = CartData(
+      orderProducts: orderProducts,
+      name: productDetail?.name,
+      imageUri: productDetail?.imageUri,
+      price: drinkDetailsController.totalPrice.value,
+    );
+    List<CartData> orders = <CartData>[
+      cartData,
+    ];
+    if (status.isTrue) {
+      Get.find<BaseController>().setindex(2);
+      Get.back();
+    } else {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                content: UserPreference(orders: orders, oldContext: context),
+              ));
+    }
   }
 }
