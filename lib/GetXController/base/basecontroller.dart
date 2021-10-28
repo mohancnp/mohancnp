@@ -19,7 +19,6 @@ class BaseController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print("base oninit called");
     Get.find<CartController>().getOrderProducts();
     Get.find<HomeTabController>().initializeAllData().then((value) {
       Get.find<BaseController>().setUserVerified();

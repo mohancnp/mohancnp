@@ -15,7 +15,7 @@ class MembershipLogin extends StatelessWidget {
 
   final MemberShipController memberShipController =
       Get.put(MemberShipController());
-  final BaseController baseController = Get.put(BaseController());
+  // final BaseController baseController = Get.put(BaseController());
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +148,7 @@ class MembershipLogin extends StatelessWidget {
 
                               var result = await membershiplogincontroller
                                   .memberShipLogin(eC, pC);
-                     },
+                            },
                             child: Container(
                               margin: EdgeInsets.only(
 //                        top: 34

@@ -23,6 +23,7 @@ class Base extends StatelessWidget {
   final profileController = Get.put(ProfileController());
   final cartController = Get.put(CartController());
   final BaseController baseController = Get.put(BaseController());
+
   List pages = [Home(), Notifications(), MyCart(), Profile()];
 
   @override
