@@ -4,9 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/user.dart';
-import 'package:metrocoffee/services/api_service.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
-import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 import 'package:metrocoffee/services/rest/login.dart';
 
 class LoginController extends GetxController {

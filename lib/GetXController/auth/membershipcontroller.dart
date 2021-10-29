@@ -1,16 +1,11 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/auth/login_controller.dart';
-import 'package:metrocoffee/GetXController/base/basecontroller.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
-import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 import 'package:metrocoffee/services/rest/login.dart';
 
 class MemberShipController extends GetxController {
@@ -77,7 +72,6 @@ class MemberShipController extends GetxController {
   }
 
   Widget loginfields(BuildContext context) {
-    double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
     return Container(
       child: Column(
