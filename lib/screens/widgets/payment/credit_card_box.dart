@@ -7,7 +7,7 @@ import 'package:metrocoffee/screens/widgets/dialogs/add_card_dialog.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/cancel_order_dialog.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/delete_order_dialog.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/order_succesful_dialog.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class CreditCardBox extends StatelessWidget {
   CreditCardBox({Key? key}) : super(key: key);

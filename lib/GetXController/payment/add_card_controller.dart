@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class AddCardController extends GetxController {
   TextEditingController namecontroller = TextEditingController();

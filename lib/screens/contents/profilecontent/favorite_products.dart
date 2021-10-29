@@ -5,7 +5,7 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/screens/widgets/product/favorite_product_card.dart';
-import '../../../theme.dart';
+import '../../../core/theme.dart';
 
 class FavoriteProductsPage extends StatefulWidget {
   const FavoriteProductsPage({Key? key}) : super(key: key);

@@ -10,7 +10,7 @@ import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/profile.dart';
 import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
 import 'package:metrocoffee/screens/widgets/product/checkouttopayments_bottom_nav.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class CheckoutPage extends StatelessWidget {
   final List<CartData>? orders;

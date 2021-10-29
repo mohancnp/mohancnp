@@ -26,7 +26,7 @@ class DrinksTab extends StatelessWidget with WidgetsBindingObserver {
   Widget firstrow(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetX<HomeTabController>(builder: (controller) {
-      print(controller.allDrinks.length);
+      // print(controller.allDrinks.length);
       return controller.allDrinks.length < 1
           ? SizedBox()
           : Container(

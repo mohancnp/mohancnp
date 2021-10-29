@@ -11,7 +11,7 @@ import 'package:metrocoffee/GetXController/maps/map_controller.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/location.dart';
 import 'package:metrocoffee/models/profile.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 import 'widgets/widget_map.dart';
 
 class GoogleMapScreen extends StatefulWidget {

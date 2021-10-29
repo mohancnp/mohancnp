@@ -16,7 +16,7 @@ import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/screens/sharables/checkout.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/userpreference.dart';
-import '../../../theme.dart';
+import '../../../core/theme.dart';
 
 class CheckoutBottomNavigation extends StatefulWidget {
   final int id;

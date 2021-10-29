@@ -8,7 +8,7 @@ import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/order.dart';
 
-import '../../../theme.dart';
+import '../../../core/theme.dart';
 
 class CheckoutoPaymentsBottomNav extends StatelessWidget {
   final List<CartData>? orders;

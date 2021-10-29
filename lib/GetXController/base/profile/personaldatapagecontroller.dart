@@ -11,7 +11,7 @@ import 'package:metrocoffee/models/UserprofileModel.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/api_service.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class PersonalDataPageController extends GetxController {
   TextEditingController namecontroller = TextEditingController();

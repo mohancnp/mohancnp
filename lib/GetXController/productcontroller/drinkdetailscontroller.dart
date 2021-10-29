@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
-import 'package:metrocoffee/config.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/services/rest/products.dart';
 import 'package:metrocoffee/services/rest/single_product.dart';
-import '../../theme.dart';
+import '../../core/theme.dart';
 
 class DrinkDetailsController extends GetxController {
   int currenttabindex = 0;

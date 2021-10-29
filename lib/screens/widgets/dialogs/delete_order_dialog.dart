@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import '../../../theme.dart';
+import '../../../core/theme.dart';
 
 class DeleteOrderDialog extends StatelessWidget {
   const DeleteOrderDialog({Key? key}) : super(key: key);

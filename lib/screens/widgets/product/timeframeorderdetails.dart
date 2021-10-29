@@ -8,7 +8,7 @@ import 'package:metrocoffee/models/order_data.dart';
 import 'package:metrocoffee/screens/sharables/payment_page.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/cancel_order_dialog.dart';
 import 'package:metrocoffee/screens/widgets/product/order_detail_row.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class TimeFrameOrderDetails extends StatelessWidget {
   final int? index;

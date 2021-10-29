@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import '../../../theme.dart';
+import '../../../core/theme.dart';
 
 class RatingsRow extends StatelessWidget {
   final double? rating;

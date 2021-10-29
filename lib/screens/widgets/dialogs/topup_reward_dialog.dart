@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class TopUpRewardDialog extends StatelessWidget {
   const TopUpRewardDialog({Key? key, this.rewardPoint}) : super(key: key);

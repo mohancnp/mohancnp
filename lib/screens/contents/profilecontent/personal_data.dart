@@ -9,7 +9,7 @@ import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
 import 'package:metrocoffee/services/rest/config.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class PersonalData extends StatelessWidget {
   PersonalData({Key? key}) : super(key: key);

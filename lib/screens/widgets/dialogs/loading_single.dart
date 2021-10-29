@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class LoadingWidget extends StatelessWidget {
   final backgroundColor;

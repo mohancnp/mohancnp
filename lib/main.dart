@@ -9,12 +9,14 @@ import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 
 // import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 import 'package:metrocoffee/screens/base/base.dart';
+import 'package:metrocoffee/screens/contents/homecontent/searchproduct/searchpage.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/all_menu.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/favorite_products.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/my_order.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/personal_data.dart';
 import 'package:metrocoffee/screens/initial/splashscreen.dart';
 import 'package:metrocoffee/screens/maps/map.dart';
+import 'package:metrocoffee/screens/onboardingscreen.dart';
 // import 'package:metrocoffee/screens/initial/splashscreen.dart';
 import 'package:metrocoffee/screens/sharables/checkout.dart';
 import 'package:metrocoffee/screens/sharables/drink_detail.dart';
@@ -22,7 +24,7 @@ import 'package:metrocoffee/screens/sharables/order_details.dart';
 import 'package:metrocoffee/screens/sharables/order_succesful_page.dart';
 import 'package:metrocoffee/screens/sharables/payment_page.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/test.dart';
 import 'screens/authentication/register.dart';
 
 GetIt getIt = GetIt.instance;
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.brown,
         ),
-        home: SplashScreen(),
+        home: TestingScreen(),
         routes: <String, WidgetBuilder>{
           '/SplashScreen': (BuildContext context) => SplashScreen(),
           '/Login': (BuildContext context) => Login(),

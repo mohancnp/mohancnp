@@ -15,7 +15,7 @@ import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/profile.dart';
 import 'package:metrocoffee/screens/maps/map.dart';
 // import 'package:geocoding/geocoding.dart' as geo;
-import '../../theme.dart';
+import '../../core/theme.dart';
 
 class CheckoutController extends GetxController {
   int selectedtimeindex = 0;

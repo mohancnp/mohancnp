@@ -6,7 +6,7 @@ import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/services/rest/products.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class ProductDetailController extends GetxController {
   int currentsize = 0;

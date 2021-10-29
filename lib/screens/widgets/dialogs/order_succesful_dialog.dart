@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class OrderSuccesfulDialog extends StatelessWidget {
   OrderSuccesfulDialog({Key? key}) : super(key: key);

@@ -10,7 +10,7 @@ import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 // import 'package:metrocoffee/screens/contents/profilecontent/personal_data.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class SocialRegister extends StatefulWidget {
   SocialRegister({Key? key}) : super(key: key);

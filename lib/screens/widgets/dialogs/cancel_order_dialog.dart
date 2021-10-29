@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 
-import '../../../theme.dart';
+import '../../../core/theme.dart';
 
 class CancelOrderDialog extends StatelessWidget {
   final int orderId;

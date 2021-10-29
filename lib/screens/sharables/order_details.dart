@@ -10,7 +10,7 @@ import 'package:metrocoffee/models/order_data.dart';
 import 'package:metrocoffee/screens/widgets/product/singletimeframeorderdetails.dart';
 import 'package:metrocoffee/screens/widgets/product/timeframeorderdetails.dart';
 
-import '../../theme.dart';
+import '../../core/theme.dart';
 
 class OrderDetails extends StatefulWidget {
   final bool? reorder;
