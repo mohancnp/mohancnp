@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
-import 'package:metrocoffee/constants/instances.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';

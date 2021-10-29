@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/membershipcontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 
 class MembershipLogin extends StatelessWidget {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_it/get_it.dart';
-import 'package:metrocoffee/locator.dart';
 import 'package:metrocoffee/screens/authentication/change_password.dart';
 import 'package:metrocoffee/screens/authentication/email_login.dart';
 import 'package:metrocoffee/screens/authentication/login.dart';
@@ -30,7 +29,6 @@ GetIt getIt = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await setupLocator();
   runApp(MyApp());
 }
 

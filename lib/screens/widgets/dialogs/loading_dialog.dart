@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+
 class LoadingDialog extends StatelessWidget {
   const LoadingDialog({Key? key}) : super(key: key);
 
@@ -9,8 +10,8 @@ class LoadingDialog extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
 //          horizontal: 12.5,vertical:12.5
-          horizontal: screenwidth*0.03041,vertical:  screenwidth*0.03041
-      ),
+          horizontal: screenwidth * 0.03041,
+          vertical: screenwidth * 0.03041),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(9)),
@@ -23,7 +24,8 @@ class LoadingDialog extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.only(top: 18),
-                height:38,width: 38,
+                height: 38,
+                width: 38,
                 child: CircularProgressIndicator(
                   backgroundColor: Colors.transparent,
                   value: 2,
@@ -32,12 +34,14 @@ class LoadingDialog extends StatelessWidget {
               ),
               Center(
                 child: Container(
-                  margin: EdgeInsets.only(top: 7,bottom: 10),
-                  child: Text("Loading, Please wait..",style: TextStyle(
-                    fontFamily: proximanovaregular,
-                    color: Colors.black87,
-                    fontSize: 16.5
-                  ),),
+                  margin: EdgeInsets.only(top: 7, bottom: 10),
+                  child: Text(
+                    "Loading, Please wait..",
+                    style: TextStyle(
+                        fontFamily: proximanovaregular,
+                        color: Colors.black87,
+                        fontSize: 16.5),
+                  ),
                 ),
               )
             ],

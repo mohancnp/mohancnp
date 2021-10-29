@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/social_login_controller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 
 class Login extends StatelessWidget {

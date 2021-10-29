@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/constants/instances.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/services/rest/products.dart';

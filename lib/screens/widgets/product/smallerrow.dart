@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
-import 'package:metrocoffee/enums/section.dart';
+import 'package:metrocoffee/core/enums/section.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 

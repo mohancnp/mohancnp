@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
-import 'package:metrocoffee/constants/instances.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/variants.dart';

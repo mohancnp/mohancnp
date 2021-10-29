@@ -8,7 +8,7 @@ import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/product_model.dart';

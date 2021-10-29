@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
-import 'package:metrocoffee/constants/instances.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/models/user.dart';
 
 class BaseController extends GetxController {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/userpreference.dart';
 
 class DiscountDialog extends StatelessWidget {

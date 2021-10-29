@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/constants/instances.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
 
 import '../../../theme.dart';
 

@@ -4,16 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/constants/instances.dart';
-import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
+import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/UserprofileModel.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/api_service.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/theme.dart';
-
-import '../../../locator.dart';
 
 class PersonalDataPageController extends GetxController {
   TextEditingController namecontroller = TextEditingController();

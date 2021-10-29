@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:geocoding/geocoding.dart' as geo;
-import 'package:metrocoffee/constants/instances.dart';
-import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
+import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/location.dart';
 import 'package:metrocoffee/models/profile.dart';
 

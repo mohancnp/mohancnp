@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/screens/sharables/drink_detail.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart';

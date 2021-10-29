@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/enums/section.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/enums/section.dart';
 import 'package:metrocoffee/screens/widgets/product/home_smallrow.dart';
 
 class HomeRecPopRow extends StatelessWidget {
   final Section section;
   final int page;
 
-  HomeRecPopRow({Key? key,required this.page, required this.section}) : super(key: key);
+  HomeRecPopRow({Key? key, required this.page, required this.section})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,10 @@ class HomeRecPopRow extends StatelessWidget {
                   fontSize: screenwidth * 0.0377)),
             ),
           ),
-          HomeSmallRow(page: page,section: section,)
+          HomeSmallRow(
+            page: page,
+            section: section,
+          )
         ],
       ),
     );

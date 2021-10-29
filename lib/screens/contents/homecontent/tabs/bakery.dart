@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/enums/section.dart';
+import 'package:metrocoffee/core/enums/section.dart';
 import 'package:metrocoffee/screens/widgets/product/first_home_product_row.dart';
 import 'package:metrocoffee/screens/widgets/product/home_recommendations_most_pop.dart';
 import 'package:metrocoffee/screens/widgets/product/home_smallrow.dart';

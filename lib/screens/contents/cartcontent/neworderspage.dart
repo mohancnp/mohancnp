@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/sharables/customsnackbar.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/userpreference.dart';
 import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';

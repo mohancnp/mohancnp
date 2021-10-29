@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import '../../../theme.dart';
+
 class DeleteOrderDialog extends StatelessWidget {
   const DeleteOrderDialog({Key? key}) : super(key: key);
 
@@ -12,12 +12,11 @@ class DeleteOrderDialog extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
 //          horizontal: 12.5,vertical:12.5
-          horizontal: screenwidth*0.03041,vertical:  screenwidth*0.03041
-      ),
+          horizontal: screenwidth * 0.03041,
+          vertical: screenwidth * 0.03041),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(9)),
-
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -28,53 +27,50 @@ class DeleteOrderDialog extends StatelessWidget {
             children: [
               Container(
 //                height: 82, width: 82,
-                height: screenwidth*0.199, width:  screenwidth*0.199,
+                height: screenwidth * 0.199, width: screenwidth * 0.199,
                 decoration: BoxDecoration(
-                    color: Color(0xffEBEBEB),
-                    shape: BoxShape.circle
-                ),
+                    color: Color(0xffEBEBEB), shape: BoxShape.circle),
                 child: Center(
-                    child:
-                    Icon(CupertinoIcons.delete,
-                      color: coffeecolor,
+                    child: Icon(
+                  CupertinoIcons.delete,
+                  color: coffeecolor,
 //                  size: 39,
-                      size: screenwidth*0.09489,
-                    )
-                ),
+                  size: screenwidth * 0.09489,
+                )),
               ),
             ],
           ),
           Container(
             margin: EdgeInsets.only(
 //                top: 16,bottom: 29
-                top: screenwidth*0.0389,bottom: screenwidth*0.07055
-            ),
-            child: Text("Remove your order?",
+                top: screenwidth * 0.0389,
+                bottom: screenwidth * 0.07055),
+            child: Text(
+              "Remove your order?",
               textAlign: TextAlign.center,
-              style: getpoppins(
-                  TextStyle(
+              style: getpoppins(TextStyle(
 //                      fontSize: 13.5,
-                      fontSize: screenwidth*0.0328,
-                      color: darkgrey,
-                      fontWeight: FontWeight.w400
-                  )
-              ),),
+                  fontSize: screenwidth * 0.0328,
+                  color: darkgrey,
+                  fontWeight: FontWeight.w400)),
+            ),
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Navigator.pop(context);
             },
             child: Container(
 //            width: 185,height: 36,
-              width: screenwidth*0.450,height: screenwidth*0.0875,
+              width: screenwidth * 0.450, height: screenwidth * 0.0875,
               decoration: BoxDecoration(
                   color: coffeecolor,
                   borderRadius: BorderRadius.all(Radius.circular(17)),
-                  boxShadow: [BoxShadow(
-                      color: Color(0xffC3916A).withOpacity(0.2),
-                      blurRadius: 30,offset: Offset(0,9)
-                  )]
-              ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xffC3916A).withOpacity(0.2),
+                        blurRadius: 30,
+                        offset: Offset(0, 9))
+                  ]),
               child: Center(
                 child: Text(
                   "Delete",
@@ -83,33 +79,34 @@ class DeleteOrderDialog extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                       color: Colors.white,
                       //      fontSize: 13.5
-                      fontSize: screenwidth*0.0328
-                  )),
+                      fontSize: screenwidth * 0.0328)),
                 ),
               ),
             ),
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Navigator.pop(context);
             },
             child: Container(
               margin: EdgeInsets.only(
 //                top: 16
-                  top: screenwidth*0.0389
-              ),
+                  top: screenwidth * 0.0389),
 //            width: 185,height: 36,
-              width: screenwidth*0.450,height: screenwidth*0.0875,
+              width: screenwidth * 0.450, height: screenwidth * 0.0875,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: coffeecolor,
-                    width: 1.2,),
+                  border: Border.all(
+                    color: coffeecolor,
+                    width: 1.2,
+                  ),
                   borderRadius: BorderRadius.all(Radius.circular(17)),
-                  boxShadow: [BoxShadow(
-                      color: Color(0xffC3916A).withOpacity(0.2),
-                      blurRadius: 30,offset: Offset(0,9)
-                  )]
-              ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xffC3916A).withOpacity(0.2),
+                        blurRadius: 30,
+                        offset: Offset(0, 9))
+                  ]),
               child: Center(
                 child: Text(
                   "Cancel",
@@ -118,8 +115,7 @@ class DeleteOrderDialog extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                       color: coffeecolor,
                       //      fontSize: 13.5
-                      fontSize: screenwidth*0.0328
-                  )),
+                      fontSize: screenwidth * 0.0328)),
                 ),
               ),
             ),
