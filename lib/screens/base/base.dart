@@ -3,11 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
-import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
-import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
-import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/screens/base/home.dart';
 import 'package:metrocoffee/screens/base/mycart.dart';
 import 'package:metrocoffee/screens/base/notifications.dart';
@@ -15,15 +10,6 @@ import 'package:metrocoffee/screens/base/profile.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 
 class Base extends StatelessWidget {
-  final HomeTabController homeTabController = Get.put(HomeTabController());
-  final ProductDetailController productDetailsController =
-      Get.put(ProductDetailController());
-  final DrinkDetailsController drinkDetailsController =
-      Get.put(DrinkDetailsController());
-  final profileController = Get.put(ProfileController());
-  final cartController = Get.put(CartController());
-  final BaseController baseController = Get.put(BaseController());
-
   List pages = [Home(), Notifications(), MyCart(), Profile()];
 
   @override
@@ -35,13 +21,10 @@ class Base extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<BaseController>(
         init: BaseController(),
-        initState: (v) {
-          baseController.initializeData();
-        },
         builder: (basecontroller) {
           return basecontroller.userIsVerified
               ? Scaffold(
-                  backgroundColor: Color(0xffF3F5F5),
+                  backgroundColor: Color(0xFFF3F5F5),
                   body: pages[basecontroller.currentindex],
                   bottomNavigationBar: Container(
                       //  height: 83,
@@ -64,9 +47,9 @@ class Base extends StatelessWidget {
                         showSelectedLabels: false,
                         showUnselectedLabels: false,
                         type: BottomNavigationBarType.fixed,
-                        currentIndex: baseController.currentindex,
+                        currentIndex: basecontroller.currentindex,
                         onTap: (index) {
-                          baseController.setindex(index);
+                          basecontroller.setindex(index);
                         },
                         backgroundColor: Colors.transparent,
                         elevation: 0,

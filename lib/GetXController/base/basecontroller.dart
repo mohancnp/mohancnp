@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
-import 'package:metrocoffee/core/constants/instances.dart';
-import 'package:metrocoffee/models/user.dart';
 
 class BaseController extends GetxController {
   int currentindex = 0;
@@ -24,14 +22,22 @@ class BaseController extends GetxController {
 
   @override
   void onInit() {
+    print("On init");
     super.onInit();
   }
 
-  initializeData() {
-    Get.find<CartController>().getOrderProducts();
-    Get.find<HomeTabController>().initializeAllData().then((value) {
-      Get.find<BaseController>().setUserVerified();
-    });
-    Get.find<HomeTabController>().setUserDetail();
+  Future<bool> initializeData() async {
+    try {
+      print("initialization starts");
+      Get.find<CartController>().getOrderProducts();
+      Get.find<HomeTabController>().initializeAllData().then((value) {
+        Get.find<BaseController>().setUserVerified();
+      });
+      Get.find<HomeTabController>().setUserDetail();
+    } on Exception catch (e) {
+      print("Exception initializeing data");
+      return false;
+    }
+    return true;
   }
 }

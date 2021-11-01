@@ -12,11 +12,9 @@ import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
+  final socialLoginController = Get.find<SocialLoginController>();
 
   // final LoginController loginController = Get.put(LoginController());
-  final SocialLoginController socialLoginController =
-      Get.put(SocialLoginController());
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([

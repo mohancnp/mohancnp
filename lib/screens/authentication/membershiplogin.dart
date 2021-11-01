@@ -10,10 +10,6 @@ import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 class MembershipLogin extends StatelessWidget {
   MembershipLogin({Key? key}) : super(key: key);
 
-  final MemberShipController memberShipController =
-      Get.put(MemberShipController());
-  // final BaseController baseController = Get.put(BaseController());
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([

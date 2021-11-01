@@ -59,7 +59,9 @@ class MemberShipController extends GetxController {
             membershipnumbercontroller.text = "";
             memberShipLoginErrorMsg = "";
             passwordcontroller.text = "";
-            Get.offNamedUntil('/Base', (route) => false);
+            Get.offAllNamed("/OnBoardingScreen");
+            // Get.find<BaseController>().initializeData();
+            // Get.offNamedUntil('/Base', (route) => false);
           });
         }
       } else {

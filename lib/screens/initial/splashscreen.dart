@@ -210,8 +210,8 @@ class _SplashScreenState extends State<SplashScreen>
     if (loginstat < 0) {
       print('still no internet');
     } else {
-      Navigator.of(context)
-          .pushReplacementNamed(loginstat == 0 ? '/Login' : '/Base');
+      Navigator.of(context).pushReplacementNamed(
+          loginstat == 0 ? '/Login' : '/OnBoardingScreen');
     }
   }
 }

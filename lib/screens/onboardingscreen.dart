@@ -1,11 +1,16 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:metrocoffee/GetXController/base/basecontroller.dart';
+import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
+import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/onboardingimages.dart';
 import 'package:metrocoffee/core/theme.dart';
 // import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/loading_dialog.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   OnBoardingScreen({
@@ -32,12 +37,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
   late final Animation<double> _animation =
       Tween(begin: beginValue, end: endValue).animate(_controller);
 
+  bool dataInitialized = false;
   @override
   void initState() {
     super.initState();
     pageController = PageController(
       initialPage: intoPage,
     );
+    initializeData();
+  }
+
+  Future initializeData() async {
+    dataInitialized = await Get.find<BaseController>().initializeData();
   }
 
   @override
@@ -49,7 +60,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Size size = MediaQuery.of(context).size;
     _controller.forward();
 
@@ -100,6 +111,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
           ),
           Container(
             margin: EdgeInsets.only(top: 20.h, left: 16.w),
+            clipBehavior: Clip.none,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -202,7 +214,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
   }
 
   _onPressed() {
+    print("Button pressed");
     //navigate to another page
+    if (dataInitialized) {
+      print("reached in if");
+      Get.offAllNamed(
+        "/Base",
+      );
+      // Get.snackbar("Title", "fyuilkjhgf");
+    } else {
+      print("reached in else");
+      showDialog(
+          context: context,
+          builder: (context) {
+            return LoadingDialog();
+          });
+    }
   }
 
   setTextForPage(int pageIndex) {
@@ -244,6 +271,7 @@ class SlidableWidget extends StatelessWidget {
       height: 487.h,
       width: 375.w,
       color: coffeecolor,
+      clipBehavior: Clip.none,
       child: Image.asset(
         "$backgroundImage",
         fit: BoxFit.fitWidth,

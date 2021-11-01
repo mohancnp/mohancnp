@@ -13,7 +13,7 @@ class SearchBar extends StatelessWidget {
         height: screenwidth * 0.1021,
         margin: EdgeInsets.only(
             //      top: 23,
-            top: screenwidth * 0.0559,
+            top: screenwidth * 0.0879,
             left: screenwidth * 0.0583,
             right: screenwidth * 0.0583),
         width: screenwidth,
