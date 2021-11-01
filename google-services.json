@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:912486806445:android:0d1599884c4aada9392724",
         "android_client_info": {
-          "package_name": "com.metrocoffee.metrocoffee"
+          "package_name": "com.clickandpress.metrocoffee.np"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "912486806445-oqt81pu53cv04nvea2uo89iu4ejg0tva.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.metrocoffee.metrocoffee",
+            "package_name": "com.clickandpress.metrocoffee.np",
             "certificate_hash": "63ae039a1a971e715adcf41dfb01941b8d0b533e"
           }
         },

@@ -1,15 +1,11 @@
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
-import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/onboardingimages.dart';
 import 'package:metrocoffee/core/theme.dart';
-// import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading_dialog.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -95,19 +91,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
           ),
           SizedBox(
             height: 16.h,
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: 16.w,
-            ),
-            child: DotsIndicator(
-              dotsCount: 3,
-              position: intoPage.toDouble(),
-              decorator: DotsDecorator(
-                color: Color(0xFFAFAEAE), // Inactive color
-                activeColor: coffeecolor,
-              ),
-            ),
           ),
           Container(
             margin: EdgeInsets.only(top: 20.h, left: 16.w),
