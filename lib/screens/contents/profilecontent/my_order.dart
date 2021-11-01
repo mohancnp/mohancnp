@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/constants/instances.dart';
-import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
+import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/order_data.dart';
 import 'package:metrocoffee/screens/widgets/product/timeframeorders.dart';
-import '../../../theme.dart';
+import '../../../core/theme.dart';
 
 class MyOrderPage extends StatefulWidget {
   const MyOrderPage({Key? key}) : super(key: key);

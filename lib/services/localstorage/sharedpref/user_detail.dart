@@ -14,6 +14,18 @@ Future addUserDetail(
   return false;
 }
 
+Future<int?> getUserId() async {
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    var id = prefs.getInt("id");
+    if (id == null) throw Exception("error retreiveing id from shared pref");
+    return id;
+  } on Exception catch (exception) {
+    print("Exception adding Userdetail : $exception");
+  }
+  return null;
+}
+
 Future<String?> getUserName() async {
   try {
     final prefs = await SharedPreferences.getInstance();
@@ -47,7 +59,7 @@ Future removeUserDetail() async {
     prefs.remove('email');
     return true;
   } on Exception catch (exception) {
-    print("Exception adding Userdetail : $exception");
+    print("Exception removing Userdetail : $exception");
   }
   return false;
 }

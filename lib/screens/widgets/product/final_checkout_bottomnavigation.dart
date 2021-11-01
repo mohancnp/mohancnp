@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-
-import '../../../theme.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import '../../../core/theme.dart';
 
 class FinalCheckoutBottomNavigation extends StatelessWidget {
   final double finalAmount;

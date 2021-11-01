@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/payment/payment_page_controller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/payment/credit_card_box.dart';
 import 'package:metrocoffee/screens/widgets/product/final_checkout_bottomnavigation.dart';
-import '../../theme.dart';
-
+import '../../core/theme.dart';
 
 class PaymentPage extends StatelessWidget {
   PaymentPage({Key? key}) : super(key: key);

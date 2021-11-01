@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/initial/userpreferencecontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/models/cart_data.dart';
 
 class UserPreference extends StatelessWidget {

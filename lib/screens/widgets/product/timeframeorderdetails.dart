@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/order_data.dart';
 import 'package:metrocoffee/screens/sharables/payment_page.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/cancel_order_dialog.dart';
 import 'package:metrocoffee/screens/widgets/product/order_detail_row.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class TimeFrameOrderDetails extends StatelessWidget {
   final int? index;

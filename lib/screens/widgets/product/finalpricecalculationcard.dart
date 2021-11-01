@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 
 class FinalProductCalculationCard extends StatelessWidget {
   // final CartController controller = Get.find<CartController>();

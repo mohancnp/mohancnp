@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:metrocoffee/GetXController/maps/map_controller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 
 Widget getSetOnMapFeild(size) {
   return Container(

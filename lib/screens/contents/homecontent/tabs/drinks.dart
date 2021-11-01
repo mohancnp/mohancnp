@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/contents/homecontent/mostpopular.dart';
 import 'package:metrocoffee/screens/contents/homecontent/recommendation.dart';
 import 'package:metrocoffee/services/rest/config.dart';
@@ -26,7 +26,7 @@ class DrinksTab extends StatelessWidget with WidgetsBindingObserver {
   Widget firstrow(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetX<HomeTabController>(builder: (controller) {
-      print(controller.allDrinks.length);
+      // print(controller.allDrinks.length);
       return controller.allDrinks.length < 1
           ? SizedBox()
           : Container(

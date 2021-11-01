@@ -2,9 +2,10 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/constants/instances.dart';
-import 'package:metrocoffee/constants/product_type.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
+import 'package:metrocoffee/core/constants/product_type.dart';
 import 'package:metrocoffee/models/product_model.dart';
+import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 import 'package:metrocoffee/services/rest/products.dart';
@@ -14,8 +15,8 @@ class HomeTabController extends GetxController {
   int currentpageindex = 0;
   bool internetConnected = false;
   StreamSubscription? streamSubscription;
-  ProductService productService = ProductService.getInstance();
-  Rx<String?> name = 'Judas'.obs;
+  Rx<Client?> newUser = Client.empty().obs;
+
   List<Product> allProducts = [];
 
   RxList<Product> allDrinks = <Product>[].obs;
@@ -31,6 +32,11 @@ class HomeTabController extends GetxController {
   RxList<Product> mostPopularSnacks = <Product>[].obs;
   RxList<Product> recommendedSnacks = <Product>[].obs;
 
+  setNewUser(Client newUser) {
+    // print("Name received: ${newUser.name}");
+    this.newUser.value = newUser;
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -39,7 +45,6 @@ class HomeTabController extends GetxController {
   @override
   void dispose() {
     super.dispose();
-    // streamSubscription?.cancel();
   }
 
   /*...from list page pass true to update in server as well
@@ -58,6 +63,12 @@ class HomeTabController extends GetxController {
     if (fromListPage) {
       await singleProductService.toggleFavoriteStatus(id: id);
     }
+  }
+
+  Future setUserDetail() async {
+    Map<String, dynamic> data = await userTableHandler.getUser();
+    // print("Dara from DB: $data ");
+    setNewUser(Client.fromJson(data));
   }
 
   /*...from list page pass true to update in server as well
@@ -116,12 +127,6 @@ class HomeTabController extends GetxController {
       // print("single product detail: $response");
       prodObj = ProductDetail.fromJson(response['data']);
       return prodObj;
-    });
-  }
-
-  setUserName() {
-    getUserName().then((name) {
-      this.name.value = name ?? "";
     });
   }
 

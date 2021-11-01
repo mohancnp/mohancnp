@@ -1,6 +1,8 @@
 import 'package:metrocoffee/services/localstorage/db/core.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'feildsname/dbfeilds.dart';
+
 class CartHandlerDB {
   CartHandlerDB._instance();
 
@@ -15,7 +17,7 @@ class CartHandlerDB {
     int status = -1;
     if (db != null) {
       try {
-        status = await db.insert(cartTable, item);
+        status = await db.insert(Table.cart, item);
         print("insert affected $status");
       } on Exception catch (e) {
         print("Error adding to cart ${e.toString()}");
@@ -29,8 +31,8 @@ class CartHandlerDB {
     Database? db = await openDB();
     try {
       if (db != null) {
-        status =
-            await db.delete(cartTable, where: 'productId = ?', whereArgs: [id]);
+        status = await db
+            .delete(Table.cart, where: 'productId = ?', whereArgs: [id]);
         print('remove status $status');
       }
     } on Exception catch (e) {
@@ -44,7 +46,7 @@ class CartHandlerDB {
     Database? db = await openDB();
     try {
       if (db != null) {
-        status = await db.delete(cartTable);
+        status = await db.delete(Table.cart);
         print('Number of data removed $status');
       }
     } on Exception catch (e) {
@@ -59,7 +61,7 @@ class CartHandlerDB {
 
     if (db != null) {
       try {
-        list = await db.rawQuery("SELECT * from $cartTable");
+        list = await db.rawQuery("SELECT * from ${Table.cart}");
       } catch (e) {
         print("Error loading the cart products from the database");
       }
@@ -71,7 +73,7 @@ class CartHandlerDB {
     bool exists = false;
     Database? db = await openDB();
     if (db != null) {
-      var data = await db.query(cartTable,
+      var data = await db.query(Table.cart,
           columns: ['id', 'productId', 'price', 'variantId', 'qty', 'name'],
           where: 'productId = ?',
           whereArgs: [productId]);
@@ -90,7 +92,7 @@ class CartHandlerDB {
     if (db != null) {
       try {
         var affectedRows = await db.rawUpdate(
-            "UPDATE $cartTable SET qty=$count where variantId=$variantId");
+            "UPDATE ${Table.cart} SET qty=$count where variantId=$variantId");
         // var elements=db.rawQuery("SELECT price, count from $cartTable where variantId=$variantId");
         if (affectedRows > 0) {
           affected = true;

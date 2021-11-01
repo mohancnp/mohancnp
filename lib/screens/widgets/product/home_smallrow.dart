@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/enums/section.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/enums/section.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/screens/widgets/product/ratings_row.dart';
 import 'package:metrocoffee/services/rest/config.dart';

@@ -2,20 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/auth/login_controller.dart';
 import 'package:metrocoffee/GetXController/auth/membershipcontroller.dart';
-import 'package:metrocoffee/GetXController/base/basecontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/enums/uistate.dart';
-import 'package:metrocoffee/screens/widgets/dialogs/discount_dialog.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 
 class MembershipLogin extends StatelessWidget {
   MembershipLogin({Key? key}) : super(key: key);
-
-  final MemberShipController memberShipController =
-      Get.put(MemberShipController());
-  final BaseController baseController = Get.put(BaseController());
 
   @override
   Widget build(BuildContext context) {
@@ -139,16 +132,9 @@ class MembershipLogin extends StatelessWidget {
                           Center(
                               child: GestureDetector(
                             onTap: () async {
-                              // print( membershiplogincontroller.membershipnumbercontroller.text);
-                              // print( membershiplogincontroller.passwordcontroller.text);
-                              var eC = membershiplogincontroller
-                                  .membershipnumbercontroller.text;
-                              var pC = membershiplogincontroller
-                                  .passwordcontroller.text;
-
                               var result = await membershiplogincontroller
-                                  .memberShipLogin(eC, pC);
-                     },
+                                  .memberShipLogin();
+                            },
                             child: Container(
                               margin: EdgeInsets.only(
 //                        top: 34

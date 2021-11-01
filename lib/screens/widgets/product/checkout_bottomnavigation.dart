@@ -8,7 +8,7 @@ import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/product_model.dart';
@@ -16,7 +16,7 @@ import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/screens/sharables/checkout.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/userpreference.dart';
-import '../../../theme.dart';
+import '../../../core/theme.dart';
 
 class CheckoutBottomNavigation extends StatefulWidget {
   final int id;
@@ -133,83 +133,15 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                               children: [
                                 GestureDetector(
                                   onTap: () async {
-                                    cartController.status.toggle();
-                                    //variant id of selected variant type
-                                    int selectedVariantIndex = 0;
-                                    if (widget.tag == 1) {
-                                      //for snacks
-                                      selectedVariantIndex =
-                                          productDetailsController.currentsize;
-                                    } else {
-                                      //for drinks
-                                      selectedVariantIndex =
-                                          drinkDetailsController.currentsize;
-                                    }
-                                    widget.orderProducts.productVariantId =
-                                        productDetail?.allVariants
-                                            ?.elementAt(selectedVariantIndex)
-                                            .id;
-                                    //actual product id
-                                    widget.orderProducts.productId = widget.id;
-
-                                    //for drink options only
-                                    if (widget.tag == 0) {
-                                      //....building temprature option......///
-                                      String name = productDetail?.options
-                                              ?.elementAt(1)
-                                              .name ??
-                                          "None";
-
-                                      String selectedTemprature = productDetail
-                                              ?.options
-                                              ?.elementAt(1)
-                                              .options
-                                              .elementAt(drinkDetailsController
-                                                  .currenttabindex) ??
-                                          "Error";
-
-                                      int id = productDetail?.options
-                                              ?.elementAt(1)
-                                              .id ??
-                                          -1;
-
-                                      //....building toppings opions.....//
-                                      String selectedToppings =
-                                          drinkDetailsController.currenttopping;
-                                      //.....building milk options...//
-                                      String selectedMilk =
-                                          drinkDetailsController.currentmilk;
-
-                                      //collecting the option and build the order
-                                      widget.orderProducts.orderProductOptions =
-                                          [
-                                        selectedMilk,
-                                        selectedTemprature,
-                                        selectedToppings
-                                      ];
-
-                                      //collecting the addons
-                                      widget.orderProducts.orderProductAddons =
-                                          drinkDetailsController.selectedIds;
-                                    }
-                                    CartData cartData = CartData(
-                                      orderProducts: widget.orderProducts,
-                                      name: productDetail?.name,
-                                      imageUri: productDetail?.imageUri,
-                                      price: (widget.tag == 0)
-                                          ? drinkDetailsController
-                                              .totalPrice.value
-                                          : productDetailsController
-                                              .totalPrice.value,
-                                    );
-
-                                    //check before adding new data to the cart
-                                    if (cartController.status.isTrue) {
-                                      cartController.addOrderProducts(cartData);
-                                    } else if (cartController.status.isFalse) {
-                                      cartController
-                                          .removeOrderProducts(cartData);
-                                    }
+                                    cartController.buildDataAndAddToCart(
+                                        productDetail: productDetail,
+                                        id: widget.id,
+                                        tag: widget.tag,
+                                        productDetailsController:
+                                            productDetailsController,
+                                        drinkDetailsController:
+                                            drinkDetailsController,
+                                        orderProducts: widget.orderProducts);
                                   },
                                   child: Icon(
                                     CupertinoIcons.cart,
@@ -225,7 +157,6 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                                   top: (cartController.status.isTrue) ? -6 : -4,
                                   duration: Duration(milliseconds: 200),
                                   child: AnimatedSize(
-                                    vsync: this,
                                     duration: Duration(milliseconds: 200),
                                     curve: Curves.easeIn,
                                     // alignment: Alignment(0,0.4),
@@ -271,82 +202,16 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                     builder: (CartController cartController) {
                       return GestureDetector(
                         onTap: () {
-                          if (widget.tag == 0) {
-                            //the size selected(variant) med,small or large is detected here
-                            widget.orderProducts.productVariantId =
-                                productDetail?.allVariants
-                                    ?.elementAt(
-                                        drinkDetailsController.currentsize)
-                                    .id;
-                            //....building temprature option......///
-                            int id =
-                                productDetail?.options?.elementAt(1).id ?? -1;
-                            String name =
-                                productDetail?.options?.elementAt(1).name ??
-                                    "None";
-
-                            String selectedTemprature = productDetail?.options
-                                    ?.elementAt(1)
-                                    .options
-                                    .elementAt(drinkDetailsController
-                                        .currenttabindex) ??
-                                "Error";
-                            var tempOption = ProductOption(
-                                    id: id,
-                                    options: [selectedTemprature],
-                                    defaultValue: "0",
-                                    name: name)
-                                .toJson();
-
-                            String selectedToppings =
-                                drinkDetailsController.currenttopping;
-
-                            //.....building milk options...//
-                            String selectedMilk =
-                                drinkDetailsController.currentmilk;
-
-                            //collecting the option and build the order
-                            widget.orderProducts.orderProductOptions = [
-                              selectedMilk,
-                              selectedTemprature,
-                              selectedToppings
-                            ];
-
-                            //collecting the addons
-                            widget.orderProducts.orderProductAddons =
-                                drinkDetailsController.selectedIds;
-                          } else {
-                            //the size selected(variant) med,small or large is detected here
-                            widget.orderProducts.productVariantId =
-                                productDetail?.allVariants
-                                    ?.elementAt(
-                                        productDetailsController.currentsize)
-                                    .id;
-                          }
-                          widget.orderProducts.productId = widget.id;
-
-                          //building the selected option
-                          // print("reached here");
-                          CartData cartData = CartData(
-                            orderProducts: widget.orderProducts,
-                            name: productDetail?.name,
-                            imageUri: productDetail?.imageUri,
-                            price: drinkDetailsController.totalPrice.value,
-                          );
-                          List<CartData> orders = <CartData>[
-                            cartData,
-                          ];
-                          if (cartController.status.isTrue) {
-                            Get.find<BaseController>().setindex(2);
-                            Get.back();
-                          } else {
-                            showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                      content: UserPreference(
-                                          orders: orders, oldContext: context),
-                                    ));
-                          }
+                          //todo : place this function in checkout controller because it belongs to checkout
+                          cartController.buildAndProcessOrder(
+                              tag: widget.tag,
+                              context: context,
+                              productDetail: productDetail,
+                              orderProducts: widget.orderProducts,
+                              drinkDetailsController: drinkDetailsController,
+                              productDetailsController:
+                                  productDetailsController,
+                              id: widget.id);
                         },
                         child: Container(
                           //       height: 47,

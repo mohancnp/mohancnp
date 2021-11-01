@@ -2,16 +2,16 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/constants/instances.dart';
-import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
+import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
+import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/UserprofileModel.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/api_service.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
-import 'package:metrocoffee/theme.dart';
-
-import '../../../locator.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class PersonalDataPageController extends GetxController {
   TextEditingController namecontroller = TextEditingController();
@@ -33,6 +33,37 @@ class PersonalDataPageController extends GetxController {
     super.onInit();
   }
 
+  Future updateUserInfo(context) async {
+    Client client =
+        new Client.update(namecontroller.text, emailcontroller.text);
+
+    if (gender != null) {
+      client.gender = gender;
+    }
+
+    var dialog = showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: coffeecolor,
+            ),
+          );
+        });
+    UIState uiState = await updateUserInfoInServer(client.jsonToUpdate());
+    if (uiState == UIState.completed) {
+      Get.find<ProfileController>().getUserData();
+      Navigator.pop(context);
+      final snackBar = SnackBar(content: Text('Profile Updated'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (uiState == UIState.error) {
+      Navigator.pop(context);
+      final snackBar = SnackBar(content: Text('Profile update failed'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
   getUserDataFromServer() async {
     var token = await getToken();
     var user = await profileService.getUserProfileDataWithToken(token);
@@ -46,7 +77,8 @@ class PersonalDataPageController extends GetxController {
 
   Future<UIState> updateUserInfoInServer(
       Map<String, dynamic> dataToUpdate) async {
-    // return uiState;
+    //todo: also update the user detail in the local database on update.
+
     var response = await profileService.updateUserProfile(dataToUpdate);
     if (response == null) {
       print("Update Failed");

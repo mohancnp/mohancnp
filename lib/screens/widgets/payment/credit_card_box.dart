@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/payment/creditcardscontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/add_card_dialog.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/cancel_order_dialog.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/delete_order_dialog.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/order_succesful_dialog.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class CreditCardBox extends StatelessWidget {
   CreditCardBox({Key? key}) : super(key: key);
@@ -196,21 +196,25 @@ class CreditCardBox extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
-                    showDialog(context: context, builder: (_){
-                      return  ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(18)),
-                          child:SimpleDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(18)),
-                              ),
-                              children:[
-                          //      AddCardDialog()
-                         //   OrderSuccesfulDialog()
-                         //  CancelOrderDialog()
-                                AddCardDialog()
-                              ]));
-                    });
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) {
+                          return ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(18)),
+                              child: SimpleDialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(18)),
+                                  ),
+                                  children: [
+                                    //      AddCardDialog()
+                                    //   OrderSuccesfulDialog()
+                                    //  CancelOrderDialog()
+                                    AddCardDialog()
+                                  ]));
+                        });
                   },
                   child: Container(
                     margin: EdgeInsets.only(

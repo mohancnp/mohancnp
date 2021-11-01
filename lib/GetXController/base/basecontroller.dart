@@ -16,14 +16,28 @@ class BaseController extends GetxController {
     update();
   }
 
+  unverifyUser() {
+    userIsVerified = false;
+  }
+
   @override
   void onInit() {
+    print("On init");
     super.onInit();
-    print("base oninit called");
-    Get.find<CartController>().getOrderProducts();
-    Get.find<HomeTabController>().initializeAllData().then((value) {
-      Get.find<BaseController>().setUserVerified();
-    });
-    Get.find<HomeTabController>().setUserName();
+  }
+
+  Future<bool> initializeData() async {
+    try {
+      print("initialization starts");
+      Get.find<CartController>().getOrderProducts();
+      Get.find<HomeTabController>().initializeAllData().then((value) {
+        Get.find<BaseController>().setUserVerified();
+      });
+      Get.find<HomeTabController>().setUserDetail();
+    } on Exception catch (e) {
+      print("Exception initializeing data");
+      return false;
+    }
+    return true;
   }
 }

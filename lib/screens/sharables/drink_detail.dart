@@ -4,12 +4,12 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
 import 'package:metrocoffee/screens/widgets/product/checkout_bottomnavigation.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class DrinkDetail extends StatelessWidget {
   final int? atIndex;

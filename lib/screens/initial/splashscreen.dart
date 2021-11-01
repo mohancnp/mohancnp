@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/sharables/no_internet.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/util/internet.dart';
@@ -210,8 +210,8 @@ class _SplashScreenState extends State<SplashScreen>
     if (loginstat < 0) {
       print('still no internet');
     } else {
-      Navigator.of(context)
-          .pushReplacementNamed(loginstat == 0 ? '/Login' : '/Base');
+      Navigator.of(context).pushReplacementNamed(
+          loginstat == 0 ? '/Login' : '/OnBoardingScreen');
     }
   }
 }

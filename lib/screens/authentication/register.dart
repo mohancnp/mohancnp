@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/register_controller.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/constants/instances.dart';
-import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/instances.dart';
+import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
 // import 'package:metrocoffee/screens/contents/profilecontent/personal_data.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class SocialRegister extends StatefulWidget {
   SocialRegister({Key? key}) : super(key: key);

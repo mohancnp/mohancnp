@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/topup_reward_dialog.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
@@ -122,7 +122,7 @@ class Profile extends StatelessWidget {
                                         ),
                                         Text(
                                           profileController.newClient?.name ??
-                                              "Dummy Name",
+                                              "loading...",
                                           style: getpoppins(TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Color(0xff404D4D),
@@ -131,7 +131,7 @@ class Profile extends StatelessWidget {
                                         ),
                                         Text(
                                           profileController.newClient?.email ??
-                                              "dummyemail@gmail.com",
+                                              "loading...",
                                           style: getpoppins(TextStyle(
                                               fontWeight: FontWeight.w300,
                                               color: Color(0xff404D4D),

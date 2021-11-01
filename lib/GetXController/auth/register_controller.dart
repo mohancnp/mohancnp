@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/core/enums/uistate.dart';
 
 class RegisterController extends GetxController {
   String selectedGender = "Male";

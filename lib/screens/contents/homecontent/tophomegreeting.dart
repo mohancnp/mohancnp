@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 
 class TopHomeGreeting extends StatelessWidget {
   const TopHomeGreeting({Key? key}) : super(key: key);
@@ -27,7 +27,11 @@ class TopHomeGreeting extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GetX<HomeTabController>(builder: (controller) {
-                  var firstName = controller.name.split(' ')?.elementAt(0);
+                  var user = controller.newUser.value;
+                  var firstName = "...";
+                  if (user != null) {
+                    firstName = user.name!.split(' ').elementAt(0);
+                  }
                   return Container(
                       child: Text(
                     int.parse(DateFormat.H('en_US').format(DateTime.now())) < 12

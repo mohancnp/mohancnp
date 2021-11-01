@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
 import 'package:metrocoffee/screens/widgets/product/checkout_bottomnavigation.dart';
 import 'package:metrocoffee/screens/widgets/product/ratings_row_product_detail.dart';
 import 'package:metrocoffee/services/rest/config.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class ProductDetail extends StatelessWidget {
   ProductDetail({Key? key}) : super(key: key);

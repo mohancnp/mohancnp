@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/profile/personaldatapagecontroller.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
-import 'package:metrocoffee/constants/fontconstants.dart';
-import 'package:metrocoffee/enums/uistate.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
 import 'package:metrocoffee/services/rest/config.dart';
-import 'package:metrocoffee/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class PersonalData extends StatelessWidget {
   PersonalData({Key? key}) : super(key: key);
@@ -139,39 +139,7 @@ class PersonalData extends StatelessWidget {
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () async {
-                            Client client = new Client.update(
-                                personaldatacontroller.namecontroller.text,
-                                personalDataPageController
-                                    .emailcontroller.text);
-                            if (personaldatacontroller.gender != null) {
-                              client.gender = personaldatacontroller.gender;
-                            }
-                            var dialog = showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (context) {
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      color: coffeecolor,
-                                    ),
-                                  );
-                                });
-                            UIState uiState = await personalDataPageController
-                                .updateUserInfoInServer(client.jsonToUpdate());
-                            if (uiState == UIState.completed) {
-                              Get.find<ProfileController>().getUserData();
-                              Navigator.pop(context);
-                              final snackBar =
-                                  SnackBar(content: Text('Profile Updated'));
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } else if (uiState == UIState.error) {
-                              Navigator.pop(context);
-                              final snackBar = SnackBar(
-                                  content: Text('Profile update failed'));
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            }
+                            personaldatacontroller.updateUserInfo(context);
                           },
                         ),
                       )
