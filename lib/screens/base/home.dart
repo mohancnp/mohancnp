@@ -38,6 +38,8 @@ class Home extends StatelessWidget {
                           height: 153.h,
                           width: screenheight,
                           color: coffeecolor,
+                          // clipBehavior: Clip.none,
+
                           // child: Image.asset(
                           //   "assets/images/homebg.png",
                           //   width: screenheight,

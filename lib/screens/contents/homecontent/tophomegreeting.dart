@@ -13,6 +13,7 @@ class TopHomeGreeting extends StatelessWidget {
 
     return Container(
         width: screenwidth,
+        // clipBehavior: Clip.none,
         padding: EdgeInsets.only(
 //         horizontal: 24,vertical: 24
             left: screenwidth * 0.0583,

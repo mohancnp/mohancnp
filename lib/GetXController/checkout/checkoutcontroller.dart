@@ -5,15 +5,12 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:location/location.dart';
-import 'package:metrocoffee/GetXController/maps/map_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';
-import 'package:metrocoffee/models/location.dart';
 import 'package:metrocoffee/models/order.dart';
 import 'package:metrocoffee/models/profile.dart';
-import 'package:metrocoffee/screens/maps/map.dart';
+
 // import 'package:geocoding/geocoding.dart' as geo;
 import '../../core/theme.dart';
 

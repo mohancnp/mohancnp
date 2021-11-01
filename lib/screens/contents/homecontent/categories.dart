@@ -12,6 +12,7 @@ class CategoriesTabs extends StatelessWidget {
       color: Color(0xFFF3F5F5),
       child: Container(
         margin: EdgeInsets.only(top: 23.h, left: 28.w),
+        // clipBehavior: Clip.none,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

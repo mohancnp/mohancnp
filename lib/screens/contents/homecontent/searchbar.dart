@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({Key? key}) : super(key: key);
@@ -17,10 +18,17 @@ class SearchBar extends StatelessWidget {
             left: screenwidth * 0.0583,
             right: screenwidth * 0.0583),
         width: screenwidth,
+        clipBehavior: Clip.none,
         decoration: BoxDecoration(
-          color: Color(0xffFFEEF1),
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-        ),
+            color: Color(0xffFFEEF1),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            boxShadow: [
+              BoxShadow(
+                  color: Color(0x24550E1C),
+                  // color: Colors.red,
+                  offset: Offset(0, 3.r),
+                  blurRadius: 15.r)
+            ]),
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           GestureDetector(
               child: Container(

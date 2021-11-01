@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 
@@ -16,9 +17,10 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print("$baseUrl$imageUri");
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed("/ProductDetailPage");
+      },
       child: Container(
         height: 201.h,
         width: 136.w,
@@ -95,8 +97,8 @@ class ProductCard extends StatelessWidget {
                       fontWeight: FontWeight.w500)),
                 ),
                 Container(
-                  width: 28.h,
-                  height: 28.h,
+                  width: 28.w,
+                  height: 28.w,
                   // margin: EdgeInsets.only(right: 10.w),
                   child: Icon(
                     Icons.add,
@@ -107,7 +109,10 @@ class ProductCard extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: coffeecolor,
                       boxShadow: [
-                        BoxShadow(offset: Offset(0, 3), blurRadius: 10.r)
+                        BoxShadow(
+                            offset: Offset(0, 3),
+                            color: Color(0x62722030),
+                            blurRadius: 4.r)
                       ]),
                 )
               ],

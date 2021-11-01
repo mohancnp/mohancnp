@@ -10,6 +10,7 @@ import 'package:metrocoffee/screens/authentication/login.dart';
 import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 // import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 import 'package:metrocoffee/screens/base/base.dart';
+import 'package:metrocoffee/screens/contents/homecontent/product_detail_page.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/all_menu.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/favorite_products.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/my_order.dart';
@@ -34,7 +35,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await setupLocator();
   Get.lazyPut(() => CartController());
-//  Get.lazyPut(() => HomeTabController());
   runApp(MyApp());
 }
 
@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
           '/GoogleMapPage': (BuildContext context) => GoogleMapScreen(),
           '/MembershipLogin': (BuildContext context) => MembershipLogin(),
           '/OnBoardingScreen': (BuildContext context) => OnBoardingScreen(),
+          '/ProductDetailPage': (BuildContext context) => ProductDetailPage(),
         },
       ),
     );
