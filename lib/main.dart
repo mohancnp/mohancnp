@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/smart_management.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_it/get_it.dart';
 import 'package:metrocoffee/locator.dart';
@@ -24,6 +26,8 @@ import 'package:metrocoffee/screens/sharables/order_succesful_page.dart';
 import 'package:metrocoffee/screens/sharables/payment_page.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart';
 import 'package:metrocoffee/theme.dart';
+import 'GetXController/base/cartcontroller.dart';
+import 'GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'screens/authentication/register.dart';
 
 // import 'package:metrocoffee/test/apitest.dart';
@@ -34,6 +38,8 @@ GetIt getIt = GetIt.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
+  Get.lazyPut(() => CartController());
+//  Get.lazyPut(() => HomeTabController());
   runApp(MyApp());
 }
 
@@ -43,6 +49,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(375, 812),
       builder: () => GetMaterialApp(
+//        smartManagement: SmartManagement.keepFactory,
         debugShowCheckedModeBanner: false,
         title: 'Metro Coffee',
         theme: ThemeData(
