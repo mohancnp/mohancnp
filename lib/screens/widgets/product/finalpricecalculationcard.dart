@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FinalProductCalculationCard extends StatelessWidget {
   // final CartController controller = Get.find<CartController>();
@@ -12,7 +13,8 @@ class FinalProductCalculationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return Container(
-      width: screenwidth,
+      width: 320.w,
+      height: 128.h,
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [

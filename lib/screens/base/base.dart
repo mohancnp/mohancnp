@@ -4,13 +4,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/screens/base/home.dart';
-import 'package:metrocoffee/screens/base/mycart.dart';
+// import 'package:metrocoffee/screens/base/mycart.dart';
 import 'package:metrocoffee/screens/base/notifications.dart';
+import 'package:metrocoffee/screens/base/order_history.dart';
 import 'package:metrocoffee/screens/base/profile.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 
 class Base extends StatelessWidget {
-  List pages = [Home(), Notifications(), MyCart(), Profile()];
+  List pages = [Home(), Notifications(), OrderHistory(), Profile()];
 
   @override
   Widget build(BuildContext context) {

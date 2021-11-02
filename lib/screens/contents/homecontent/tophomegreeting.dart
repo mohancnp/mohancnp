@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/screens/base/my_product_cart.dart';
 
 class TopHomeGreeting extends StatelessWidget {
   const TopHomeGreeting({Key? key}) : super(key: key);
@@ -66,11 +67,14 @@ class TopHomeGreeting extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.to(MyProductCart());
+            },
             child: SvgPicture.asset(
-              "assets/images/cartadd_plain.png",
+              "assets/images/cartadd.svg",
               width: 20.w,
               height: 20.w,
+              color: Colors.white,
             ),
           )
         ]));

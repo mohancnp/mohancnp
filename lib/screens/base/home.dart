@@ -15,7 +15,6 @@ import 'package:metrocoffee/screens/contents/homecontent/tophomegreeting.dart';
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
   final HomeTabController homeTabController = Get.find<HomeTabController>();
-  // final categoriesController = Get.lazyPut(() => CategoriesController());
   @override
   Widget build(BuildContext context) {
     double screenheight = MediaQuery.of(context).size.height;
@@ -69,11 +68,6 @@ class Home extends StatelessWidget {
                         ProductList(
                           productType: ProductTypeEnum.drinks,
                         ),
-
-                        // AnimatedSwitcher(
-                        //     duration: Duration(milliseconds: 250),
-                        //     child: getPageForTabAtIndex(
-                        //         hometabcontroller.currentpageindex))
                       ],
                     ),
                   ])));

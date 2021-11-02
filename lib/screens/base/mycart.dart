@@ -36,50 +36,6 @@ class MyCart extends StatelessWidget {
                       fontSize: screenwidth * 0.0389),
                 ),
               ),
-//               floatingActionButtonLocation:
-//                   FloatingActionButtonLocation.centerFloat,
-//               floatingActionButton: GestureDetector(
-//                 onTap: () {
-//                   if (cartController.cartDataList.length < 1) {
-//                     print("No products Available");
-//                   } else {
-//                     showDialog<String>(
-//                         context: context,
-//                         builder: (BuildContext context) => AlertDialog(
-//                               content: UserPreference(
-//                                   orders: cartController.cartDataList,
-//                                   oldContext: context),
-//                             ));
-//                   }
-//                 },
-//                 child: Container(
-//                   margin: EdgeInsets.only(
-// //                    bottom: 12
-//                       bottom: screenwidth * 0.0291),
-// //                height: 47, width: 245,
-//                   height: screenwidth * 0.114,
-//                   width: screenwidth * 0.5961,
-//                   decoration: BoxDecoration(
-//                       color: Color(0xff550E1C),
-//                       borderRadius: BorderRadius.all(Radius.circular(10)),
-//                       boxShadow: [
-//                         BoxShadow(
-//                             color: Color(0xffC3916A).withOpacity(0.5),
-//                             blurRadius: 30,
-//                             offset: Offset(0, 9))
-//                       ]),
-//                   child: Center(
-//                     child: Text(
-//                       "Proceed to Checkout",
-//                       style: getpoppins(TextStyle(
-//                           fontWeight: FontWeight.w300,
-//                           color: Colors.white,
-//                           //       fontSize: 15
-//                           fontSize: screenwidth * 0.0364)),
-//                     ),
-//                   ),
-//                 ),
-//               ),
               body: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Container(
