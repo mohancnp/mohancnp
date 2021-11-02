@@ -21,133 +21,134 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return Material(
-        child: Stack(clipBehavior: Clip.none, children: [
-      Container(
-        height: 373.h,
-        width: 375.w,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(8.w),
-                bottomRight: Radius.circular(8.w)),
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(
-                    "assets/images/productimages/cardddd@3x-min.png"))),
-      ),
-      Positioned(
-        top: 49.h,
-        child: SizedBox(
+      child: Stack(clipBehavior: Clip.none, children: [
+        Container(
+          height: 373.h,
           width: 375.w,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            // mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 28.w,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(8.w),
+                  bottomRight: Radius.circular(8.w)),
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(
+                      "assets/images/productimages/cardddd@3x-min.png"))),
+        ),
+        Positioned(
+          top: 49.h,
+          child: SizedBox(
+            width: 375.w,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 28.w,
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Icon(
+                      CupertinoIcons.back,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
+                Padding(
+                  padding: EdgeInsets.only(right: 28.w),
                   child: Icon(
-                    CupertinoIcons.back,
+                    CupertinoIcons.cart_fill,
                     color: Colors.white,
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 28.w),
-                child: Icon(
-                  CupertinoIcons.cart_fill,
-                  color: Colors.white,
-                ),
-              ),
-              // Icon(Icons)
-            ],
+                // Icon(Icons)
+              ],
+            ),
           ),
         ),
-      ),
-      Positioned(
-        top: 238.h,
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.r),
-            child: ProductDescriptionWidget()),
-      ),
-      Positioned(
-          top: 373.h,
-          child: SingleChildScrollView(
+        Positioned(
+          top: 238.h,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.r),
+              child: ProductDescriptionWidget()),
+        ),
+        Positioned(
+            top: 373.h,
             child: Material(
-              color: Color(0xFFFFFFFF),
-              // clipBehavior: Clip.none,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                // scrollDirection: Axis.vertical,
-                // physics: AlwaysScrollableScrollPhysics(),
-                // shrinkWrap: true,
-                children: [
-                  TempratureOptionWidget(),
-                  Padding(
-                    padding: EdgeInsets.only(left: 28.w),
-                    child: Text("Quantity",
-                        style: getpoppins(
-                          TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16.sp,
-                              color: Color(0xFF414141)),
-                        )),
-                  ),
-                  ProductCountWidget(screenwidth: screenwidth),
-                  Padding(
-                    padding: EdgeInsets.only(left: 28.w),
-                    child: Text("Size",
-                        style: getpoppins(
-                          TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16.sp,
-                              color: Color(0xFF414141)),
-                        )),
-                  ),
-                  SizeOptionWIdget(),
-                  ToppingsOptionWidget(screenwidth: screenwidth),
-                  MilkOptionWidget(screenwidth: screenwidth),
-                  Container(
-                    width: screenwidth,
-                    margin: EdgeInsets.only(top: 15.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(
-                                  //          left: 22, right: 22
-                                  left: screenwidth * 0.0535,
-                                  right: screenwidth * 0.0535),
-                              margin: EdgeInsets.only(left: 5),
-                              child: Text(
-                                "Add Extra",
-                                style: getpoppins(TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: darkgrey,
-                                    //          fontSize: 14.5
-                                    fontSize: screenwidth * 0.0352)),
-                              ),
-                            ),
-                            AddonsWidget()
-                          ],
-                        ),
-                      ],
+              color: Colors.white,
+              child: SizedBox(
+                width: screenwidth,
+                child: ListView(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisSize: MainAxisSize.max,
+                  scrollDirection: Axis.vertical,
+                  physics: AlwaysScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: [
+                    TempratureOptionWidget(),
+                    Padding(
+                      padding: EdgeInsets.only(left: 28.w),
+                      child: Text("Quantity",
+                          style: getpoppins(
+                            TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16.sp,
+                                color: Color(0xFF414141)),
+                          )),
                     ),
-                  )
-                ],
+                    ProductCountWidget(screenwidth: screenwidth),
+                    Padding(
+                      padding: EdgeInsets.only(left: 28.w),
+                      child: Text("Size",
+                          style: getpoppins(
+                            TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16.sp,
+                                color: Color(0xFF414141)),
+                          )),
+                    ),
+                    SizeOptionWIdget(),
+                    ToppingsOptionWidget(screenwidth: screenwidth),
+                    MilkOptionWidget(screenwidth: screenwidth),
+                    Container(
+                      width: screenwidth,
+                      margin: EdgeInsets.only(top: 15.h),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(
+                                    //          left: 22, right: 22
+                                    left: screenwidth * 0.0535,
+                                    right: screenwidth * 0.0535),
+                                margin: EdgeInsets.only(left: 5),
+                                child: Text(
+                                  "Add Extra",
+                                  style: getpoppins(TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: darkgrey,
+                                      //          fontSize: 14.5
+                                      fontSize: screenwidth * 0.0352)),
+                                ),
+                              ),
+                            ],
+                          ),
+                          AddonsWidget()
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ))
-    ]));
+            ))
+      ]),
+    );
   }
 }
 

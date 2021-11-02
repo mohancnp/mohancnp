@@ -12,7 +12,7 @@ class AddonsWidget extends StatelessWidget {
     return Container(
         height: 140,
         child: ListView.builder(
-            itemCount: 3,
+            itemCount: 2,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             physics: BouncingScrollPhysics(),
@@ -25,7 +25,7 @@ class AddonsWidget extends StatelessWidget {
                   ),
                   //                        height: 94,width: 134,
                   height: screenwidth * 0.2287,
-                  width: screenwidth * 0.326,
+                  width: screenwidth * 0.226,
                   child: Stack(children: [
                     Positioned(
                         left: 0,
