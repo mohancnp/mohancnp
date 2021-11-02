@@ -1,0 +1,23 @@
+<svg id="cart_add" data-name="cart add" xmlns="http://www.w3.org/2000/svg" width="18.396" height="19.219" viewBox="0 0 18.396 19.219">
+  <g id="shopping-cart" transform="translate(0 3.219)">
+    <g id="Group_23" data-name="Group 23" transform="translate(11.973 12.869)">
+      <g id="Group_22" data-name="Group 22">
+        <path id="Path_61" data-name="Path 61" d="M293.918,338.862a1.566,1.566,0,1,0,1.566,1.566A1.584,1.584,0,0,0,293.918,338.862Z" transform="translate(-292.352 -338.862)" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Group_25" data-name="Group 25" transform="translate(0 0)">
+      <g id="Group_24" data-name="Group 24">
+        <path id="Path_62" data-name="Path 62" d="M16.17,13.626c-.038,0-.094-.02-.151-.02H4.146L3.958,12.24A1.736,1.736,0,0,0,2.28,10.67H.754a.818.818,0,0,0,0,1.631H2.28a.207.207,0,0,1,.188.183l1.168,8.6a2.125,2.125,0,0,0,2.035,1.9h7.84a2.141,2.141,0,0,0,2.035-1.794l1.225-6.625A.8.8,0,0,0,16.17,13.626Z" transform="translate(0 -10.67)" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Group_27" data-name="Group 27" transform="translate(4.331 12.869)">
+      <g id="Group_26" data-name="Group 26">
+        <path id="Path_63" data-name="Path 63" d="M114.127,340.352a1.556,1.556,0,0,0-1.551-1.49,1.575,1.575,0,0,0-1.505,1.626,1.543,1.543,0,0,0,1.535,1.49h.03A1.562,1.562,0,0,0,114.127,340.352Z" transform="translate(-111.07 -338.862)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+  <g id="Group_92" data-name="Group 92" transform="translate(13.286)" opacity="0">
+    <circle id="Ellipse_14" data-name="Ellipse 14" cx="2.555" cy="2.555" r="2.555" fill="#fff"/>
+    <text id="_1" data-name="1" transform="translate(2.044 4.022)" fill="#404d4d" font-size="3" font-family="Poppins-SemiBold, Poppins" font-weight="600"><tspan x="0" y="0">1</tspan></text>
+  </g>
+</svg>

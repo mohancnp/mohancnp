@@ -160,6 +160,7 @@ class _CheckoutBottomNavigationState extends State<CheckoutBottomNavigation>
                                     duration: Duration(milliseconds: 200),
                                     curve: Curves.easeIn,
                                     // alignment: Alignment(0,0.4),
+                                    vsync: this,
                                     child: Container(
                                       height: (cartController.status.isTrue)
                                           ? 13

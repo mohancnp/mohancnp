@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TopHomeGreeting extends StatelessWidget {
   const TopHomeGreeting({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -16,10 +17,10 @@ class TopHomeGreeting extends StatelessWidget {
         // clipBehavior: Clip.none,
         padding: EdgeInsets.only(
 //         horizontal: 24,vertical: 24
-            left: screenwidth * 0.0583,
-            right: screenwidth * 0.0583,
+            left: 28.w,
+            right: 28.w,
             //     top:35,
-            top: screenwidth * 0.0851),
+            top: 68.h),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Container(
@@ -52,7 +53,7 @@ class TopHomeGreeting extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(
                         //        top: 3
-                        top: screenwidth * 0.00729),
+                        top: 4.h),
                     child: Text(
                       "You can order drinks for collections or Delivery.",
                       style: TextStyle(
@@ -66,17 +67,10 @@ class TopHomeGreeting extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {},
-            child: Container(
-              child: Image.asset("assets/images/metro coffee logo@3x.png",
-//  width: 45,
-                  width: screenwidth * 0.1094),
-              padding: EdgeInsets.all(
-                  //     5
-                  1),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-              ),
+            child: SvgPicture.asset(
+              "assets/images/cartadd_plain.png",
+              width: 20.w,
+              height: 20.w,
             ),
           )
         ]));
