@@ -10,23 +10,17 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return Container(
-        //    height: 42,
-        height: screenwidth * 0.1021,
-        margin: EdgeInsets.only(
-            //      top: 23,
-            top: screenwidth * 0.0879,
-            left: screenwidth * 0.0583,
-            right: screenwidth * 0.0583),
+        height: 36.h,
+        margin: EdgeInsets.only(top: 23.h, left: 28.w, right: 28.w),
         width: screenwidth,
-        clipBehavior: Clip.none,
         decoration: BoxDecoration(
             color: Color(0xffFFEEF1),
             borderRadius: BorderRadius.all(Radius.circular(15)),
             boxShadow: [
               BoxShadow(
-                  color: Color(0x24550E1C),
-                  // color: Colors.red,
-                  offset: Offset(0, 3.r),
+//                  color: Color(0x24550E1C),
+                  color: Colors.red,
+                  offset: Offset(0, 1),
                   blurRadius: 15.r)
             ]),
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
