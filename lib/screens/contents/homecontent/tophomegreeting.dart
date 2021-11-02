@@ -41,7 +41,7 @@ class TopHomeGreeting extends StatelessWidget {
                         int.parse(DateFormat.H('en_US')
                                     .format(DateTime.now())) <
                                 12
-                            ? 'Good Morning,' + ' $firstName'
+                            ? 'Good Morning, ' + ' $firstName'
                             : int.parse(DateFormat.H('en_US')
                                         .format(DateTime.now())) <
                                     16

@@ -22,11 +22,10 @@ class ProductCard extends StatelessWidget {
         Get.toNamed("/ProductDetailPage");
       },
       child: Container(
-        height: 201.h,
         width: 136.w,
         // clipBehavior: Clip.none,
         margin: EdgeInsets.only(
-          left: 27.w,
+          left: 15.w,
           bottom: 5.h,
         ),
         // padding:,
@@ -47,10 +46,7 @@ class ProductCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                top: 10.h,
-                left: 10.w,
-              ),
+              padding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(4.r),
                 child: Image.asset(
@@ -75,13 +71,13 @@ class ProductCard extends StatelessWidget {
             Flexible(
                 fit: FlexFit.loose,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 10.w, top: 10.h),
+                  padding: EdgeInsets.only(left: 10.w, top: 11.h, right: 10.w),
                   child: Text(
                     "$name",
                     style: getpoppins(TextStyle(
                       color: Color(0xFF404D4D),
                       fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
+                      fontFamily: poppinsmedium,
                     )),
                   ),
                 )),
@@ -94,7 +90,7 @@ class ProductCard extends StatelessWidget {
                   style: getpoppins(TextStyle(
                       color: coffeecolor,
                       fontSize: 20.sp,
-                      fontWeight: FontWeight.w500)),
+                      fontFamily: poppinsmedium)),
                 ),
                 Container(
                   width: 28.w,
@@ -116,7 +112,8 @@ class ProductCard extends StatelessWidget {
                       ]),
                 )
               ],
-            )
+            ),
+            SizedBox(height: 10.h),
           ],
         ),
       ),

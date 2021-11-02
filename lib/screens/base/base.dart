@@ -8,6 +8,7 @@ import 'package:metrocoffee/screens/base/mycart.dart';
 import 'package:metrocoffee/screens/base/notifications.dart';
 import 'package:metrocoffee/screens/base/profile.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Base extends StatelessWidget {
   List pages = [Home(), Notifications(), MyCart(), Profile()];
@@ -28,12 +29,12 @@ class Base extends StatelessWidget {
                   body: pages[basecontroller.currentindex],
                   bottomNavigationBar: Container(
                       //  height: 83,
-                      height: screenwidth * 0.2019,
+                      height: 83.h,
                       decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                                 offset: Offset(0, -6),
-                                color: Color(0x0000000D),
+                                color: Color(0x0D000000),
                                 blurRadius: 25)
                           ],
                           color: Colors.white70,
@@ -60,7 +61,8 @@ class Base extends StatelessWidget {
                             activeIcon: SvgPicture.asset(
                               "assets/images/home-icon-silhouette.svg",
                               //       width: 24,
-                              width: screenwidth * 0.0583,
+                              width: 20.w,
+                              height: 20.h,
                               color: Color(0xff550E1C),
                             ),
                             backgroundColor: Colors.transparent,
@@ -68,7 +70,8 @@ class Base extends StatelessWidget {
                             icon: SvgPicture.asset(
                               "assets/images/home-icon-silhouette.svg",
                               //                      width: 24,
-                              width: screenwidth * 0.0583,
+                              width: 20.w,
+                              height: 20.h,
                               color: Colors.black38,
                             ),
                           ),
@@ -76,7 +79,8 @@ class Base extends StatelessWidget {
                             activeIcon: SvgPicture.asset(
                               "assets/images/bell.svg",
                               //                 height: 24,
-                              height: screenwidth * 0.0583,
+                              width: 20.w,
+                              height: 20.h,
                               color: Color(0xff550E1C),
                             ),
                             label: "",
@@ -84,7 +88,8 @@ class Base extends StatelessWidget {
                             icon: SvgPicture.asset(
                               "assets/images/bell.svg",
                               //                      height: 24,
-                              height: screenwidth * 0.0583,
+                              width: 20.w,
+                              height: 20.h,
                               color: Colors.black38,
                             ),
                           ),
@@ -92,7 +97,8 @@ class Base extends StatelessWidget {
                             activeIcon: SvgPicture.asset(
                               "assets/images/shopping-cart.svg",
                               //               height: 24,
-                              height: screenwidth * 0.0583,
+                              width: 20.w,
+                              height: 20.h,
                               color: Color(0xff550E1C),
                             ),
                             label: "",
@@ -100,7 +106,8 @@ class Base extends StatelessWidget {
                             icon: SvgPicture.asset(
                               "assets/images/shopping-cart.svg",
                               //            height: 24,
-                              height: screenwidth * 0.05834,
+                              width: 20.w,
+                              height: 20.h,
                               color: Colors.black38,
                             ),
                           ),
@@ -108,7 +115,8 @@ class Base extends StatelessWidget {
                             activeIcon: SvgPicture.asset(
                               "assets/images/user.svg",
                               //            height: 24,
-                              height: screenwidth * 0.0583,
+                              width: 20.w,
+                              height: 20.h,
                               color: Color(0xff550E1C),
                             ),
                             label: "",

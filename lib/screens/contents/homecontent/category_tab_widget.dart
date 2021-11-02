@@ -48,7 +48,7 @@ class CategoryTab extends StatelessWidget {
                 style: getpoppins(TextStyle(
                     color: pressed! ? Color(0xE5FFFFFF) : Color(0xFF344141),
                     fontSize: 12.sp,
-                    fontWeight: FontWeight.normal)),
+                    fontFamily: poppinsregular)),
               ),
             ),
           ],
