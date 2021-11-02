@@ -10,11 +10,10 @@ class ProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-
     return Material(
       child: Container(
-        height: 210.h,
+        height: 208.h,
+        margin: EdgeInsets.only(left: 13.w),
         color: Color(0xFFF3F5F5),
         child: ListView.builder(
           itemCount: 3,

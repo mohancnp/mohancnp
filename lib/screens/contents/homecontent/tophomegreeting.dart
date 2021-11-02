@@ -21,58 +21,62 @@ class TopHomeGreeting extends StatelessWidget {
             right: 28.w,
             //     top:35,
             top: 68.h),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GetX<HomeTabController>(builder: (controller) {
-                  var user = controller.newUser.value;
-                  var firstName = "...";
-                  if (user != null) {
-                    firstName = user.name!.split(' ').elementAt(0);
-                  }
-                  return Container(
-                      child: Text(
-                    int.parse(DateFormat.H('en_US').format(DateTime.now())) < 12
-                        ? 'Good Morning,' + ' $firstName'
-                        : int.parse(DateFormat.H('en_US')
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GetX<HomeTabController>(builder: (controller) {
+                      var user = controller.newUser.value;
+                      var firstName = "...";
+                      if (user != null) {
+                        firstName = user.name!.split(' ').elementAt(0);
+                      }
+                      return Container(
+                          child: Text(
+                        int.parse(DateFormat.H('en_US')
                                     .format(DateTime.now())) <
-                                16
-                            ? 'Good Afternoon,' + '$firstName'
-                            : 'Good Evening,' + ' $firstName ',
-                    style: TextStyle(
-                        fontFamily: montserratsemibold,
-                        color: Colors.white,
-                        //     fontSize: 20.5
-                        fontSize: screenwidth * 0.0498),
-                  ));
-                }),
-                Container(
-                    margin: EdgeInsets.only(
-                        //        top: 3
-                        top: 4.h),
-                    child: Text(
-                      "You can order drinks for collections or Delivery.",
-                      style: TextStyle(
-                          fontFamily: poppinslight,
-                          color: Color(0xF3F3F3D6),
-                          //          fontSize: 11.5
-                          fontSize: screenwidth * 0.0279),
-                    )),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: SvgPicture.asset(
-              "assets/images/cartadd_plain.png",
-              width: 20.w,
-              height: 20.w,
-            ),
-          )
-        ]));
+                                12
+                            ? 'Good Morning, ' + ' $firstName'
+                            : int.parse(DateFormat.H('en_US')
+                                        .format(DateTime.now())) <
+                                    16
+                                ? 'Good Afternoon,' + '$firstName'
+                                : 'Good Evening,' + ' $firstName ',
+                        style: TextStyle(
+                            fontFamily: montserratsemibold,
+                            color: Colors.white,
+                            //     fontSize: 20.5
+                            fontSize: screenwidth * 0.0498),
+                      ));
+                    }),
+                    Container(
+                        margin: EdgeInsets.only(
+                            //        top: 3
+                            top: 4.h),
+                        child: Text(
+                          "You can order drinks for collections or Delivery.",
+                          style: TextStyle(
+                              fontFamily: poppinslight,
+                              color: Color(0xF3F3F3D6),
+                              //          fontSize: 11.5
+                              fontSize: screenwidth * 0.0279),
+                        )),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: SvgPicture.asset(
+                  "assets/images/cartadd_plain.svg",
+                  width: 20.w,
+                  height: 20.w,
+                ),
+              )
+            ]));
   }
 }

@@ -11,19 +11,23 @@ class SearchBar extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return Container(
         height: 36.h,
-        margin: EdgeInsets.only(top: 23.h, left: 28.w, right: 28.w),
+        margin:
+            EdgeInsets.only(top: 23.h, left: 28.w, right: 28.w, bottom: 23.h),
+        padding: EdgeInsets.only(
+            //       bottom: 4,
+            top: 10.h,
+            bottom: 10.h),
         width: screenwidth,
         decoration: BoxDecoration(
             color: Color(0xffFFEEF1),
             borderRadius: BorderRadius.all(Radius.circular(15)),
             boxShadow: [
               BoxShadow(
-//                  color: Color(0x24550E1C),
-                  color: Colors.red,
-                  offset: Offset(0, 1),
+                  color: Color(0x24550E1C),
+                  offset: Offset(0, 3.h),
                   blurRadius: 15.r)
             ]),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        child: Row(children: [
           GestureDetector(
               child: Container(
             margin: EdgeInsets.symmetric(
@@ -33,30 +37,28 @@ class SearchBar extends StatelessWidget {
               Ionicons.search,
               color: Color(0xff404D4D),
               //        size: 22,
-              size: screenwidth * 0.0535,
+              size: 13.03.w,
             ),
           )),
           Expanded(
               child: Container(
-                  padding: EdgeInsets.only(
-                      //       bottom: 4
-                      bottom: screenwidth * 0.00973),
                   child: TextField(
-                    style: TextStyle(
-                        fontFamily: poppinsregular,
-                        color: Colors.black87,
-                        //     fontSize: 11.5
-                        fontSize: screenwidth * 0.0279),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'What will energize you today?',
-                      hintStyle: TextStyle(
-                          fontFamily: poppinslight,
-                          color: Color(0xff404D4D),
-                          //     fontSize: 11.5
-                          fontSize: screenwidth * 0.0279),
-                    ),
-                  )))
+            style: TextStyle(
+                fontFamily: poppinsregular,
+                color: Colors.black87,
+                //     fontSize: 11.5
+                fontSize: 10.sp),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(bottom: 11.5.h),
+              border: InputBorder.none,
+              hintText: 'What will energize you today?',
+              hintStyle: TextStyle(
+                  fontFamily: poppinslight,
+                  color: Color(0xC2404D4D),
+                  //     fontSize: 11.5
+                  fontSize: 10.sp),
+            ),
+          )))
         ]));
   }
 }
