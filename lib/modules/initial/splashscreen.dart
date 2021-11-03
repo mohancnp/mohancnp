@@ -31,7 +31,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   initState() {
-    super.initState();
     deployanimation();
     startTime();
 
@@ -39,24 +38,25 @@ class _SplashScreenState extends State<SplashScreen>
       if (ready) {
         final tempStorage = TempStorage();
         var authToken, firsTimeUser;
-        tempStorage.initialise().whenComplete(() {
+        tempStorage.initialise().then((value) {
           firsTimeUser = tempStorage.readBool(TempStorageKeys.firstTimeUser);
           authToken = tempStorage.readString(TempStorageKeys.authToken);
-        });
-        if (firsTimeUser != null) {
-          if (authToken != null) {
-            loginstat = 1;
+          print("FTM: $firsTimeUser and auth $authToken");
+          if (firsTimeUser != null) {
+            print("not the first time user");
+            if (authToken != null) {
+              print("authenticated");
+              loginstat = 1;
+            }
           } else {
-            Future.delayed(Duration.zero)
-                .then((value) => Get.offNamed(PageName.loginpage));
+            loginstat = 2;
           }
-        } else {
-          Get.offNamed(PageName.onboardingpage);
-        }
+        });
       } else {
         loginstat = -1;
       }
     });
+    super.initState();
   }
 
   @override
@@ -194,7 +194,12 @@ class _SplashScreenState extends State<SplashScreen>
     if (loginstat < 0) {
       Get.offNamed(PageName.nointernetpage);
     } else {
-      Get.offAllNamed(loginstat == 1 ? PageName.homepage : PageName.loginpage);
+      print("login state: $loginstat");
+      Get.offAllNamed(loginstat == 1
+          ? PageName.homepage
+          : loginstat == 2
+              ? PageName.onboardingpage
+              : PageName.loginpage);
     }
   }
 }

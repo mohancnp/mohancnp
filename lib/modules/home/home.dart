@@ -11,6 +11,7 @@ import 'package:metrocoffee/screens/contents/homecontent/tabs/bakery.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/drinks.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/snacks.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tophomegreeting.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
@@ -22,14 +23,14 @@ class Home extends StatelessWidget {
         init: HomeTabController(),
         builder: (hometabcontroller) {
           return Scaffold(
-              backgroundColor: Color(0xFFF3F5F5),
+              backgroundColor: Palette.pagebackgroundcolor,
               body: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
                   child: Stack(children: [
                     Container(
                       height: 153.h,
                       width: screenheight,
-                      color: coffeecolor,
+                      color: Palette.coffeeColor,
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,

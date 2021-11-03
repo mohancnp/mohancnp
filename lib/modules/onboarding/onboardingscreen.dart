@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 // import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/onboardingimages.dart';
@@ -33,19 +35,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
   late final Animation<double> _animation =
       Tween(begin: beginValue, end: endValue).animate(_controller);
 
-  bool dataInitialized = false;
+  // bool dataInitialized = false;
   @override
   void initState() {
     super.initState();
     pageController = PageController(
       initialPage: intoPage,
     );
-    initializeData();
+    var tmpStorage = TempStorage();
+    tmpStorage.initialise().whenComplete(() {
+      tmpStorage.writeBool(TempStorageKeys.firstTimeUser, true);
+    });
+    // initializeData();
   }
 
-  Future initializeData() async {
-    dataInitialized = await Get.find<BaseController>().initializeData();
-  }
+  // Future initializeData() async {
+  //   dataInitialized = await Get.find<BaseController>().initializeData();
+  // }
 
   @override
   void dispose() {
@@ -197,22 +203,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
   }
 
   _onPressed() {
-    print("Button pressed");
-    //navigate to another page
-    if (dataInitialized) {
-      print("reached in if");
-      Get.offAllNamed(
-        "/Base",
-      );
-      // Get.snackbar("Title", "fyuilkjhgf");
-    } else {
-      print("reached in else");
-      showDialog(
-          context: context,
-          builder: (context) {
-            return LoadingDialog();
-          });
-    }
+    Get.offAllNamed(PageName.homepage);
   }
 
   setTextForPage(int pageIndex) {

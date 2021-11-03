@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';
+import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/services/rest/login.dart';
@@ -52,17 +54,24 @@ class MemberShipController extends GetxController {
           // print("Response data: ${response['data']}");
           var data = response['data'];
           var token = data['token'];
-          addToken(provider: 'membership', token: token.toString());
-          Client newUser = Client.fromJson(response['data']['user']);
-          userTableHandler.addUser(newUser).then((value) {
-            setUiState(UIState.completed);
-            membershipnumbercontroller.text = "";
-            memberShipLoginErrorMsg = "";
-            passwordcontroller.text = "";
-            Get.offAllNamed("/OnBoardingScreen");
-            // Get.find<BaseController>().initializeData();
-            // Get.offNamedUntil('/Base', (route) => false);
+          var tempStorage = TempStorage();
+          tempStorage.initialise().then((value) {
+            tempStorage.writeString(
+                TempStorageKeys.authToken, token.toString());
           });
+          // addToken(provider: 'membership', token: token.toString());
+          Client newUser = Client.fromJson(response['data']['user']);
+          setUiState(UIState.completed);
+
+          // userTableHandler.addUser(newUser).then((value) {
+          //   setUiState(UIState.completed);
+          // }).onError((error, stackTrace) {
+          //   print(error);
+          // });
+          membershipnumbercontroller.text = "";
+          memberShipLoginErrorMsg = "";
+          passwordcontroller.text = "";
+          Get.toNamed(PageName.homepage);
         }
       } else {
         setMemberShipLoginError("Error occured, try again!!!");

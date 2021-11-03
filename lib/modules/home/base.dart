@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/home/home.dart';
-// import 'package:metrocoffee/screens/base/mycart.dart';
-import 'package:metrocoffee/screens/base/notifications.dart';
 import 'package:metrocoffee/screens/base/order_history.dart';
 import 'package:metrocoffee/screens/base/profile.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/ui/widgets.dart/utility_info_widget.dart';
 
 class Base extends StatelessWidget {
-  List pages = [Home(), Notifications(), OrderHistory(), Profile()];
+  List pages = [
+    Home(),
+    UtilityInfoWidget(
+      title: "You Are All Caught Up",
+      svgImageUri: UtilityIcons.illustrations,
+      content: "Looks like you do not have any notifications",
+      buttonText: "Start Browsing",
+    ),
+    OrderHistory(),
+    Profile()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +32,6 @@ class Base extends StatelessWidget {
           return basecontroller.userVerificationStatus ==
                   UserVerficationStatus.verified
               ? Scaffold(
-                  backgroundColor: Color(0xFFF3F5F5),
                   body: pages[basecontroller.currentindex],
                   bottomNavigationBar: Container(
                       //  height: 83,

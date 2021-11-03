@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -71,7 +72,7 @@ class TopHomeGreeting extends StatelessWidget {
                   Get.to(MyProductCart());
                 },
                 child: SvgPicture.asset(
-                  "assets/images/cartadd.svg",
+                  cartIcons,
                   width: 20.w,
                   height: 20.w,
                   color: Colors.white,

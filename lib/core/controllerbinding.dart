@@ -15,9 +15,10 @@ class ControllerBinding extends Bindings {
   @override
   void dependencies() {
     // TODO: implement dependencies
-    Get.put(BaseController());
-    Get.put(CartController());
     Get.put(HomeTabController());
+    Get.put(CartController());
+    Get.put(BaseController());
+
     Get.put(DrinkDetailsController());
     Get.put(ProfileController());
     Get.put(ProductDetailController());

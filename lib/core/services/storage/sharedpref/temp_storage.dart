@@ -13,12 +13,12 @@ class TempStorage {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  String readString(String key) {
-    return _prefs.getString(key)!;
+  String? readString(String key) {
+    return _prefs.getString(key);
   }
 
-  bool readBool(String key) {
-    return _prefs.getBool(key)!;
+  bool? readBool(String key) {
+    return _prefs.getBool(key);
   }
 
   void writeString(String key, String value) async {
