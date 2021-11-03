@@ -38,13 +38,13 @@ class Home extends StatelessWidget {
                         TopHomeGreeting(),
                         SearchBar(),
                         CategoriesTabs(),
-                        SizedBox(height: 17.h),
+                        SizedBox(height: 33.h),
                         ProductList(
                           productType: ProductTypeEnum.drinks,
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              left: 27.w, top: 23.h, bottom: 16.h),
+                              left: 28.w, top: 23.h, bottom: 16.h),
                           child: Text(
                             "Most Popular",
                             style: TextStyle(
@@ -57,7 +57,7 @@ class Home extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              left: 27.w, top: 23.h, bottom: 16.h),
+                              left: 28.w, top: 23.h, bottom: 16.h),
                           child: Text(
                             "Recommended",
                             style: TextStyle(

@@ -78,6 +78,7 @@ flutter:
   assets:
       - assets/images/coffee-cup.svg
       - assets/images/cartadd.svg
+      - assets/images/cartadd_plain.svg
       - assets/images/coffee-cup@3x.png
       - assets/images/cupwithsteam.png
       - assets/images/steam.png
