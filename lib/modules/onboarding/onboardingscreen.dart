@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/base/basecontroller.dart';
+import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/onboardingimages.dart';
 import 'package:metrocoffee/core/theme.dart';

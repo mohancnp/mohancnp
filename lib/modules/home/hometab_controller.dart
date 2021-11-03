@@ -132,26 +132,26 @@ class HomeTabController extends GetxController {
 
 //  v-2
   Future checkInternet() async {
-    bool ready = await isConnectionReady();
+    bool ready = await InternetConnectionHelper.isConnectionReady();
     return ready;
     // getProducts();
   }
 
   //v-2 subscribe to network connection changes and notify when the app
   //is in foreground
-  subscriptionToConnectionChange() {
-    streamSubscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
-      print("listening to changes");
-    });
-    streamSubscription?.onData((data) {
-      if (getBoolFromEnum(data)) {
-        internetConnected = true;
-        getProducts();
-      }
-    });
-  }
+  // subscriptionToConnectionChange() {
+  //   streamSubscription = Connectivity()
+  //       .onConnectivityChanged
+  //       .listen((ConnectivityResult result) {
+  //     print("listening to changes");
+  //   });
+  //   streamSubscription?.onData((data) {
+  //     if (getBoolFromEnum(data)) {
+  //       internetConnected = true;
+  //       getProducts();
+  //     }
+  //   });
+  // }
 
   setpageindex(int index) {
     currentpageindex = index;

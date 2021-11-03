@@ -1,6 +1,6 @@
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/base/basecontroller.dart';
+import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
@@ -36,7 +36,8 @@ class ProfileController extends GetxController {
       fb.logOut();
     }
     Get.find<BaseController>().setindex(0);
-    Get.find<BaseController>().unverifyUser();
+    Get.find<BaseController>()
+        .updateUserVerificationStatus(UserVerficationStatus.unverified);
     return (tokenRemoved && userRemoved) ? true : false;
   }
 }

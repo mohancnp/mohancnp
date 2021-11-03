@@ -1,14 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/base/basecontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/screens/sharables/no_internet.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
 import 'package:metrocoffee/util/internet.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -28,30 +27,34 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _fadeanimation;
   late Animation<double> _downscaleanimation;
   int initialfadeduration = 2000;
-  int loginstat = -1;
+  int loginstat = 0;
 
   @override
   initState() {
     super.initState();
-
     deployanimation();
     startTime();
-    // _getloginstatus();
 
-    isConnectionReady().then((ready) {
+    InternetConnectionHelper.isConnectionReady().then((ready) {
       if (ready) {
-        verifyToken().then((status) {
-          // print('verification status: $status');
-          if (status == false) {
-            loginstat = 0;
-            // setUserVerified();
-            // Future.delayed(Duration.zero).then((value) => Get.offNamed('/Login'));
-          } else {
-            loginstat = 1;
-          }
+        final tempStorage = TempStorage();
+        var authToken, firsTimeUser;
+        tempStorage.initialise().whenComplete(() {
+          firsTimeUser = tempStorage.readBool(TempStorageKeys.firstTimeUser);
+          authToken = tempStorage.readString(TempStorageKeys.authToken);
         });
+        if (firsTimeUser != null) {
+          if (authToken != null) {
+            loginstat = 1;
+          } else {
+            Future.delayed(Duration.zero)
+                .then((value) => Get.offNamed(PageName.loginpage));
+          }
+        } else {
+          Get.offNamed(PageName.onboardingpage);
+        }
       } else {
-        Get.to(() => NoInternet());
+        loginstat = -1;
       }
     });
   }
@@ -65,27 +68,8 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
-  // Future<int> _getloginstatus() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final loginstatus = prefs.getInt('loginstatus');
-  //   if (loginstatus == null) {
-  //     setState(() {
-  //       loginstat = 0;
-  //     });
-  //     return 0;
-  //   }
-  //   setState(() {
-  //     loginstat = loginstatus;
-  //   });
-  //   return loginstatus;
-  // }
-
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
     double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -208,10 +192,9 @@ class _SplashScreenState extends State<SplashScreen>
 
   void navigationPage() {
     if (loginstat < 0) {
-      print('still no internet');
+      Get.offNamed(PageName.nointernetpage);
     } else {
-      Navigator.of(context).pushReplacementNamed(
-          loginstat == 0 ? '/Login' : '/OnBoardingScreen');
+      Get.offAllNamed(loginstat == 1 ? PageName.homepage : PageName.loginpage);
     }
   }
 }

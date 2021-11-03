@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
+import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/screens/base/my_product_cart.dart';

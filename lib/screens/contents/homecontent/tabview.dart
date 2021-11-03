@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
+import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 
 class HomeTabView extends StatelessWidget {

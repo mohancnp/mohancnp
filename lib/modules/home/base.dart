@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/base/basecontroller.dart';
-import 'package:metrocoffee/screens/base/home.dart';
+import 'package:metrocoffee/modules/home/base_controller.dart';
+import 'package:metrocoffee/modules/home/home.dart';
 // import 'package:metrocoffee/screens/base/mycart.dart';
 import 'package:metrocoffee/screens/base/notifications.dart';
 import 'package:metrocoffee/screens/base/order_history.dart';
@@ -15,15 +15,12 @@ class Base extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<BaseController>(
         init: BaseController(),
         builder: (basecontroller) {
-          return basecontroller.userIsVerified
+          return basecontroller.userVerificationStatus ==
+                  UserVerficationStatus.verified
               ? Scaffold(
                   backgroundColor: Color(0xFFF3F5F5),
                   body: pages[basecontroller.currentindex],

@@ -1,9 +1,10 @@
+
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
+import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';

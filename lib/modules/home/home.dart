@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
+import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/core/enums/producttype.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/screens/base/product_list.dart';

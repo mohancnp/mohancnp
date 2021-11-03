@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/screens/contents/homecontent/newcard.dart';
 
