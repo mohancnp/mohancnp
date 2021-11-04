@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/membershipcontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';

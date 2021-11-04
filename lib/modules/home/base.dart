@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/modules/auth/custom/core_login.dart';
+import 'package:metrocoffee/modules/auth/core_login.dart';
+import 'package:metrocoffee/modules/auth/custom/membership_login.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/home/home.dart';
 import 'package:metrocoffee/screens/base/order_history.dart';
@@ -12,7 +13,7 @@ import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 class Base extends StatelessWidget {
   List pages = [
     Home(),
-    Login(),
+    MembershipLoginPage(),
     // UtilityInfoWidget(
     //   title: "You Are All Caught Up",
     //   svgImageUri: UtilityIcons.illustrations,

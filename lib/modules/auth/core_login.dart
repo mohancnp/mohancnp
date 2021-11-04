@@ -7,8 +7,8 @@ import 'package:metrocoffee/core/constants/icons/socials.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
 
-class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
