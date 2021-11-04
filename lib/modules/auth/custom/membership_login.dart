@@ -1,9 +1,12 @@
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';
-import 'package:metrocoffee/modules/auth/widgets/custom_form_feild.dart';
+import 'package:metrocoffee/modules/auth/custom/membership_login_controller.dart';
+import 'package:metrocoffee/modules/auth/widgets/sign_in_btn.dart';
+import 'package:metrocoffee/modules/auth/widgets/text_form_feild_skeleton.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,9 +15,6 @@ class MembershipLoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // double screenheight = MediaQuery.of(context).size.height;
-    // double screenwidth = MediaQuery.of(context).size.width;
-
     return Stack(
       children: [
         Scaffold(
@@ -63,7 +63,6 @@ class MembershipLoginPage extends StatelessWidget {
                     Container(
                       child: Image.asset(
                         "assets/images/metro coffee logo@3x.png",
-//  width: 58,
                         width: 58.w,
                       ),
                       padding: EdgeInsets.all(
@@ -87,9 +86,68 @@ class MembershipLoginPage extends StatelessWidget {
                             fontSize: 42.sp),
                       ),
                     ),
-                    CustomFormFeild(),
-
-                    // membershiplogincontroller.loginfields(context),
+                    GetBuilder<MemberShipLoginController>(
+                        init: MemberShipLoginController(),
+                        builder: (mc) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FormFeildSkeleton(
+                                child: TextFormField(
+                                  controller: mc.membershipNumberController,
+                                  cursorColor: Colors.black87,
+                                  style: TextStyle(
+                                      fontFamily: poppinsregular,
+                                      color: Colors.black87,
+                                      //       fontSize: 13.5
+                                      fontSize: 13.sp),
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    suffixIcon: Icon(
+                                      FeatherIcons.user,
+                                      color: Color(0xff404d4d),
+                                      //                 size: 18,
+                                      size: 18.sp,
+                                    ),
+                                    border: InputBorder.none,
+                                    hintText: 'Membership No.',
+                                    hintStyle: TextStyle(
+                                        fontFamily: poppinsregular,
+                                        color: Color(0xff404d4d)),
+                                  ),
+                                ),
+                              ),
+                              FormFeildSkeleton(
+                                child: TextFormField(
+                                  controller: mc.passwordController,
+                                  cursorColor: Colors.black87,
+                                  style: TextStyle(
+                                      fontFamily: poppinsregular,
+                                      color: Colors.black87,
+                                      //       fontSize: 13.5
+                                      fontSize: 13.sp),
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    suffixIcon: Icon(
+                                      FeatherIcons.user,
+                                      color: Color(0xff404d4d),
+                                      //                 size: 18,
+                                      size: 18.sp,
+                                    ),
+                                    border: InputBorder.none,
+                                    hintText: 'Membership No.',
+                                    hintStyle: TextStyle(
+                                        fontFamily: poppinsregular,
+                                        color: Color(0xff404d4d)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                       Container(
                         margin: EdgeInsets.only(
@@ -106,58 +164,26 @@ class MembershipLoginPage extends StatelessWidget {
                         ),
                       )
                     ]),
-                    // membershiplogincontroller.memberShipLoginErrorMsg == null
-                    // ? SizedBox()
-                    // :
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 8.h),
-                        child: Text(
-                          "membershiplogincontroller error",
-                          style: TextStyle(
-                              fontFamily: proximanovaregular,
-                              color: Colors.redAccent,
-                              //                           fontSize: 14.5
-                              fontSize: 14.sp),
-                        ),
-                      ),
-                    ),
-                    Center(
-                        child: GestureDetector(
-                      onTap: () async {
-                        // var result =
-                        //     await membershiplogincontroller.memberShipLogin();
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(
-//                        top: 34
-                            top: 34.h),
-//                    height: 46, width: 181,
-                        height: 46.h,
-                        width: 181.w,
-                        decoration: BoxDecoration(
-                            color: Color(0xffD4874C),
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color(0xffC3916A4D),
-                                  blurRadius: 30.r,
-                                  offset: Offset(0, 9.r))
-                            ]),
-                        child: Center(
-                          child: Container(
-                            child: Text(
-                              "SIGN IN",
-                              style: TextStyle(
-                                  fontFamily: poppinsregular,
-                                  color: Colors.white,
-                                  //                         fontSize: 16
-                                  fontSize: 16.sp),
-                            ),
+                    GetBuilder<MemberShipLoginController>(builder: (mc) {
+                      return Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 8.h),
+                          child: Text(
+                            "${mc.errorMessage}",
+                            style: TextStyle(
+                                fontFamily: proximanovaregular,
+                                color: Colors.redAccent,
+                                //                           fontSize: 14.5
+                                fontSize: 14.sp),
                           ),
                         ),
+                      );
+                    }),
+                    Center(
+                      child: SignInBtn(
+                        onpressed: () {},
                       ),
-                    ))
+                    )
                   ],
                 ),
               ),
@@ -165,24 +191,5 @@ class MembershipLoginPage extends StatelessWidget {
         // getLoadingDialog(membershiplogincontroller.state)
       ],
     );
-  }
-
-  Widget getLoadingDialog(UIState state) {
-    switch (state) {
-      case UIState.passive:
-        return SizedBox(
-          height: 0,
-        );
-      case UIState.processing:
-        return LoadingPage();
-      case UIState.completed:
-        return SizedBox(
-          height: 0,
-        );
-      default:
-        return SizedBox(
-          height: 0,
-        );
-    }
   }
 }

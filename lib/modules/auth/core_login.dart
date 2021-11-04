@@ -193,7 +193,7 @@ class LoginPage extends StatelessWidget {
       filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
       child: GestureDetector(
           onTap: () {
-            Get.toNamed(PageName.emailloginpage);
+            // Get.toNamed(PageName.emailloginpage);
           },
           child: Container(
             margin: EdgeInsets.only(
