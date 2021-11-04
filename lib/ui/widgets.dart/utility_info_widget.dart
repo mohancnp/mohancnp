@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
+import 'custom_button.dart';
+
 class UtilityInfoWidget extends StatelessWidget {
   final String title, content, buttonText, svgImageUri;
   const UtilityInfoWidget(
@@ -47,31 +49,15 @@ class UtilityInfoWidget extends StatelessWidget {
                         color: Palette.textColor))),
               ],
             ),
-            Container(
-              height: 47.h,
-              width: 233.w,
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(top: 59.h),
-              child: Text(
-                "Start Browsing",
-                style: getpoppins(TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                )),
+            Padding(
+              padding: EdgeInsets.only(top: 59.h),
+              child: CustomReusableBtn(
+                height: 47.h,
+                width: 233.w,
+                buttonText: "Start Browsing",
+                onPressed: () {},
               ),
-              decoration: BoxDecoration(
-                color: Palette.coffeeColor,
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 9.h),
-                    blurRadius: 30.r,
-                    color: Palette.coffeeColorShadow,
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-            )
+            ),
           ],
         ),
       ),
