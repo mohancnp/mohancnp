@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/recommendationicons.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:metrocoffee/screens/contents/homecontent/searchbar.dart';
+import 'package:metrocoffee/modules/home/widgets/searchbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/screens/contents/homecontent/searchproduct/recommendation_category.dart';
 import 'package:path/path.dart';

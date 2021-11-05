@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/enums/producttype.dart';
-import 'package:metrocoffee/screens/base/product_list.dart';
-import 'package:metrocoffee/screens/contents/homecontent/categories.dart';
-import 'package:metrocoffee/screens/contents/homecontent/searchbar.dart';
+import 'package:metrocoffee/modules/home/products.dart';
+import 'package:metrocoffee/modules/home/widgets/product_list.dart';
+import 'package:metrocoffee/modules/home/widgets/categories.dart';
+import 'package:metrocoffee/modules/home/widgets/searchbar.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/bakery.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/drinks.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/snacks.dart';
-import 'package:metrocoffee/screens/contents/homecontent/tophomegreeting.dart';
+import 'package:metrocoffee/modules/home/widgets/tophomegreeting.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class Home extends StatelessWidget {
@@ -33,35 +34,7 @@ class Home extends StatelessWidget {
                   SearchBar(),
                   CategoriesTabs(),
                   SizedBox(height: 33.h),
-                  ProductList(
-                    productType: ProductTypeEnum.All,
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 28.w, top: 23.h, bottom: 16.h),
-                    child: Text(
-                      "Most Popular",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF344141)),
-                    ),
-                  ),
-                  ProductList(
-                    productType: ProductTypeEnum.drinks,
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 28.w, top: 23.h, bottom: 16.h),
-                    child: Text(
-                      "Recommended",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF344141)),
-                    ),
-                  ),
-                  ProductList(
-                    productType: ProductTypeEnum.drinks,
-                  ),
+                  ProductsPage(),
                 ],
               ),
             ])));

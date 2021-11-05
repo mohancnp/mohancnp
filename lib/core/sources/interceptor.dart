@@ -25,7 +25,7 @@ final loggingInterceptor = InterceptorsWrapper(
   },
   onResponse: (response, handler) {
     print('APIRequest: ${response.statusCode}');
-    print('API Request: ${response.data}');
+    // print('API Request: ${response.data}');
     handler.next(response);
   },
   onError: (error, handler) {

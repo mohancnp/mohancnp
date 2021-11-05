@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/placeholder_image.dart';
-import 'package:metrocoffee/screens/contents/homecontent/newcard.dart';
+import 'package:metrocoffee/modules/home/widgets/newcard.dart';
 
 class TestingScreen extends StatelessWidget {
   TestingScreen({Key? key}) : super(key: key);

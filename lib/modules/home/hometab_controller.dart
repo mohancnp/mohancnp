@@ -116,11 +116,11 @@ class HomeTabController extends GetxController {
     var ready = await checkInternet();
     if (ready) {
       internetConnected = true;
-      // await getProductsOfType(ProductType.bakery);
-      // await getProductsOfType(ProductType.drinks);
-      // await getProductsOfType(ProductType.snacks);
+      await getProductsOfType(ProductType.bakery);
+      await getProductsOfType(ProductType.drinks);
+      await getProductsOfType(ProductType.snacks);
       //for the all menu page
-      await getProducts();
+      // await getProducts();
     }
   }
 
@@ -290,4 +290,6 @@ class HomeTabController extends GetxController {
         this.allProducts.refresh();
     }
   }
+
+  Future organiseProducts() async {}
 }
