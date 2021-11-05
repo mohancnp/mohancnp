@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/topup_reward_dialog.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
@@ -493,8 +494,9 @@ class Profile extends StatelessWidget {
                     onTap: () async {
                       controller.logout().then((removed) {
                         if (removed) {
-                          Get.offNamedUntil(
-                              "/Login", ModalRoute.withName('/Login'));
+                          Get.offAllNamed(
+                            PageName.loginpage,
+                          );
                           // Get.until((route) => Get.currentRoute == '/Base');
                           // Get.reset();
                         }

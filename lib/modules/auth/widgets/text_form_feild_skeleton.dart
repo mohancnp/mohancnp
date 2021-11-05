@@ -21,7 +21,7 @@ class FormFeildSkeleton extends StatelessWidget {
       width: 375.w,
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.85),
-        borderRadius: BorderRadius.all(Radius.circular(26)),
+        borderRadius: BorderRadius.all(Radius.circular(26.r)),
       ),
       child: child,
     );

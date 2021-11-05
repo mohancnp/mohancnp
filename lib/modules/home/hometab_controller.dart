@@ -1,24 +1,21 @@
 import 'dart:async';
-import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/core/constants/product_type.dart';
+import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/models/variants.dart';
-import 'package:metrocoffee/services/localstorage/sharedpref/user_detail.dart';
-import 'package:metrocoffee/services/rest/products.dart';
 import 'package:metrocoffee/util/internet.dart';
 
 class HomeTabController extends GetxController {
   int currentpageindex = 0;
   bool internetConnected = false;
-  StreamSubscription? streamSubscription;
   Rx<Client?> newUser = Client.empty().obs;
-
   List<Product> allProducts = [];
-
+  DataState _dataState = DataState.loading;
   RxList<Product> allDrinks = <Product>[].obs;
   RxList<Product> allSnacks = <Product>[].obs;
   RxList<Product> allBakery = <Product>[].obs;

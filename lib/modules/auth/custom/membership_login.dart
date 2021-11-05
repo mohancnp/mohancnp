@@ -1,18 +1,20 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/enums/uistate.dart';
+import 'package:metrocoffee/core/enums/auth_state.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/auth/custom/membership_login_controller.dart';
 import 'package:metrocoffee/modules/auth/widgets/sign_in_btn.dart';
 import 'package:metrocoffee/modules/auth/widgets/text_form_feild_skeleton.dart';
-import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/ui/widgets.dart/progress_dialog.dart';
 
 class MembershipLoginPage extends StatelessWidget {
   MembershipLoginPage({Key? key}) : super(key: key);
 
+  final controller = Get.find<MemberShipLoginController>();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -113,6 +115,8 @@ class MembershipLoginPage extends StatelessWidget {
                                     ),
                                     border: InputBorder.none,
                                     hintText: 'Membership No.',
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8.h),
                                     hintStyle: TextStyle(
                                         fontFamily: poppinsregular,
                                         color: Color(0xff404d4d)),
@@ -126,19 +130,30 @@ class MembershipLoginPage extends StatelessWidget {
                                   style: TextStyle(
                                       fontFamily: poppinsregular,
                                       color: Colors.black87,
+
                                       //       fontSize: 13.5
                                       fontSize: 13.sp),
-                                  keyboardType: TextInputType.text,
+                                  keyboardType: TextInputType.visiblePassword,
                                   textInputAction: TextInputAction.next,
+                                  obscureText: mc.eye ? true : false,
                                   decoration: InputDecoration(
-                                    suffixIcon: Icon(
-                                      FeatherIcons.user,
-                                      color: Color(0xff404d4d),
-                                      //                 size: 18,
-                                      size: 18.sp,
+                                    suffixIcon: GestureDetector(
+                                      onTap: () {
+                                        mc.eye = !mc.eye;
+                                      },
+                                      child: Icon(
+                                        mc.eye
+                                            ? FeatherIcons.eye
+                                            : FeatherIcons.eyeOff,
+                                        color: Color(0xff404d4d),
+                                        //                 size: 18,
+                                        size: 18.sp,
+                                      ),
                                     ),
                                     border: InputBorder.none,
-                                    hintText: 'Membership No.',
+                                    hintText: 'Password',
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 8.h),
                                     hintStyle: TextStyle(
                                         fontFamily: poppinsregular,
                                         color: Color(0xff404d4d)),
@@ -179,9 +194,18 @@ class MembershipLoginPage extends StatelessWidget {
                         ),
                       );
                     }),
+                    // Obx(() => Text("${controller.authState}")),
                     Center(
                       child: SignInBtn(
-                        onpressed: () {},
+                        onpressed: () async {
+                          showCustomDialog(context);
+                          await controller.performMembershipLogin();
+                          if (controller.authState == AuthState.loggedIn) {
+                            Get.offAllNamed(PageName.homepage);
+                          } else {
+                            Get.back();
+                          }
+                        },
                       ),
                     )
                   ],

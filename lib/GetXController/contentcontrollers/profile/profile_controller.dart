@@ -1,5 +1,7 @@
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/locator.dart';
+import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/models/user.dart';
@@ -27,17 +29,20 @@ class ProfileController extends GetxController {
   }
 
   Future logout() async {
-    String provider = await getProvider();
-    bool tokenRemoved = await removeToken();
-    bool userRemoved = await removeUserDetail();
-    userTableHandler.removeUser();
-    if (provider == "facebook") {
-      final fb = FacebookLogin();
-      fb.logOut();
-    }
-    Get.find<BaseController>().setindex(0);
-    Get.find<BaseController>()
-        .updateUserVerificationStatus(UserVerficationStatus.unverified);
-    return (tokenRemoved && userRemoved) ? true : false;
+    locator<TempStorage>().delete(TempStorageKeys.authToken);
+    return true;
+
+    // String provider = await getProvider();
+    // bool tokenRemoved = await removeToken();
+    // bool userRemoved = await removeUserDetail();
+    // userTableHandler.removeUser();
+    // if (provider == "facebook") {
+    //   final fb = FacebookLogin();
+    //   fb.logOut();
+    // }
+    // Get.find<BaseController>().setindex(0);
+    // Get.find<BaseController>()
+    //     .updateUserVerificationStatus(UserVerficationStatus.unverified);
+    // return (tokenRemoved && userRemoved) ? true : false;
   }
 }

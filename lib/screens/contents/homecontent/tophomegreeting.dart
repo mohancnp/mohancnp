@@ -36,7 +36,7 @@ class TopHomeGreeting extends StatelessWidget {
                       var user = controller.newUser.value;
                       var firstName = "...";
                       if (user != null) {
-                        firstName = user.name!.split(' ').elementAt(0);
+                        firstName = user.name?.split(' ').elementAt(0) ?? "...";
                       }
                       return Container(
                           child: Text(

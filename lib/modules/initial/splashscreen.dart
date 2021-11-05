@@ -180,7 +180,7 @@ class _SplashScreenState extends State<SplashScreen>
 //_imagescaleanimationcontroller.reverse();
 //_textscaleanimationcontroller.reverse();
 //_fadeanimationcontroller.reverse();
-        //_scaleanimationcontroller.reverse();
+        //_scaleanimationco\ntroller.reverse();
       }
     });
   }
@@ -190,11 +190,14 @@ class _SplashScreenState extends State<SplashScreen>
     return new Timer(_duration, navigationPage);
   }
 
+// <0 means no internet, 1 means user logged in, 2 means first time user,
+// 0 menas user has been logged out
   void navigationPage() {
     if (loginstat < 0) {
       Get.offNamed(PageName.nointernetpage);
     } else {
-      print("login state: $loginstat");
+      // print("login state: $loginstat");
+
       Get.offAllNamed(loginstat == 1
           ? PageName.homepage
           : loginstat == 2

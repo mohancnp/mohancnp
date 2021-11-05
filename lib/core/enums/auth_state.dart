@@ -1,1 +1,1 @@
-enum AuthState { loggedIn, error, unverified }
+enum AuthState { loggedIn, error, unverified, progessing }

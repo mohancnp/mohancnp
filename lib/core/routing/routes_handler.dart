@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/modules/auth/core_login.dart';
+import 'package:metrocoffee/modules/auth/custom/membership_login.dart';
 import 'package:metrocoffee/modules/home/base.dart';
 import 'package:metrocoffee/modules/initial/splashscreen.dart';
 import 'package:metrocoffee/modules/onboarding/onboardingscreen.dart';
 import 'package:metrocoffee/screens/authentication/change_password.dart';
 import 'package:metrocoffee/screens/authentication/email_login.dart';
-import 'package:metrocoffee/screens/authentication/login.dart';
-import 'package:metrocoffee/screens/authentication/membershiplogin.dart';
 import 'package:metrocoffee/screens/authentication/register.dart';
 import 'package:metrocoffee/screens/contents/homecontent/product_detail_page.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/all_menu.dart';
@@ -25,8 +25,11 @@ class RouteHandler {
   static Map<String, WidgetBuilder> getRoutes() {
     return {
       PageName.splashscreenpage: (BuildContext context) => SplashScreen(),
-      PageName.loginpage: (BuildContext context) => Login(),
+      PageName.onboardingpage: (BuildContext context) => OnBoardingScreen(),
+      PageName.loginpage: (BuildContext context) => LoginPage(),
       PageName.homepage: (BuildContext context) => Base(),
+      PageName.membershiploginpage: (BuildContext context) =>
+          MembershipLoginPage(),
       PageName.socialregisterpage: (BuildContext context) => SocialRegister(),
       PageName.drinkdetailpage: (BuildContext context) => DrinkDetail(),
       PageName.allmenupage: (BuildContext context) => AllMenu(),
@@ -43,8 +46,6 @@ class RouteHandler {
           OrderSuccesfulPage(),
       PageName.emailloginpage: (BuildContext context) => EmailLogin(),
       PageName.googlemappage: (BuildContext context) => GoogleMapScreen(),
-      PageName.membershiploginpage: (BuildContext context) => MembershipLogin(),
-      PageName.onboardingpage: (BuildContext context) => OnBoardingScreen(),
       PageName.productdetailpage: (BuildContext context) => ProductDetailPage(),
       PageName.nointernetpage: (BuildContext context) => NoInternet(),
     };

@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 // import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/routing/names.dart';
-import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
-import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/onboardingimages.dart';
+import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:metrocoffee/screens/widgets/dialogs/loading_dialog.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   OnBoardingScreen({
@@ -107,7 +105,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                 FadeTransition(
                   opacity: _animation,
                   child: Text(
-                    "${title}",
+                    "$title",
                     style: getpoppins(TextStyle(
                         fontSize: 24.sp,
                         fontWeight: FontWeight.w600,
@@ -122,7 +120,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                   child: SizedBox(
                     width: 343.w,
                     child: Text(
-                      '''${body}''',
+                      '''$body''',
                       style: getpoppins(TextStyle(
                           fontSize: 15.sp,
                           fontWeight: FontWeight.normal,
@@ -203,7 +201,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
   }
 
   _onPressed() {
-    Get.offAllNamed(PageName.homepage);
+    Get.offAllNamed(PageName.loginpage);
   }
 
   setTextForPage(int pageIndex) {

@@ -7,13 +7,14 @@ import 'package:get_it/get_it.dart';
 import 'package:metrocoffee/core/controllerbinding.dart';
 import 'package:metrocoffee/core/routing/routes_handler.dart';
 
+import 'core/locator.dart';
 import 'core/routing/names.dart';
 
 GetIt getIt = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await setupLocator();
+  await setupLocator();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
     statusBarIconBrightness: Brightness.light,
