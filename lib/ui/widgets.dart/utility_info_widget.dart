@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 import 'custom_button.dart';
@@ -19,9 +18,13 @@ class UtilityInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Palette.pagebackgroundcolor,
-      child: Center(
+    return Scaffold(
+      backgroundColor: Palette.pagebackgroundcolor,
+      appBar: AppBar(
+        backgroundColor: Palette.pagebackgroundcolor,
+        elevation: 0.sp,
+      ),
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -38,6 +38,7 @@ class ProductsPage extends StatelessWidget {
         children: [
           ProductList(
             products: pList,
+            tag: "pList",
           ),
           Padding(
             padding: EdgeInsets.only(left: 28.w, top: 23.h, bottom: 16.h),
@@ -49,6 +50,7 @@ class ProductsPage extends StatelessWidget {
           ),
           ProductList(
             products: mpList,
+            tag: "mpList",
           ),
           Padding(
             padding: EdgeInsets.only(left: 28.w, top: 23.h, bottom: 16.h),
@@ -60,6 +62,7 @@ class ProductsPage extends StatelessWidget {
           ),
           ProductList(
             products: rcList,
+            tag: "rcList",
           ),
         ],
       );

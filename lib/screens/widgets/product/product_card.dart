@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 
 class ProductCard extends StatelessWidget {
   ProductCard({Key? key}) : super(key: key);

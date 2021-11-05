@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/contentcontrollers/home/product_detail_page_controller.dart';
@@ -19,20 +20,28 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    timeDilation = 2;
+
+    var idAndTag = Get.arguments;
+    var tag = idAndTag[1];
+    var id = idAndTag[0];
     double screenwidth = MediaQuery.of(context).size.width;
     return Material(
       child: Stack(clipBehavior: Clip.none, children: [
-        Container(
-          height: 373.h,
-          width: 375.w,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(8.w),
-                  bottomRight: Radius.circular(8.w)),
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(
-                      "assets/images/productimages/cardddd@3x-min.png"))),
+        Hero(
+          tag: "$id$tag",
+          child: Container(
+            height: 373.h,
+            width: 375.w,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(8.w),
+                    bottomRight: Radius.circular(8.w)),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(
+                        "assets/images/productimages/cardddd@3x-min.png"))),
+          ),
         ),
         Positioned(
           top: 49.h,

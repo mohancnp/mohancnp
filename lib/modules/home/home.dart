@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/enums/producttype.dart';
 import 'package:metrocoffee/modules/home/products.dart';
-import 'package:metrocoffee/modules/home/widgets/product_list.dart';
 import 'package:metrocoffee/modules/home/widgets/categories.dart';
 import 'package:metrocoffee/modules/home/widgets/searchbar.dart';
+import 'package:metrocoffee/modules/home/widgets/tophomegreeting.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/bakery.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/drinks.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/snacks.dart';
-import 'package:metrocoffee/modules/home/widgets/tophomegreeting.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class Home extends StatelessWidget {

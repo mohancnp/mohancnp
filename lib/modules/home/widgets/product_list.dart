@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/home/widgets/newcard.dart';
 
 class ProductList extends StatelessWidget {
   final List<dynamic> products;
-  const ProductList({Key? key, required this.products}) : super(key: key);
-//  controller.dataState == DataState.loading
-//               ? Container(
-//                   width: 100.w,
-//                   height: 100.h,
-//                   alignment: Alignment.center,
-//                   child: SpinKitFadingCube(
-//                     color: Palette.coffeeColor,
-//                   ),
-//                 )
+  final tag;
+  const ProductList({Key? key, required this.products, this.tag})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -28,9 +23,16 @@ class ProductList extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           var product = products[index];
+          // print("$index");
           return ProductCard(
               imageUri: product.image,
               name: product.name,
+              id: product.id,
+              tag: tag,
+              onPressed: () {
+                Get.toNamed(PageName.productdetailpage,
+                    arguments: [product.id, tag]);
+              },
               price: product.price);
         },
       ),
