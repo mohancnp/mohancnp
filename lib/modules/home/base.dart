@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/modules/auth/core_login.dart';
-import 'package:metrocoffee/modules/auth/custom/membership_login.dart';
+import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/home/home.dart';
 import 'package:metrocoffee/screens/base/order_history.dart';
 import 'package:metrocoffee/screens/base/profile.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
+import 'package:metrocoffee/ui/widgets.dart/utility_info_widget.dart';
 
 class Base extends StatelessWidget {
   List pages = [
     Home(),
-    MembershipLoginPage(),
-    // UtilityInfoWidget(
-    //   title: "You Are All Caught Up",
-    //   svgImageUri: UtilityIcons.illustrations,
-    //   content: "Looks like you do not have any notifications",
-    //   buttonText: "Start Browsing",
-    // ),
+    // MembershipLoginPage(),
+    UtilityInfoWidget(
+      title: "You Are All Caught Up",
+      svgImageUri: UtilityIcons.illustrations,
+      content: "Looks like you do not have any notifications",
+      buttonText: "Start Browsing",
+    ),
     OrderHistory(),
     Profile()
   ];

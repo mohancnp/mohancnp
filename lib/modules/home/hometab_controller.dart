@@ -5,17 +5,26 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/core/constants/product_type.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
-import 'package:metrocoffee/models/product_model.dart';
+import 'package:metrocoffee/core/enums/producttype.dart';
+import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
+import 'package:metrocoffee/core/locator.dart';
+import 'package:metrocoffee/core/models/product_model.dart';
 import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/models/variants.dart';
+import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/util/internet.dart';
 
 class HomeTabController extends GetxController {
   int currentpageindex = 0;
   bool internetConnected = false;
   Rx<Client?> newUser = Client.empty().obs;
-  List<Product> allProducts = [];
-  DataState _dataState = DataState.loading;
+  RxList<Product> allProducts = <Product>[].obs;
+  DataState _dataState = DataState.NA;
+
+  get dataState => this._dataState;
+
+  set dataState(value) => this._dataState = value;
+
   RxList<Product> allDrinks = <Product>[].obs;
   RxList<Product> allSnacks = <Product>[].obs;
   RxList<Product> allBakery = <Product>[].obs;
@@ -107,14 +116,12 @@ class HomeTabController extends GetxController {
     var ready = await checkInternet();
     if (ready) {
       internetConnected = true;
-      await getProductsOfType(ProductType.bakery);
-      await getProductsOfType(ProductType.drinks);
-      await getProductsOfType(ProductType.snacks);
+      // await getProductsOfType(ProductType.bakery);
+      // await getProductsOfType(ProductType.drinks);
+      // await getProductsOfType(ProductType.snacks);
       //for the all menu page
       await getProducts();
-      return true;
     }
-    return false;
   }
 
   //v-2
@@ -162,111 +169,125 @@ class HomeTabController extends GetxController {
   }
 
   Future getProducts() async {
-    allProducts.clear();
-    if (internetConnected) {
-      productService.getAllProducts().then((products) {
-        if (products != null) {
-          // print('product not null');
-
-          var list = products.data['data']['data'];
-          list.forEach((element) {
-            var data = Product.fromJson(element);
-            allProducts.add(data);
-            // prods.add(element);
-          });
-          update();
-        }
-      });
+    dataState = DataState.loading;
+    try {
+      await locator<ProductService>().handleAllProducts();
+      dataState = DataState.loaded;
+    } on ServerException catch (e) {
+      print(e.message);
+      dataState = DataState.error;
     }
   }
 
   Future getProductsOfType(String type) async {
-    var response = await productService.getProductsOfType(type: type);
-    // print("$type:$response");
-    if (response != null) {
-      if (type == ProductType.bakery) {
-        //getting products for different categories
-        List<dynamic> products = response['data']['products'];
-        List<dynamic> mostPopularBakery = response['data']['most_popular'];
-        List<dynamic> recommendedBakery = response['data']['recommendation'];
-        allBakery.clear();
+    dataState = DataState.loading;
+    try {
+      await locator<ProductService>().handleProductsOfType(type: type);
+      dataState = DataState.loaded;
+    } on ServerException catch (e) {
+      print(e.message);
+      dataState = DataState.error;
+    }
+  }
+
+  Future differentiateProductsTypeAndNotifyController(
+      String type, Map<String, dynamic> products) async {
+    //getting products for different categories
+    List<dynamic> prodList = [];
+    List<dynamic> mpList = [];
+    List<dynamic> rcList = [];
+
+    if (type != "All") {
+      prodList = products['data']['products'];
+      mpList = products['data']['most_popular'];
+      rcList = products['data']['recommendation'];
+    }
+
+    switch (type) {
+      case ProductType.bakery:
+        this.allBakery.clear();
         this.mostPopularBakery.clear();
         this.recommendedBakery.clear();
 
         //converting json to dart objects
-        products.forEach((element) {
+        prodList.forEach((element) {
           var pro = Product.fromJson(element);
-          allBakery.add(pro);
+          this.allBakery.add(pro);
         });
-        mostPopularBakery.forEach((element) {
+        mpList.forEach((element) {
           var mpd = Product.fromJson(element);
           this.mostPopularBakery.add(mpd);
         });
-        recommendedBakery.forEach((element) {
+        rcList.forEach((element) {
           var rcd = Product.fromJson(element);
           this.recommendedBakery.add(rcd);
         });
 
         //refreshing all the reactive list
-        allBakery.refresh();
+        this.allBakery.refresh();
         this.recommendedBakery.refresh();
         this.mostPopularBakery.refresh();
-      } else if (type == ProductType.drinks) {
-        allDrinks.clear();
-        this.mostPopularDrinks.clear();
-        this.recommendedDrinks.clear();
-
-        List<dynamic> products = response['data']['products'];
-        List<dynamic> mostPopularDrinks = response['data']['most_popular'];
-        List<dynamic> recommendedDrinks = response['data']['recommendation'];
-
-        //converting all the data to dart objects
-        products.forEach((element) {
-          var pro = Product.fromJson(element);
-          allDrinks.add(pro);
-        });
-        mostPopularDrinks.forEach((element) {
-          var mpd = Product.fromJson(element);
-          this.mostPopularDrinks.add(mpd);
-        });
-        recommendedDrinks.forEach((element) {
-          var rcd = Product.fromJson(element);
-          this.recommendedDrinks.add(rcd);
-        });
-        // print(allDrinks.elementAt(0).name);
-        //refreshing all the reactive
-        allDrinks.refresh();
-        this.recommendedDrinks.refresh();
-        this.mostPopularDrinks.refresh();
-      } else if (type == ProductType.snacks) {
-        allSnacks.clear();
+        break;
+      case ProductType.snacks:
+        this.allSnacks.clear();
         this.mostPopularSnacks.clear();
         this.recommendedSnacks.clear();
 
-        //getting products for different categories
-        List<dynamic> products = response['data']['products'];
-        List<dynamic> mostPopularSnacks = response['data']['most_popular'];
-        List<dynamic> recommendedSnacks = response['data']['recommendation'];
-
         //converting json to dart objects
-        products.forEach((element) {
+        prodList.forEach((element) {
           var pro = Product.fromJson(element);
-          allSnacks.add(pro);
+          this.allSnacks.add(pro);
         });
-        mostPopularSnacks.forEach((element) {
+        mpList.forEach((element) {
           var mpd = Product.fromJson(element);
           this.mostPopularSnacks.add(mpd);
         });
-        recommendedSnacks.forEach((element) {
+        rcList.forEach((element) {
           var rcd = Product.fromJson(element);
           this.recommendedSnacks.add(rcd);
         });
 
         //refreshing all the reactive list
-        allSnacks.refresh();
+        this.allSnacks.refresh();
         this.recommendedSnacks.refresh();
         this.mostPopularSnacks.refresh();
-      }
+        break;
+      case ProductType.drinks:
+        this.allDrinks.clear();
+        this.mostPopularDrinks.clear();
+        this.recommendedDrinks.clear();
+
+        //converting json to dart objects
+        prodList.forEach((element) {
+          var pro = Product.fromJson(element);
+          this.allDrinks.add(pro);
+        });
+        mpList.forEach((element) {
+          var mpd = Product.fromJson(element);
+          this.mostPopularDrinks.add(mpd);
+        });
+        rcList.forEach((element) {
+          var rcd = Product.fromJson(element);
+          this.recommendedDrinks.add(rcd);
+        });
+
+        //refreshing all the reactive list
+        this.allDrinks.refresh();
+        this.mostPopularDrinks.refresh();
+        this.mostPopularDrinks.refresh();
+        break;
+      default:
+        this.allProducts.clear();
+        prodList = products['data']['data'];
+
+        //converting json to dart objects
+        prodList.forEach((element) {
+          var pro = Product.fromJson(element);
+          this.allProducts.add(pro);
+        });
+
+        //refreshing all the reactive list
+        this.allProducts.refresh();
     }
   }
 }

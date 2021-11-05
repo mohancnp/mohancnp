@@ -34,7 +34,7 @@ class Home extends StatelessWidget {
                   CategoriesTabs(),
                   SizedBox(height: 33.h),
                   ProductList(
-                    productType: ProductTypeEnum.drinks,
+                    productType: ProductTypeEnum.All,
                   ),
                   Padding(
                     padding:

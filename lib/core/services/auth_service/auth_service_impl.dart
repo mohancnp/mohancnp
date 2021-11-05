@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
-import 'package:metrocoffee/core/services/rest/auth_service/auth_service.dart';
-import '../../../config.dart';
+import 'auth_service.dart';
 
 class AuthServiceImpl extends AuthService {
   @override

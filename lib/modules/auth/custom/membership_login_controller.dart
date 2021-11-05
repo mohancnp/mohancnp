@@ -4,8 +4,8 @@ import 'package:metrocoffee/core/enums/auth_state.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/user.dart';
-import 'package:metrocoffee/core/services/rest/auth_service/auth_service.dart';
+import 'package:metrocoffee/core/models/user_model.dart';
+import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
 import 'package:metrocoffee/core/services/storage/db/user_table.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
   final String imageUri;
   final String name;
-  final String price;
+  final dynamic price;
   const ProductCard(
       {Key? key,
       required this.imageUri,
@@ -19,7 +21,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed("/ProductDetailPage");
+        // Get.toNamed("/ProductDetailPage");
       },
       child: Container(
         width: 136.w,
@@ -49,20 +51,22 @@ class ProductCard extends StatelessWidget {
               padding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(4.r),
-                child: Image.asset(
-                  "$imageUri",
+                child: Image.network(
+                  "$baseUrl$imageUri",
                   // color: Colors.blue,
                   fit: BoxFit.cover,
-                  // loadingBuilder: (context, widget, imageProgress) {
-                  //   if (imageProgress == null) {
-                  //     return widget;
-                  //   }
-                  //   return Container(
-                  //     color: Colors.red,
-                  //     width: 116.w,
-                  //     height: 116.h,
-                  //   );
-                  // },
+                  loadingBuilder: (context, widget, imageProgress) {
+                    if (imageProgress == null) {
+                      return widget;
+                    }
+                    return Container(
+                      width: 116.w,
+                      height: 116.h,
+                      child: SpinKitCubeGrid(
+                        color: Palette.coffeeColor,
+                      ),
+                    );
+                  },
                   height: 116.h,
                   width: 116.w,
                 ),

@@ -1,4 +1,3 @@
-
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';
-import 'package:metrocoffee/models/product_model.dart';
+import 'package:metrocoffee/core/models/product_model.dart';
 import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/screens/sharables/drink_detail.dart';
 import 'package:metrocoffee/screens/sharables/product_detail.dart' as pg;

@@ -1,6 +1,6 @@
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/user.dart';
+import 'package:metrocoffee/core/models/user_model.dart';
 import 'core.dart';
 import 'dbfeilds.dart';
 import 'package:sqflite/sqlite_api.dart';
