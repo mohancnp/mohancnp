@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/home/widgets/newcard.dart';
+import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
 
 class ProductList extends StatelessWidget {
   final List<dynamic> products;
@@ -30,6 +31,9 @@ class ProductList extends StatelessWidget {
               id: product.id,
               tag: tag,
               onPressed: () {
+                Get.find<ProductDetailPageController>()
+                    .retrieveProductDetails();
+
                 Get.toNamed(PageName.productdetailpage,
                     arguments: [product.id, tag]);
               },

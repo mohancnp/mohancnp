@@ -190,7 +190,7 @@ class HomeTabController extends GetxController {
     }
   }
 
-  Future differentiateProductsTypeAndNotifyController(
+  Future differentiateProductsType(
       String type, Map<String, dynamic> products) async {
     //getting products for different categories
     List<dynamic> prodList = [];

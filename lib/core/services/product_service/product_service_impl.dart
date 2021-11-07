@@ -1,13 +1,10 @@
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/product_type.dart';
-import 'package:metrocoffee/core/enums/producttype.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
-import 'package:metrocoffee/core/models/product_model.dart';
-import 'package:metrocoffee/core/sources/remote_source.dart';
+import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
 import '../../config.dart';
-import '../../locator.dart';
 import 'product_service.dart';
 
 class ProductServiceImpl extends ProductService {
@@ -18,8 +15,7 @@ class ProductServiceImpl extends ProductService {
     try {
       Map<String, dynamic> products = await remoteSource
           .get('$baseUrl/api/product', queryParams: {"type": type});
-      Get.find<HomeTabController>()
-          .differentiateProductsTypeAndNotifyController(type, products);
+      Get.find<HomeTabController>().differentiateProductsType(type, products);
     } on ServerException catch (e) {
       throw ServerException(code: e.code, message: e.message);
     }
@@ -31,8 +27,20 @@ class ProductServiceImpl extends ProductService {
     try {
       Map<String, dynamic> products =
           await remoteSource.get('$baseUrl/api/product');
-      Get.find<HomeTabController>()
-          .differentiateProductsTypeAndNotifyController("All", products);
+      Get.find<HomeTabController>().differentiateProductsType("All", products);
+    } on ServerException catch (e) {
+      throw ServerException(code: e.code, message: e.message);
+    }
+  }
+
+  @override
+  Future handleProductDetail({required int id}) async {
+    var remoteSource = RemoteSourceImpl();
+    try {
+      Map<String, dynamic> productDetail =
+          await remoteSource.get('$baseUrl/api/product/$id');
+      var prodObj = ProductDetail.fromJson(productDetail['data']);
+      Get.find<ProductDetailPageController>().productDetail = prodObj;
     } on ServerException catch (e) {
       throw ServerException(code: e.code, message: e.message);
     }

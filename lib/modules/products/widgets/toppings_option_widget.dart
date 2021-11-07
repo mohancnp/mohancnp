@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/product_detail_page_controller.dart';
+import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:expandable/expandable.dart';

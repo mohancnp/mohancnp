@@ -1,15 +1,16 @@
 class ProductDetail {
-  int id;
+  int? id;
   dynamic price;
-  String name;
+  String? name;
   String? imageUri;
   String? cautions;
-  String type;
+  String? type;
   String? ingredients;
-  bool isFavorite;
+  bool? isFavorite;
   List<Variant>? allVariants;
   List<ProductOption>? options;
   List<ProductAddOn>? addons;
+  ProductDetail.empty();
   ProductDetail(
       {required this.id,
       required this.price,
