@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/product_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/modules/home/categories_controller.dart';
+import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'widgets/product_list.dart';
 
