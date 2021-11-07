@@ -10,18 +10,18 @@ class SizeOptionWIdget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 320.w,
-      margin: EdgeInsets.only(left: 28.w, top: 16.h),
+      width: 375.w,
+      padding: EdgeInsets.only(left: 28.w, top: 16.h, right: 28.w),
+      // margin: EdgeInsets.only(left: 28.w, top: 16.h),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
             decoration: BoxDecoration(
               color: Color(0xFFE8E8E8),
-              // border: Border.all(
-              //     color: Color(0xFF707070), width: 1.5.w),
-              // borderRadius: BorderRadius.circular(4.r),
+              border: Border.all(color: Color(0xFF707070), width: 1.w),
+              borderRadius: BorderRadius.circular(4.r),
             ),
             width: 92.w,
             height: 40.h,
@@ -37,9 +37,10 @@ class SizeOptionWIdget extends StatelessWidget {
             width: 92.w,
             height: 40.h,
             decoration: BoxDecoration(
-                color: Color(0xFFE8E8E8),
-                border: Border.all(color: Color(0xFF707070), width: 1.5.w),
-                borderRadius: BorderRadius.circular(4.r)),
+              color: Color(0xFFE8E8E8),
+              // border: Border.all(color: Color(0xFF707070), width: 1.5.w),
+              // borderRadius: BorderRadius.circular(4.r),
+            ),
             child: Center(
               child: Text(
                 "M",

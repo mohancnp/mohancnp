@@ -3,10 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/screens/base/my_product_cart.dart';
 
 class TopHomeGreeting extends StatelessWidget {
   const TopHomeGreeting({Key? key}) : super(key: key);
@@ -69,7 +69,7 @@ class TopHomeGreeting extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.to(MyProductCart());
+                  Get.toNamed(PageName.productCartPage);
                 },
                 child: SvgPicture.asset(
                   cartIcons,

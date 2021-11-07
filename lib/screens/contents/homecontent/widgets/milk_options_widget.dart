@@ -6,14 +6,12 @@ import 'package:expandable/expandable.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 
 class MilkOptionWidget extends StatelessWidget {
   const MilkOptionWidget({
     Key? key,
-    required this.screenwidth,
   }) : super(key: key);
-
-  final double screenwidth;
 
   @override
   Widget build(BuildContext context) {
@@ -34,25 +32,25 @@ class MilkOptionWidget extends StatelessWidget {
               header: AnimatedContainer(
                 padding: EdgeInsets.symmetric(
 //                  vertical: 14.5,horizontal: 15
-                    vertical: screenwidth * 0.0352,
-                    horizontal: screenwidth * 0.0364),
+                    vertical: 14.h,
+                    horizontal: 15.w),
                 duration: Duration(milliseconds: 250),
-                width: screenwidth,
+                width: 375.w,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
                         color: controller.toppingsexpandableController.expanded
                             ? Colors.black.withOpacity(0.08)
                             : Colors.transparent,
-                        blurRadius: 20,
-                        offset: Offset(0, 3))
+                        blurRadius: 20.r,
+                        offset: Offset(0, 3.h))
                   ],
                   color: Color(0xffE8E8E8),
                   borderRadius: controller.toppingsexpandableController.expanded
                       ? BorderRadius.only(
-                          topLeft: Radius.circular(9),
-                          topRight: (Radius.circular(9)))
-                      : BorderRadius.all(Radius.circular(9)),
+                          topLeft: Radius.circular(9.r),
+                          topRight: (Radius.circular(9.r)))
+                      : BorderRadius.all(Radius.circular(9.r)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,9 +61,9 @@ class MilkOptionWidget extends StatelessWidget {
                         "Milks",
                         style: getpoppins(TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: darkgrey,
+                            color: Palette.darkGery,
                             //         fontSize: 14.5
-                            fontSize: screenwidth * 0.0352)),
+                            fontSize: 14.sp)),
                       ),
                     ),
                     Container(
@@ -76,19 +74,19 @@ class MilkOptionWidget extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             color: coffeecolor,
                             //           fontSize: 12.5
-                            fontSize: screenwidth * 0.0304)),
+                            fontSize: 12.sp)),
                       ),
                       Container(
                         margin: EdgeInsets.only(
                             //       left: 12
-                            left: screenwidth * 0.0291),
+                            left: 12.w),
                         child: Icon(
                           controller.milksexpandableController.expanded
                               ? FeatherIcons.chevronUp
                               : FeatherIcons.chevronDown,
-                          color: coffeecolor,
+                          color: Palette.coffeeColor,
                           //         size: 17,
-                          size: screenwidth * 0.04136,
+                          size: 17.w,
                         ),
                       )
                     ])),
@@ -99,54 +97,50 @@ class MilkOptionWidget extends StatelessWidget {
                 height: 0,
               ),
               expanded: Container(
-                  margin: EdgeInsets.only(
-                      left: screenwidth * 0.0535, right: screenwidth * 0.0535),
                   padding: EdgeInsets.symmetric(
                       //      vertical: 14.5,horizontal: 15
-                      vertical: screenwidth * 0.03527,
-                      horizontal: screenwidth * 0.0364),
-                  width: screenwidth,
+                      vertical: 14.h,
+                      horizontal: 15.w),
+                  width: 375.w,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Palette.pagebackgroundcolor,
                     boxShadow: [
                       BoxShadow(
                           color: Colors.black12,
-                          blurRadius: 20,
-                          offset: Offset(0, 3))
+                          blurRadius: 20.r,
+                          offset: Offset(0, 3.h))
                     ],
                     borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(9),
-                        bottomRight: Radius.circular(9)),
+                        bottomLeft: Radius.circular(9.r),
+                        bottomRight: Radius.circular(9.r)),
                   ),
-                  child: SizedBox(
-                    child: ListView.builder(
-                        itemCount: controller.milks.length,
-                        physics: AlwaysScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                              onTap: () {
-                                var milks = controller.milks;
-                                controller
-                                    .setcuttentmilk(milks.elementAt(index));
-                                controller.milksexpandableController.expanded =
-                                    false;
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(top: 8),
-                                child: Text(
-                                  controller.milks.elementAt(index),
-                                  style: getpoppins(TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: controller.currentmilk ==
-                                              "${controller.milks.elementAt(index)}"
-                                          ? coffeecolor
-                                          : darkgrey,
-                                      fontSize: 12.5)),
-                                ),
-                              ));
-                        }),
-                  )),
+                  child: ListView.builder(
+                      itemCount: controller.milks.length,
+                      padding: EdgeInsets.all(0),
+                      // physics: AlwaysScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                            onTap: () {
+                              var milks = controller.milks;
+                              controller.setcuttentmilk(milks.elementAt(index));
+                              controller.milksexpandableController.expanded =
+                                  false;
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(top: 8.r),
+                              child: Text(
+                                controller.milks.elementAt(index),
+                                style: getpoppins(TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: controller.currentmilk ==
+                                            "${controller.milks.elementAt(index)}"
+                                        ? coffeecolor
+                                        : darkgrey,
+                                    fontSize: 12.5.sp)),
+                              ),
+                            ));
+                      })),
             ),
           );
         });

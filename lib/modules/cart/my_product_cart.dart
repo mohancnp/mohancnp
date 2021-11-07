@@ -49,9 +49,10 @@ class MyProductCart extends StatelessWidget {
             onTap: () {
               Get.back();
             },
-            child: SizedBox(
+            child: Container(
               width: 24.w,
               height: 24.h,
+              color: Colors.transparent,
               child: Icon(
                 CupertinoIcons.back,
                 size: 20.w,

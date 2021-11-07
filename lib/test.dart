@@ -14,6 +14,8 @@ class TestingScreen extends StatelessWidget {
         child: ProductCard(
           imageUri: imagePlaceholderUri,
           name: "Cafe Latte",
+          id: 1,
+          onPressed: () {},
           price: "3.00",
         ),
       ),
