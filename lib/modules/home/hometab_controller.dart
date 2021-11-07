@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/core/constants/product_type.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
-import 'package:metrocoffee/core/enums/producttype.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/product_model.dart';
