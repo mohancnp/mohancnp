@@ -31,8 +31,9 @@ class ProductList extends StatelessWidget {
               id: product.id,
               tag: tag,
               onPressed: () {
+                print("sent id: ${product.id}");
                 Get.find<ProductDetailPageController>()
-                    .retrieveProductDetails();
+                    .retrieveProductDetails(id: product.id);
 
                 Get.toNamed(PageName.productdetailpage,
                     arguments: [product.id, tag]);

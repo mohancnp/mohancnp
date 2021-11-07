@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'product_detail_page_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
@@ -17,7 +18,7 @@ import 'widgets/toppings_option_widget.dart';
 
 class ProductDetailPage extends StatelessWidget {
   ProductDetailPage({Key? key}) : super(key: key);
-
+  final controller = Get.find<ProductDetailPageController>();
   @override
   Widget build(BuildContext context) {
     timeDilation = 2;
@@ -27,9 +28,7 @@ class ProductDetailPage extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<ProductDetailPageController>(
         init: ProductDetailPageController(),
-        initState: (v) {},
         builder: (controller) {
-          // print("2");
           return Scaffold(
             backgroundColor: Palette.pagebackgroundcolor,
             bottomNavigationBar: Container(
@@ -106,6 +105,7 @@ class ProductDetailPage extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
+                                // controller.productDetail = ProductDetail.empty();
                                 Get.back();
                               },
                               child: Padding(
@@ -212,9 +212,10 @@ class ProductDetailPage extends StatelessWidget {
 }
 
 class ProductDescriptionWidget extends StatelessWidget {
-  const ProductDescriptionWidget({
+  ProductDescriptionWidget({
     Key? key,
   }) : super(key: key);
+  final controller = Get.find<ProductDetailPageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -235,7 +236,7 @@ class ProductDescriptionWidget extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 28.w, top: 16.h),
                     child: Text(
-                      "Cafe Latte",
+                      "${controller.productDetail.name}",
                       style: getpoppins(TextStyle(
                         color: Color(0xE5FFFFFF),
                         fontSize: 20.sp,

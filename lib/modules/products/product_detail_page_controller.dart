@@ -45,10 +45,8 @@ class ProductDetailPageController extends GetxController {
     return this._productDetail;
   }
 
-  Future retrieveProductDetails() async {
-    print('in function');
-    var args = Get.arguments;
-    int id = args[0];
+  Future retrieveProductDetails({required int id}) async {
+    // print("received id: $id");
     locator<ProductService>().handleProductDetail(id: id);
   }
 
@@ -57,5 +55,17 @@ class ProductDetailPageController extends GetxController {
     print("in oninit");
     // retrieveProductDetails();
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
+
+  @override
+  void dispose() {
+    print("disposed");
+    // TODO: implement dispose
+    super.dispose();
   }
 }
