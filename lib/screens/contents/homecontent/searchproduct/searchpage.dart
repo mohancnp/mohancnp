@@ -44,7 +44,7 @@ class SearchPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SearchBar(),
+                  SearchBar(enabled: true),
                 ],
               ),
             ),

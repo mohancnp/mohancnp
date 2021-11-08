@@ -20,4 +20,5 @@ class PageName {
   static const onboardingpage = "/OnBoardingScreen";
   static const nointernetpage = "/NoInternet";
   static const productCartPage = "/ProductCart";
+  static const searchPage = "/SearchPage";
 }
