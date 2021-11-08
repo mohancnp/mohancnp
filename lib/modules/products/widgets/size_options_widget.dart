@@ -20,7 +20,7 @@ class SizeOptionWIdget extends StatelessWidget {
             padding: EdgeInsets.only(left: 28.w, top: 16.h, right: 28.w),
             // margin: EdgeInsets.only(left: 28.w, top: 16.h),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.max,
               children: [
                 // controller.variants[0].name
@@ -56,7 +56,7 @@ class SizeOptionWIdget extends StatelessWidget {
                         width: 0,
                         height: 0,
                       ),
-                controller.variants[0].id != -1
+                controller.variants[1].id != -1
                     ? GestureDetector(
                         onTap: () => controller.selectedVariant = 1,
                         child: Container(
@@ -89,7 +89,7 @@ class SizeOptionWIdget extends StatelessWidget {
                         height: 0,
                       ),
 
-                controller.variants[0].id != -1
+                controller.variants[2].id != -1
                     ? GestureDetector(
                         onTap: () => controller.selectedVariant = 2,
                         child: Container(

@@ -7,6 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
+import 'package:metrocoffee/core/models/order_model.dart';
+import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 import 'product_detail_page_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
@@ -31,6 +33,17 @@ class ProductDetailPage extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<ProductDetailPageController>(
         init: ProductDetailPageController(),
+        initState: (v) {
+          controller.productDetail = ProductDetail.empty();
+          controller.toppings = [];
+          controller.milks = [];
+          controller.tempOptions = null;
+          controller.userOrder.value = UserOrder.local(
+              productVariantId: -1,
+              qty: 1,
+              orderProductAddons: [],
+              orderProductOptions: []);
+        },
         builder: (controller) {
           return controller.dataState == DataState.loaded
               ? Scaffold(
@@ -163,7 +176,11 @@ class ProductDetailPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                TempratureOptionWidget(),
+                                controller.tempOptions != null
+                                    ? TempratureOptionWidget()
+                                    : SizedBox(
+                                        height: 8.h,
+                                      ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 28.w),
                                   child: Text("Quantity",
@@ -186,8 +203,12 @@ class ProductDetailPage extends StatelessWidget {
                                       )),
                                 ),
                                 SizeOptionWIdget(),
-                                ToppingsOptionWidget(),
-                                MilkOptionWidget(),
+                                controller.productDetail.addons!.isEmpty
+                                    ? SizedBox()
+                                    : ToppingsOptionWidget(),
+                                controller.productDetail.addons!.isEmpty
+                                    ? SizedBox()
+                                    : MilkOptionWidget(),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,

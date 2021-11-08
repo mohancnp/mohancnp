@@ -13,8 +13,12 @@ class ProductDetailPageController extends GetxController {
   ExpandableController toppingsexpandableController = ExpandableController();
   ExpandableController milksexpandableController = ExpandableController();
   ProductDetail _productDetail = ProductDetail.empty();
-  Rx<UserOrder> userOrder =
-      UserOrder.local(productVariantId: 0, qty: 1, amount: 0.0).obs;
+  Rx<UserOrder> userOrder = UserOrder.local(
+      productVariantId: 0,
+      qty: 1,
+      amount: 0.0,
+      orderProductAddons: [],
+      orderProductOptions: []).obs;
   ProductOption? tempOptions;
   int _selectedTemprature = 0;
   int _selectedVariant = 0;
@@ -68,6 +72,7 @@ class ProductDetailPageController extends GetxController {
   set selectedVariant(int i) {
     _selectedVariant = i;
     update();
+    updatePrice();
   }
 
   int get selectedVariant {
@@ -129,9 +134,19 @@ class ProductDetailPageController extends GetxController {
     }
   }
 
+/*updates the final price of the product*/
+
   Future updatePrice() async {
-    userOrder.value.amount =
-        variants[selectedVariant].price * userOrder.value.qty;
+    var selectedVariantPrice = variants[selectedVariant].price;
+    var selectedAddonsPrice = 0.0;
+
+    productDetail.addons?.forEach((element) {
+      if (userOrder.value.orderProductAddons!.contains(element.id)) {
+        selectedAddonsPrice += element.cost;
+      }
+    });
+    var totalPrice = selectedVariantPrice + selectedAddonsPrice;
+    userOrder.value.amount = totalPrice * userOrder.value.qty;
     userOrder.refresh();
   }
 
@@ -191,28 +206,19 @@ class ProductDetailPageController extends GetxController {
     }
   }
 
-  toogleAddonSelection(int index) {
+  Future toogleAddonSelection(int index) async {
     var element = productDetail.addons!.elementAt(index);
     element.selected = !element.selected;
+    if (element.selected) {
+      print("selected: ${element.id}");
+      userOrder.value.orderProductAddons!.add(element.id ?? -1);
+      print(" addons: ${userOrder.value.orderProductAddons}");
+    } else {
+      print("un selected:c${element.id}");
+      userOrder.value.orderProductAddons!.remove(element.id ?? -1);
+    }
     update();
-  }
-
-  @override
-  void onInit() {
-    print("in oninit");
-    // retrieveProductDetails();
-
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
+    await updatePrice();
+    // updatePriceWithAddons(element.cost, element.selected);
   }
 }
