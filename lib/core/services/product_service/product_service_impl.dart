@@ -40,7 +40,7 @@ class ProductServiceImpl extends ProductService {
       Map<String, dynamic> productDetail =
           await remoteSource.get('$baseUrl/api/product/$id');
       var prodObj = ProductDetail.fromJson(productDetail['data']);
-      Get.find<ProductDetailPageController>().productDetail = prodObj;
+      return prodObj;
     } on ServerException catch (e) {
       throw ServerException(code: e.code, message: e.message);
     }

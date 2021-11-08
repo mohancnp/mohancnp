@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
+
 import 'auth_service.dart';
 
 class AuthServiceImpl extends AuthService {

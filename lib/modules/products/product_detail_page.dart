@@ -3,8 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/models/product_detail_model.dart';
+import 'package:metrocoffee/core/constants/icons/carticons.dart';
+import 'package:metrocoffee/core/enums/data_state.dart';
+import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 import 'product_detail_page_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
@@ -29,184 +32,200 @@ class ProductDetailPage extends StatelessWidget {
     return GetBuilder<ProductDetailPageController>(
         init: ProductDetailPageController(),
         builder: (controller) {
-          return Scaffold(
-            backgroundColor: Palette.pagebackgroundcolor,
-            bottomNavigationBar: Container(
-              height: 73.h,
-              width: 375.w,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(9.r),
-                    topRight: Radius.circular(9.r),
-                  )),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "\$3.00 ",
-                    style: getpoppins(TextStyle(
-                        color: Palette.textColor,
-                        fontSize: 26.sp,
-                        fontWeight: FontWeight.w500)),
-                  ),
-                  Container(
-                    height: 47.h,
-                    width: 212.w,
+          return controller.dataState == DataState.loaded
+              ? Scaffold(
+                  backgroundColor: Palette.pagebackgroundcolor,
+                  bottomNavigationBar: Container(
+                    height: 73.h,
+                    width: 375.w,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      color: Palette.coffeeColor,
-                    ),
-                    child: TextButton.icon(
-                        onPressed: () {},
-                        icon: Icon(
-                          CupertinoIcons.cart_badge_plus,
-                          color: Colors.white,
-                          // color: Palette.coffeeColor,
-                        ),
-                        label: Text(
-                          "Add To Cart",
-                          style: getpoppins(TextStyle(
-                              color: Colors.white,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w300)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(9.r),
+                          topRight: Radius.circular(9.r),
                         )),
-                  ),
-                ],
-              ),
-            ),
-            body: SingleChildScrollView(
-              child: Column(children: [
-                Stack(
-                  children: [
-                    Hero(
-                      tag: "$id$tag",
-                      child: Container(
-                        height: 373.h,
-                        width: 375.w,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(8.w),
-                                bottomRight: Radius.circular(8.w)),
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                    "assets/images/productimages/cardddd@3x-min.png"))),
-                      ),
-                    ),
-                    Positioned(
-                      top: 49.h,
-                      // top: 49.h,
-                      child: SizedBox(
-                        width: 375.w,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          // mainAxisSize: MainAxisSize.max,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                // controller.productDetail = ProductDetail.empty();
-                                Get.back();
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 24.w),
-                                child: Icon(
-                                  CupertinoIcons.back,
-                                  color: Colors.white,
-                                  size: 24.w,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 28.w),
-                              child: Icon(
-                                CupertinoIcons.cart_fill,
-                                color: Colors.white,
-                              ),
-                            ),
-                            // Icon(Icons)
-                          ],
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 240.h,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8.r),
-                            topRight: Radius.circular(8.r),
-                          ),
-                          child: ProductDescriptionWidget()),
-                    ),
-                  ],
-                ),
-                Material(
-                    color: Palette.pagebackgroundcolor,
-                    child: SizedBox(
-                      width: screenwidth,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          TempratureOptionWidget(),
-                          Padding(
-                            padding: EdgeInsets.only(left: 28.w),
-                            child: Text("Quantity",
-                                style: getpoppins(
-                                  TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16.sp,
-                                      color: Color(0xFF414141)),
-                                )),
-                          ),
-                          ProductCountWidget(screenwidth: screenwidth),
-                          Padding(
-                            padding: EdgeInsets.only(left: 28.w),
-                            child: Text("Size",
-                                style: getpoppins(
-                                  TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16.sp,
-                                      color: Color(0xFF414141)),
-                                )),
-                          ),
-                          SizeOptionWIdget(),
-                          ToppingsOptionWidget(),
-                          MilkOptionWidget(),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    child: GetX<ProductDetailPageController>(
+                        init: ProductDetailPageController(),
+                        builder: (pC) {
+                          var order = pC.userOrder;
+                          // var variant =
+                          //     controller.variants.elementAt(pC.selectedVariant);
+                          // pC.productDetail.allVariants
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                        //          left: 22, right: 22
-                                        left: 22.w,
-                                        right: 22.w),
-                                    margin: EdgeInsets.only(
-                                        left: 5.w, top: 16.w, bottom: 16.w),
-                                    child: Text(
-                                      "Add Extra",
+                              Text(
+                                "\$ ${order.value.amount!.toStringAsPrecision(2)} ",
+                                style: getpoppins(TextStyle(
+                                    color: Palette.textColor,
+                                    fontSize: 26.sp,
+                                    fontWeight: FontWeight.w500)),
+                              ),
+                              Container(
+                                height: 47.h,
+                                width: 212.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.r),
+                                  color: Palette.coffeeColor,
+                                ),
+                                child: TextButton.icon(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      CupertinoIcons.cart_badge_plus,
+                                      color: Colors.white,
+                                      // color: Palette.coffeeColor,
+                                    ),
+                                    label: Text(
+                                      "Add To Cart",
                                       style: getpoppins(TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: darkgrey,
-                                          //          fontSize: 14.5
-                                          fontSize: 14.sp)),
+                                          color: Colors.white,
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.w300)),
+                                    )),
+                              ),
+                            ],
+                          );
+                        }),
+                  ),
+                  body: SingleChildScrollView(
+                    child: Column(children: [
+                      Stack(
+                        children: [
+                          Hero(
+                            tag: "$id$tag",
+                            child: Container(
+                              height: 373.h,
+                              width: 375.w,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(8.w),
+                                      bottomRight: Radius.circular(8.w)),
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                          "assets/images/productimages/cardddd@3x-min.png"))),
+                            ),
+                          ),
+                          Positioned(
+                            top: 49.h,
+                            // top: 49.h,
+                            child: SizedBox(
+                              width: 375.w,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                // mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      // controller.productDetail = ProductDetail.empty();
+                                      Get.back();
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 24.w),
+                                      child: Icon(
+                                        CupertinoIcons.back,
+                                        color: Colors.white,
+                                        size: 24.w,
+                                      ),
                                     ),
                                   ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 28.w),
+                                    child: SvgPicture.asset(
+                                      cartIcons,
+                                      width: 20.w,
+                                      height: 20.w,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  // Icon(Icons)
                                 ],
                               ),
-                              AddonsWidget()
-                            ],
-                          )
+                            ),
+                          ),
+                          Positioned(
+                            top: 240.h,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8.r),
+                                  topRight: Radius.circular(8.r),
+                                ),
+                                child: ProductDescriptionWidget()),
+                          ),
                         ],
                       ),
-                    ))
-              ]),
-            ),
-          );
+                      Material(
+                          color: Palette.pagebackgroundcolor,
+                          child: SizedBox(
+                            width: screenwidth,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                TempratureOptionWidget(),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 28.w),
+                                  child: Text("Quantity",
+                                      style: getpoppins(
+                                        TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16.sp,
+                                            color: Color(0xFF414141)),
+                                      )),
+                                ),
+                                ProductCountWidget(screenwidth: screenwidth),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 28.w),
+                                  child: Text("Size",
+                                      style: getpoppins(
+                                        TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16.sp,
+                                            color: Color(0xFF414141)),
+                                      )),
+                                ),
+                                SizeOptionWIdget(),
+                                ToppingsOptionWidget(),
+                                MilkOptionWidget(),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                              //          left: 22, right: 22
+                                              left: 22.w,
+                                              right: 22.w),
+                                          margin: EdgeInsets.only(
+                                              left: 5.w,
+                                              top: 16.w,
+                                              bottom: 16.w),
+                                          child: Text(
+                                            "Add Extra",
+                                            style: getpoppins(TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: darkgrey,
+                                                //          fontSize: 14.5
+                                                fontSize: 14.sp)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    AddonsWidget()
+                                  ],
+                                )
+                              ],
+                            ),
+                          ))
+                    ]),
+                  ),
+                )
+              : LoadingPage();
         });
   }
 }
@@ -272,7 +291,7 @@ class ProductDescriptionWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ));

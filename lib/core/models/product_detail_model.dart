@@ -76,6 +76,15 @@ class Variant {
     this.imageUri,
     this.productName,
   );
+  Variant.dummy(
+    this.id,
+    this.productId,
+    this.name,
+    this.sku,
+    this.imageUri,
+    this.productName,
+  );
+
   Variant(
       {required this.id,
       required this.productId,
@@ -145,6 +154,7 @@ class ProductAddOn {
   String? image;
   String? name;
   dynamic cost;
+  bool selected = false;
 
   ProductAddOn();
 
