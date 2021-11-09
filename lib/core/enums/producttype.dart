@@ -1,1 +1,1 @@
-enum ProductTypeEnum { drinks, snacks, bakery }
+enum ProductTypeEnum { drinks, snacks, bakery, All }

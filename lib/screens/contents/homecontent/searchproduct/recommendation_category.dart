@@ -22,24 +22,24 @@ class RecommendationCategory extends StatelessWidget {
       height: 33.h,
       margin: EdgeInsets.only(left: 10.w),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
               padding: EdgeInsets.only(
-                  left: 16.w, right: 10.w, top: 9.h, bottom: 8.h),
+                  left: 16.w, right: 10.w, top: 8.h, bottom: 8.h),
               child: Image.asset(
                 "$imagePath",
               )),
           // SvgPicture.asset("assetName"),
           Center(
             child: Padding(
-              padding: EdgeInsets.only(right: 10.w),
+              padding: EdgeInsets.only(right: 16.w, top: 8.h, bottom: 8.h),
               child: Text(
                 "$name",
                 style: getpoppins(TextStyle(
                     color: pressed ? Color(0xE5FFFFFF) : Color(0xFF344141),
                     fontSize: 12.sp,
-                    fontWeight: FontWeight.normal)),
+                    fontFamily: poppinsregular)),
               ),
             ),
           ),

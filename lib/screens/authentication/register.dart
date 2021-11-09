@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/register_controller.dart';
-import 'package:metrocoffee/GetXController/base/basecontroller.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
+import 'package:metrocoffee/modules/home/base_controller.dart';
+import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';
@@ -297,7 +297,8 @@ class _SocialRegisterState extends State<SocialRegister> {
                                   id: newMap['provider_id']);
 
                               homeTabController.initializeAllData();
-                              baseController.setUserVerified();
+                              baseController.updateUserVerificationStatus(
+                                  UserVerficationStatus.verified);
                               Get.offNamedUntil('/Base', (route) => false);
                             }
 

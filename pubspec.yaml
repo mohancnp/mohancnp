@@ -91,6 +91,13 @@ flutter:
       - assets/images/bell.svg
       - assets/images/shopping-cart.svg
       - assets/images/user.svg
+      - assets/images/cart_add.svg
+      - assets/images/utility/EmptyState.svg
+      - assets/images/utility/Error.svg
+      - assets/images/utility/illustration.svg
+      - assets/images/utility/NoDocuments.svg
+      - assets/images/utility/NoGPS.svg
+      - assets/images/utility/noresults.svg
       - assets/images/coffee1.png
       - assets/images/coffe2.png
       - assets/images/coffee4.png
@@ -111,6 +118,8 @@ flutter:
       - assets/images/homebg.png
       - assets/images/productimages/burger_sandwich_PNG4114@3x.png
       - assets/images/profilepic.png
+      - assets/images/socials/facebook.png
+      - assets/images/socials/google.png
       - assets/images/badge.svg
       - assets/images/profilep.png
       - assets/images/iconhome.svg

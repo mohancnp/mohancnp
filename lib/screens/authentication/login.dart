@@ -1,13 +1,12 @@
 import 'dart:ui';
-
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/GetXController/auth/social_login_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 
 class Login extends StatelessWidget {
@@ -17,10 +16,6 @@ class Login extends StatelessWidget {
   // final LoginController loginController = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
     double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
 
@@ -95,12 +90,8 @@ class Login extends StatelessWidget {
                                         ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                                     child: GestureDetector(
                                         onTap: () {
-                                          Get.toNamed('/MembershipLogin');
-                                          // Navigator.push(
-                                          //     context,
-                                          //     MaterialPageRoute(
-                                          //         builder: (context) =>
-                                          //             MembershipLogin()));
+                                          Get.toNamed(
+                                              PageName.membershiploginpage);
                                         },
                                         child: Container(
                                           margin: EdgeInsets.only(
@@ -351,8 +342,7 @@ class Login extends StatelessWidget {
       filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
       child: GestureDetector(
           onTap: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, "/EmailLoginPage", (route) => true);
+            Get.toNamed(PageName.emailloginpage);
           },
           child: Container(
             margin: EdgeInsets.only(

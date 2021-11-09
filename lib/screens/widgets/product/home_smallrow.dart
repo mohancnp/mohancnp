@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/contentcontrollers/home/hometabcontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/section.dart';
-import 'package:metrocoffee/models/product_model.dart';
-import 'package:metrocoffee/screens/widgets/product/ratings_row.dart';
+import 'package:metrocoffee/core/models/product_model.dart';
+import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/services/rest/config.dart';
 
 class HomeSmallRow extends StatelessWidget {

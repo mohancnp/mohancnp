@@ -1,6 +1,3 @@
-import 'package:dartz/dartz.dart';
-import 'package:metrocoffee/models/product_model.dart';
-
 class ProductDetail {
   int id;
   dynamic price;

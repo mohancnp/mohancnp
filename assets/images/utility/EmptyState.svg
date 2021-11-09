@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="230.507" height="132.694" viewBox="0 0 230.507 132.694">
+  <g id="EmptyState" transform="translate(0 1.25)">
+    <path id="Background" d="M215.567,67.231a7.47,7.47,0,1,1,7.47,7.47A7.47,7.47,0,0,1,215.567,67.231ZM149.4,74.7a7.528,7.528,0,0,1-1.6-.172,7.54,7.54,0,0,1-1.6.172H49.09a7.47,7.47,0,1,1,0-14.94H7.47a7.47,7.47,0,0,1,0-14.941H50.157a7.47,7.47,0,0,0,0-14.94H23.478a7.47,7.47,0,1,1,0-14.94H66.164a7.47,7.47,0,0,1,0-14.94h60.829a7.47,7.47,0,0,1,0,14.94h68.3a7.47,7.47,0,1,1,0,14.94h23.478a7.47,7.47,0,1,1,0,14.94H198.492a7.47,7.47,0,0,0,0,14.941h6.4a7.47,7.47,0,1,1,0,14.94Z" transform="translate(0 28.813)" fill="#edd8d8"/>
+    <path id="Rectangle" d="M2.134,0h71.5l-6.4,9.6,8.537,6.4H0L9.6,9.6Z" transform="translate(82.172 30.948)" fill="#edd8d8"/>
+    <path id="Line" d="M0,.5H22.9" transform="translate(56.56 115.287)" fill="none" stroke="#414141" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Line-2" data-name="Line" d="M.128.5H7.462" transform="translate(42.695 115.287)" fill="none" stroke="#414141" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Line-3" data-name="Line" d="M.128.5H3.193" transform="translate(195.3 115.287)" fill="none" stroke="#414141" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Line-4" data-name="Line" d="M0,.5H23.934" transform="translate(166.478 115.287)" fill="none" stroke="#414141" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="bag" d="M75.277,84.306H4.221A4.25,4.25,0,0,1,0,80.037V3.2A3.225,3.225,0,0,1,3.242,0H77.387A2.125,2.125,0,0,1,79.5,2.134v77.9A4.25,4.25,0,0,1,75.277,84.306Z" transform="translate(81.111 45.888)" fill="#fff" stroke="#414141" stroke-linecap="round" stroke-width="2.5"/>
+    <path id="Rectangle-2" data-name="Rectangle" d="M74.7,0V12.806a2.034,2.034,0,0,1-1.915,2.134H1.915A2.034,2.034,0,0,1,0,12.806V0" transform="translate(157.94 45.888) rotate(180)" fill="none" stroke="#414141" stroke-width="2.5"/>
+    <circle id="Oval" cx="3.735" cy="3.735" r="3.735" transform="translate(99.246 60.828)" fill="#fff" stroke="#414141" stroke-width="2.5"/>
+    <circle id="Oval-2" data-name="Oval" cx="3.735" cy="3.735" r="3.735" transform="translate(134.463 60.828)" fill="#fff" stroke="#414141" stroke-width="2.5"/>
+    <path id="Oval-3" data-name="Oval" d="M34.149-16A17.075,17.075,0,0,1,17.075,1.075,17.075,17.075,0,0,1,0-16" transform="translate(103.515 84.298)" fill="none" stroke="#414141" stroke-linecap="round" stroke-width="2.5"/>
+    <path id="Path_3" data-name="Path 3" d="M1.132,0,8.716,7.486A1.067,1.067,0,0,1,8.484,9.18L0,13.877" transform="translate(83.239 32.012)" fill="none" stroke="#414141" stroke-linecap="round" stroke-width="2.5"/>
+    <path id="Path_3-2" data-name="Path 3" d="M-1.051,0-8.31,7.4a1.067,1.067,0,0,0,.251,1.684L.579,13.8" transform="translate(158.04 32.089)" fill="none" stroke="#414141" stroke-linecap="round" stroke-width="2.5"/>
+    <path id="lines" d="M55.6,4.592,43.754,17.882ZM27.746,0V0ZM0,4.592l11.845,13.29Z" transform="translate(92.843)" fill="none" stroke="#897f7f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+  </g>
+</svg>
