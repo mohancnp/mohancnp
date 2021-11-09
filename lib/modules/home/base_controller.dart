@@ -36,15 +36,19 @@ class BaseController extends GetxController {
   @override
   void onInit() {
     // print("On init");
-    initializeData();
+    // initializeData();
     super.onInit();
   }
 
   Future<void> initializeData() async {
+    print("initializing data");
     try {
       // print("initialization starts");
-      Get.find<HomeTabController>().initializeAllData().whenComplete(() {
+      Get.find<HomeTabController>().initializeAllData().then((value) {
         updateUserVerificationStatus(UserVerficationStatus.verified);
+      }).onError((error, stackTrace) {
+        updateUserVerificationStatus(UserVerficationStatus.unverified);
+        print("Error getting data: $error");
       });
       Get.find<CartController>().getOrderProducts();
       Get.find<HomeTabController>().setUserDetail();

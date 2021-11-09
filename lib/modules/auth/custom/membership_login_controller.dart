@@ -70,9 +70,11 @@ class MemberShipLoginController extends GetxController {
         errorMessage = "";
         _authState = AuthState.loggedIn;
       } on AppException catch (e) {
+        _authState = AuthState.error;
         print(e.message);
         errorMessage = e.message;
       } on ServerException catch (e) {
+        _authState = AuthState.error;
         print(e.message);
         errorMessage = e.message;
       }
