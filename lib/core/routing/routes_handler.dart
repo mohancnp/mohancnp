@@ -10,6 +10,7 @@ import 'package:metrocoffee/screens/authentication/change_password.dart';
 import 'package:metrocoffee/screens/authentication/email_login.dart';
 import 'package:metrocoffee/screens/authentication/register.dart';
 import 'package:metrocoffee/modules/products/product_detail_page.dart';
+import 'package:metrocoffee/screens/contents/homecontent/searchproduct/searchpage.dart';
 import 'package:metrocoffee/screens/contents/homecontent/tabs/all_menu.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/favorite_products.dart';
 import 'package:metrocoffee/screens/contents/profilecontent/my_order.dart';
@@ -50,6 +51,7 @@ class RouteHandler {
       PageName.productdetailpage: (BuildContext context) => ProductDetailPage(),
       PageName.nointernetpage: (BuildContext context) => NoInternet(),
       PageName.productCartPage: (BuildContext context) => MyProductCart(),
+      PageName.searchPage: (BuildContext context) => SearchPage(),
     };
   }
 }

@@ -32,7 +32,8 @@ class ProductCard extends StatelessWidget {
         left: 15.w,
         bottom: 5.h,
       ),
-      // padding:,
+      padding:
+          EdgeInsets.only(left: 10.w, top: 10.h, right: 10.w, bottom: 10.h),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r),
           color: Colors.white,
@@ -49,34 +50,31 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4.r),
-              child: Hero(
-                tag: "$id$tag",
-                child: Material(
-                  child: InkWell(
-                    onTap: onPressed,
-                    child: Image.network(
-                      "$baseUrl$imageUri",
-                      // color: Colors.blue,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, widget, imageProgress) {
-                        if (imageProgress == null) {
-                          return widget;
-                        }
-                        return Container(
-                          width: 116.w,
-                          height: 116.h,
-                          child: SpinKitCubeGrid(
-                            color: Palette.coffeeColor,
-                          ),
-                        );
-                      },
-                      height: 116.h,
-                      width: 116.w,
-                    ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4.r),
+            child: Hero(
+              tag: "$id$tag",
+              child: Material(
+                child: InkWell(
+                  onTap: onPressed,
+                  child: Image.network(
+                    "$baseUrl$imageUri",
+                    // color: Colors.blue,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, widget, imageProgress) {
+                      if (imageProgress == null) {
+                        return widget;
+                      }
+                      return Container(
+                        width: 116.w,
+                        height: 116.h,
+                        child: SpinKitCubeGrid(
+                          color: Palette.coffeeColor,
+                        ),
+                      );
+                    },
+                    height: 116.h,
+                    width: 116.w,
                   ),
                 ),
               ),
@@ -84,20 +82,17 @@ class ProductCard extends StatelessWidget {
           ),
           Flexible(
               fit: FlexFit.loose,
-              child: Padding(
-                padding: EdgeInsets.only(left: 10.w, top: 11.h, right: 10.w),
-                child: Text(
-                  "$name",
-                  style: getpoppins(TextStyle(
-                    color: Color(0xFF404D4D),
-                    fontSize: 12.sp,
-                    fontFamily: poppinsmedium,
-                  )),
-                ),
+              child: Text(
+                "$name",
+                style: getpoppins(TextStyle(
+                  color: Color(0xFF404D4D),
+                  fontSize: 12.sp,
+                  fontFamily: poppinsmedium,
+                )),
               )),
           SizedBox(height: 9.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "\$ $price",
@@ -127,7 +122,6 @@ class ProductCard extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 10.h),
         ],
       ),
     );
