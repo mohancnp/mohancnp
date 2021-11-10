@@ -132,19 +132,19 @@ class _AllMenuState extends State<AllMenu> {
         final Product p = homeTabController.allProducts.elementAt(index);
         return GestureDetector(
             onTap: () {
-              homeTabController
-                  .getProductDetails(p.id)
-                  .then((ProductDetail? pd) {
-                if (pd == null) {
-                  print("product detail is nullin : All Menu");
-                } else {
-                  if (pd.type == "Drinks") {
-                    Get.to(() => DrinkDetail(), arguments: p);
-                  } else {
-                    Get.to(() => pg.ProductDetail(), arguments: p);
-                  }
-                }
-              });
+              // homeTabController
+              //     .getProductDetails(p.id)
+              //     .then((ProductDetail? pd) {
+              //   if (pd == null) {
+              //     print("product detail is nullin : All Menu");
+              //   } else {
+              //     if (pd.type == "Drinks") {
+              //       Get.to(() => DrinkDetail(), arguments: p);
+              //     } else {
+              //       Get.to(() => pg.ProductDetail(), arguments: p);
+              //     }
+              //   }
+              // });
             },
             child: Container(
                 decoration: BoxDecoration(

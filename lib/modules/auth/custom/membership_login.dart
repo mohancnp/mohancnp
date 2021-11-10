@@ -9,7 +9,7 @@ import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/auth/custom/membership_login_controller.dart';
 import 'package:metrocoffee/modules/auth/widgets/sign_in_btn.dart';
 import 'package:metrocoffee/modules/auth/widgets/text_form_feild_skeleton.dart';
-import 'package:metrocoffee/ui/widgets.dart/progress_dialog.dart';
+import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class MembershipLoginPage extends StatelessWidget {
   MembershipLoginPage({Key? key}) : super(key: key);

@@ -3,15 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-
 import 'custom_button.dart';
 
 class UtilityInfoWidget extends StatelessWidget {
   final String title, content, buttonText, svgImageUri;
+  final void Function() onPressed;
   const UtilityInfoWidget(
       {Key? key,
       required this.title,
       required this.content,
+      required this.onPressed,
       required this.svgImageUri,
       required this.buttonText})
       : super(key: key);
@@ -23,6 +24,7 @@ class UtilityInfoWidget extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Palette.pagebackgroundcolor,
         elevation: 0.sp,
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
@@ -57,8 +59,8 @@ class UtilityInfoWidget extends StatelessWidget {
               child: CustomReusableBtn(
                 height: 47.h,
                 width: 233.w,
-                buttonText: "Start Browsing",
-                onPressed: () {},
+                buttonText: "$buttonText",
+                onPressed: onPressed,
               ),
             ),
           ],

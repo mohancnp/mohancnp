@@ -4,12 +4,18 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/core/constants/product_type.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
+import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
+import 'package:metrocoffee/core/models/cart_model.dart';
+import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/models/product_model.dart';
+import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/models/user.dart';
-import 'package:metrocoffee/models/variants.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
+import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/internet.dart';
 
 class HomeTabController extends GetxController {
@@ -18,6 +24,8 @@ class HomeTabController extends GetxController {
   Rx<Client?> newUser = Client.empty().obs;
   RxList<Product> allProducts = <Product>[].obs;
   DataState _dataState = DataState.NA;
+  var _productService = locator<ProductService>();
+  var _cartService = locator<CartService>();
 
   get dataState => this._dataState;
 
@@ -117,6 +125,7 @@ class HomeTabController extends GetxController {
       await getProductsOfType(ProductType.bakery);
       await getProductsOfType(ProductType.drinks);
       await getProductsOfType(ProductType.snacks);
+      await Get.find<CartController>().getAllCartProducts();
       //for the all menu page
       // await getProducts();
     }
@@ -139,22 +148,6 @@ class HomeTabController extends GetxController {
     // getProducts();
   }
 
-  //v-2 subscribe to network connection changes and notify when the app
-  //is in foreground
-  // subscriptionToConnectionChange() {
-  //   streamSubscription = Connectivity()
-  //       .onConnectivityChanged
-  //       .listen((ConnectivityResult result) {
-  //     print("listening to changes");
-  //   });
-  //   streamSubscription?.onData((data) {
-  //     if (getBoolFromEnum(data)) {
-  //       internetConnected = true;
-  //       getProducts();
-  //     }
-  //   });
-  // }
-
   setpageindex(int index) {
     currentpageindex = index;
     update();
@@ -169,7 +162,7 @@ class HomeTabController extends GetxController {
   Future getProducts() async {
     dataState = DataState.loading;
     try {
-      await locator<ProductService>().handleAllProducts();
+      await _productService.handleAllProducts();
       dataState = DataState.loaded;
     } on ServerException catch (e) {
       print(e.message);
@@ -180,11 +173,57 @@ class HomeTabController extends GetxController {
   Future getProductsOfType(String type) async {
     dataState = DataState.loading;
     try {
-      await locator<ProductService>().handleProductsOfType(type: type);
+      await _productService.handleProductsOfType(type: type);
       dataState = DataState.loaded;
     } on ServerException catch (e) {
       print(e.message);
       dataState = DataState.error;
+    }
+  }
+
+  Future addToCart(int id) async {
+    if (Get.context != null) {
+      try {
+        showCustomDialog(Get.context!);
+        var prodObj = await getProductDetail(id);
+        var mAddons = (prodObj.addons!.isNotEmpty)
+            ? prodObj.addons.toString()
+            : [0].toString();
+        var mOptions = (prodObj.options!.isNotEmpty)
+            ? prodObj.options.toString()
+            : [0].toString();
+
+        var product = CartModel(
+            productId: prodObj.id!,
+            variantId: prodObj.allVariants![0].id,
+            qty: 1,
+            price: prodObj.allVariants![0].price,
+            addons: mAddons,
+            imageUri: prodObj.imageUri ?? " ",
+            options: mOptions,
+            name: prodObj.name!);
+        // print("added to cart");
+        Get.back();
+        var count = await _cartService.addProductToCart(product.toJson());
+        if (count > 0) {
+          Get.find<CartController>().cartCount.value++;
+          showCustomSnackBarMessage(Get.context!, "added to cart");
+        }
+      } on AppException catch (e) {
+        print(e);
+      } on ServerException catch (e) {
+        print("Server Error $e");
+      }
+    }
+  }
+
+  Future<ProductDetail> getProductDetail(int id) async {
+    try {
+      ProductDetail prodObj =
+          await locator<ProductService>().handleProductDetail(id: id);
+      return prodObj;
+    } on ServerException catch (e) {
+      throw (ServerException(code: e.code, message: "${e.message}"));
     }
   }
 

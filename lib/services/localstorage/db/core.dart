@@ -3,8 +3,6 @@ import 'package:metrocoffee/services/localstorage/db/feildsname/dbfeilds.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-var CartFeildTable = "CartFeild";
-
 Future getDBPath() async {
   var databasesPath = await getDatabasesPath();
   String path = join(databasesPath, 'metrocoffee.db');

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
 
 class FinalProductCalculationCard extends StatelessWidget {
-  // final CartController controller = Get.find<CartController>();
+  final CartController controller = Get.find<CartController>();
 
-  const FinalProductCalculationCard({Key? key}) : super(key: key);
+  FinalProductCalculationCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,15 +96,17 @@ class FinalProductCalculationCard extends StatelessWidget {
                         fontSize: 16.sp)),
                   ),
                 ),
-                SizedBox(
-                    child: Text(
-                  "\$ 3.00",
-                  style: getpoppins(TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff404D4D),
-                      //      fontSize: 16
-                      fontSize: 16.sp)),
-                )),
+                Obx(() {
+                  return SizedBox(
+                      child: Text(
+                    "\$ ${controller.totalAmount.toStringAsPrecision(3)}",
+                    style: getpoppins(TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff404D4D),
+                        //      fontSize: 16
+                        fontSize: 16.sp)),
+                  ));
+                }),
               ],
             ),
           )

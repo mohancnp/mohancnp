@@ -9,7 +9,9 @@ import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
+import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'product_detail_page_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
@@ -24,6 +26,8 @@ import 'widgets/toppings_option_widget.dart';
 class ProductDetailPage extends StatelessWidget {
   ProductDetailPage({Key? key}) : super(key: key);
   final controller = Get.find<ProductDetailPageController>();
+  final cartController = Get.find<CartController>();
+
   @override
   Widget build(BuildContext context) {
     timeDilation = 2;
@@ -43,6 +47,8 @@ class ProductDetailPage extends StatelessWidget {
               qty: 1,
               orderProductAddons: [],
               orderProductOptions: []);
+
+          cartController.getAllCartProducts();
         },
         builder: (controller) {
           return controller.dataState == DataState.loaded
@@ -68,7 +74,7 @@ class ProductDetailPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                "\$ ${order.value.amount!.toStringAsPrecision(2)} ",
+                                "\$ ${order.value.amount?.toStringAsPrecision(2)} ",
                                 style: getpoppins(TextStyle(
                                     color: Palette.textColor,
                                     fontSize: 26.sp,
@@ -82,7 +88,15 @@ class ProductDetailPage extends StatelessWidget {
                                   color: Palette.coffeeColor,
                                 ),
                                 child: TextButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      var message =
+                                          await controller.addProductToCart();
+                                      cartController.getAllCartProducts();
+                                      if (message != null) {
+                                        showCustomSnackBarMessage(
+                                            context, message);
+                                      }
+                                    },
                                     icon: Icon(
                                       CupertinoIcons.cart_badge_plus,
                                       color: Colors.white,
@@ -143,14 +157,51 @@ class ProductDetailPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 28.w),
-                                    child: SvgPicture.asset(
-                                      cartIcons,
-                                      width: 20.w,
-                                      height: 20.w,
-                                      color: Colors.white,
-                                    ),
+                                  Stack(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 28.w),
+                                        child: SvgPicture.asset(
+                                          cartIcons,
+                                          width: 20.w,
+                                          height: 20.w,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Obx(() {
+                                        int count =
+                                            cartController.cartCount.value;
+                                        return Positioned(
+                                          left: 10.w,
+                                          child: count > 0
+                                              ? AnimatedContainer(
+                                                  height: 12.w,
+                                                  width: 12.w,
+                                                  alignment: Alignment.center,
+                                                  child: Text("$count",
+                                                      style: TextStyle(
+                                                          fontSize: 8.sp)),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          offset: Offset(1, 1),
+                                                          color: Colors.black12,
+                                                        ),
+                                                        BoxShadow(
+                                                          offset:
+                                                              Offset(-1, -1),
+                                                          color: Colors.black12,
+                                                        )
+                                                      ],
+                                                      shape: BoxShape.circle),
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                )
+                                              : SizedBox(),
+                                        );
+                                      }),
+                                    ],
                                   ),
                                   // Icon(Icons)
                                 ],

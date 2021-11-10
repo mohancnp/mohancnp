@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+
+import '../hometab_controller.dart';
 
 class ProductCard extends StatelessWidget {
   final String imageUri;
@@ -22,7 +25,6 @@ class ProductCard extends StatelessWidget {
       required this.onPressed,
       required this.price})
       : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -101,24 +103,27 @@ class ProductCard extends StatelessWidget {
                     fontSize: 20.sp,
                     fontFamily: poppinsmedium)),
               ),
-              Container(
-                width: 28.w,
-                height: 28.w,
-                // margin: EdgeInsets.only(right: 10.w),
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 16.w,
+              GestureDetector(
+                onTap: () => Get.find<HomeTabController>().addToCart(id),
+                child: Container(
+                  width: 28.w,
+                  height: 28.w,
+                  // margin: EdgeInsets.only(right: 10.w),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 16.w,
+                  ),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: coffeecolor,
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 3),
+                            color: Color(0x62722030),
+                            blurRadius: 4.r)
+                      ]),
                 ),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: coffeecolor,
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 3),
-                          color: Color(0x62722030),
-                          blurRadius: 4.r)
-                    ]),
               )
             ],
           ),

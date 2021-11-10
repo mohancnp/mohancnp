@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TopHomeGreeting extends StatelessWidget {
-  const TopHomeGreeting({Key? key}) : super(key: key);
+  TopHomeGreeting({Key? key}) : super(key: key);
+  final controller = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -71,12 +73,55 @@ class TopHomeGreeting extends StatelessWidget {
                 onTap: () {
                   Get.toNamed(PageName.productCartPage);
                 },
-                child: SvgPicture.asset(
-                  cartIcons,
-                  width: 20.w,
-                  height: 20.w,
-                  color: Colors.white,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 10.w),
+                      child: SvgPicture.asset(
+                        cartIcons,
+                        width: 20.w,
+                        height: 20.w,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Obx(() {
+                      int count = controller.cartCount.value;
+                      return Positioned(
+                        left: 10.w,
+                        child: count > 0
+                            ? AnimatedContainer(
+                                height: 12.w,
+                                width: 12.w,
+                                alignment: Alignment.center,
+                                child: Text("$count",
+                                    style: TextStyle(fontSize: 8.sp)),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(1, 1),
+                                        color: Colors.black12,
+                                      ),
+                                      BoxShadow(
+                                        offset: Offset(-1, -1),
+                                        color: Colors.black12,
+                                      )
+                                    ],
+                                    shape: BoxShape.circle),
+                                duration: Duration(milliseconds: 500),
+                              )
+                            : SizedBox(),
+                      );
+                    }),
+                  ],
                 ),
+
+                // SvgPicture.asset(
+                //   cartIcons,
+                //   width: 20.w,
+                //   height: 20.w,
+                //   color: Colors.white,
+                // ),
               )
             ]));
   }

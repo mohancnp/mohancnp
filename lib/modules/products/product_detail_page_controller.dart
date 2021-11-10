@@ -1,5 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/models/cart_model.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/core/constants/icons/product_option_name.dart';
 import 'package:metrocoffee/core/constants/variants_type.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
@@ -9,6 +11,8 @@ import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
 
 class ProductDetailPageController extends GetxController {
+  var cartController = Get.find<CartController>();
+
   DataState _dataState = DataState.NA;
   ExpandableController toppingsexpandableController = ExpandableController();
   ExpandableController milksexpandableController = ExpandableController();
@@ -117,6 +121,24 @@ class ProductDetailPageController extends GetxController {
     return this._dataState;
   }
 
+  Future addProductToCart() async {
+    var vId = productDetail.allVariants?.elementAt(selectedVariant).id;
+    //implement add product to cart
+    var cartData = CartModel(
+        productId: productDetail.id ?? -1,
+        variantId: vId ?? -1,
+        qty: userOrder.value.qty,
+        price: userOrder.value.amount ?? 0.0,
+        addons: userOrder.value.orderProductAddons ?? [],
+        imageUri: productDetail.imageUri ?? "",
+        options: userOrder.value.orderProductOptions ?? [],
+        name: productDetail.name ?? "");
+
+    var message = await cartController.addProductToCart(cartData.toJson());
+    print(cartData.toJson());
+    return message;
+  }
+
   Future retrieveProductDetails({required int id}) async {
     // print("received id: $id");
     _dataState = DataState.loading;
@@ -135,7 +157,6 @@ class ProductDetailPageController extends GetxController {
   }
 
 /*updates the final price of the product*/
-
   Future updatePrice() async {
     var selectedVariantPrice = variants[selectedVariant].price;
     var selectedAddonsPrice = 0.0;

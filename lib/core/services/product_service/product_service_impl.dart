@@ -3,7 +3,6 @@ import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
-import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
 import '../../config.dart';
 import 'product_service.dart';
 

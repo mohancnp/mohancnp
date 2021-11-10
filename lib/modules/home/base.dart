@@ -8,7 +8,7 @@ import 'package:metrocoffee/modules/home/home.dart';
 import 'package:metrocoffee/screens/base/order_history.dart';
 import 'package:metrocoffee/screens/base/profile.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
-import 'package:metrocoffee/ui/widgets.dart/utility_info_widget.dart';
+import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
 
 class Base extends StatelessWidget {
   List pages = [
@@ -19,6 +19,7 @@ class Base extends StatelessWidget {
       svgImageUri: UtilityIcons.illustrations,
       content: "Looks like you do not have any notifications",
       buttonText: "Start Browsing",
+      onPressed: () {},
     ),
     OrderHistory(),
     Profile()

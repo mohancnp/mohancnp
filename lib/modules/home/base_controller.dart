@@ -50,7 +50,7 @@ class BaseController extends GetxController {
         updateUserVerificationStatus(UserVerficationStatus.unverified);
         print("Error getting data: $error");
       });
-      Get.find<CartController>().getOrderProducts();
+      // Get.find<CartController>().getOrderProducts();
       Get.find<HomeTabController>().setUserDetail();
     } on Exception catch (e) {
       print(e);

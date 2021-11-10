@@ -1,21 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:dartz/dartz.dart' as d;
-import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
-import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/models/order.dart';
-import 'package:metrocoffee/models/product_model.dart';
 import 'package:metrocoffee/models/variants.dart';
-import 'package:metrocoffee/screens/sharables/checkout.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading_single.dart';
-import 'package:metrocoffee/screens/widgets/dialogs/userpreference.dart';
+
 import '../../../core/theme.dart';
 
 class CheckoutBottomNavigation extends StatefulWidget {
