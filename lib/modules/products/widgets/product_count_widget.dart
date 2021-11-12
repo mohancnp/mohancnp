@@ -62,7 +62,7 @@ class ProductCountWidget extends StatelessWidget {
                                 style: getpoppins(TextStyle(
                                     fontWeight: FontWeight.w400,
                                     color: coffeecolor,
-                                    fontSize: 27.w)),
+                                    fontSize: 16.w)),
                               ),
                             ),
                             GestureDetector(

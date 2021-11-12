@@ -70,7 +70,7 @@ class Base extends StatelessWidget {
                         items: [
                           BottomNavigationBarItem(
                             activeIcon: SvgPicture.asset(
-                              "assets/images/home-icon-silhouette.svg",
+                              "assets/images/bottomnav/home-icon-silhouette.svg",
                               //       width: 24,
                               width: 20.w,
                               height: 20.h,
@@ -79,7 +79,7 @@ class Base extends StatelessWidget {
                             backgroundColor: Colors.transparent,
                             label: "",
                             icon: SvgPicture.asset(
-                              "assets/images/home-icon-silhouette.svg",
+                              "assets/images/bottomnav/home-icon-silhouette.svg",
                               //                      width: 24,
                               width: 20.w,
                               height: 20.h,
@@ -88,7 +88,7 @@ class Base extends StatelessWidget {
                           ),
                           BottomNavigationBarItem(
                             activeIcon: SvgPicture.asset(
-                              "assets/images/bell.svg",
+                              "assets/images/bottomnav/bell.svg",
                               //                 height: 24,
                               width: 20.w,
                               height: 20.h,
@@ -97,7 +97,7 @@ class Base extends StatelessWidget {
                             label: "",
                             backgroundColor: Colors.transparent,
                             icon: SvgPicture.asset(
-                              "assets/images/bell.svg",
+                              "assets/images/bottomnav/bell.svg",
                               //                      height: 24,
                               width: 20.w,
                               height: 20.h,
@@ -106,7 +106,7 @@ class Base extends StatelessWidget {
                           ),
                           BottomNavigationBarItem(
                             activeIcon: SvgPicture.asset(
-                              "assets/images/shopping-cart.svg",
+                              "assets/images/bottomnav/shopping-cart.svg",
                               //               height: 24,
                               width: 20.w,
                               height: 20.h,
@@ -115,7 +115,7 @@ class Base extends StatelessWidget {
                             label: "",
                             backgroundColor: Colors.transparent,
                             icon: SvgPicture.asset(
-                              "assets/images/shopping-cart.svg",
+                              "assets/images/bottomnav/shopping-cart.svg",
                               //            height: 24,
                               width: 20.w,
                               height: 20.h,
@@ -133,9 +133,10 @@ class Base extends StatelessWidget {
                             label: "",
                             backgroundColor: Colors.transparent,
                             icon: SvgPicture.asset(
-                              "assets/images/user.svg",
+                              "assets/images/bottomnav/user.svg",
                               //             height: 24,
-                              height: screenwidth * 0.0583,
+                              height: 20.h,
+                              width: 20.w,
                               color: Colors.black38,
                             ),
                           ),

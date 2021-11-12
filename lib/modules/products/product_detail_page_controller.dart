@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:expandable/expandable.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
@@ -9,6 +11,8 @@ import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
+import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
+import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class ProductDetailPageController extends GetxController {
   var cartController = Get.find<CartController>();
@@ -18,11 +22,12 @@ class ProductDetailPageController extends GetxController {
   ExpandableController milksexpandableController = ExpandableController();
   ProductDetail _productDetail = ProductDetail.empty();
   Rx<UserOrder> userOrder = UserOrder.local(
-      productVariantId: 0,
-      qty: 1,
-      amount: 0.0,
-      orderProductAddons: [],
-      orderProductOptions: []).obs;
+    productVariantId: 0,
+    qty: 1,
+    amount: 0.0,
+    orderProductAddons: [],
+    orderProductOptions: [],
+  ).obs;
   ProductOption? tempOptions;
   int _selectedTemprature = 0;
   int _selectedVariant = 0;
@@ -122,21 +127,54 @@ class ProductDetailPageController extends GetxController {
   }
 
   Future addProductToCart() async {
-    var vId = productDetail.allVariants?.elementAt(selectedVariant).id;
-    //implement add product to cart
+    var variant = productDetail.allVariants?.elementAt(selectedVariant);
+    setProductOptionValue();
+    showCustomDialog(message: "adding to cart");
+    var names = await getSelectedAddonNames();
     var cartData = CartModel(
-        productId: productDetail.id ?? -1,
-        variantId: vId ?? -1,
-        qty: userOrder.value.qty,
-        price: userOrder.value.amount ?? 0.0,
-        addons: userOrder.value.orderProductAddons ?? [],
-        imageUri: productDetail.imageUri ?? "",
-        options: userOrder.value.orderProductOptions ?? [],
-        name: productDetail.name ?? "");
-
+      productId: productDetail.id ?? -1,
+      variantId: variant?.id ?? -1,
+      qty: userOrder.value.qty,
+      price: userOrder.value.amount ?? 0.0,
+      addons: jsonEncode(userOrder.value.orderProductAddons ?? []),
+      imageUri: productDetail.imageUri ?? "",
+      options: jsonEncode(userOrder.value.orderProductOptions),
+      name: productDetail.name ?? "",
+      extras: names,
+      size: variant?.name ?? " ",
+    );
+    // await Future.delayed(Duration(seconds: 2));
+    // print(jsonEncode(userOrder.value.orderProductOptions));
     var message = await cartController.addProductToCart(cartData.toJson());
-    print(cartData.toJson());
-    return message;
+    Get.back();
+    showCustomSnackBarMessage(message);
+
+    // return message;
+  }
+
+  void setProductOptionValue() {
+    userOrder.value.orderProductOptions?.clear();
+    if (tempOptions != null) {
+      userOrder.value.orderProductOptions
+          ?.add(tempOptions!.options.elementAt(selectedTemprature));
+    }
+    userOrder.value.orderProductOptions?.addAll([currentmilk, currenttopping]);
+  }
+
+  Future<String> getSelectedAddonNames() async {
+    /* gets the name of the selected addons*/
+    String temporaryAddon = " ";
+    var extras = userOrder.value.orderProductAddons;
+    if (extras!.length > 0) {
+      extras.forEach((extId) {
+        productDetail.addons?.forEach((element) {
+          if (extId == element.id) {
+            temporaryAddon = temporaryAddon + "${element.name},";
+          }
+        });
+      });
+    }
+    return temporaryAddon;
   }
 
   Future retrieveProductDetails({required int id}) async {

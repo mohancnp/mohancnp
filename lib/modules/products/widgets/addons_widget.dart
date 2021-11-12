@@ -23,97 +23,97 @@ class AddonsWidget extends StatelessWidget {
                   padding: EdgeInsets.only(left: 28.w),
                   child: ListView.builder(
                       itemCount: addons.length,
+                      // padding: EdgeInsets.only(right: 10.w),
+                      clipBehavior: Clip.none,
+
                       // shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      clipBehavior: Clip.none,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return Container(
-                            // margin: EdgeInsets.only(right: 10.w),
-                            height: 94.h,
-                            width: 134.w,
-                            child: Stack(children: [
-                              GestureDetector(
-                                onTap: () {
-                                  controller.toogleAddonSelection(index);
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.only(
-                                      //          left: 12,bottom: 4,right: 4
-                                      left: 12.w,
-                                      bottom: 4.h,
-                                      right: 4.w),
-                                  //                      height: 88,width: 110,
-                                  height: 87.h,
-                                  width: 100.w,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                          color: addons[index].selected
-                                              ? (Color(0xFF550E1C))
-                                              : Colors.white,
-                                          width: 2.0),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(9.r),
+                        return Padding(
+                          padding: EdgeInsets.only(right: 16.w),
+                          child: Stack(clipBehavior: Clip.none, children: [
+                            GestureDetector(
+                              onTap: () {
+                                controller.toogleAddonSelection(index);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                    //          left: 12,bottom: 4,right: 4
+                                    left: 12.w,
+                                    bottom: 4.h,
+                                    right: 4.w),
+                                //                      height: 88,width: 110,
+                                height: 87.h,
+                                width: 100.w,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: addons[index].selected
+                                            ? (Color(0xFF550E1C))
+                                            : Colors.white,
+                                        width: 2.0),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(9.r),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 20.r,
+                                          offset: Offset(0, 3.r))
+                                    ]),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        "${addons.elementAt(index).name} ",
+                                        style: getpoppins(TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            color: darkgrey,
+                                            //              fontSize: 12
+                                            fontSize: 12.sp)),
                                       ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.black12,
-                                            blurRadius: 20.r,
-                                            offset: Offset(0, 3.r))
-                                      ]),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          "${addons.elementAt(index).name} ",
-                                          style: getpoppins(TextStyle(
-                                              fontWeight: FontWeight.w300,
-                                              color: darkgrey,
-                                              //              fontSize: 12
-                                              fontSize: 12.sp)),
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              "\$ ${addons[index].cost}",
-                                              style: getpoppins(TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: darkgrey,
-                                                  //             fontSize: 13.5
-                                                  fontSize: 13.sp)),
-                                            ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            "\$ ${addons[index].cost}",
+                                            style: getpoppins(TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: darkgrey,
+                                                //             fontSize: 13.5
+                                                fontSize: 13.sp)),
                                           ),
-                                          Icon(
-                                            CupertinoIcons.add_circled_solid,
-                                            color: coffeecolor,
-                                            //      size: 21,
-                                            size: 21.sp,
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
+                                        ),
+                                        Icon(
+                                          CupertinoIcons.add_circled_solid,
+                                          color: coffeecolor,
+                                          //      size: 21,
+                                          size: 21.sp,
+                                        )
+                                      ],
+                                    )
+                                  ],
                                 ),
                               ),
-                              addons[index].image != null
-                                  ? Positioned(
-                                      left: 24.w,
-                                      child: Image.network(
-                                        "$baseUrl${addons[index].image}",
-                                        width: 86.w,
-                                        height: 46.h,
-                                      ),
-                                    )
-                                  : SizedBox(),
-                            ]));
+                            ),
+                            addons[index].image != null
+                                ? Positioned(
+                                    left: 24.w,
+                                    child: Image.network(
+                                      "$baseUrl${addons[index].image}",
+                                      width: 86.w,
+                                      height: 46.h,
+                                    ),
+                                  )
+                                : SizedBox(),
+                          ]),
+                        );
                       }));
         });
   }

@@ -60,14 +60,10 @@ class ProductCard extends StatelessWidget {
                     loadingBuilder: (context, widget, imageProgress) {
                       if (imageProgress == null) {
                         return widget;
-                      }
-                      return Container(
-                        width: 116.w,
-                        height: 116.h,
-                        child: SpinKitCubeGrid(
+                      } else
+                        return CircularProgressIndicator(
                           color: Palette.coffeeColor,
-                        ),
-                      );
+                        );
                     },
                     height: 116.h,
                     width: 116.w,

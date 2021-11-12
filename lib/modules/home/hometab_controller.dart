@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/instances.dart';
@@ -184,30 +185,25 @@ class HomeTabController extends GetxController {
   Future addToCart(int id) async {
     if (Get.context != null) {
       try {
-        showCustomDialog(Get.context!);
+        showCustomDialog();
         var prodObj = await getProductDetail(id);
-        var mAddons = (prodObj.addons!.isNotEmpty)
-            ? prodObj.addons.toString()
-            : [0].toString();
-        var mOptions = (prodObj.options!.isNotEmpty)
-            ? prodObj.options.toString()
-            : [0].toString();
-
         var product = CartModel(
-            productId: prodObj.id!,
-            variantId: prodObj.allVariants![0].id,
-            qty: 1,
-            price: prodObj.allVariants![0].price,
-            addons: mAddons,
-            imageUri: prodObj.imageUri ?? " ",
-            options: mOptions,
-            name: prodObj.name!);
-        // print("added to cart");
-        Get.back();
+          productId: prodObj.id!,
+          variantId: prodObj.allVariants![0].id,
+          qty: 1,
+          price: prodObj.allVariants![0].price,
+          addons: jsonEncode([]),
+          imageUri: prodObj.imageUri ?? "",
+          options: jsonEncode(['']),
+          name: prodObj.name!,
+          size: prodObj.allVariants![0].name,
+          extras: "",
+        );
         var count = await _cartService.addProductToCart(product.toJson());
         if (count > 0) {
+          Get.back();
           Get.find<CartController>().cartCount.value++;
-          showCustomSnackBarMessage(Get.context!, "added to cart");
+          showCustomSnackBarMessage("added to cart");
         }
       } on AppException catch (e) {
         print(e);

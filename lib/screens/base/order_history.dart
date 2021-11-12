@@ -10,8 +10,6 @@ class OrderHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFF3F5F5),
@@ -32,7 +30,7 @@ class OrderHistory extends StatelessWidget {
       ),
       body: Container(
         color: Color(0xFFF3F5F5),
-        width: screenwidth,
+        width: 375.w,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,8 +56,6 @@ class SIngleOrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-
     return Container(
       height: 92.h,
       width: 320.w,
@@ -74,38 +70,43 @@ class SIngleOrderWidget extends StatelessWidget {
                 blurRadius: 10)
           ]),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(9.r),
-                child: Image.asset(
-                  "$assetImage",
-                  width: 73.w,
-                  height: 72.h,
-                  fit: BoxFit.cover,
+              Padding(
+                padding: EdgeInsets.only(left: 10.w, top: 10.h, bottom: 10.h),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(9.r),
+                  child: SizedBox(
+                    height: 72.w,
+                    width: 73.h,
+                    child: Image.asset(
+                      "$assetImage",
+                    ),
+                  ),
                 ),
               ),
               Container(
                 //  height: 76,
                 margin: EdgeInsets.only(
                     //        left: 18
-                    left: screenwidth * 0.0437),
+                    left: 14.w),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       child: Text(
-                        " 3 items",
+                        "3 items",
                         style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff404D4D),
-                            //       fontSize: 14.5
-                            fontSize: screenwidth * 0.03527)),
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff404D4D),
+                          //       fontSize: 14.5
+                          fontSize: 14.sp,
+                        )),
                       ),
                     ),
                     Text(
@@ -114,7 +115,7 @@ class SIngleOrderWidget extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                           color: Color(0xff404D4D),
                           //         fontSize: 11.5
-                          fontSize: screenwidth * 0.0279)),
+                          fontSize: 11.sp)),
                     ),
                     Container(
                         child: Text(
@@ -123,7 +124,7 @@ class SIngleOrderWidget extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                           color: Color(0xff404D4D),
                           //         fontSize: 11.5
-                          fontSize: screenwidth * 0.0279)),
+                          fontSize: 11.sp)),
                     ))
                   ],
                 ),
@@ -133,73 +134,67 @@ class SIngleOrderWidget extends StatelessWidget {
           Container(
             //                  height: 31,width: 2,
             height: 31.h, width: 2,
+            margin: EdgeInsets.only(
+              left: 17.w,
+            ),
             decoration: BoxDecoration(
               color: Color(0x26A5A5A5),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              // print("sent id : ${orderData.id}");
-              // if (reorder != null) {
-              //   Get.to(
-              //       () => OrderDetails(
-              //             reorder: reorder,
-              //           ),
-              //       arguments: orderData.id);
-              // } else {
-              //   Get.toNamed(
-              //     '/OrderDetails',
-              //     arguments: orderData.id,
-              //   );
-              // }
-            },
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "\$ 3.00",
-                        style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff550E1C),
-                            //      fontSize: 16
-                            fontSize: screenwidth * 0.0389)),
-                      ),
-                      Container(
-                        width: 60.w,
-                        height: 23.h,
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.all(8.w),
-                        child: Text(
-                          "Re Order",
-                          style: getpoppins(TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff550E1C),
-                              fontSize: 10.h)),
-                        ),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: coffeecolor,
-                              width: 2.w,
-                            ),
-                            borderRadius: BorderRadius.circular(4.r)),
-                      )
-                    ],
+                  Padding(
+                    padding: EdgeInsets.only(left: 11.w),
+                    child: Text(
+                      "\$ 3.00",
+                      style: getpoppins(TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff550E1C),
+                          //      fontSize: 16
+                          fontSize: 16.sp)),
+                    ),
                   ),
-                  Icon(
-                    CupertinoIcons.forward,
-                    //     size: 20,
-                    size: screenwidth * 0.0486,
-                    color: Color(0xff404D4D),
+                  Container(
+                    width: 73.w,
+                    height: 31.h,
+                    color: Colors.transparent,
+                    padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                    child: Container(
+                      width: 60.w,
+                      height: 23.h,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(top: 8.h),
+                      child: Text(
+                        "Re Order",
+                        style: getpoppins(TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff550E1C),
+                            fontSize: 10.h)),
+                      ),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: coffeecolor,
+                            width: 1.w,
+                          ),
+                          borderRadius: BorderRadius.circular(4.r)),
+                    ),
                   )
                 ],
               ),
-            ),
+              Icon(
+                CupertinoIcons.forward,
+                //     size: 20,
+                size: 20.w,
+                color: Color(0xff404D4D),
+              )
+            ],
           )
         ],
       ),

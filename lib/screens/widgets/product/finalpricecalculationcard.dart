@@ -11,7 +11,6 @@ class FinalProductCalculationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
     return Container(
       width: 320.w,
       height: 128.h,
@@ -27,8 +26,8 @@ class FinalProductCalculationCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(9))),
       padding: EdgeInsets.symmetric(
           //     vertical: 26,horizontal: 26
-          vertical: screenwidth * 0.06326,
-          horizontal: screenwidth * 0.06326),
+          vertical: 26.h,
+          horizontal: 26.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -42,7 +41,7 @@ class FinalProductCalculationCard extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                       color: Color(0xff404D4D),
                       //       fontSize: 12.5
-                      fontSize: screenwidth * 0.03041)),
+                      fontSize: 12.sp)),
                 ),
               ),
               Container(
@@ -52,7 +51,7 @@ class FinalProductCalculationCard extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                       color: Color(0xff404D4D),
                       //      fontSize: 12.5
-                      fontSize: screenwidth * 0.03041)),
+                      fontSize: 12.sp)),
                 ),
               ),
             ],
@@ -67,7 +66,7 @@ class FinalProductCalculationCard extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                       color: Color(0xff404D4D),
                       //       fontSize: 12.5
-                      fontSize: screenwidth * 0.03041)),
+                      fontSize: 12.sp)),
                 ),
               ),
               SizedBox(
@@ -77,37 +76,39 @@ class FinalProductCalculationCard extends StatelessWidget {
                     fontWeight: FontWeight.w300,
                     color: Color(0xff404D4D),
                     //      fontSize: 12.5
-                    fontSize: screenwidth * 0.03041)),
+                    fontSize: 12.sp)),
               )),
             ],
           ),
-          Container(
-            margin: EdgeInsets.only(top: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  child: Text(
-                    "Total",
-                    style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff404D4D),
-                        //       fontSize: 16
-                        fontSize: 16.sp)),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(top: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Text(
+                      "Total",
+                      style: getpoppins(TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff404D4D),
+                          //       fontSize: 16
+                          fontSize: 16.sp)),
+                    ),
                   ),
-                ),
-                Obx(() {
-                  return SizedBox(
-                      child: Text(
-                    "\$ ${controller.totalAmount.toStringAsPrecision(3)}",
-                    style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff404D4D),
-                        //      fontSize: 16
-                        fontSize: 16.sp)),
-                  ));
-                }),
-              ],
+                  Obx(() {
+                    return SizedBox(
+                        child: Text(
+                      "\$ ${controller.totalAmount.toStringAsPrecision(3)}",
+                      style: getpoppins(TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff404D4D),
+                          //      fontSize: 16
+                          fontSize: 16.sp)),
+                    ));
+                  }),
+                ],
+              ),
             ),
           )
         ],

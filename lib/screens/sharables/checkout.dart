@@ -7,19 +7,18 @@ import 'package:metrocoffee/GetXController/maps/map_controller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/models/cart_data.dart';
-import 'package:metrocoffee/models/profile.dart';
 import 'package:metrocoffee/screens/widgets/product/cartproductcard.dart';
 import 'package:metrocoffee/screens/widgets/product/checkouttopayments_bottom_nav.dart';
 import 'package:metrocoffee/core/theme.dart';
 
 class CheckoutPage extends StatelessWidget {
-  final List<CartData>? orders;
   CheckoutPage({
     Key? key,
     this.orders,
   }) : super(key: key);
   final CheckoutController checkoutController = Get.put(CheckoutController());
   final MapController mapController = Get.put(MapController());
+  final List<CartData>? orders;
 
   //0 self pickup and 1 delivery
   int type = 1;

@@ -20,7 +20,7 @@ class SizeOptionWIdget extends StatelessWidget {
             padding: EdgeInsets.only(left: 28.w, top: 16.h, right: 28.w),
             // margin: EdgeInsets.only(left: 28.w, top: 16.h),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
                 // controller.variants[0].name
@@ -38,6 +38,7 @@ class SizeOptionWIdget extends StatelessWidget {
                           ),
                           width: 92.w,
                           height: 40.h,
+                          margin: EdgeInsets.only(right: 16.w),
                           child: Center(
                             child: Text(
                               "S",
@@ -62,6 +63,7 @@ class SizeOptionWIdget extends StatelessWidget {
                         child: Container(
                           width: 92.w,
                           height: 40.h,
+                          margin: EdgeInsets.only(right: 16.w),
                           decoration: BoxDecoration(
                             color: Color(0xFFE8E8E8),
                             border: controller.selectedVariant == 1

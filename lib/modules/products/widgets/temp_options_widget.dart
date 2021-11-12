@@ -19,6 +19,7 @@ class TempratureOptionWidget extends StatelessWidget {
         init: ProductDetailPageController(),
         builder: (controller) {
           controller.getProductTempOption();
+
           return SizedBox(
               width: screenwidth,
               child: AnimatedContainer(
@@ -67,14 +68,16 @@ class TempratureOptionWidget extends StatelessWidget {
                             GestureDetector(
                                 onTap: () {
                                   controller.selectedTemprature = 0;
-                                  // orderProducts.orderProductOptions()
-                                  // orderProducts.orderProductOptions
-                                  //     ?.add(tempOptions.elementAt(0));
+                                  // controller.userOrder.value.orderProductOptions
+                                  //     ?.add(controller.tempOptions!.options
+                                  //         .elementAt(0));
                                 },
                                 child: Container(
                                   //             height: 41, width: 180,
                                   height: 41.h,
                                   width: 160.w,
+                                  color: Colors.transparent,
+                                  // clipBehavior: Clip.none,
                                   child: Center(
                                       child: Text(
                                     "${controller.tempOptions?.options[0]}",
@@ -98,6 +101,8 @@ class TempratureOptionWidget extends StatelessWidget {
                                 //                            height: 41, width: 180,
                                 height: 41.h,
                                 width: 160.w,
+                                color: Colors.transparent,
+
                                 child: Center(
                                     child: Text(
                                   "${controller.tempOptions?.options[1]}",

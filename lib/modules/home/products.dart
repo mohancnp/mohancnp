@@ -17,7 +17,6 @@ class ProductsPage extends StatelessWidget {
       var mpList = [];
       var rcList = [];
       var activeCategory = categoryController.activeCategory;
-      // print(activeCategory);
       if (activeCategory == ProductType.bakery) {
         pList = controller.allBakery;
         mpList = controller.mostPopularBakery;

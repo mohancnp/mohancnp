@@ -125,6 +125,8 @@ class CartController extends GetxController {
             // print(cartProductList!.length);
             cartCount.value = cartProductList!.length;
             cartProductList?.refresh();
+            getTotalAmountFromCartList();
+
             print("cart count${cartCount.value}");
           }
         }

@@ -5,10 +5,12 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
 import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
@@ -32,8 +34,11 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     timeDilation = 2;
     var idAndTag = Get.arguments;
-    var tag = idAndTag[1];
-    var id = idAndTag[0];
+    var tag, id;
+    if (idAndTag != null) {
+      tag = idAndTag[1];
+      id = idAndTag[0];
+    }
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<ProductDetailPageController>(
         init: ProductDetailPageController(),
@@ -43,14 +48,15 @@ class ProductDetailPage extends StatelessWidget {
           controller.milks = [];
           controller.tempOptions = null;
           controller.userOrder.value = UserOrder.local(
-              productVariantId: -1,
-              qty: 1,
-              orderProductAddons: [],
-              orderProductOptions: []);
-
+            productVariantId: -1,
+            qty: 1,
+            orderProductAddons: [],
+            orderProductOptions: [],
+          );
           cartController.getAllCartProducts();
         },
         builder: (controller) {
+          // print("${controller.productDetail.ingredients}");
           return controller.dataState == DataState.loaded
               ? Scaffold(
                   backgroundColor: Palette.pagebackgroundcolor,
@@ -89,13 +95,8 @@ class ProductDetailPage extends StatelessWidget {
                                 ),
                                 child: TextButton.icon(
                                     onPressed: () async {
-                                      var message =
-                                          await controller.addProductToCart();
+                                      await controller.addProductToCart();
                                       cartController.getAllCartProducts();
-                                      if (message != null) {
-                                        showCustomSnackBarMessage(
-                                            context, message);
-                                      }
                                     },
                                     icon: Icon(
                                       CupertinoIcons.cart_badge_plus,
@@ -129,8 +130,9 @@ class ProductDetailPage extends StatelessWidget {
                                       bottomRight: Radius.circular(8.w)),
                                   image: DecorationImage(
                                       fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          "assets/images/productimages/cardddd@3x-min.png"))),
+                                      image: NetworkImage(
+                                        "$baseUrl${controller.productDetail.imageUri}",
+                                      ))),
                             ),
                           ),
                           Positioned(
@@ -157,51 +159,59 @@ class ProductDetailPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Stack(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 28.w),
-                                        child: SvgPicture.asset(
-                                          cartIcons,
-                                          width: 20.w,
-                                          height: 20.w,
-                                          color: Colors.white,
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(PageName.productCartPage);
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 28.w),
+                                          child: SvgPicture.asset(
+                                            cartIcons,
+                                            width: 20.w,
+                                            height: 20.w,
+                                            color: Colors.white,
+                                          ),
                                         ),
-                                      ),
-                                      Obx(() {
-                                        int count =
-                                            cartController.cartCount.value;
-                                        return Positioned(
-                                          left: 10.w,
-                                          child: count > 0
-                                              ? AnimatedContainer(
-                                                  height: 12.w,
-                                                  width: 12.w,
-                                                  alignment: Alignment.center,
-                                                  child: Text("$count",
-                                                      style: TextStyle(
-                                                          fontSize: 8.sp)),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          offset: Offset(1, 1),
-                                                          color: Colors.black12,
-                                                        ),
-                                                        BoxShadow(
-                                                          offset:
-                                                              Offset(-1, -1),
-                                                          color: Colors.black12,
-                                                        )
-                                                      ],
-                                                      shape: BoxShape.circle),
-                                                  duration: Duration(
-                                                      milliseconds: 500),
-                                                )
-                                              : SizedBox(),
-                                        );
-                                      }),
-                                    ],
+                                        Obx(() {
+                                          int count =
+                                              cartController.cartCount.value;
+                                          return Positioned(
+                                            left: 10.w,
+                                            child: count > 0
+                                                ? AnimatedContainer(
+                                                    height: 12.w,
+                                                    width: 12.w,
+                                                    alignment: Alignment.center,
+                                                    child: Text("$count",
+                                                        style: TextStyle(
+                                                            fontSize: 8.sp)),
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            offset:
+                                                                Offset(1, 1),
+                                                            color:
+                                                                Colors.black12,
+                                                          ),
+                                                          BoxShadow(
+                                                            offset:
+                                                                Offset(-1, -1),
+                                                            color:
+                                                                Colors.black12,
+                                                          )
+                                                        ],
+                                                        shape: BoxShape.circle),
+                                                    duration: Duration(
+                                                        milliseconds: 500),
+                                                  )
+                                                : SizedBox(),
+                                          );
+                                        }),
+                                      ],
+                                    ),
                                   ),
                                   // Icon(Icons)
                                 ],
@@ -209,7 +219,12 @@ class ProductDetailPage extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            top: 240.h,
+                            top: controller.productDetail.ingredients != null
+                                ? 240.h
+                                : null,
+                            bottom: controller.productDetail.ingredients == null
+                                ? 0.h
+                                : null,
                             child: ClipRRect(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(8.r),
@@ -254,40 +269,34 @@ class ProductDetailPage extends StatelessWidget {
                                       )),
                                 ),
                                 SizeOptionWIdget(),
-                                controller.productDetail.addons!.isEmpty
+                                controller.productDetail.addons == null
                                     ? SizedBox()
-                                    : ToppingsOptionWidget(),
-                                controller.productDetail.addons!.isEmpty
+                                    : controller.productDetail.addons!.isEmpty
+                                        ? SizedBox()
+                                        : ToppingsOptionWidget(),
+                                controller.productDetail.addons == null
                                     ? SizedBox()
-                                    : MilkOptionWidget(),
+                                    : controller.productDetail.addons!.isEmpty
+                                        ? SizedBox()
+                                        : MilkOptionWidget(),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              //          left: 22, right: 22
-                                              left: 22.w,
-                                              right: 22.w),
-                                          margin: EdgeInsets.only(
-                                              left: 5.w,
-                                              top: 16.w,
-                                              bottom: 16.w),
-                                          child: Text(
-                                            "Add Extra",
-                                            style: getpoppins(TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: darkgrey,
-                                                //          fontSize: 14.5
-                                                fontSize: 14.sp)),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                    Container(
+                                        padding: EdgeInsets.only(
+                                            //          left: 22, right: 22
+                                            left: 28.w),
+                                        margin: EdgeInsets.only(
+                                            top: 16.w, bottom: 16.w),
+                                        child: Text(
+                                          "Add Extra",
+                                          style: getpoppins(TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: darkgrey,
+                                              //          fontSize: 14.5
+                                              fontSize: 14.sp)),
+                                        )),
                                     AddonsWidget()
                                   ],
                                 )
@@ -312,7 +321,7 @@ class ProductDescriptionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: 375.w,
-        height: 133.h,
+        height: controller.productDetail.ingredients == null ? null : 133.h,
         decoration: BoxDecoration(
           color: Color(0xA5000000),
         ),
@@ -320,12 +329,19 @@ class ProductDescriptionWidget extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 10.w, sigmaY: 0.h),
           blendMode: BlendMode.srcIn,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 28.w, top: 16.h),
+                    padding: EdgeInsets.only(
+                      left: 28.w,
+                      top: 8.h,
+                      bottom: controller.productDetail.ingredients == null
+                          ? 8.h
+                          : 0.h,
+                    ),
                     child: Text(
                       "${controller.productDetail.name}",
                       style: getpoppins(TextStyle(
@@ -338,7 +354,13 @@ class ProductDescriptionWidget extends StatelessWidget {
                   Container(
                     width: 28.w,
                     height: 28.w,
-                    margin: EdgeInsets.only(right: 28.w, top: 16.h),
+                    margin: EdgeInsets.only(
+                      right: 28.w,
+                      top: 16.h,
+                      bottom: controller.productDetail.ingredients == null
+                          ? 8.h
+                          : 0.h,
+                    ),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.white.withOpacity(0.3)),
@@ -352,18 +374,22 @@ class ProductDescriptionWidget extends StatelessWidget {
                   )
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 28.w, top: 16.h, right: 28.w),
-                child: Text(
-                  "Caffe latte is a coffee drink made with espresso and steamed milk. The word comes from the Italian caffè e which means 'coffee & milk'.",
-                  style: getpoppins(
-                    TextStyle(
-                      fontSize: 12.sp,
-                      color: Color(0xE5FFFFFF),
+              controller.productDetail.ingredients == null
+                  ? SizedBox()
+                  : Padding(
+                      padding:
+                          EdgeInsets.only(left: 28.w, top: 7.h, right: 28.w),
+                      child: Text(
+                        "${controller.productDetail.ingredients ?? ' '}",
+                        style: getpoppins(
+                          TextStyle(
+                            fontSize: 12.sp,
+                            color: Color(0xE5FFFFFF),
+                          ),
+                        ),
+                        maxLines: 3,
+                      ),
                     ),
-                  ),
-                ),
-              ),
             ],
           ),
         ));

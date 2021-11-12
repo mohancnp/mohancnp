@@ -16,7 +16,7 @@ class DbStorage {
             onCreate: (Database db, int version) async {
           await db.execute('''CREATE TABLE ${Table.cart} (
              ${CartFeild.id} INTEGER PRIMARY KEY AUTOINCREMENT,${CartFeild.productId} INTEGER,${CartFeild.price} REAL,${CartFeild.variantId} INTEGER,
-             ${CartFeild.qty} INTEGER,${CartFeild.name} TEXT,${CartFeild.imageUri} TEXT,${CartFeild.options} TEXT,${CartFeild.addons} TEXT)''');
+             ${CartFeild.qty} INTEGER,${CartFeild.name} TEXT,${CartFeild.imageUri} TEXT,${CartFeild.options} TEXT,${CartFeild.addons} TEXT,${CartFeild.extras} TEXT,${CartFeild.size} TEXT)''');
 
           await db.execute('''CREATE TABLE ${Table.user} (
              ${UserFeild.userId} INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -87,10 +87,10 @@ flutter:
       - assets/images/nathan-dumlao-ikU3J1nr52w-unsplash@3x.png
       - assets/images/coffeematcropped.png
       - assets/images/coffematt.png
-      - assets/images/home-icon-silhouette.svg
-      - assets/images/bell.svg
-      - assets/images/shopping-cart.svg
-      - assets/images/user.svg
+      - assets/images/bottomnav/home-icon-silhouette.svg
+      - assets/images/bottomnav/bell.svg
+      - assets/images/bottomnav/shopping-cart.svg
+      - assets/images/bottomnav/user.svg
       - assets/images/cart_add.svg
       - assets/images/utility/EmptyState.svg
       - assets/images/utility/Error.svg

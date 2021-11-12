@@ -198,7 +198,7 @@ class MembershipLoginPage extends StatelessWidget {
                     Center(
                       child: SignInBtn(
                         onpressed: () async {
-                          showCustomDialog(context);
+                          showCustomDialog();
                           await controller.performMembershipLogin();
                           if (controller.authState == AuthState.loggedIn) {
                             Get.offAllNamed(PageName.homepage);

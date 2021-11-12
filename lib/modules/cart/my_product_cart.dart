@@ -5,6 +5,7 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/models/cart_data.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
@@ -39,7 +40,9 @@ class MyProductCart extends StatelessWidget {
                             buttonText: "Proceed to Checkout",
                             width: 320.w,
                             height: 47.h,
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(PageName.checkoutpage);
+                            },
                           )
                         : SizedBox();
                   }),
