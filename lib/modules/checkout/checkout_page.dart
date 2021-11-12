@@ -21,6 +21,7 @@ class CheckoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<CheckoutPageController>();
+
     return Scaffold(
       backgroundColor: Palette.pagebackgroundcolor,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -28,9 +29,7 @@ class CheckoutPage extends StatelessWidget {
         buttonText: "Proceed to Pay",
         width: 320.w,
         height: 47.h,
-        onPressed: () {
-          // Get.toNamed(PageName.checkoutpage);
-        },
+        onPressed: controller.placeOrder,
       ),
       appBar: AppBar(
         backgroundColor: Color(0xFFF3F5F5),
@@ -65,6 +64,7 @@ class CheckoutPage extends StatelessWidget {
         reverse: true,
         clipBehavior: Clip.none,
         child: Container(
+          padding: EdgeInsets.only(top: 37.h, bottom: 70.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -234,9 +234,9 @@ class CheckoutPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 62.h,
-              )
+              // SizedBox(
+              //   height: 62.h,
+              // )
             ],
           ),
         ),

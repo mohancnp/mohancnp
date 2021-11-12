@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,10 +7,7 @@ import 'package:location/location.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
 import 'package:metrocoffee/GetXController/maps/map_controller.dart';
-import 'package:metrocoffee/core/enums/uistate.dart';
 import 'package:metrocoffee/models/location.dart';
-import 'package:metrocoffee/models/profile.dart';
-import 'package:metrocoffee/core/theme.dart';
 import 'widgets/widget_map.dart';
 
 class GoogleMapScreen extends StatefulWidget {

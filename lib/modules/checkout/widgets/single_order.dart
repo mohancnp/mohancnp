@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 

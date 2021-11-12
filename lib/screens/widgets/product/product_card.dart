@@ -49,14 +49,18 @@ class ProductCard extends StatelessWidget {
                 Container(
                   //     height: 100, width: 100,
                   height: 100.h,
-                  width: 100.w,
+                  width: 100.h,
+                  clipBehavior: Clip.hardEdge,
+
                   decoration: BoxDecoration(
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.all(Radius.circular(9)),
                   ),
                   child: Image.network(
                     "$baseUrl${cartModel.imageUri}",
                     // color: Colors.blue,
                     fit: BoxFit.cover,
+
                     loadingBuilder: (context, widget, imageProgress) {
                       if (imageProgress == null) {
                         return widget;
@@ -65,8 +69,12 @@ class ProductCard extends StatelessWidget {
                           color: Palette.coffeeColor,
                         );
                     },
-                    height: 116.h,
-                    width: 116.w,
+                    errorBuilder: (context, object, stackTrace) {
+                      return const Text('😢');
+                    },
+
+                    // height: 100.h,
+                    // width: 100.w,
                   ),
                 ),
                 Container(

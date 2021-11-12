@@ -82,16 +82,15 @@ class ProductCard extends StatelessWidget {
               ),
             ),
           ),
-          Flexible(
-              fit: FlexFit.loose,
+          Expanded(
               child: Text(
-                "$name",
-                style: getpoppins(TextStyle(
-                  color: Color(0xFF404D4D),
-                  fontSize: 12.sp,
-                  fontFamily: poppinsmedium,
-                )),
-              )),
+            "$name",
+            style: getpoppins(TextStyle(
+              color: Color(0xFF404D4D),
+              fontSize: 12.sp,
+              fontFamily: poppinsmedium,
+            )),
+          )),
           SizedBox(height: 9.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,7 +120,7 @@ class ProductCard extends StatelessWidget {
                         BoxShadow(
                             offset: Offset(0, 3),
                             color: Color(0x62722030),
-                            blurRadius: 4.r)
+                            blurRadius: 10.r)
                       ]),
                 ),
               )

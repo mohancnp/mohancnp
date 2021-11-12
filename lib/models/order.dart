@@ -1,5 +1,3 @@
-import 'package:metrocoffee/models/variants.dart';
-
 class Order {
   dynamic addressId;
   String? deliveryTimeFrom, deliveryTimeEnd;

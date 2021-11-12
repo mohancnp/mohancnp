@@ -16,14 +16,15 @@ class LocationWidget extends StatelessWidget {
         children: [
           Container(
             width: 50.w,
-            height: 50.h,
+            height: 50.w,
             margin: EdgeInsets.only(
               left: 9.w,
               top: 7.h,
               bottom: 7.h,
             ),
             alignment: Alignment.center,
-            child: Icon(Icons.location_on, size: 15.w),
+            child:
+                Icon(Icons.location_on, color: Palette.coffeeColor, size: 15.w),
             decoration: BoxDecoration(
                 color: Color(0xFFE8E8E8),
                 borderRadius: BorderRadius.all(Radius.circular(9)),
