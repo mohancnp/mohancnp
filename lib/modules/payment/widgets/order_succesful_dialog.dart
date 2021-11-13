@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/modules/home/hometab_controller.dart';
 
 class OrderSuccesfulDialog extends StatelessWidget {
   OrderSuccesfulDialog({Key? key}) : super(key: key);
-  final BaseController baseController = Get.put(BaseController());
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async {
-        throw Navigator.pushNamedAndRemoveUntil(
-            context, "/Base", (route) => false);
+        return true;
+        // return Get.offAllNamed(PageName.homepage);
       },
       child: Container(
         width: screenwidth * 0.803,
@@ -61,9 +61,10 @@ class OrderSuccesfulDialog extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                baseController.setindex(0);
-                Navigator.pushNamedAndRemoveUntil(
-                    context, "/Base", (route) => false);
+                // Get.reloadAll();
+                // Get.find<HomeTabController>().update();
+                Get.offAllNamed(PageName.homepage);
+                // baseController.setindex(0);
               },
               child: Container(
 //            height: 42,width: 205,
@@ -92,8 +93,11 @@ class OrderSuccesfulDialog extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, "/MyOrders", (route) => true);
+                Get.reloadAll();
+                Get.offAllNamed(PageName.homepage);
+
+                // Navigator.pushNamedAndRemoveUntil(
+                //     context, "/MyOrders", (route) => true);
               },
               child: Container(
                 margin: EdgeInsets.only(

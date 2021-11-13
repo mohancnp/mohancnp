@@ -20,8 +20,8 @@ import 'package:metrocoffee/modules/checkout/checkout_page.dart';
 import 'package:metrocoffee/screens/sharables/drink_detail.dart';
 import 'package:metrocoffee/screens/sharables/no_internet.dart';
 import 'package:metrocoffee/screens/sharables/order_details.dart';
-import 'package:metrocoffee/screens/sharables/order_succesful_page.dart';
-import 'package:metrocoffee/screens/sharables/payment_page.dart';
+import 'package:metrocoffee/modules/payment/order_succesful_page.dart';
+import 'package:metrocoffee/modules/payment/payment_page.dart';
 
 class RouteHandler {
   static Map<String, WidgetBuilder> getRoutes() {

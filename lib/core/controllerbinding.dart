@@ -12,6 +12,7 @@ import 'package:metrocoffee/GetXController/contentcontrollers/notificationcontro
 import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/drinkdetailscontroller.dart';
 import 'package:metrocoffee/GetXController/productcontroller/productdetailscontroller.dart';
+import 'package:metrocoffee/modules/payment/payment_page_controller.dart';
 import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
 
 class ControllerBinding extends Bindings {
@@ -32,5 +33,6 @@ class ControllerBinding extends Bindings {
     Get.lazyPut(() => MemberShipLoginController());
     Get.put(ProductDetailPageController());
     Get.put(CheckoutPageController());
+    Get.put(PaymentPageController());
   }
 }

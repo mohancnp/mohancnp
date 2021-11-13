@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
+import 'package:metrocoffee/core/services/order_service/order_service.dart';
+import 'package:metrocoffee/core/services/order_service/order_service_impl.dart';
 import 'package:metrocoffee/core/services/product_service/product_service_impl.dart';
 import 'package:metrocoffee/core/services/storage/db/core.dart';
 import 'package:metrocoffee/core/services/storage/db/user_table.dart';
@@ -26,6 +28,7 @@ Future<void> setupLocator() async {
   locator.registerSingleton<UserTableHandler>(UserTableHandler());
   locator.registerSingleton<ProductService>(ProductServiceImpl());
   locator.registerSingleton<CartService>(CartServiceImpl());
+  locator.registerSingleton<OrderService>(OrderServiceImpl());
 
   await locator.allReady();
 }

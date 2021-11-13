@@ -57,4 +57,16 @@ class CartServiceImpl extends CartService {
       throw (AppException());
     }
   }
+
+  @override
+  Future<int> clearCart() async {
+    var db = locator<DbStorage>().db;
+    try {
+      var status = await db.delete(Table.cart);
+      return status;
+    } on Exception catch (e) {
+      print("Error $e");
+      throw (AppException());
+    }
+  }
 }

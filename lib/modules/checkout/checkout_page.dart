@@ -29,7 +29,7 @@ class CheckoutPage extends StatelessWidget {
         buttonText: "Proceed to Pay",
         width: 320.w,
         height: 47.h,
-        onPressed: controller.placeOrder,
+        onPressed: controller.proceedToPayment,
       ),
       appBar: AppBar(
         backgroundColor: Color(0xFFF3F5F5),

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:metrocoffee/services/dioerror_catcher.dart';
 import 'package:metrocoffee/services/localstorage/sharedpref/membership.dart';
