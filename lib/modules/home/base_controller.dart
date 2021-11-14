@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/base/cartcontroller.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
 
 enum UserVerficationStatus { verified, unverified, unknown }
@@ -41,7 +40,7 @@ class BaseController extends GetxController {
   }
 
   Future<void> initializeData() async {
-    print("initializing data");
+    // print("initializing data");
     try {
       // print("initialization starts");
       Get.find<HomeTabController>().initializeAllData().then((value) {
@@ -50,8 +49,7 @@ class BaseController extends GetxController {
         updateUserVerificationStatus(UserVerficationStatus.unverified);
         print("Error getting data: $error");
       });
-      // Get.find<CartController>().getOrderProducts();
-      Get.find<HomeTabController>().setUserDetail();
+      Get.find<HomeTabController>().getUser();
     } on Exception catch (e) {
       print(e);
       // print("Exception initializeing data");

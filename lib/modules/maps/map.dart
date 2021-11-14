@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/GetXController/checkout/checkoutcontroller.dart';
-import 'package:metrocoffee/GetXController/maps/map_controller.dart';
+import 'package:metrocoffee/modules/maps/map_controller.dart';
 import 'package:metrocoffee/models/location.dart';
 import 'widgets/widget_map.dart';
 
@@ -38,7 +37,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   double currentLong = 85.3240;
   //controller
   final MapController mapController = Get.find<MapController>();
-  final CheckoutController checkoutController = Get.find<CheckoutController>();
+  // final CheckoutController checkoutController = Get.find<CheckoutController>();
   @override
   void initState() {
     location = new Location();
@@ -84,7 +83,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       .deliveryLocationList
                       .elementAt(mapController.selectedAddressIndex.value);
                   await mapController.addNewAddressToserver(newLocation);
-                  await checkoutController.getLocations();
+                  // await checkoutController.getLocations();
                   Get.back();
                 },
                 child: Icon(CupertinoIcons.back))),

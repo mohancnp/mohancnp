@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
@@ -42,6 +43,17 @@ class ProductServiceImpl extends ProductService {
       return prodObj;
     } on ServerException catch (e) {
       throw ServerException(code: e.code, message: e.message);
+    }
+  }
+
+  @override
+  Future getFavoriteProducts() async {
+    var remoteService = RemoteSourceImpl();
+    try {
+      var products = await remoteService.get('$baseUrl/api/favourite');
+      return products;
+    } on ServerException catch (e) {
+      throw (AppException(message: e.message));
     }
   }
 }

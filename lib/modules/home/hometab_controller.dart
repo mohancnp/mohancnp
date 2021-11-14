@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/instances.dart';
 import 'package:metrocoffee/core/constants/product_type.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
@@ -11,10 +10,11 @@ import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/models/product_model.dart';
+import 'package:metrocoffee/core/models/user_model.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
-import 'package:metrocoffee/models/user.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/internet.dart';
@@ -22,7 +22,7 @@ import 'package:metrocoffee/util/internet.dart';
 class HomeTabController extends GetxController {
   int currentpageindex = 0;
   bool internetConnected = false;
-  Rx<Client?> newUser = Client.empty().obs;
+  Rx<User> _user = User().obs;
   RxList<Product> allProducts = <Product>[].obs;
   DataState _dataState = DataState.NA;
   var _productService = locator<ProductService>();
@@ -45,44 +45,37 @@ class HomeTabController extends GetxController {
   RxList<Product> mostPopularSnacks = <Product>[].obs;
   RxList<Product> recommendedSnacks = <Product>[].obs;
 
-  setNewUser(Client newUser) {
+  set user(User newUser) {
     // print("Name received: ${newUser.name}");
-    this.newUser.value = newUser;
+    this._user.value = newUser;
+    this._user.refresh();
   }
 
-  @override
-  void onInit() {
-    super.onInit();
+  User get user {
+    return _user.value;
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  getUser() async {
+    user = await Get.find<ProfilePageController>().getProfile();
   }
 
-  /*...from list page pass true to update in server as well
-  .....no need to update server in case of detail page as it is done from detail controller*/
+  // /*...from list page pass true to update in server as well
+  // .....no need to update server in case of detail page as it is done from detail controller*/
 
-  Future updateFavoriteDrinksAtId(int id, status,
-      [bool fromListPage = false]) async {
-    for (int i = 0; i < this.allDrinks.length; i++) {
-      var element = this.allDrinks[i];
-      if (element.id == id) {
-        element.isFavorite = status;
-        break;
-      }
-    }
-    this.allDrinks.refresh();
-    if (fromListPage) {
-      await singleProductService.toggleFavoriteStatus(id: id);
-    }
-  }
-
-  Future setUserDetail() async {
-    Map<String, dynamic> data = await userTableHandler.getUser();
-    // print("Dara from DB: $data ");
-    setNewUser(Client.fromJson(data));
-  }
+  // Future updateFavoriteDrinksAtId(int id, status,
+  //     [bool fromListPage = false]) async {
+  //   for (int i = 0; i < this.allDrinks.length; i++) {
+  //     var element = this.allDrinks[i];
+  //     if (element.id == id) {
+  //       element.isFavorite = status;
+  //       break;
+  //     }
+  //   }
+  //   this.allDrinks.refresh();
+  //   if (fromListPage) {
+  //     await singleProductService.toggleFavoriteStatus(id: id);
+  //   }
+  // }
 
   /*...from list page pass true to update in server as well
   .....no need to update server in case of detail page as it is done from detail controller*/
@@ -114,7 +107,7 @@ class HomeTabController extends GetxController {
     }
     if (fromListPage) {
       print("from list page: $id");
-      await singleProductService.toggleFavoriteStatus(id: id);
+      // await singleProductService.toggleFavoriteStatus(id: id);
     }
   }
 
@@ -130,16 +123,6 @@ class HomeTabController extends GetxController {
       //for the all menu page
       // await getProducts();
     }
-  }
-
-  //v-2
-  Future<ProductDetail?> getProductDetails(int id) async {
-    ProductDetail prodObj;
-    return productService.getSingleProduct(id: id).then((response) {
-      // print("single product detail: $response");
-      prodObj = ProductDetail.fromJson(response['data']);
-      return prodObj;
-    });
   }
 
 //  v-2

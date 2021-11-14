@@ -6,7 +6,6 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_it/get_it.dart';
 import 'package:metrocoffee/core/controllerbinding.dart';
 import 'package:metrocoffee/core/routing/routes_handler.dart';
-
 import 'core/locator.dart';
 import 'core/routing/names.dart';
 

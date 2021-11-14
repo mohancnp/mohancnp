@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/home/home.dart';
-import 'package:metrocoffee/screens/base/order_history.dart';
-import 'package:metrocoffee/screens/base/profile.dart';
-import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
+import 'package:metrocoffee/modules/profile/profile_page.dart';
+import 'package:metrocoffee/modules/home/order_history_new.dart';
+import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
 
 class Base extends StatelessWidget {
@@ -22,7 +22,7 @@ class Base extends StatelessWidget {
       onPressed: () {},
     ),
     OrderHistory(),
-    Profile()
+    ProfilePage(),
   ];
 
   @override

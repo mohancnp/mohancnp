@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/GetXController/payment/creditcardscontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/screens/widgets/dialogs/add_card_dialog.dart';
+import 'package:metrocoffee/modules/shareables/widgets/add_card_dialog.dart';
 import 'package:metrocoffee/core/theme.dart';
+
+import '../creditcardscontroller.dart';
 
 class CreditCardBox extends StatelessWidget {
   CreditCardBox({Key? key}) : super(key: key);

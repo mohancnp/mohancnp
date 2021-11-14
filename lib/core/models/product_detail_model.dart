@@ -1,5 +1,6 @@
 class ProductDetail {
   int? id;
+  int? productId;
   dynamic price;
   String? name;
   String? imageUri;
@@ -11,6 +12,7 @@ class ProductDetail {
   List<ProductOption>? options;
   List<ProductAddOn>? addons;
   ProductDetail.empty();
+
   ProductDetail(
       {required this.id,
       required this.price,

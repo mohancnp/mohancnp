@@ -10,7 +10,7 @@ import 'package:metrocoffee/modules/checkout/widgets/location_widget.dart';
 import 'package:metrocoffee/modules/checkout/widgets/single_order.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/modules/checkout/widgets/timer_widget.dart';
-import 'package:metrocoffee/screens/widgets/product/finalpricecalculationcard.dart';
+import 'package:metrocoffee/modules/shareables/widgets/finalpricecalculationcard.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
 import 'checkout_page_controller.dart';

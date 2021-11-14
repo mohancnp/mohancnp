@@ -4,9 +4,6 @@ import 'package:metrocoffee/modules/home/products.dart';
 import 'package:metrocoffee/modules/home/widgets/categories.dart';
 import 'package:metrocoffee/modules/home/widgets/searchbar.dart';
 import 'package:metrocoffee/modules/home/widgets/tophomegreeting.dart';
-import 'package:metrocoffee/screens/contents/homecontent/tabs/bakery.dart';
-import 'package:metrocoffee/screens/contents/homecontent/tabs/drinks.dart';
-import 'package:metrocoffee/screens/contents/homecontent/tabs/snacks.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class Home extends StatelessWidget {
@@ -36,18 +33,5 @@ class Home extends StatelessWidget {
                 ],
               ),
             ])));
-  }
-
-  Widget getPageForTabAtIndex(index) {
-    switch (index) {
-      case 0:
-        return DrinksTab();
-      case 1:
-        return Bakery();
-      case 2:
-        return Snacks();
-      default:
-        return DrinksTab();
-    }
   }
 }
