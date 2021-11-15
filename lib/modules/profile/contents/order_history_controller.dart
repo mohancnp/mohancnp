@@ -74,7 +74,11 @@ class OrderHistoryController extends GetxController {
       _orderHistoryList.addAll(todaysOrder);
       _orderHistoryList.add(1);
       _orderHistoryList.addAll(thisMonthOrder);
-      dataState = DataState.loaded;
+      if (_orderHistoryList.length > 2) {
+        dataState = DataState.loaded;
+      } else {
+        dataState = DataState.NA;
+      }
     } on AppException catch (e) {
       dataState = DataState.error;
       print("${e.message}");

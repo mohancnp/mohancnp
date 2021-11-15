@@ -48,8 +48,20 @@ class OrderServiceImpl extends OrderService {
     var remoteSource = RemoteSourceImpl();
     try {
       var orderCancelStatus =
-          await remoteSource.get('$baseUrl/api/order/$id/cancel');
+          await remoteSource.post('$baseUrl/api/order/$id/cancel');
       return orderCancelStatus;
+    } on ServerException catch (e) {
+      throw (AppException(message: e.message));
+    }
+  }
+
+  @override
+  Future reorderWithOrderId({required int id}) async {
+    var remoteSource = RemoteSourceImpl();
+    try {
+      var reorderStatus = await remoteSource
+          .post('$baseUrl/api/order/reorder', body: {"order_id": id});
+      return reorderStatus;
     } on ServerException catch (e) {
       throw (AppException(message: e.message));
     }

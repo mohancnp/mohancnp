@@ -19,14 +19,14 @@ class UtilityInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Palette.pagebackgroundcolor,
-      appBar: AppBar(
-        backgroundColor: Palette.pagebackgroundcolor,
-        elevation: 0.sp,
-        automaticallyImplyLeading: false,
-      ),
-      body: Center(
+    return Material(
+      color: Palette.pagebackgroundcolor,
+      // appBar: AppBar(
+      //   backgroundColor: Palette.pagebackgroundcolor,
+      //   elevation: 0.sp,
+      //   automaticallyImplyLeading: false,
+      // ),
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

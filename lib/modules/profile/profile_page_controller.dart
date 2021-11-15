@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/user_model.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
+import 'package:metrocoffee/modules/home/base_controller.dart';
 
 class ProfilePageController extends GetxController {
   var _profileService = locator.get<ProfileService>();
@@ -28,5 +31,12 @@ class ProfilePageController extends GetxController {
     return _newUser.value;
   }
 
-  Future logout() async {}
+  Future logout() async {
+    // Get.defaultDialog(
+    //     content: SizedBox(
+    //         height: 30, width: 30, child: CircularProgressIndicator()));
+    // Get.back();
+    Get.offAllNamed(PageName.loginpage);
+    Get.find<BaseController>().setindex(0);
+  }
 }

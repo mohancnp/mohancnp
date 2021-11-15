@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/constants/order_status.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/profile/widgets/cancel_order_dialog.dart';
 import 'package:metrocoffee/modules/profile/widgets/order_detail_row.dart';
+import 'package:metrocoffee/modules/profile/widgets/reorder_dialog.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 
 class TimeFrameOrderDetails extends StatelessWidget {
   final OrderDetail orderDetail;
@@ -74,12 +77,14 @@ class TimeFrameOrderDetails extends StatelessWidget {
                       child: Row(
                         children: [
                           Icon(
-                            orderDetail.status == "cancelled"
+                            orderDetail.status == OrderStatus.cancelled
                                 ? Icons.cancel_rounded
                                 : CupertinoIcons.timer_fill,
-                            color: orderDetail.status == "cancelled"
-                                ? coffeecolor
-                                : Color(0xffE1C40D),
+                            color: orderDetail.status == OrderStatus.cancelled
+                                ? Colors.red
+                                : orderDetail.status == OrderStatus.delivered
+                                    ? Palette.coffeeColor
+                                    : Color(0xffE1C40D),
 //                            size: 15,
                             size: screenwidth * 0.0364,
                           ),
@@ -91,9 +96,13 @@ class TimeFrameOrderDetails extends StatelessWidget {
                               "${orderDetail.status}",
                               style: getpoppins(TextStyle(
                                   fontWeight: FontWeight.w300,
-                                  color: orderDetail.status == "cancelled"
-                                      ? coffeecolor
-                                      : Color(0xffE1C40D),
+                                  color: orderDetail.status ==
+                                          OrderStatus.cancelled
+                                      ? Colors.red
+                                      : orderDetail.status ==
+                                              OrderStatus.delivered
+                                          ? Palette.coffeeColor
+                                          : Color(0xffE1C40D),
 //                                  fontSize: 10.5
                                   fontSize: screenwidth * 0.0255)),
                             ),
@@ -244,7 +253,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
           GestureDetector(
             onTap: () {
               //allow to cancel order if it is pending
-              if (orderDetail.status == "pending") {
+              if (orderDetail.status == OrderStatus.pending) {
                 showDialog(
                     context: context,
                     builder: (_) {
@@ -263,21 +272,49 @@ class TimeFrameOrderDetails extends StatelessWidget {
                                     : SizedBox()
                               ]));
                     });
-              } else {}
+              } else if (orderDetail.status == OrderStatus.delivered) {
+                showDialog(
+                    context: context,
+                    builder: (_) {
+                      return ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(18)),
+                          child: SimpleDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(18)),
+                              ),
+                              children: [
+                                orderDetail.id != null
+                                    ? ReOrderDialog(
+                                        orderId: orderDetail.id!,
+                                        amount: orderDetail.cost,
+                                      )
+                                    : SizedBox()
+                              ]));
+                    });
+              }
             },
             child: Container(
 //            height: 31,width: 123,
               height: screenwidth * 0.0754, width: screenwidth * 0.299,
               decoration: BoxDecoration(
-                  color: Colors.transparent,
+                  color: orderDetail.status == OrderStatus.delivered
+                      ? Palette.coffeeColor
+                      : Colors.transparent,
                   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(color: Colors.redAccent, width: 1.5)),
+                  border: Border.all(
+                      color: orderDetail.status == OrderStatus.delivered
+                          ? Colors.black
+                          : Colors.redAccent,
+                      width: 1.5)),
               child: Center(
                 child: Text(
                   getTextAccordingToStatus(),
                   style: getpoppins(TextStyle(
                       fontWeight: FontWeight.w400,
-                      color: Colors.redAccent,
+                      color: orderDetail.status == OrderStatus.delivered
+                          ? Colors.white
+                          : Colors.redAccent,
 //                      fontSize: 12.5
                       fontSize: screenwidth * 0.0304)),
                 ),
@@ -290,8 +327,10 @@ class TimeFrameOrderDetails extends StatelessWidget {
   }
 
   String getTextAccordingToStatus() {
-    if (orderDetail.status == "Pending") {
+    if (orderDetail.status == OrderStatus.pending) {
       return "Cancel Order";
+    } else if (orderDetail.status == OrderStatus.delivered) {
+      return "Re Order";
     }
     return orderDetail.status ?? "N/A";
   }

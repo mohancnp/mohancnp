@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,6 +57,7 @@ class SIngleOrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var tablet = context.isTablet;
     return Container(
       height: 92.h,
       width: 320.w,
@@ -70,7 +72,8 @@ class SIngleOrderWidget extends StatelessWidget {
                 blurRadius: 10)
           ]),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment:
+            tablet ? MainAxisAlignment.spaceAround : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(

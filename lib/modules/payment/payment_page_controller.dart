@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/order_state.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
@@ -12,6 +11,9 @@ import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/order_service/order_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/checkout_page_controller.dart';
+import 'package:metrocoffee/modules/home/base_controller.dart';
+import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class PaymentPageController extends GetxController {
@@ -20,19 +22,32 @@ class PaymentPageController extends GetxController {
   final cartController = Get.find<CartController>();
   final checkoutConroller = Get.find<CheckoutPageController>();
   var _orderService = locator.get<OrderService>();
+  bool reordering = false;
 
   Future confirmPaymentAndPlaceOrder() async {
-    checkoutConroller.setTimeAccordingTimeFromSelection();
-    _orderState = OrderState.processing;
-    Get.defaultDialog(title: "Please Wait", middleText: "Processing your code");
-    // showCustomDialog(message: "Processing Your Order");
-    await placeOrder();
-    if (_orderState == OrderState.placed) {
-      cartController.cartProductList?.clear();
-      cartController.cartCount.value = 0;
-      Get.back();
-      Get.offAllNamed(PageName.ordersucessfullpage);
-      await clearCart();
+    if (reordering) {
+      var id = Get.arguments;
+      if (id != null) {
+        if (id is int) {
+          showCustomDialog(message: "Processing Your Order");
+          reorderWithId(orderId: id);
+        }
+      }
+    } else {
+      checkoutConroller.setTimeAccordingTimeFromSelection();
+      _orderState = OrderState.processing;
+      showCustomDialog(message: "Processing Your Order");
+      _orderState = await placeOrder();
+      if (_orderState == OrderState.placed) {
+        cartController.cartProductList?.clear();
+        cartController.cartCount.value = 0;
+        Get.back();
+        Get.offAllNamed(PageName.ordersucessfullpage);
+        await clearCart();
+      } else if (_orderState == OrderState.error) {
+        showCustomSnackBarMessage(title: "Failure", message: "placing order");
+        Get.offAllNamed(PageName.homepage);
+      }
     }
   }
 
@@ -79,20 +94,51 @@ class PaymentPageController extends GetxController {
     remoteOrder.orderProducts = orderList;
 
     try {
-      var result = await _orderService.createOrder(remoteOrder.toJson());
-
-      if (result != null) {
-        orderState = OrderState.placed;
+      if (orderList.isNotEmpty) {
+        var result = await _orderService.createOrder(remoteOrder.toJson());
+        if (result != null) {
+          orderState = OrderState.placed;
+        } else {
+          orderState = OrderState.error;
+        }
       }
     } on ServerException catch (e) {
       orderState = OrderState.error;
       print("${e.code} and ${e.message}");
     }
+    return _orderState;
     // print(remoteOrder.toJson());
   }
 
   set orderState(OrderState os) {
     _orderState = os;
     update();
+  }
+
+  reorderWithId({required int orderId, int? addressId}) async {
+    showCustomDialog(message: "Processing");
+    try {
+      var reorderStatus = await _orderService.reorderWithOrderId(id: orderId);
+      if (reorderStatus == null) {
+        Get.back();
+        showCustomSnackBarMessage(
+            title: "Re Ordering", message: "failed try again!!");
+      } else {
+        showCustomSnackBarMessage(
+            title: "Re Ordering", message: "sucessfully done!!");
+        reordering = false;
+        Future.delayed(Duration(seconds: 1)).then((value) {
+          Get.find<BaseController>().setindex(0);
+          Get.offAllNamed(PageName.homepage);
+        });
+      }
+      // print(reorderStatus);
+    } on AppException catch (e) {
+      reordering = false;
+      Get.back();
+      showCustomSnackBarMessage(
+          title: "Re Ordering", message: "failed try again!!");
+      // print(e.message);
+    }
   }
 }

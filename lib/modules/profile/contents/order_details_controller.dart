@@ -1,12 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/services/order_service/order_service.dart';
-import 'package:metrocoffee/ui/src/palette.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/modules/payment/payment_page_controller.dart';
+import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
+import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class OrderDetailsController extends GetxController {
   OrderDetail _orderDetail = OrderDetail();
@@ -49,27 +51,26 @@ class OrderDetailsController extends GetxController {
   }
 
   cancelOrderWithId(int id) async {
-    Get.defaultDialog(
-        content: SizedBox(
-          width: 20.w,
-          height: 20.h,
-          child: CircularProgressIndicator(
-            color: Palette.coffeeColor,
-          ),
-        ),
-        title: "Requesting");
+    showCustomDialog(message: "Processing");
     try {
       var orderDetailMap = await _orderService.cancelOrderWithId(id: id);
       if (orderDetailMap != null) {
+        _orderDetail.status = "cancelled";
         Get.back();
-        Get.snackbar("Order Cance:", "Sucessfull",
+        Get.back();
+        Get.snackbar("Order Cancel:", "Sucessfull",
             duration: Duration(milliseconds: 1500));
+        update();
       }
     } on AppException catch (e) {
       Get.back();
-      Get.snackbar("Order Cancel:", "Error",
-          colorText: Colors.red, duration: Duration(milliseconds: 1500));
-      print(e.message);
+      showCustomSnackBarMessage(title: "Order Cancellation", message: "failed");
     }
+  }
+
+  reorderProduct(int orderId, dynamic amount) {
+    Get.find<CartController>().totalAmount.value = amount;
+    Get.find<PaymentPageController>().reordering = true;
+    Get.toNamed(PageName.paymentspage, arguments: orderId);
   }
 }

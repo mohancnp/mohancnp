@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'widgets/user_info_short_widget.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -130,66 +130,67 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                       ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     Get.toNamed(PageName.myorderspage);
+                      //   },
+                      //   child: Container(
+                      //     margin: EdgeInsets.only(
+                      //       top: screenwidth * 0.0535,
+                      //     ),
+                      //     padding: EdgeInsets.symmetric(
+                      //         //                  vertical: 14, horizontal: 12
+                      //         vertical: screenwidth * 0.0340,
+                      //         horizontal: screenwidth * 0.0291),
+                      //     decoration: BoxDecoration(
+                      //         color: Colors.white,
+                      //         boxShadow: [
+                      //           BoxShadow(
+                      //               color: Colors.black.withOpacity(0.05),
+                      //               blurRadius: 10,
+                      //               offset: Offset(0, 3))
+                      //         ],
+                      //         borderRadius:
+                      //             BorderRadius.all(Radius.circular(10))),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: [
+                      //         Row(children: [
+                      //           Icon(
+                      //             FeatherIcons.shoppingCart,
+                      //             color: Color(0xff404D4D),
+                      //             //       size: 18,
+                      //             size: screenwidth * 0.04379,
+                      //           ),
+                      //           Container(
+                      //             margin: EdgeInsets.only(
+                      //                 //        left: 11
+                      //                 left: screenwidth * 0.02676),
+                      //             child: Text(
+                      //               "My Order",
+                      //               style: getpoppins(TextStyle(
+                      //                   color: Color(0xff404D4D),
+                      //                   //   fontSize: 13.5,
+                      //                   fontSize: screenwidth * 0.0328,
+                      //                   fontWeight: FontWeight.w400)),
+                      //             ),
+                      //           )
+                      //         ]),
+                      //         Icon(
+                      //           CupertinoIcons.forward,
+                      //           color: Color(0xff404D4D),
+                      //           //     size: 20,
+                      //           size: screenwidth * 0.0486,
+                      //         )
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(PageName.myorderspage);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(
-                            top: screenwidth * 0.0535,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              //                  vertical: 14, horizontal: 12
-                              vertical: screenwidth * 0.0340,
-                              horizontal: screenwidth * 0.0291),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 10,
-                                    offset: Offset(0, 3))
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(children: [
-                                Icon(
-                                  FeatherIcons.shoppingCart,
-                                  color: Color(0xff404D4D),
-                                  //       size: 18,
-                                  size: screenwidth * 0.04379,
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      //        left: 11
-                                      left: screenwidth * 0.02676),
-                                  child: Text(
-                                    "My Order",
-                                    style: getpoppins(TextStyle(
-                                        color: Color(0xff404D4D),
-                                        //   fontSize: 13.5,
-                                        fontSize: screenwidth * 0.0328,
-                                        fontWeight: FontWeight.w400)),
-                                  ),
-                                )
-                              ]),
-                              Icon(
-                                CupertinoIcons.forward,
-                                color: Color(0xff404D4D),
-                                //     size: 20,
-                                size: screenwidth * 0.0486,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "/FavoriteProducts", (route) => true);
+                          Get.toNamed(PageName.favouritesproductpage);
+                          // Navigator.pushNamedAndRemoveUntil(
+                          //     context, "/FavoriteProducts", (route) => true);
                         },
                         child: Container(
                           margin: EdgeInsets.only(
@@ -345,58 +346,62 @@ class ProfilePage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        child: GestureDetector(
-                          onTap: profileController.logout,
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              top: screenwidth * 0.0535,
-                            ),
-                            padding: EdgeInsets.symmetric(
-                                //                  vertical: 14, horizontal: 12
-                                vertical: screenwidth * 0.0340,
-                                horizontal: screenwidth * 0.0291),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black.withOpacity(0.05),
-                                      blurRadius: 10,
-                                      offset: Offset(0, 3))
-                                ],
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(children: [
-                                  Icon(
-                                    FeatherIcons.logOut,
-                                    color: Color(0xff404D4D),
-                                    //       size: 18,
-                                    size: screenwidth * 0.04379,
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        //        left: 11
-                                        left: screenwidth * 0.02676),
-                                    child: Text(
-                                      "Log Out",
-                                      style: getpoppins(TextStyle(
-                                          color: Color(0xff404D4D),
-                                          //   fontSize: 13.5,
-                                          fontSize: screenwidth * 0.0328,
-                                          fontWeight: FontWeight.w400)),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 14.h),
+                        child: SizedBox(
+                          child: GestureDetector(
+                            onTap: profileController.logout,
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                top: screenwidth * 0.0535,
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  //                  vertical: 14, horizontal: 12
+                                  vertical: screenwidth * 0.0340,
+                                  horizontal: screenwidth * 0.0291),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.05),
+                                        blurRadius: 10,
+                                        offset: Offset(0, 3))
+                                  ],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(children: [
+                                    Icon(
+                                      FeatherIcons.logOut,
+                                      color: Color(0xff404D4D),
+                                      //       size: 18,
+                                      size: screenwidth * 0.04379,
                                     ),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          //        left: 11
+                                          left: screenwidth * 0.02676),
+                                      child: Text(
+                                        "Log Out",
+                                        style: getpoppins(TextStyle(
+                                            color: Color(0xff404D4D),
+                                            //   fontSize: 13.5,
+                                            fontSize: screenwidth * 0.0328,
+                                            fontWeight: FontWeight.w400)),
+                                      ),
+                                    )
+                                  ]),
+                                  Icon(
+                                    CupertinoIcons.forward,
+                                    color: Color(0xff404D4D),
+                                    //     size: 20,
+                                    size: screenwidth * 0.0486,
                                   )
-                                ]),
-                                Icon(
-                                  CupertinoIcons.forward,
-                                  color: Color(0xff404D4D),
-                                  //     size: 20,
-                                  size: screenwidth * 0.0486,
-                                )
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

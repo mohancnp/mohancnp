@@ -134,6 +134,7 @@ class HomeTabController extends GetxController {
 
   setpageindex(int index) {
     currentpageindex = index;
+    // print("set page index");
     update();
   }
 
@@ -186,7 +187,7 @@ class HomeTabController extends GetxController {
         if (count > 0) {
           Get.back();
           Get.find<CartController>().cartCount.value++;
-          showCustomSnackBarMessage("added to cart");
+          showCustomSnackBarMessage(title: "Message", message: "added to cart");
         }
       } on AppException catch (e) {
         print(e);

@@ -11,7 +11,7 @@ class AuthServiceImpl extends AuthService {
   @override
   Future<Map<String, dynamic>> performMemberShipLogin(
       String memberNo, String password) async {
-    print(" implementation received: $memberNo, $password");
+    // print(" implementation received: $memberNo, $password");
 
     Map<String, String> data = {
       "membership_no": memberNo,

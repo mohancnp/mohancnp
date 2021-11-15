@@ -129,7 +129,7 @@ class ProductDetailPageController extends GetxController {
   Future addProductToCart() async {
     var variant = productDetail.allVariants?.elementAt(selectedVariant);
     setProductOptionValue();
-    showCustomDialog(message: "adding to cart");
+    showCustomDialog(message: "Adding to Cart");
     var names = await getSelectedAddonNames();
     var cartData = CartModel(
       productId: productDetail.id ?? -1,
@@ -145,9 +145,11 @@ class ProductDetailPageController extends GetxController {
     );
     // await Future.delayed(Duration(seconds: 2));
     // print(jsonEncode(userOrder.value.orderProductOptions));
-    var message = await cartController.addProductToCart(cartData.toJson());
+    await cartController.addProductToCart(cartData.toJson());
+
     Get.back();
-    showCustomSnackBarMessage(message);
+    showCustomSnackBarMessage(
+        title: "Cart", message: "Item sucessfully added to cart");
 
     // return message;
   }

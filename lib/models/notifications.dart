@@ -1,3 +1,1 @@
-class Notification{
-
-}
+class Notification {}

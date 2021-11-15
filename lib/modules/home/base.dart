@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/home/home.dart';
+import 'package:metrocoffee/modules/profile/contents/my_order.dart';
 import 'package:metrocoffee/modules/profile/profile_page.dart';
-import 'package:metrocoffee/modules/home/order_history_new.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
 
@@ -19,9 +19,11 @@ class Base extends StatelessWidget {
       svgImageUri: UtilityIcons.illustrations,
       content: "Looks like you do not have any notifications",
       buttonText: "Start Browsing",
-      onPressed: () {},
+      onPressed: () {
+        Get.find<BaseController>().setindex(0);
+      },
     ),
-    OrderHistory(),
+    MyOrderPage(),
     ProfilePage(),
   ];
 
@@ -106,7 +108,7 @@ class Base extends StatelessWidget {
                           ),
                           BottomNavigationBarItem(
                             activeIcon: SvgPicture.asset(
-                              "assets/images/bottomnav/shopping-cart.svg",
+                              "assets/images/bottomnav/order_history.svg",
                               //               height: 24,
                               width: 20.w,
                               height: 20.h,
@@ -115,7 +117,7 @@ class Base extends StatelessWidget {
                             label: "",
                             backgroundColor: Colors.transparent,
                             icon: SvgPicture.asset(
-                              "assets/images/bottomnav/shopping-cart.svg",
+                              "assets/images/bottomnav/order_history.svg",
                               //            height: 24,
                               width: 20.w,
                               height: 20.h,

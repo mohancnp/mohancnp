@@ -3,4 +3,5 @@ abstract class OrderService {
   Future getAllOrder();
   Future getOrderDetailWithId({required int id});
   Future cancelOrderWithId({required int id});
+  Future reorderWithOrderId({required int id});
 }
