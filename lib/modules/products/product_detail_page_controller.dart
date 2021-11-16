@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:expandable/expandable.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
+import 'package:metrocoffee/core/services/product_service/product_service_impl.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/core/constants/icons/product_option_name.dart';
 import 'package:metrocoffee/core/constants/variants_type.dart';
@@ -16,7 +17,7 @@ import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class ProductDetailPageController extends GetxController {
   var cartController = Get.find<CartController>();
-
+  var _productService = locator.get<ProductService>();
   DataState _dataState = DataState.NA;
   ExpandableController toppingsexpandableController = ExpandableController();
   ExpandableController milksexpandableController = ExpandableController();
@@ -124,6 +125,17 @@ class ProductDetailPageController extends GetxController {
 
   DataState get dataState {
     return this._dataState;
+  }
+
+  Future toggleFavoriteForId({required int id}) async {
+    if (productDetail.isFavorite != null) {
+      productDetail.isFavorite = !(productDetail.isFavorite!);
+      update();
+    }
+    var response = await _productService.toggleFavoriteProduct(id: id);
+    if (response is Map<String, dynamic>) {
+      print("toggle sucessfully sucessfull");
+    }
   }
 
   Future addProductToCart() async {

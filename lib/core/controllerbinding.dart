@@ -5,7 +5,7 @@ import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
-import 'package:metrocoffee/modules/notifications/notificationcontroller.dart';
+import 'package:metrocoffee/modules/notifications/notification_controller.dart';
 // import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
 import 'package:metrocoffee/modules/payment/payment_page_controller.dart';
 import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';

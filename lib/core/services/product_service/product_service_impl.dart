@@ -8,10 +8,11 @@ import '../../config.dart';
 import 'product_service.dart';
 
 class ProductServiceImpl extends ProductService {
+  var remoteSource = RemoteSourceImpl();
+
   @override
   Future handleProductsOfType({required String type}) async {
     // '$baseUrl/api/product', queryParameters: {"type": type}
-    var remoteSource = RemoteSourceImpl();
     try {
       Map<String, dynamic> products = await remoteSource
           .get('$baseUrl/api/product', queryParams: {"type": type});
@@ -23,7 +24,6 @@ class ProductServiceImpl extends ProductService {
 
   @override
   Future handleAllProducts() async {
-    var remoteSource = RemoteSourceImpl();
     try {
       Map<String, dynamic> products =
           await remoteSource.get('$baseUrl/api/product');
@@ -35,7 +35,6 @@ class ProductServiceImpl extends ProductService {
 
   @override
   Future handleProductDetail({required int id}) async {
-    var remoteSource = RemoteSourceImpl();
     try {
       Map<String, dynamic> productDetail =
           await remoteSource.get('$baseUrl/api/product/$id');
@@ -48,9 +47,18 @@ class ProductServiceImpl extends ProductService {
 
   @override
   Future getFavoriteProducts() async {
-    var remoteService = RemoteSourceImpl();
     try {
-      var products = await remoteService.get('$baseUrl/api/favourite');
+      var products = await remoteSource.get('$baseUrl/api/favourite');
+      return products;
+    } on ServerException catch (e) {
+      throw (AppException(message: e.message));
+    }
+  }
+
+  @override
+  Future toggleFavoriteProduct({required int id}) async {
+    try {
+      var products = await remoteSource.post('$baseUrl/api/favourite/$id');
       return products;
     } on ServerException catch (e) {
       throw (AppException(message: e.message));

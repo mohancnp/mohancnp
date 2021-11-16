@@ -350,24 +350,32 @@ class ProductDescriptionWidget extends StatelessWidget {
                       )),
                     ),
                   ),
-                  Container(
-                    width: 28.w,
-                    height: 28.w,
-                    margin: EdgeInsets.only(
-                      right: 28.w,
-                      top: 16.h,
-                      bottom: controller.productDetail.ingredients == null
-                          ? 8.h
-                          : 0.h,
-                    ),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white.withOpacity(0.3)),
-                    child: Center(
-                      child: Icon(
-                        Icons.favorite,
-                        color: Colors.white,
-                        size: 16.w,
+                  GestureDetector(
+                    onTap: () {
+                      controller.toggleFavoriteForId(
+                          id: controller.productDetail.id!);
+                    },
+                    child: Container(
+                      width: 28.w,
+                      height: 28.w,
+                      margin: EdgeInsets.only(
+                        right: 28.w,
+                        top: 16.h,
+                        bottom: controller.productDetail.ingredients == null
+                            ? 8.h
+                            : 0.h,
+                      ),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withOpacity(0.3)),
+                      child: Center(
+                        child: Icon(
+                          Icons.favorite,
+                          color: (controller.productDetail.isFavorite ?? false)
+                              ? Colors.red
+                              : Colors.white,
+                          size: 16.w,
+                        ),
                       ),
                     ),
                   )

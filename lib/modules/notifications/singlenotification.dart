@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/core/models/notification_model.dart' as n;
+import 'package:metrocoffee/util/date_trimmer.dart';
 
 class SingleNotification extends StatelessWidget {
   final int? index;
-  const SingleNotification({Key? key, @required this.index}) : super(key: key);
+  final n.Notification notification;
+  const SingleNotification(
+      {Key? key, @required this.index, required this.notification})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
+    print("${notification.notificationData.nestedData?.image}");
     return Container(
       margin: EdgeInsets.only(
           //         bottom: 12
-          bottom: screenwidth * 0.02919),
-      width: screenwidth,
+          bottom: 12.h,
+          left: 16.w,
+          right: 16.w),
+
+      width: 375.w,
       //  height: 72,
-      height: screenwidth * 0.175,
+      height: 72.h,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(9)),
@@ -28,7 +38,7 @@ class SingleNotification extends StatelessWidget {
         children: [
           Container(
             //        height: 72, width: 6,
-            height: screenwidth * 0.175, width: screenwidth * 0.0145,
+            height: 72.h, width: 6.w,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(7),
@@ -42,48 +52,54 @@ class SingleNotification extends StatelessWidget {
                 ]),
           ),
           Container(
-            margin: EdgeInsets.only(
-                //          left: 14,right: 12
-                left: screenwidth * 0.03406,
-                right: screenwidth * 0.0291),
-            //     height: 54,width: 54,
-            height: screenwidth * 0.1313, width: screenwidth * 0.1313,
-            decoration:
-                BoxDecoration(color: Color(0xffE8E8E8), shape: BoxShape.circle),
-            child: Center(
-              child: Image.asset(
-                getorderimage(index),
-                //         height: 54,
-                height: screenwidth * 0.1313,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+              margin: EdgeInsets.only(
+                  //          left: 14,right: 12
+                  left: 14.w,
+                  right: 12.w),
+              //     height: 54,width: 54,
+              height: 54.w,
+              width: 54.w,
+              decoration: BoxDecoration(
+                  color: Color(0xffE8E8E8), shape: BoxShape.circle),
+              child: notification.notificationData.nestedData?.image != null
+                  ? Image.network(
+                      "$baseUrl${notification.notificationData.nestedData?.image}",
+                      height: 54.h,
+                      fit: BoxFit.cover,
+                    )
+                  : Center(
+                      child: Image.asset(
+                        getorderimage(index),
+                        //         height: 54,
+                        height: 54.h,
+                        fit: BoxFit.cover,
+                      ),
+                    )),
           Container(
             //      height: 54,
-            height: screenwidth * 0.1313,
+            height: 54.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   child: Text(
-                    getordertext(index),
+                    notification.notificationData.body,
                     style: getpoppins(TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Color(0xff404D4D),
                         //      fontSize: 12.5
-                        fontSize: screenwidth * 0.0304)),
+                        fontSize: 12.5.sp)),
                   ),
                 ),
                 Container(
                   child: Text(
-                    "4 hours ago",
+                    getTrimmedDateAndTime(dateToTrim: notification.createdAt),
                     style: getpoppins(TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Color(0xff404D4D).withOpacity(0.6),
                         //         fontSize: 11.5
-                        fontSize: screenwidth * 0.02798)),
+                        fontSize: 11.5.sp)),
                   ),
                 ),
               ],
