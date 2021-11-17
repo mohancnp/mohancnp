@@ -32,7 +32,7 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 2;
+    timeDilation = 1;
     var idAndTag = Get.arguments;
     var tag, id;
     if (idAndTag != null) {
@@ -96,7 +96,7 @@ class ProductDetailPage extends StatelessWidget {
                                 child: TextButton.icon(
                                     onPressed: () async {
                                       await controller.addProductToCart();
-                                      cartController.getAllCartProducts();
+                                      await cartController.getAllCartProducts();
                                     },
                                     icon: Icon(
                                       CupertinoIcons.cart_badge_plus,
@@ -106,9 +106,10 @@ class ProductDetailPage extends StatelessWidget {
                                     label: Text(
                                       "Add To Cart",
                                       style: getpoppins(TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.w300)),
+                                        color: Colors.white,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w300,
+                                      )),
                                     )),
                               ),
                             ],
@@ -161,11 +162,8 @@ class ProductDetailPage extends StatelessWidget {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      var c = Get.find<RedirectionController>();
                                       //navigate for only the logged in users
-                                      if (c.userExists) {
-                                        Get.toNamed(PageName.productCartPage);
-                                      }
+                                      Get.toNamed(PageName.productCartPage);
                                     },
                                     child: Stack(
                                       children: [

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:expandable/expandable.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
 import 'package:metrocoffee/core/services/product_service/product_service_impl.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
@@ -148,39 +149,33 @@ class ProductDetailPageController extends GetxController {
   }
 
   Future addProductToCart() async {
-    var status = Get.find<RedirectionController>().userExists;
+    // var status = Get.find<RedirectionController>().userExists;
 
-    if (status) {
-      var variant = productDetail.allVariants?.elementAt(selectedVariant);
-      setProductOptionValue();
-      showCustomDialog(message: "Adding to Cart");
-      var names = await getSelectedAddonNames();
-      var cartData = CartModel(
-        productId: productDetail.id ?? -1,
-        variantId: variant?.id ?? -1,
-        qty: userOrder.value.qty,
-        price: userOrder.value.amount ?? 0.0,
-        addons: jsonEncode(userOrder.value.orderProductAddons ?? []),
-        imageUri: productDetail.imageUri ?? "",
-        options: jsonEncode(userOrder.value.orderProductOptions),
-        name: productDetail.name ?? "",
-        extras: names,
-        size: variant?.name ?? " ",
-      );
-      // await Future.delayed(Duration(seconds: 2));
-      // print(jsonEncode(userOrder.value.orderProductOptions));
+    var variant = productDetail.allVariants?.elementAt(selectedVariant);
+    setProductOptionValue();
+    showCustomDialog(message: "Adding to Cart");
+    var names = await getSelectedAddonNames();
+    var cartData = CartModel(
+      productId: productDetail.id ?? -1,
+      variantId: variant?.id ?? -1,
+      qty: userOrder.value.qty,
+      price: userOrder.value.amount ?? 0.0,
+      addons: jsonEncode(userOrder.value.orderProductAddons ?? []),
+      imageUri: productDetail.imageUri ?? "",
+      options: jsonEncode(userOrder.value.orderProductOptions),
+      name: productDetail.name ?? "",
+      extras: names,
+      size: variant?.name ?? " ",
+    );
+    try {
       await cartController.addProductToCart(cartData.toJson());
-
+    } on AppException catch (e) {
       Get.back();
-      showCustomSnackBarMessage(
-          title: "Cart", message: "Item sucessfully added to cart");
-
-      // return message;
-
-    } else {
-      showCustomSnackBarMessage(
-          title: "Not Available", message: "Please login and Continue");
+      showCustomSnackBarMessage(title: "Cart", message: e.message);
     }
+    Get.back();
+    showCustomSnackBarMessage(
+        title: "Cart", message: "Item sucessfully added to cart");
   }
 
   void setProductOptionValue() {

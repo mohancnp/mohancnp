@@ -70,7 +70,6 @@ class CheckoutPage extends StatelessWidget {
             children: [
               GetX<CartController>(builder: (controller) {
                 int length = controller.cartProductList?.length ?? 0;
-                // jsonDecode(source)
 
                 return length > 0
                     ? ListView.builder(

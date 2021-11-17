@@ -17,10 +17,11 @@ class SingleNotification extends StatelessWidget {
     print("${notification.notificationData.nestedData?.image}");
     return Container(
       margin: EdgeInsets.only(
-          //         bottom: 12
-          bottom: 12.h,
-          left: 16.w,
-          right: 16.w),
+        //         bottom: 12
+        bottom: 12.h,
+        left: 16.w,
+        right: 16.w,
+      ),
 
       width: 375.w,
       //  height: 72,
@@ -40,16 +41,14 @@ class SingleNotification extends StatelessWidget {
             //        height: 72, width: 6,
             height: 72.h, width: 6.w,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(7),
-                    bottomLeft: Radius.circular(7)),
-                color: index!.isOdd ? Colors.redAccent : Color(0xff550E1C),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black12,
-                      offset: Offset(0, 3),
-                      blurRadius: 30)
-                ]),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(7), bottomLeft: Radius.circular(7)),
+              color: index!.isOdd ? Colors.redAccent : Color(0xff550E1C),
+              // boxShadow: [
+              //   BoxShadow(
+              //       color: Colors.black12, offset: Offset(0, 3), blurRadius: 30)
+              // ],
+            ),
           ),
           Container(
               margin: EdgeInsets.only(

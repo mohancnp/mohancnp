@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/recommendationicons.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:metrocoffee/modules/home/widgets/searchbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/modules/home/widgets/recommendation_category.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
+
+import 'widgets/searchbar.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -20,15 +22,20 @@ class SearchPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              color: coffeecolor,
+              color: Palette.coffeeColor,
               height: 170.h,
               margin: EdgeInsets.only(bottom: 17.h),
               child: Column(
                 children: [
                   Container(
                     margin: EdgeInsets.only(
-                        top: 60.h, left: 28.w, right: 44.w, bottom: 3.h),
+                      top: 60.h,
+                      left: 28.w,
+                      right: 44.w,
+                      bottom: 3.h,
+                    ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         GestureDetector(
                           onTap: () => Get.back(),
@@ -38,20 +45,26 @@ class SearchPage extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        Expanded(
+                        Padding(
+                          padding: EdgeInsets.only(left: 112.w),
                           child: Text(
                             "SEARCH",
                             textAlign: TextAlign.center,
                             style: getpoppins(TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xFFF5F5F5),
-                                fontSize: 16.sp)),
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFFF5F5F5),
+                              fontSize: 16.sp,
+                            )),
                           ),
                         )
                       ],
                     ),
                   ),
-                  SearchBar(enabled: true),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: 26.h, left: 28.w, right: 28.w),
+                    child: SearchBar(),
+                  ),
                 ],
               ),
             ),
@@ -176,9 +189,10 @@ class SearchPage extends StatelessWidget {
                                     color: coffeecolor,
                                     boxShadow: [
                                       BoxShadow(
-                                          offset: Offset(0, 3),
-                                          color: Color(0x62722030),
-                                          blurRadius: 4.r)
+                                        offset: Offset(0, 3),
+                                        color: Color(0x62722030),
+                                        blurRadius: 4.r,
+                                      )
                                     ]),
                               )
                             ],
@@ -189,7 +203,7 @@ class SearchPage extends StatelessWidget {
                   );
                 }),
               ),
-            )
+            ),
           ],
         ),
       ),

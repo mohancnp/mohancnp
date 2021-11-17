@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
+import 'package:metrocoffee/modules/notifications/no_notifications_widget.dart';
 import 'package:metrocoffee/modules/notifications/notification_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/modules/notifications/singlenotification.dart';
@@ -57,7 +58,9 @@ class Notifications extends StatelessWidget {
                               );
                             }),
                       )
-                    : SomeThingWentWrongPage();
+                    : _ds == DataState.NA
+                        ? NoNotificationPage()
+                        : SomeThingWentWrongPage();
           }),
     );
   }

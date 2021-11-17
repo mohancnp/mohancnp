@@ -38,22 +38,20 @@ class SingleOrder extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(9.r),
-              clipBehavior: Clip.hardEdge,
-              child: FittedBox(
-                child: Image.network(
-                  "$baseUrl${cartModel.imageUri}",
-                  loadingBuilder: (context, widget, imageChunkEvent) {
-                    if (imageChunkEvent == null) {
-                      return widget;
-                    } else
-                      return CircularProgressIndicator(
-                        color: Palette.coffeeColor,
-                      );
-                  },
-                  width: 85.w,
-                  height: 84.h,
-                  fit: BoxFit.cover,
-                ),
+              // clipBehavior: Clip.hardEdge,
+              child: Image.network(
+                "$baseUrl${cartModel.imageUri}",
+                loadingBuilder: (context, widget, imageChunkEvent) {
+                  if (imageChunkEvent == null) {
+                    return widget;
+                  } else
+                    return CircularProgressIndicator(
+                      color: Palette.coffeeColor,
+                    );
+                },
+                width: 85.w,
+                height: 84.h,
+                fit: BoxFit.cover,
               ),
             ),
           ),

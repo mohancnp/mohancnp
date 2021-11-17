@@ -179,37 +179,71 @@ class HomeTabController extends GetxController {
 
   Future addToCart(int id) async {
     bool verifiedUser = Get.find<RedirectionController>().userExists;
-    if (verifiedUser) {
-      try {
-        showCustomDialog();
-        var prodObj = await getProductDetail(id);
-        var product = CartModel(
-          productId: prodObj.id!,
-          variantId: prodObj.allVariants![0].id,
-          qty: 1,
-          price: prodObj.allVariants![0].price,
-          addons: jsonEncode([]),
-          imageUri: prodObj.imageUri ?? "",
-          options: jsonEncode(['']),
-          name: prodObj.name!,
-          size: prodObj.allVariants![0].name,
-          extras: "",
-        );
-        var count = await _cartService.addProductToCart(product.toJson());
-        if (count > 0) {
-          Get.back();
-          Get.find<CartController>().cartCount.value++;
-          showCustomSnackBarMessage(title: "Message", message: "added to cart");
-        }
-      } on AppException catch (e) {
-        print(e);
-      } on ServerException catch (e) {
-        print("Server Error $e");
+    showCustomDialog();
+    var prodObj;
+    try {
+      if (verifiedUser) {
+        prodObj = await getProductDetail(id);
+      } else {
+        prodObj = await getPublicProductDetail(id);
+        // showCustomSnackBarMessage(
+        //     title: "Message", message: "Functionality Not Available");
       }
-    } else {
+      var product = CartModel(
+        productId: prodObj.id!,
+        variantId: prodObj.allVariants![0].id,
+        qty: 1,
+        price: prodObj.allVariants![0].price,
+        addons: jsonEncode([]),
+        imageUri: prodObj.imageUri ?? "",
+        options: jsonEncode(['']),
+        name: prodObj.name!,
+        size: prodObj.allVariants![0].name,
+        extras: "",
+      );
+      var count = await _cartService.addProductToCart(product.toJson());
+      if (count > 0) {
+        Get.back();
+        Get.find<CartController>().cartCount.value++;
+        showCustomSnackBarMessage(title: "Message", message: "added to cart");
+      }
+    } on AppException catch (e) {
+      Get.back();
       showCustomSnackBarMessage(
-          title: "Message", message: "Functionality Not Available");
+          title: "Message", message: "something went wrong");
+      print(e);
+    } on Exception catch (e) {
+      Get.back();
+      showCustomSnackBarMessage(
+          title: "Message", message: "something went wrong");
     }
+
+    // try {
+    //   showCustomDialog();
+    //   var prodObj = await getProductDetail(id);
+    //   var product = CartModel(
+    //     productId: prodObj.id!,
+    //     variantId: prodObj.allVariants![0].id,
+    //     qty: 1,
+    //     price: prodObj.allVariants![0].price,
+    //     addons: jsonEncode([]),
+    //     imageUri: prodObj.imageUri ?? "",
+    //     options: jsonEncode(['']),
+    //     name: prodObj.name!,
+    //     size: prodObj.allVariants![0].name,
+    //     extras: "",
+    //   );
+    //   var count = await _cartService.addProductToCart(product.toJson());
+    //   if (count > 0) {
+    //     Get.back();
+    //     Get.find<CartController>().cartCount.value++;
+    //     showCustomSnackBarMessage(title: "Message", message: "added to cart");
+    //   }
+    // } on AppException catch (e) {
+    //   print(e);
+    // } on ServerException catch (e) {
+    //   print("Server Error $e");
+    // }
   }
 
   Future<ProductDetail> getProductDetail(int id) async {
@@ -218,7 +252,17 @@ class HomeTabController extends GetxController {
           await locator<ProductService>().handleProductDetail(id: id);
       return prodObj;
     } on ServerException catch (e) {
-      throw (ServerException(code: e.code, message: "${e.message}"));
+      throw (AppException(message: "${e.message}"));
+    }
+  }
+
+  Future<ProductDetail> getPublicProductDetail(int id) async {
+    try {
+      ProductDetail prodObj =
+          await locator<ProductService>().getPublicProductDetail(id: id);
+      return prodObj;
+    } on ServerException catch (e) {
+      throw (AppException(message: "${e.message}"));
     }
   }
 

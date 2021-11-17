@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/profile/contents/order_details_controller.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 import '../../../core/theme.dart';
 
 class ReOrderDialog extends StatelessWidget {
@@ -21,11 +22,11 @@ class ReOrderDialog extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
 //          horizontal: 12.5,vertical:12.5
-          horizontal: screenwidth * 0.03041,
-          vertical: screenwidth * 0.03041),
+          horizontal: 12.5.w,
+          vertical: 12.5.h),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(9)),
+        borderRadius: BorderRadius.all(Radius.circular(9.r)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -36,7 +37,7 @@ class ReOrderDialog extends StatelessWidget {
             children: [
               Container(
 //                height: 82, width: 82,
-                height: screenwidth * 0.199, width: screenwidth * 0.199,
+                height: 82.h, width: 82.w,
                 decoration: BoxDecoration(
                     color: Color(0xffEBEBEB), shape: BoxShape.circle),
                 child: Center(
@@ -44,7 +45,7 @@ class ReOrderDialog extends StatelessWidget {
                   CupertinoIcons.delete,
                   color: coffeecolor,
 //                  size: 39,
-                  size: screenwidth * 0.09489,
+                  size: 39.r,
                 )),
               ),
             ],
@@ -52,14 +53,14 @@ class ReOrderDialog extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(
 //                top: 16,bottom: 29
-                top: screenwidth * 0.0389,
-                bottom: screenwidth * 0.07055),
+                top: 16.h,
+                bottom: 29.h),
             child: Text(
               "Reordering your order with order Id #$orderId",
               textAlign: TextAlign.center,
               style: getpoppins(TextStyle(
 //                      fontSize: 13.5,
-                  fontSize: screenwidth * 0.0328,
+                  fontSize: 13.5.sp,
                   color: darkgrey,
                   fontWeight: FontWeight.w400)),
             ),
@@ -69,15 +70,15 @@ class ReOrderDialog extends StatelessWidget {
                 .reorderProduct(orderId, amount),
             child: Container(
 //            width: 185,height: 36,
-              width: screenwidth * 0.450, height: screenwidth * 0.0875,
+              width: 185.w, height: 36.h,
               decoration: BoxDecoration(
                   color: coffeecolor,
-                  borderRadius: BorderRadius.all(Radius.circular(17)),
+                  borderRadius: BorderRadius.all(Radius.circular(16.r)),
                   boxShadow: [
                     BoxShadow(
                         color: Color(0xffC3916A).withOpacity(0.2),
-                        blurRadius: 30,
-                        offset: Offset(0, 9))
+                        blurRadius: 30.r,
+                        offset: Offset(0, 9.h))
                   ]),
               child: Center(
                 child: Text(
@@ -87,7 +88,7 @@ class ReOrderDialog extends StatelessWidget {
                       fontWeight: FontWeight.w300,
                       color: Colors.white,
                       //      fontSize: 13.5
-                      fontSize: screenwidth * 0.0328)),
+                      fontSize: 13.5.sp)),
                 ),
               ),
             ),
@@ -99,21 +100,21 @@ class ReOrderDialog extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.only(
 //                top: 16
-                  top: screenwidth * 0.0389),
+                  top: 16.h),
 //            width: 185,height: 36,
-              width: screenwidth * 0.450, height: screenwidth * 0.0875,
+              width: 185.w, height: 36.h,
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
-                    color: coffeecolor,
+                    color: Palette.coffeeColor,
                     width: 1.2,
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(17)),
+                  borderRadius: BorderRadius.all(Radius.circular(16.r)),
                   boxShadow: [
                     BoxShadow(
                         color: Color(0xffC3916A).withOpacity(0.2),
-                        blurRadius: 30,
-                        offset: Offset(0, 9))
+                        blurRadius: 30.r,
+                        offset: Offset(0, 9.h))
                   ]),
               child: Center(
                 child: Text(
@@ -121,9 +122,9 @@ class ReOrderDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: getpoppins(TextStyle(
                       fontWeight: FontWeight.w300,
-                      color: coffeecolor,
+                      color: Palette.coffeeColor,
                       //      fontSize: 13.5
-                      fontSize: screenwidth * 0.0328)),
+                      fontSize: 13.5.sp)),
                 ),
               ),
             ),

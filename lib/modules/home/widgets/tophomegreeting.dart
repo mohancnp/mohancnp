@@ -14,17 +14,14 @@ class TopHomeGreeting extends StatelessWidget {
   final controller = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-
     return Container(
-        width: screenwidth,
-        // clipBehavior: Clip.none,
+        width: 375.w,
+        height: 153.h,
         padding: EdgeInsets.only(
-//         horizontal: 24,vertical: 24
-            left: 28.w,
-            right: 28.w,
-            //     top:35,
-            top: 68.h),
+          left: 28.w,
+          right: 28.w,
+          top: 68.h,
+        ),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,21 +45,17 @@ class TopHomeGreeting extends StatelessWidget {
                         style: TextStyle(
                             fontFamily: montserratsemibold,
                             color: Colors.white,
-                            //     fontSize: 20.5
-                            fontSize: screenwidth * 0.0498),
+                            fontSize: 20.5.sp),
                       ));
                     }),
                     Container(
-                        margin: EdgeInsets.only(
-                            //        top: 3
-                            top: 4.h),
+                        margin: EdgeInsets.only(top: 4.h),
                         child: Text(
                           "You can order drinks for collections or Delivery.",
                           style: TextStyle(
                               fontFamily: poppinslight,
                               color: Color(0xF3F3F3D6),
-                              //          fontSize: 11.5
-                              fontSize: screenwidth * 0.0279),
+                              fontSize: 11.5.sp),
                         )),
                   ],
                 ),
@@ -113,13 +106,6 @@ class TopHomeGreeting extends StatelessWidget {
                     }),
                   ],
                 ),
-
-                // SvgPicture.asset(
-                //   cartIcons,
-                //   width: 20.w,
-                //   height: 20.w,
-                //   color: Colors.white,
-                // ),
               )
             ]));
   }

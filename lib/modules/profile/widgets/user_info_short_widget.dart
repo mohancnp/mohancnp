@@ -5,7 +5,8 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/models/user_model.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 import 'topup_reward_dialog.dart';
 
 class UserInfoShort extends StatelessWidget {
@@ -15,39 +16,55 @@ class UserInfoShort extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GetX<ProfilePageController>(builder: (controller) {
           User user = controller.newUser;
-          print("$baseUrl${user.imageUri}");
+          var firstLetter = "N";
+          var secondLetter = "/A";
+          if (user.imageUri == null && user.name != null) {
+            firstLetter = user.name!.substring(0, 1).toUpperCase();
+            secondLetter =
+                user.name!.split(" ")[1].substring(0, 1).toUpperCase();
+          }
 
           return Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                //     height: 100, width: 100,
-                height: screenwidth * 0.1733,
-                width: screenwidth * 0.1733,
+                height: 64.r,
+                width: 64.r,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(9)),
+                  borderRadius: BorderRadius.all(Radius.circular(32.r)),
+                  border: Border.all(
+                    color: Color(0xff5AB898),
+                    width: 2.5,
+                  ),
                 ),
                 child: user.imageUri == null
-                    ? Image.asset(
-                        "assets/images/profilep.png",
-                        fit: BoxFit.cover,
+                    ? Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          "$firstLetter $secondLetter ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Palette.textColor,
+                          ),
+                        ),
                       )
                     : ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(screenwidth * 0.1733 * 0.5),
+                        borderRadius: BorderRadius.circular(32.r),
                         child: Image.network(
                           "$baseUrl${user.imageUri}",
                           fit: BoxFit.cover,
-                          height: screenwidth * 0.1733,
-                          width: screenwidth * 0.1733,
+                          height: 64.r,
+                          width: 64.r,
                           loadingBuilder: (context, widget, imageProgress) {
                             if (imageProgress == null) {
                               return widget;
@@ -64,10 +81,10 @@ class UserInfoShort extends StatelessWidget {
               ),
               Container(
                   //  height: 76,
-                  height: screenwidth * 0.1449,
+                  height: 76.h,
                   margin: EdgeInsets.only(
                       //        left: 12
-                      left: screenwidth * 0.0291),
+                      left: 12.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,26 +92,31 @@ class UserInfoShort extends StatelessWidget {
                       Text(
                         "Welcome",
                         style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: Color(0xff404D4D),
-                            //       fontSize: 11.5
-                            fontSize: screenwidth * 0.0279)),
+                          fontWeight: FontWeight.w300,
+                          color: Color(0xff404D4D),
+                          //       fontSize: 11.5
+                          fontSize: 11.5.sp,
+                        )),
                       ),
                       Text(
                         user.name == null ? " " : "${user.name}",
-                        style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff404D4D),
-                            //         fontSize: 14.5
-                            fontSize: screenwidth * 0.03527)),
+                        style: getpoppins(
+                          TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff404D4D),
+                              //         fontSize: 14.5
+                              fontSize: 14.5.sp),
+                        ),
                       ),
                       Text(
                         user.email == null ? " " : "${user.email}",
-                        style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: Color(0xff404D4D),
-                            //         fontSize: 11.5
-                            fontSize: screenwidth * 0.0279)),
+                        style: getpoppins(
+                          TextStyle(
+                              fontWeight: FontWeight.w300,
+                              color: Color(0xff404D4D),
+                              //         fontSize: 11.5
+                              fontSize: 11.5.sp),
+                        ),
                       )
                     ],
                   ))
@@ -116,16 +138,16 @@ class UserInfoShort extends StatelessWidget {
                 });
           },
           child: Container(
-              height: screenwidth * 0.1559,
-              width: screenwidth * 0.1559,
+              height: 60.r,
+              width: 60.r,
               child: Stack(children: [
                 Positioned(
                     bottom: 0,
                     left: 0,
                     child: Container(
                         //                      height: 60, width: 60,
-                        height: screenwidth * 0.1459,
-                        width: screenwidth * 0.1459,
+                        height: 60.r,
+                        width: 60.r,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
@@ -142,10 +164,11 @@ class UserInfoShort extends StatelessWidget {
                                   ? "0"
                                   : "${profileController.newUser.points}",
                               style: getpoppins(TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xff404D4D),
-                                  //         fontSize: 17
-                                  fontSize: screenwidth * 0.0313)),
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xff404D4D),
+                                //         fontSize: 17
+                                fontSize: 17.sp,
+                              )),
                             );
                           }),
                         ))),
@@ -154,13 +177,13 @@ class UserInfoShort extends StatelessWidget {
                     right: 0,
                     child: Container(
                       //                                height: 25,width: 25,
-                      height: screenwidth * 0.0608,
-                      width: screenwidth * 0.0608,
+                      height: 25.r,
+                      width: 25.r,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
-                          border:
-                              Border.all(color: Color(0xff5AB898), width: 2.5)),
+                          border: Border.all(
+                              color: Color(0xff5AB898), width: 2.5.w)),
                       child: Center(
                         child: SvgPicture.asset(
                           "assets/images/badge.svg",

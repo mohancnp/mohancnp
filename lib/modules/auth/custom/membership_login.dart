@@ -96,67 +96,78 @@ class MembershipLoginPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               FormFeildSkeleton(
-                                child: TextFormField(
-                                  controller: mc.membershipNumberController,
-                                  cursorColor: Colors.black87,
-                                  style: TextStyle(
+                                child: Center(
+                                  child: TextFormField(
+                                    controller: mc.membershipNumberController,
+                                    cursorColor: Colors.black87,
+                                    style: TextStyle(
                                       fontFamily: poppinsregular,
                                       color: Colors.black87,
-                                      //       fontSize: 13.5
-                                      fontSize: 13.sp),
-                                  keyboardType: TextInputType.text,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: InputDecoration(
-                                    suffixIcon: Icon(
-                                      FeatherIcons.user,
-                                      color: Color(0xff404d4d),
-                                      //                 size: 18,
-                                      size: 18.sp,
+                                      fontSize: 13.sp,
+                                      height: 1.8,
                                     ),
-                                    border: InputBorder.none,
-                                    hintText: 'Membership No.',
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8.h),
-                                    hintStyle: TextStyle(
-                                        fontFamily: poppinsregular,
-                                        color: Color(0xff404d4d)),
+                                    keyboardType: TextInputType.text,
+                                    textInputAction: TextInputAction.next,
+                                    decoration: InputDecoration(
+                                      suffixIcon: Icon(
+                                        FeatherIcons.user,
+                                        color: Color(0xff404d4d),
+                                        size: 18.sp,
+                                      ),
+                                      border: InputBorder.none,
+                                      hintText: 'Membership No.',
+                                      // contentPadding:
+                                      //     EdgeInsets.symmetric(vertical: 8.h),
+                                      hintStyle: TextStyle(
+                                          fontFamily: poppinsregular,
+                                          color: Color(0xff404d4d)),
+                                    ),
                                   ),
                                 ),
                               ),
                               FormFeildSkeleton(
-                                child: TextFormField(
-                                  controller: mc.passwordController,
-                                  cursorColor: Colors.black87,
-                                  style: TextStyle(
+                                child: Center(
+                                  child: TextFormField(
+                                    controller: mc.passwordController,
+                                    cursorColor: Colors.black87,
+                                    style: TextStyle(
                                       fontFamily: poppinsregular,
                                       color: Colors.black87,
-
-                                      //       fontSize: 13.5
-                                      fontSize: 13.sp),
-                                  keyboardType: TextInputType.visiblePassword,
-                                  textInputAction: TextInputAction.next,
-                                  obscureText: mc.eye ? true : false,
-                                  decoration: InputDecoration(
-                                    suffixIcon: GestureDetector(
-                                      onTap: () {
-                                        mc.eye = !mc.eye;
-                                      },
-                                      child: Icon(
-                                        mc.eye
-                                            ? FeatherIcons.eye
-                                            : FeatherIcons.eyeOff,
+                                      height: 1.8,
+                                      fontSize: 13.sp,
+                                    ),
+                                    keyboardType: TextInputType.visiblePassword,
+                                    textInputAction: TextInputAction.next,
+                                    obscureText: mc.eye ? true : false,
+                                    decoration: InputDecoration(
+                                      suffixIcon: GestureDetector(
+                                        onTap: () {
+                                          mc.eye = !mc.eye;
+                                        },
+                                        child: Icon(
+                                          mc.eye
+                                              ? FeatherIcons.eye
+                                              : FeatherIcons.eyeOff,
+                                          color: Color(0xff404d4d),
+                                          //                 size: 18,
+                                          size: 18.sp,
+                                        ),
+                                      ),
+                                      border: InputBorder.none,
+                                      // prefix: Center(
+                                      //   child: Text(
+                                      //     "password",
+                                      //     style: TextStyle(color: Colors.red),
+                                      //   ),
+                                      // ),
+                                      hintText: 'Password',
+                                      // contentPadding:
+                                      //     EdgeInsets.symmetric(vertical: 8.h),
+                                      hintStyle: TextStyle(
+                                        fontFamily: poppinsregular,
                                         color: Color(0xff404d4d),
-                                        //                 size: 18,
-                                        size: 18.sp,
                                       ),
                                     ),
-                                    border: InputBorder.none,
-                                    hintText: 'Password',
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 8.h),
-                                    hintStyle: TextStyle(
-                                        fontFamily: poppinsregular,
-                                        color: Color(0xff404d4d)),
                                   ),
                                 ),
                               ),

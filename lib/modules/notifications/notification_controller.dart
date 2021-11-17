@@ -44,7 +44,11 @@ class NotificationController extends GetxController {
           notfs.add(notification);
         });
         notifications = notfs;
-        _dataState = DataState.loaded;
+        if (notifications.length > 0) {
+          _dataState = DataState.loaded;
+        } else {
+          _dataState = DataState.NA;
+        }
       }
     } on AppException catch (e) {
       dataState = DataState.error;

@@ -57,14 +57,15 @@ class SearchBarTest extends StatelessWidget {
                   //     fontSize: 11.5
                   fontSize: 10.sp),
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: (10 / 8.12).h),
+                // contentPadding: EdgeInsets.symmetric(vertical: (10 / 8.12).h),
                 border: InputBorder.none,
                 hintText: 'What will energize you today?',
                 hintStyle: TextStyle(
-                    fontFamily: poppinslight,
-                    color: Color(0xC2404D4D),
-                    //     fontSize: 11.5
-                    fontSize: 10.sp),
+                  fontFamily: poppinslight,
+                  color: Color(0xC2404D4D),
+                  //     fontSize: 11.5
+                  fontSize: 11.sp,
+                ),
               ),
             ))
           ]),

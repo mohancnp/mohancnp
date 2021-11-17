@@ -113,7 +113,7 @@ class ProductCard extends StatelessWidget {
                               CupertinoIcons.minus_circle,
 
                               //       size: 20,
-                              size: 20.sp,
+                              size: 24.r,
                               color: Colors.black54,
                             ),
                           ),
@@ -125,6 +125,7 @@ class ProductCard extends StatelessWidget {
                               "${cartModel.qty}",
                               style: getpoppins(TextStyle(
                                   fontWeight: FontWeight.w300,
+                                  fontSize: 14.sp,
                                   color: Colors.black54)),
                             ),
                           ),
@@ -135,7 +136,7 @@ class ProductCard extends StatelessWidget {
                             child: Icon(
                               CupertinoIcons.plus_circle,
                               //      size: 20,
-                              size: 20.w,
+                              size: 24.r,
                               color: Colors.black54,
                             ),
                           ),

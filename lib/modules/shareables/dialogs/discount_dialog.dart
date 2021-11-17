@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/modules/shareables/userpreference.dart';
 
 class DiscountDialog extends StatelessWidget {
   const DiscountDialog({Key? key}) : super(key: key);

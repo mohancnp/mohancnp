@@ -7,6 +7,8 @@ import 'package:metrocoffee/core/models/cart_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
+import 'package:metrocoffee/modules/shareables/userpreference.dart';
 import 'package:metrocoffee/modules/shareables/widgets/finalpricecalculationcard.dart';
 import 'package:metrocoffee/modules/cart/widgets/product_card.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,12 +41,33 @@ class MyProductCart extends StatelessWidget {
                             width: 320.w,
                             height: 47.h,
                             onPressed: () {
-                              Get.toNamed(PageName.checkoutpage);
+                              var c = Get.find<RedirectionController>();
+                              if (c.userExists) {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) {
+                                      return ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8.r)),
+                                        child: SimpleDialog(
+                                            contentPadding: EdgeInsets.all(0),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(18.r),
+                                              ),
+                                            ),
+                                            children: [
+                                              UserPreference(),
+                                            ]),
+                                      );
+                                    });
+                              } else {
+                                Get.toNamed(PageName.loginpage);
+                              }
                             },
                           )
                         : SizedBox();
                   }),
-                  // floatingActionButtonLocation: ,
                   appBar: AppBar(
                     backgroundColor: Color(0xFFF3F5F5),
                     elevation: 0,
@@ -69,7 +92,6 @@ class MyProductCart extends StatelessWidget {
                       style: TextStyle(
                           fontFamily: poppinsmedium,
                           color: Color(0xff404D4D),
-                          //       fontSize: 16
                           fontSize: screenwidth * 0.0389),
                     ),
                   ),
@@ -82,7 +104,6 @@ class MyProductCart extends StatelessWidget {
                             svgImageUri: UtilityIcons.emptyCart,
                             onPressed: () {
                               Get.back();
-                              //navigate on button pressed
                             },
                             buttonText: "Browse Products")
                         : Stack(
@@ -110,36 +131,12 @@ class MyProductCart extends StatelessWidget {
                                             );
                                           }),
                                         ),
-                                        // Padding(
-                                        //   padding: EdgeInsets.only(right: 30.w),
-                                        //   child: Row(
-                                        //     children: [
-                                        //       Text(
-                                        //         "Add",
-                                        //         style: getpoppins(
-                                        //             TextStyle(fontWeight: FontWeight.w500)),
-                                        //       ),
-                                        //       Padding(
-                                        //         padding: EdgeInsets.only(left: 8.w),
-                                        //         child: Icon(
-                                        //           Icons.add_circle,
-                                        //           size: 16.w,
-                                        //           color: coffeecolor,
-                                        //         ),
-                                        //       )
-                                        //     ],
-                                        //   ),
-                                        // )
                                       ],
                                     ),
                                     SizedBox(
                                       height: 10.h,
                                     ),
                                     GetX<CartController>(builder: (controller) {
-                                      // print(controller.cartCount);
-                                      // print(
-                                      //     "${controller.cartCount.value} count");
-
                                       return SizedBox(
                                         width: 320.w,
                                         child: controller
@@ -150,13 +147,12 @@ class MyProductCart extends StatelessWidget {
                                                     .cartProductList!.length,
                                                 shrinkWrap: true,
                                                 primary: false,
-                                                // physics: NeverScrollableScrollPhysics(),
                                                 itemBuilder: (context, index) {
                                                   CartModel cartData =
                                                       controller
                                                           .cartProductList!
                                                           .elementAt(index);
-                                                  // print(cartData.qty);
+
                                                   return ProductCard(
                                                       cartModel: cartData,
                                                       index: index);
