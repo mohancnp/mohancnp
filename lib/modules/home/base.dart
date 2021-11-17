@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/home/home.dart';
 import 'package:metrocoffee/modules/notifications/notifications.dart';
 import 'package:metrocoffee/modules/profile/contents/my_order.dart';
 import 'package:metrocoffee/modules/profile/profile_page.dart';
+import 'package:metrocoffee/modules/public/redirection_page.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
-import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
 
 class Base extends StatelessWidget {
-  List pages = [
+  List privatePages = [
     Home(),
     Notifications(),
     MyOrderPage(),
     ProfilePage(),
+  ];
+  List publicPages = [
+    Home(),
+    RedirectionPage(),
+    RedirectionPage(),
+    RedirectionPage(),
   ];
 
   @override
@@ -28,10 +33,11 @@ class Base extends StatelessWidget {
           Get.find<BaseController>().initializeData();
         },
         builder: (basecontroller) {
-          return basecontroller.userVerificationStatus ==
-                  UserVerficationStatus.verified
-              ? Scaffold(
-                  body: pages[basecontroller.currentindex],
+          var status = basecontroller.userVerificationStatus;
+          return (status == UserVerficationStatus.unverified)
+              ? LoadingPage()
+              : Scaffold(
+                  body: getPages(status, basecontroller.currentindex),
                   bottomNavigationBar: Container(
                       //  height: 83,
                       height: 83.h,
@@ -136,8 +142,14 @@ class Base extends StatelessWidget {
                           ),
                         ],
                       )),
-                )
-              : LoadingPage();
+                );
         });
+  }
+
+  getPages(UserVerficationStatus st, int index) {
+    if (st == UserVerficationStatus.unknown) {
+      return publicPages[index];
+    } else
+      return privatePages[index];
   }
 }

@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:metrocoffee/core/enums/uistate.dart';
-import 'package:metrocoffee/models/location.dart';
-import 'package:metrocoffee/models/profile.dart';
+import 'package:metrocoffee/core/models/location.dart';
 
 class MapController extends GetxController {
   Rx<CustomLocation> home = CustomLocation(
@@ -24,7 +21,7 @@ class MapController extends GetxController {
   RxList<CustomLocation> deliveryLocationList = <CustomLocation>[].obs;
   Rx<int> selectedAddressIndex = 0.obs;
   Rx<UIState> uiState = UIState.passive.obs;
-  RxList<Address> addresses = <Address>[].obs;
+  // RxList<Address> addresses = <Address>[].obs;
   addNewLocationFromMap() {}
 
   addNewDeliveryLocation(CustomLocation customLocation) {

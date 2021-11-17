@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/modules/shareables/userpreferencecontroller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/models/cart_data.dart';
 
 class UserPreference extends StatelessWidget {
-  List<CartData> orders;
   final oldContext;
-  UserPreference({Key? key, required this.orders, required this.oldContext})
-      : super(key: key);
+  UserPreference({Key? key, required this.oldContext}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +54,8 @@ class UserPreference extends StatelessWidget {
                                 fontSize: screenwidth * 0.0413),
                           ),
                         )),
-                        userpreferencecontroller.preferenceoptions(
-                            oldContext, orders),
+                        // userpreferencecontroller.preferenceoptions(
+                        //     oldContext, ),
                         Container(
                             //       height: 115,
                             height: screenwidth * 0.279,

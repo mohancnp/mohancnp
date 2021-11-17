@@ -47,7 +47,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 Container(
                   child: Image.asset(
-                    "assets/images/metro coffee logo@3x.png",
+                    "assets/images/metro_coffee_logo.png",
                     width: 54.w,
                   ),
                   padding: EdgeInsets.all(

@@ -12,6 +12,7 @@ import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
@@ -22,6 +23,7 @@ class ProductDetailPageController extends GetxController {
   ExpandableController toppingsexpandableController = ExpandableController();
   ExpandableController milksexpandableController = ExpandableController();
   ProductDetail _productDetail = ProductDetail.empty();
+
   Rx<UserOrder> userOrder = UserOrder.local(
     productVariantId: 0,
     qty: 1,
@@ -128,42 +130,57 @@ class ProductDetailPageController extends GetxController {
   }
 
   Future toggleFavoriteForId({required int id}) async {
-    if (productDetail.isFavorite != null) {
-      productDetail.isFavorite = !(productDetail.isFavorite!);
-      update();
-    }
-    var response = await _productService.toggleFavoriteProduct(id: id);
-    if (response is Map<String, dynamic>) {
-      print("toggle sucessfully sucessfull");
+    var status = Get.find<RedirectionController>().userExists;
+
+    if (status) {
+      if (productDetail.isFavorite != null) {
+        productDetail.isFavorite = !(productDetail.isFavorite!);
+        update();
+      }
+      var response = await _productService.toggleFavoriteProduct(id: id);
+      if (response is Map<String, dynamic>) {
+        print("toggle sucessfully sucessfull");
+      }
+    } else {
+      showCustomSnackBarMessage(
+          title: "Not Available", message: "Please login and Continue");
     }
   }
 
   Future addProductToCart() async {
-    var variant = productDetail.allVariants?.elementAt(selectedVariant);
-    setProductOptionValue();
-    showCustomDialog(message: "Adding to Cart");
-    var names = await getSelectedAddonNames();
-    var cartData = CartModel(
-      productId: productDetail.id ?? -1,
-      variantId: variant?.id ?? -1,
-      qty: userOrder.value.qty,
-      price: userOrder.value.amount ?? 0.0,
-      addons: jsonEncode(userOrder.value.orderProductAddons ?? []),
-      imageUri: productDetail.imageUri ?? "",
-      options: jsonEncode(userOrder.value.orderProductOptions),
-      name: productDetail.name ?? "",
-      extras: names,
-      size: variant?.name ?? " ",
-    );
-    // await Future.delayed(Duration(seconds: 2));
-    // print(jsonEncode(userOrder.value.orderProductOptions));
-    await cartController.addProductToCart(cartData.toJson());
+    var status = Get.find<RedirectionController>().userExists;
 
-    Get.back();
-    showCustomSnackBarMessage(
-        title: "Cart", message: "Item sucessfully added to cart");
+    if (status) {
+      var variant = productDetail.allVariants?.elementAt(selectedVariant);
+      setProductOptionValue();
+      showCustomDialog(message: "Adding to Cart");
+      var names = await getSelectedAddonNames();
+      var cartData = CartModel(
+        productId: productDetail.id ?? -1,
+        variantId: variant?.id ?? -1,
+        qty: userOrder.value.qty,
+        price: userOrder.value.amount ?? 0.0,
+        addons: jsonEncode(userOrder.value.orderProductAddons ?? []),
+        imageUri: productDetail.imageUri ?? "",
+        options: jsonEncode(userOrder.value.orderProductOptions),
+        name: productDetail.name ?? "",
+        extras: names,
+        size: variant?.name ?? " ",
+      );
+      // await Future.delayed(Duration(seconds: 2));
+      // print(jsonEncode(userOrder.value.orderProductOptions));
+      await cartController.addProductToCart(cartData.toJson());
 
-    // return message;
+      Get.back();
+      showCustomSnackBarMessage(
+          title: "Cart", message: "Item sucessfully added to cart");
+
+      // return message;
+
+    } else {
+      showCustomSnackBarMessage(
+          title: "Not Available", message: "Please login and Continue");
+    }
   }
 
   void setProductOptionValue() {
@@ -195,6 +212,23 @@ class ProductDetailPageController extends GetxController {
     // print("received id: $id");
     _dataState = DataState.loading;
     var prodObj = await locator<ProductService>().handleProductDetail(id: id);
+    if (prodObj != null) {
+      this._productDetail = prodObj;
+      await getProductTempOption();
+      await getSizeOptions();
+      await getToppingsOption();
+      await getMilkOptions();
+      await setPrice();
+      _dataState = DataState.loaded;
+    } else {
+      _dataState = DataState.error;
+    }
+  }
+
+  Future getPublicProductDetails({required int id}) async {
+    _dataState = DataState.loading;
+    var prodObj =
+        await locator<ProductService>().getPublicProductDetail(id: id);
     if (prodObj != null) {
       this._productDetail = prodObj;
       await getProductTempOption();

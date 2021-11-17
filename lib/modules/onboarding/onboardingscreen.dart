@@ -201,7 +201,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
   }
 
   _onPressed() {
-    Get.offAllNamed(PageName.loginpage);
+    Get.offAllNamed(PageName.homepage);
   }
 
   setTextForPage(int pageIndex) {

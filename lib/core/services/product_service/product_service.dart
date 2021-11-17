@@ -4,4 +4,7 @@ abstract class ProductService {
   Future handleProductDetail({required int id});
   Future getFavoriteProducts();
   Future toggleFavoriteProduct({required int id});
+  Future getPublicProducts();
+  Future getPublicProductsOfType({required String type});
+  Future getPublicProductDetail({required int id});
 }

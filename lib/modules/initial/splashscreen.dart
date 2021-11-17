@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/util/internet.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -38,11 +39,12 @@ class _SplashScreenState extends State<SplashScreen>
         tempStorage.initialise().then((value) {
           firsTimeUser = tempStorage.readBool(TempStorageKeys.firstTimeUser);
           authToken = tempStorage.readString(TempStorageKeys.authToken);
-          print("FTM: $firsTimeUser and auth $authToken");
+          // print("FTM: $firsTimeUser and auth $authToken");
           if (firsTimeUser != null) {
-            print("not the first time user");
+            // print("not the first time user");
             if (authToken != null) {
-              print("authenticated");
+              Get.find<RedirectionController>().userExists = true;
+              // print("authenticated");
               loginstat = 1;
             }
           } else {
@@ -188,18 +190,17 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
 // <0 means no internet, 1 means user logged in, 2 means first time user,
-// 0 menas user has been logged out
+// 0 menas user has been logged out or simply user not availbale
   void navigationPage() {
     if (loginstat < 0) {
       Get.offNamed(PageName.nointernetpage);
     } else {
       // print("login state: $loginstat");
-
       Get.offAllNamed(loginstat == 1
           ? PageName.homepage
           : loginstat == 2
               ? PageName.onboardingpage
-              : PageName.loginpage);
+              : PageName.homepage);
     }
   }
 }

@@ -12,6 +12,7 @@ import 'package:metrocoffee/core/models/order_model.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 import 'product_detail_page_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
@@ -160,7 +161,11 @@ class ProductDetailPage extends StatelessWidget {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(PageName.productCartPage);
+                                      var c = Get.find<RedirectionController>();
+                                      //navigate for only the logged in users
+                                      if (c.userExists) {
+                                        Get.toNamed(PageName.productCartPage);
+                                      }
                                     },
                                     child: Stack(
                                       children: [

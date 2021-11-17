@@ -15,6 +15,7 @@ import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/internet.dart';
@@ -119,10 +120,18 @@ class HomeTabController extends GetxController {
       await getProductsOfType(ProductType.bakery);
       await getProductsOfType(ProductType.drinks);
       await getProductsOfType(ProductType.snacks);
+      //used to display cart product count in the home page
       await Get.find<CartController>().getAllCartProducts();
       //for the all menu page
       // await getProducts();
     }
+  }
+
+  Future initializePublicData() async {
+    await getPublicProductsOfType(ProductType.drinks);
+    await getPublicProductsOfType(ProductType.bakery);
+    await getPublicProductsOfType(ProductType.snacks);
+    return true;
   }
 
 //  v-2
@@ -147,9 +156,10 @@ class HomeTabController extends GetxController {
   Future getProducts() async {
     dataState = DataState.loading;
     try {
-      await _productService.handleAllProducts();
-      dataState = DataState.loaded;
-    } on ServerException catch (e) {
+      var products = await _productService.handleAllProducts();
+      var status = await differentiateProductsType("All", products);
+      if (status) dataState = DataState.loaded;
+    } on AppException catch (e) {
       print(e.message);
       dataState = DataState.error;
     }
@@ -158,8 +168,9 @@ class HomeTabController extends GetxController {
   Future getProductsOfType(String type) async {
     dataState = DataState.loading;
     try {
-      await _productService.handleProductsOfType(type: type);
-      dataState = DataState.loaded;
+      var products = await _productService.handleProductsOfType(type: type);
+      var status = await differentiateProductsType(type, products);
+      if (status) dataState = DataState.loaded;
     } on ServerException catch (e) {
       print(e.message);
       dataState = DataState.error;
@@ -167,7 +178,8 @@ class HomeTabController extends GetxController {
   }
 
   Future addToCart(int id) async {
-    if (Get.context != null) {
+    bool verifiedUser = Get.find<RedirectionController>().userExists;
+    if (verifiedUser) {
       try {
         showCustomDialog();
         var prodObj = await getProductDetail(id);
@@ -194,6 +206,9 @@ class HomeTabController extends GetxController {
       } on ServerException catch (e) {
         print("Server Error $e");
       }
+    } else {
+      showCustomSnackBarMessage(
+          title: "Message", message: "Functionality Not Available");
     }
   }
 
@@ -204,6 +219,19 @@ class HomeTabController extends GetxController {
       return prodObj;
     } on ServerException catch (e) {
       throw (ServerException(code: e.code, message: "${e.message}"));
+    }
+  }
+
+  Future getPublicProductsOfType(String type) async {
+    //used to display cart product count in the home page
+    dataState = DataState.loading;
+    try {
+      var products = await _productService.getPublicProductsOfType(type: type);
+      var status = await differentiateProductsType(type, products);
+      if (status) dataState = DataState.loaded;
+    } on ServerException catch (e) {
+      print(e.message);
+      dataState = DataState.error;
     }
   }
 
@@ -306,6 +334,7 @@ class HomeTabController extends GetxController {
         //refreshing all the reactive list
         this.allProducts.refresh();
     }
+    return true;
   }
 
   Future organiseProducts() async {}

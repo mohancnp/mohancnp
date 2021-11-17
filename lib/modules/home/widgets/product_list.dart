@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/home/widgets/newcard.dart';
 import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 
 class ProductList extends StatelessWidget {
   final List<dynamic> products;
@@ -26,19 +27,28 @@ class ProductList extends StatelessWidget {
           var product = products[index];
           // print("$index");
           return ProductCard(
-              imageUri: product.image,
-              name: product.name,
-              id: product.id,
-              tag: tag,
-              onPressed: () {
-                // print("sent id: ${product.id}");
-                Get.find<ProductDetailPageController>()
-                    .retrieveProductDetails(id: product.id);
+            imageUri: product.image,
+            name: product.name,
+            id: product.id,
+            tag: tag,
+            price: product.price,
+            onPressed: () {
+              // print("sent id: ${product.id}");
+              var cont = Get.find<ProductDetailPageController>();
+              var rc = Get.find<RedirectionController>();
+              if (rc.userExists) {
+                cont.retrieveProductDetails(id: product.id);
 
                 Get.toNamed(PageName.productdetailpage,
                     arguments: [product.id, tag]);
-              },
-              price: product.price);
+              } else {
+                cont.getPublicProductDetails(id: product.id);
+
+                Get.toNamed(PageName.productdetailpage,
+                    arguments: [product.id, tag]);
+              }
+            },
+          );
         },
       ),
     ));

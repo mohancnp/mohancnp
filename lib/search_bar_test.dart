@@ -13,16 +13,16 @@ class SearchBarTest extends StatelessWidget {
   Widget build(BuildContext context) {
     // double screenwidth = MediaQuery.of(context).size.width;
     return Container(
-        height: (36 / 812).h,
+        height: (36 / 8.12).h,
         margin: EdgeInsets.only(
-            top: (23 / 812).h,
-            left: (28 / 375).w,
-            right: (28 / 375).w,
-            bottom: (23 / 812).h),
+            top: (23 / 8.12).h,
+            left: (28 / 3.75).w,
+            right: (28 / 3.75).w,
+            bottom: (23 / 8.12).h),
         padding: EdgeInsets.only(
             //       bottom: 4,
-            top: (10 / 812).h,
-            bottom: (10 / 812).h),
+            top: (10 / 8.12).h,
+            bottom: (10 / 8.12).h),
         width: 100.w,
         decoration: BoxDecoration(
             color: Color(0xffFFEEF1),
@@ -40,17 +40,16 @@ class SearchBarTest extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(
                   //        horizontal: 12
-                  horizontal: (12 / 375).w),
+                  horizontal: (12 / 3.75).w),
               child: Icon(
                 Ionicons.search,
                 color: Color(0xff404D4D),
                 //        size: 22,
-                size: (13 / 375).w,
+                size: (13 / 3.75).w,
               ),
             ),
             Expanded(
-                child: Container(
-                    child: TextField(
+                child: TextField(
               enabled: enabled,
               style: TextStyle(
                   fontFamily: poppinsregular,
@@ -58,7 +57,7 @@ class SearchBarTest extends StatelessWidget {
                   //     fontSize: 11.5
                   fontSize: 10.sp),
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(bottom: (11.5 / 812).h),
+                contentPadding: EdgeInsets.symmetric(vertical: (10 / 8.12).h),
                 border: InputBorder.none,
                 hintText: 'What will energize you today?',
                 hintStyle: TextStyle(
@@ -67,7 +66,7 @@ class SearchBarTest extends StatelessWidget {
                     //     fontSize: 11.5
                     fontSize: 10.sp),
               ),
-            )))
+            ))
           ]),
         ));
   }

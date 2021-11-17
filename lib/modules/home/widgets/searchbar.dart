@@ -45,8 +45,7 @@ class SearchBar extends StatelessWidget {
               ),
             ),
             Expanded(
-                child: Container(
-                    child: TextField(
+                child: TextField(
               enabled: enabled,
               style: TextStyle(
                   fontFamily: poppinsregular,
@@ -54,7 +53,7 @@ class SearchBar extends StatelessWidget {
                   //     fontSize: 11.5
                   fontSize: 10.sp),
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(bottom: 11.5.h),
+                contentPadding: EdgeInsets.symmetric(vertical: 10.h),
                 border: InputBorder.none,
                 hintText: 'What will energize you today?',
                 hintStyle: TextStyle(
@@ -63,7 +62,7 @@ class SearchBar extends StatelessWidget {
                     //     fontSize: 11.5
                     fontSize: 10.sp),
               ),
-            )))
+            ))
           ]),
         ));
   }
