@@ -5,7 +5,10 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 import 'widgets/user_data_feilds.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PersonalDataPage extends StatelessWidget {
   PersonalDataPage({Key? key}) : super(key: key);
@@ -14,8 +17,6 @@ class PersonalDataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-    double screenheight = MediaQuery.of(context).size.height;
     return GetBuilder<PersonalDataPageController>(
         initState: (v) {
           personalDataPageController.initializeFeilds();
@@ -28,11 +29,9 @@ class PersonalDataPage extends StatelessWidget {
                 physics: AlwaysScrollableScrollPhysics(),
                 child: Container(
                   padding: EdgeInsets.only(
-                    //          horizontal: 22
-
-                    bottom: screenwidth * 0.0535,
+                    bottom: 22.h,
                   ),
-                  width: screenwidth,
+                  width: 375.w,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,10 +40,10 @@ class PersonalDataPage extends StatelessWidget {
                         title: Text(
                           "PERSONAL DATA",
                           style: getpoppins(TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: darkgrey,
-                              //    fontSize: 16.5
-                              fontSize: screenwidth * 0.0401)),
+                            fontWeight: FontWeight.w400,
+                            color: darkgrey,
+                            fontSize: 16.5.sp,
+                          )),
                         ),
                         centerTitle: true,
                         leading: IconButton(
@@ -54,8 +53,7 @@ class PersonalDataPage extends StatelessWidget {
                           icon: Icon(
                             CupertinoIcons.back,
                             color: darkgrey,
-//                size: 28,
-                            size: screenwidth * 0.0681,
+                            size: 28.sp,
                           ),
                         ),
                         backgroundColor: Colors.transparent,
@@ -66,28 +64,29 @@ class PersonalDataPage extends StatelessWidget {
                         children: [
                           Container(
                             margin: EdgeInsets.only(
-                              left: screenwidth * 0.0535,
-                              right: screenwidth * 0.0535,
+                              left: 20.w,
+                              right: 20.w,
                             ),
                             padding: EdgeInsets.all(
-                                //            14
-                                screenwidth * 0.0340),
+                              14.r,
+                            ),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.white,
                                 boxShadow: [
                                   BoxShadow(
                                       color: Colors.black.withOpacity(0.05),
-                                      blurRadius: 10,
-                                      offset: Offset(0, 3))
+                                      blurRadius: 10.r,
+                                      offset: Offset(0, 3.r))
                                 ]),
                             child: personalDataPageController.imageUri != null
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(
-                                        screenwidth * 0.2007 * 0.5),
+                                      38.w,
+                                    ),
                                     child: Image.network(
                                       "$baseUrl${personaldatacontroller.imageUri!}",
-                                      width: screenwidth * 0.2007,
+                                      width: 76.w,
                                       loadingBuilder:
                                           (context, widget, imageChunkEvent) {
                                         if (imageChunkEvent == null) {
@@ -101,24 +100,36 @@ class PersonalDataPage extends StatelessWidget {
                                       fit: BoxFit.fill,
                                     ),
                                   )
-                                : Image.asset(
-                                    "assets/images/profilep.png",
-                                    //     width: 82.5,
-                                    width: screenwidth * 0.2007,
-                                    fit: BoxFit.cover,
-                                  ),
+                                : Obx(() {
+                                    var newUser =
+                                        Get.find<ProfilePageController>()
+                                            .getFirstLetterOfNameAndSurname();
+
+                                    return Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Text(
+                                        newUser,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Palette.textColor,
+                                        ),
+                                      ),
+                                    );
+                                  }),
                           )
                         ],
                       ),
                       Container(
                         margin: EdgeInsets.only(
-//                top:14,bottom: 24
-                          left: screenwidth * 0.0535,
-                          right: screenwidth * 0.0535,
-                          top: screenwidth * 0.0340,
-                          bottom: screenwidth * 0.0340,
+                          left: 20.w,
+                          right: 20.w,
+                          top: 14.w,
+                          bottom: 24.h,
                         ),
-                        width: screenwidth,
+                        width: 375.w,
                         height: 1,
                         decoration: BoxDecoration(
                           color: Color(0xffA5A5A5).withOpacity(0.4),
@@ -129,8 +140,8 @@ class PersonalDataPage extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             color: coffeecolor),
-                        width: screenwidth * 0.35,
-                        height: screenheight * 0.06,
+                        width: 130.w,
+                        height: 32.h,
                         child: MaterialButton(
                           child: Text(
                             "update",

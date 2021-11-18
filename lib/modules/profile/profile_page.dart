@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
+    // double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -27,7 +27,7 @@ class ProfilePage extends StatelessWidget {
               fontFamily: poppinsmedium,
               color: Color(0xff404D4D),
               //         fontSize: 16
-              fontSize: screenwidth * 0.0389),
+              fontSize: 16.w),
         ),
       ),
       body: SingleChildScrollView(
@@ -40,38 +40,43 @@ class ProfilePage extends StatelessWidget {
               },
               builder: (controller) {
                 return Container(
-                  width: screenwidth,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: screenwidth * 0.05839),
+                  width: 375.w,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                           padding: EdgeInsets.symmetric(
-                              //        horizontal: 8,vertical: 12
-                              horizontal: screenwidth * 0.0194,
-                              vertical: screenwidth * 0.0291),
+                            //        horizontal: 8,vertical: 12
+                            horizontal: 8.w,
+                            vertical: 12.h,
+                          ),
                           margin: EdgeInsets.only(
-                              //     bottom: 20
-                              bottom: screenwidth * 0.0486),
+                            //     bottom: 20
+                            bottom: 20.h,
+                          ),
                           decoration: BoxDecoration(
                               color: Color(0xffFBFBFB),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(9)),
+                                  BorderRadius.all(Radius.circular(9.r)),
                               boxShadow: [
                                 BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    offset: Offset(0, 3),
-                                    blurRadius: 10)
+                                  color: Colors.black.withOpacity(0.05),
+                                  offset: Offset(0, 3.r),
+                                  blurRadius: 10.r,
+                                )
                               ]),
                           child: UserInfoShort()),
                       Container(
                         margin: EdgeInsets.only(
-                            //                top:14,bottom: 24
-                            top: screenwidth * 0.0340,
-                            bottom: screenwidth * 0.0583),
-                        width: screenwidth,
+                          //                top:14,bottom: 24
+                          top: 14.h,
+                          bottom: 24.h,
+                        ),
+                        width: 375.w,
                         height: 1,
                         decoration: BoxDecoration(
                           color: Color(0xffA5A5A5).withOpacity(0.4),
@@ -83,19 +88,20 @@ class ProfilePage extends StatelessWidget {
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                              //                  vertical: 14, horizontal: 12
-                              vertical: screenwidth * 0.0340,
-                              horizontal: screenwidth * 0.0291),
+                            //                  vertical: 14, horizontal: 12
+                            vertical: 14.h,
+                            horizontal: 12.w,
+                          ),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               boxShadow: [
                                 BoxShadow(
                                     color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 10,
-                                    offset: Offset(0, 3))
+                                    blurRadius: 10.r,
+                                    offset: Offset(0, 3.r))
                               ],
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                                  BorderRadius.all(Radius.circular(10.r))),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -104,19 +110,21 @@ class ProfilePage extends StatelessWidget {
                                   FeatherIcons.user,
                                   color: Color(0xff404D4D),
                                   //       size: 18,
-                                  size: screenwidth * 0.04379,
+                                  size: 18.sp,
                                 ),
                                 Container(
                                   margin: EdgeInsets.only(
-                                      //        left: 11
-                                      left: screenwidth * 0.02676),
+                                    //        left: 11
+                                    left: 11.sp,
+                                  ),
                                   child: Text(
                                     "Personal Data",
                                     style: getpoppins(TextStyle(
-                                        color: Color(0xff404D4D),
-                                        //   fontSize: 13.5,
-                                        fontSize: screenwidth * 0.0328,
-                                        fontWeight: FontWeight.w400)),
+                                      color: Color(0xff404D4D),
+                                      //   fontSize: 13.5,
+                                      fontSize: 13.5,
+                                      fontWeight: FontWeight.w400,
+                                    )),
                                   ),
                                 )
                               ]),
@@ -124,7 +132,7 @@ class ProfilePage extends StatelessWidget {
                                 CupertinoIcons.forward,
                                 color: Color(0xff404D4D),
                                 //     size: 20,
-                                size: screenwidth * 0.0486,
+                                size: 20.w,
                               )
                             ],
                           ),
@@ -194,22 +202,23 @@ class ProfilePage extends StatelessWidget {
                         },
                         child: Container(
                           margin: EdgeInsets.only(
-                            top: screenwidth * 0.0535,
+                            top: 20.h,
                           ),
                           padding: EdgeInsets.symmetric(
-                              //                  vertical: 14, horizontal: 12
-                              vertical: screenwidth * 0.0340,
-                              horizontal: screenwidth * 0.0291),
+                            //                  vertical: 14, horizontal: 12
+                            vertical: 14.h,
+                            horizontal: 12.w,
+                          ),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               boxShadow: [
                                 BoxShadow(
                                     color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 10,
-                                    offset: Offset(0, 3))
+                                    blurRadius: 10.r,
+                                    offset: Offset(0, 3.r))
                               ],
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                                  BorderRadius.all(Radius.circular(10.r))),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -218,19 +227,21 @@ class ProfilePage extends StatelessWidget {
                                   FeatherIcons.heart,
                                   color: Color(0xff404D4D),
                                   //       size: 18,
-                                  size: screenwidth * 0.04379,
+                                  size: 18.sp,
                                 ),
                                 Container(
                                   margin: EdgeInsets.only(
-                                      //        left: 11
-                                      left: screenwidth * 0.02676),
+                                    //        left: 11
+                                    left: 11.w,
+                                  ),
                                   child: Text(
                                     "My Favorites",
                                     style: getpoppins(TextStyle(
-                                        color: Color(0xff404D4D),
-                                        //   fontSize: 13.5,
-                                        fontSize: screenwidth * 0.0328,
-                                        fontWeight: FontWeight.w400)),
+                                      color: Color(0xff404D4D),
+                                      //   fontSize: 13.5,
+                                      fontSize: 13.5.sp,
+                                      fontWeight: FontWeight.w400,
+                                    )),
                                   ),
                                 )
                               ]),
@@ -238,7 +249,7 @@ class ProfilePage extends StatelessWidget {
                                 CupertinoIcons.forward,
                                 color: Color(0xff404D4D),
                                 //     size: 20,
-                                size: screenwidth * 0.0486,
+                                size: 20.sp,
                               )
                             ],
                           ),
@@ -246,22 +257,23 @@ class ProfilePage extends StatelessWidget {
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                          top: screenwidth * 0.0535,
+                          top: 20.h,
                         ),
                         padding: EdgeInsets.symmetric(
-                            //                  vertical: 14, horizontal: 12
-                            vertical: screenwidth * 0.0340,
-                            horizontal: screenwidth * 0.0291),
+                          //                  vertical: 14, horizontal: 12
+                          vertical: 14.h,
+                          horizontal: 12.w,
+                        ),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.black.withOpacity(0.05),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3))
+                                  blurRadius: 10.r,
+                                  offset: Offset(0, 3.r))
                             ],
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10.r))),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -270,19 +282,21 @@ class ProfilePage extends StatelessWidget {
                                 Icons.supervised_user_circle_sharp,
                                 color: Color(0xff404D4D),
                                 //       size: 18,
-                                size: screenwidth * 0.04379,
+                                size: 18.sp,
                               ),
                               Container(
                                 margin: EdgeInsets.only(
-                                    //        left: 11
-                                    left: screenwidth * 0.02676),
+                                  //        left: 11
+                                  left: 11.w,
+                                ),
                                 child: Text(
                                   "Referral Code",
                                   style: getpoppins(TextStyle(
-                                      color: Color(0xff404D4D),
-                                      //   fontSize: 13.5,
-                                      fontSize: screenwidth * 0.0328,
-                                      fontWeight: FontWeight.w400)),
+                                    color: Color(0xff404D4D),
+                                    //   fontSize: 13.5,
+                                    fontSize: 13.5.sp,
+                                    fontWeight: FontWeight.w400,
+                                  )),
                                 ),
                               )
                             ]),
@@ -290,29 +304,30 @@ class ProfilePage extends StatelessWidget {
                               CupertinoIcons.forward,
                               color: Color(0xff404D4D),
                               //     size: 20,
-                              size: screenwidth * 0.0486,
+                              size: 20.sp,
                             )
                           ],
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                          top: screenwidth * 0.0535,
+                          top: 20.h,
                         ),
                         padding: EdgeInsets.symmetric(
-                            //                  vertical: 14, horizontal: 12
-                            vertical: screenwidth * 0.0340,
-                            horizontal: screenwidth * 0.0291),
+                          //                  vertical: 14, horizontal: 12
+                          vertical: 14.h,
+                          horizontal: 12.w,
+                        ),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.black.withOpacity(0.05),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 3))
+                                  blurRadius: 10.r,
+                                  offset: Offset(0, 3.r))
                             ],
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10.r))),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -321,18 +336,19 @@ class ProfilePage extends StatelessWidget {
                                 FeatherIcons.settings,
                                 color: Color(0xff404D4D),
                                 //       size: 18,
-                                size: screenwidth * 0.04379,
+                                size: 18.r,
                               ),
                               Container(
                                 margin: EdgeInsets.only(
-                                    //        left: 11
-                                    left: screenwidth * 0.02676),
+                                  //        left: 11
+                                  left: 11.w,
+                                ),
                                 child: Text(
                                   "Settings",
                                   style: getpoppins(TextStyle(
                                       color: Color(0xff404D4D),
                                       //   fontSize: 13.5,
-                                      fontSize: screenwidth * 0.0328,
+                                      fontSize: 13.5.sp,
                                       fontWeight: FontWeight.w400)),
                                 ),
                               )
@@ -341,7 +357,7 @@ class ProfilePage extends StatelessWidget {
                               CupertinoIcons.forward,
                               color: Color(0xff404D4D),
                               //     size: 20,
-                              size: screenwidth * 0.0486,
+                              size: 20.sp,
                             )
                           ],
                         ),
@@ -353,22 +369,23 @@ class ProfilePage extends StatelessWidget {
                             onTap: profileController.logout,
                             child: Container(
                               margin: EdgeInsets.only(
-                                top: screenwidth * 0.0535,
+                                top: 20.h,
                               ),
                               padding: EdgeInsets.symmetric(
-                                  //                  vertical: 14, horizontal: 12
-                                  vertical: screenwidth * 0.0340,
-                                  horizontal: screenwidth * 0.0291),
+                                //                  vertical: 14, horizontal: 12
+                                vertical: 14.h,
+                                horizontal: 12.w,
+                              ),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
                                         color: Colors.black.withOpacity(0.05),
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3))
+                                        blurRadius: 10.r,
+                                        offset: Offset(0, 3.r))
                                   ],
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
+                                      BorderRadius.all(Radius.circular(10.r))),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -378,19 +395,21 @@ class ProfilePage extends StatelessWidget {
                                       FeatherIcons.logOut,
                                       color: Color(0xff404D4D),
                                       //       size: 18,
-                                      size: screenwidth * 0.04379,
+                                      size: 18.r,
                                     ),
                                     Container(
                                       margin: EdgeInsets.only(
-                                          //        left: 11
-                                          left: screenwidth * 0.02676),
+                                        //        left: 11
+                                        left: 11.w,
+                                      ),
                                       child: Text(
                                         "Log Out",
                                         style: getpoppins(TextStyle(
-                                            color: Color(0xff404D4D),
-                                            //   fontSize: 13.5,
-                                            fontSize: screenwidth * 0.0328,
-                                            fontWeight: FontWeight.w400)),
+                                          color: Color(0xff404D4D),
+                                          //   fontSize: 13.5,
+                                          fontSize: 13.5.sp,
+                                          fontWeight: FontWeight.w400,
+                                        )),
                                       ),
                                     )
                                   ]),
@@ -398,7 +417,7 @@ class ProfilePage extends StatelessWidget {
                                     CupertinoIcons.forward,
                                     color: Color(0xff404D4D),
                                     //     size: 20,
-                                    size: screenwidth * 0.0486,
+                                    size: 20.w,
                                   )
                                 ],
                               ),

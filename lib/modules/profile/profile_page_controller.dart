@@ -32,6 +32,22 @@ class ProfilePageController extends GetxController {
     return _newUser.value;
   }
 
+  String getFirstLetterOfNameAndSurname() {
+    var user = this.newUser;
+    String imagePlaceHolder = "N/A";
+    if (user.imageUri == null && user.name != null) {
+      imagePlaceHolder = "";
+      imagePlaceHolder = user.name?.substring(0, 1).toUpperCase() ?? "N";
+      var surname = user.name?.split(" ")[1];
+      var length = surname?.length ?? 0;
+      if (length > 0) {
+        imagePlaceHolder =
+            imagePlaceHolder + surname!.substring(0, 1).toUpperCase();
+      }
+    }
+    return imagePlaceHolder;
+  }
+
   Future logout() async {
     // Get.defaultDialog(
     //     content: SizedBox(

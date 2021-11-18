@@ -7,16 +7,18 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page_controller.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/modules/shareables/widgets/change_password_feild.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 import '../../core/theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChangePasswordPage extends StatelessWidget {
   ChangePasswordPage({Key? key}) : super(key: key);
   final PersonalDataPageController personalDataPageController =
       Get.find<PersonalDataPageController>();
   final controller = Get.find<ProfilePageController>();
+
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<PersonalDataPageController>(
         initState: (v) {
           personalDataPageController.currentpasswordcontroller.text = "";
@@ -36,15 +38,15 @@ class ChangePasswordPage extends StatelessWidget {
                 : GestureDetector(
                     onTap: () {},
                     child: AnimatedContainer(
-                      height: 42,
-                      width: 295,
+                      height: 42.h,
+                      width: 295.w,
                       duration: Duration(milliseconds: 250),
                       decoration: BoxDecoration(
                         color: Colors.greenAccent,
-                        borderRadius: BorderRadius.all(Radius.circular(24)),
+                        borderRadius: BorderRadius.all(Radius.circular(24.r)),
                       ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 11, horizontal: 14),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 11.h, horizontal: 14.w),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -52,17 +54,18 @@ class ChangePasswordPage extends StatelessWidget {
                           Icon(
                             FeatherIcons.check,
                             color: Colors.white,
-                            size: 24,
+                            size: 24.r,
                           ),
                           Container(
-                            margin: EdgeInsets.only(left: 11),
+                            margin: EdgeInsets.only(left: 11.w),
                             child: Center(
                               child: Text(
                                 "Password changes successfully",
                                 style: getpoppins(TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white,
-                                    fontSize: 14.5)),
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                  fontSize: 14.5.sp,
+                                )),
                               ),
                             ),
                           )
@@ -74,7 +77,7 @@ class ChangePasswordPage extends StatelessWidget {
             body: SingleChildScrollView(
               physics: AlwaysScrollableScrollPhysics(),
               child: Container(
-                width: screenwidth,
+                width: 375.w,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,10 +86,10 @@ class ChangePasswordPage extends StatelessWidget {
                       title: Text(
                         "NEW PASSWORD",
                         style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: darkgrey,
-                            //    fontSize: 16.5
-                            fontSize: screenwidth * 0.0401)),
+                          fontWeight: FontWeight.w500,
+                          color: darkgrey,
+                          fontSize: 16.5,
+                        )),
                       ),
                       centerTitle: true,
                       leading: IconButton(
@@ -98,8 +101,7 @@ class ChangePasswordPage extends StatelessWidget {
                         icon: Icon(
                           CupertinoIcons.back,
                           color: darkgrey,
-//                size: 28,
-                          size: screenwidth * 0.0681,
+                          size: 28.r,
                         ),
                       ),
                       backgroundColor: Colors.transparent,
@@ -107,11 +109,10 @@ class ChangePasswordPage extends StatelessWidget {
                     ),
                     Container(
                       padding: EdgeInsets.only(
-                        //          horizontal: 22
-                        left: screenwidth * 0.0535,
-                        right: screenwidth * 0.0535,
+                        left: 22.w,
+                        right: 22.w,
                       ),
-                      width: screenwidth,
+                      width: 375.w,
                       child: Obx(() {
                         var user = controller.newUser;
                         return Row(
@@ -119,34 +120,49 @@ class ChangePasswordPage extends StatelessWidget {
                           children: [
                             Container(
                               margin: EdgeInsets.only(
-                                left: screenwidth * 0.0535,
-                                right: screenwidth * 0.0535,
+                                left: 20.w,
+                                right: 20.w,
                               ),
                               padding: EdgeInsets.all(
-                                  //            14
-                                  screenwidth * 0.0340),
+                                14.r,
+                              ),
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
                                         color: Colors.black.withOpacity(0.05),
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3))
+                                        blurRadius: 10.r,
+                                        offset: Offset(0, 3.r))
                                   ]),
                               child: user.imageUri == null
-                                  ? Image.asset(
-                                      "assets/images/profilep.png",
-                                      fit: BoxFit.cover,
-                                    )
+                                  ? Obx(() {
+                                      var newUser = controller
+                                          .getFirstLetterOfNameAndSurname();
+
+                                      return Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Text(
+                                          newUser,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.textColor,
+                                          ),
+                                        ),
+                                      );
+                                    })
                                   : ClipRRect(
                                       borderRadius: BorderRadius.circular(
-                                          screenwidth * 0.1733 * 0.5),
+                                        32.r,
+                                      ),
                                       child: Image.network(
                                         "$baseUrl${user.imageUri}",
                                         fit: BoxFit.cover,
-                                        height: screenwidth * 0.1733,
-                                        width: screenwidth * 0.1733,
+                                        height: 64.r,
+                                        width: 64.r,
                                         loadingBuilder:
                                             (context, widget, imageProgress) {
                                           if (imageProgress == null) {
@@ -168,21 +184,20 @@ class ChangePasswordPage extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-//                top:14,bottom: 24
-                        top: screenwidth * 0.0340,
-                        bottom: screenwidth * 0.0340,
+                        top: 14.h,
+                        bottom: 24.h,
                       ),
-                      width: screenwidth,
-                      height: 1,
+                      width: 375.w,
+                      height: 1.h,
                       decoration: BoxDecoration(
                         color: Color(0xffA5A5A5).withOpacity(0.4),
                       ),
                     ),
                     Container(
-                      width: screenwidth,
+                      width: 375.w,
                       padding: EdgeInsets.only(
-                        left: screenwidth * 0.0535,
-                        right: screenwidth * 0.0535,
+                        left: 20.w,
+                        right: 20.w,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -192,8 +207,7 @@ class ChangePasswordPage extends StatelessWidget {
                               "Create new password",
                               style: getpoppins(TextStyle(
                                   fontWeight: FontWeight.w500,
-//                                  fontSize: 22.5,
-                                  fontSize: screenwidth * 0.0547,
+                                  fontSize: 22.5.sp,
                                   color: darkgrey)),
                             ),
                           )
@@ -201,25 +215,24 @@ class ChangePasswordPage extends StatelessWidget {
                       ),
                     ),
                     Container(
-                        width: screenwidth,
+                        width: 375.w,
                         padding: EdgeInsets.only(
-                          left: screenwidth * 0.0535,
-                          right: screenwidth * 0.0535,
+                          left: 20.w,
+                          right: 20.w,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
                               margin: EdgeInsets.only(
-//                                  top: 6, bottom: 32
-                                  top: screenwidth * 0.0145,
-                                  bottom: screenwidth * 0.0778),
+                                top: 6.h,
+                                bottom: 32.h,
+                              ),
                               child: Text(
                                 "Your new password must be different\nfrom previous used passwords.",
                                 style: getpoppins(TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  //       fontSize: 12.5,
-                                  fontSize: screenwidth * 0.0304,
+                                  fontSize: 12.5.sp,
                                   color: darkgrey.withOpacity(0.66),
                                 )),
                               ),
@@ -235,33 +248,31 @@ class ChangePasswordPage extends StatelessWidget {
                         onTap: personalDataPageController.changePassword,
                         child: Container(
                           margin: EdgeInsets.only(
-                              //          horizontal: 22
-                              left: screenwidth * 0.0535,
-                              right: screenwidth * 0.0535,
-//          top: 26
-                              top: screenwidth * 0.0632),
-//      width: 267,height: 46,
-                          width: screenwidth * 0.6496,
-                          height: screenwidth * 0.1119,
+                            left: 22.w,
+                            right: 22.w,
+                            top: 26.h,
+                          ),
+                          width: 268.w,
+                          height: 46.h,
                           decoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                                  BorderRadius.all(Radius.circular(10.r)),
                               color: coffeecolor,
                               boxShadow: [
                                 BoxShadow(
                                     color:
                                         Color(0xffC3916A4D).withOpacity(0.38),
-                                    blurRadius: 30,
-                                    offset: Offset(0, 9))
+                                    blurRadius: 30.r,
+                                    offset: Offset(0, 9.h))
                               ]),
                           child: Center(
                             child: Text(
                               "Change Password",
                               style: getpoppins(TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.white,
-                                  //    fontSize: 14.5
-                                  fontSize: screenwidth * 0.0352)),
+                                fontWeight: FontWeight.w300,
+                                color: Colors.white,
+                                fontSize: 14.5,
+                              )),
                             ),
                           ),
                         ))

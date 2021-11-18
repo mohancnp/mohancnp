@@ -22,13 +22,6 @@ class UserInfoShort extends StatelessWidget {
       children: [
         GetX<ProfilePageController>(builder: (controller) {
           User user = controller.newUser;
-          var firstLetter = "N";
-          var secondLetter = "/A";
-          if (user.imageUri == null && user.name != null) {
-            firstLetter = user.name!.substring(0, 1).toUpperCase();
-            secondLetter =
-                user.name!.split(" ")[1].substring(0, 1).toUpperCase();
-          }
 
           return Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -51,7 +44,7 @@ class UserInfoShort extends StatelessWidget {
                           shape: BoxShape.circle,
                         ),
                         child: Text(
-                          "$firstLetter $secondLetter ",
+                          controller.getFirstLetterOfNameAndSurname(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Palette.textColor,
