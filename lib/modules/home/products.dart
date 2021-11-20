@@ -34,13 +34,14 @@ class ProductsPage extends StatelessWidget {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           ProductList(
             products: pList,
             tag: "pList",
           ),
           Padding(
-            padding: EdgeInsets.only(left: 28.w, top: 23.h, bottom: 16.h),
+            padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
             child: Text(
               "Most Popular",
               style: TextStyle(
@@ -52,7 +53,7 @@ class ProductsPage extends StatelessWidget {
             tag: "mpList",
           ),
           Padding(
-            padding: EdgeInsets.only(left: 28.w, top: 23.h, bottom: 16.h),
+            padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
             child: Text(
               "Recommended",
               style: TextStyle(

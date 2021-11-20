@@ -30,6 +30,7 @@ class Base extends StatelessWidget {
     return GetBuilder<BaseController>(
         init: BaseController(),
         initState: (v) {
+          print("Initstate called");
           Get.find<BaseController>().initializeData();
         },
         builder: (basecontroller) {

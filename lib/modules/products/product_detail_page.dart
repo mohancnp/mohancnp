@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -6,19 +7,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
-import 'package:metrocoffee/modules/cart/cart_controller.dart';
-import 'package:metrocoffee/modules/public/redirection_controller.dart';
-import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
-import 'product_detail_page_controller.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'widgets/addons_widget.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+
+import 'product_detail_page_controller.dart';
+import 'widgets/addons_widget.dart';
 import 'widgets/milk_options_widget.dart';
 import 'widgets/product_count_widget.dart';
 import 'widgets/size_options_widget.dart';
@@ -29,7 +30,7 @@ class ProductDetailPage extends StatelessWidget {
   ProductDetailPage({Key? key}) : super(key: key);
   final controller = Get.find<ProductDetailPageController>();
   final cartController = Get.find<CartController>();
-
+ 
   @override
   Widget build(BuildContext context) {
     timeDilation = 1;
@@ -53,6 +54,7 @@ class ProductDetailPage extends StatelessWidget {
             orderProductAddons: [],
             orderProductOptions: [],
           );
+          controller.pressed=false;
           cartController.getAllCartProducts();
         },
         builder: (controller) {
@@ -86,15 +88,17 @@ class ProductDetailPage extends StatelessWidget {
                                     fontSize: 26.sp,
                                     fontWeight: FontWeight.w500)),
                               ),
-                              Container(
+                              AnimatedContainer(
+                                duration: Duration(milliseconds: 1000),
                                 height: 47.h,
-                                width: 212.w,
+                                width:pC.pressed ? 212.w : 180,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
                                   color: Palette.coffeeColor,
                                 ),
                                 child: TextButton.icon(
                                     onPressed: () async {
+                                      controller.pressed = true;
                                       await controller.addProductToCart();
                                       await cartController.getAllCartProducts();
                                     },

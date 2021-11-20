@@ -40,10 +40,12 @@ class User {
       "email": this.email,
       "gender": this.gender,
       "job": this.job,
+      
     };
-    if (this.imageData != null) {
-      user["profile_pic"] = this.imageData;
-    }
+
+    // if (this.imageData != null) {     
+    //   user["profile_pic"] = this.imageData;
+    // }
     if (this.phone != null) {
       user["phone"] = this.phone;
     }

@@ -2,17 +2,16 @@ import 'dart:convert';
 
 import 'package:expandable/expandable.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
-import 'package:metrocoffee/core/models/cart_model.dart';
-import 'package:metrocoffee/core/services/product_service/product_service_impl.dart';
-import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/core/constants/icons/product_option_name.dart';
 import 'package:metrocoffee/core/constants/variants_type.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
+import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
+import 'package:metrocoffee/core/models/cart_model.dart';
+import 'package:metrocoffee/core/models/order_model.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
-import 'package:metrocoffee/core/models/order_model.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
@@ -24,6 +23,7 @@ class ProductDetailPageController extends GetxController {
   ExpandableController toppingsexpandableController = ExpandableController();
   ExpandableController milksexpandableController = ExpandableController();
   ProductDetail _productDetail = ProductDetail.empty();
+  bool _pressed = false;
 
   Rx<UserOrder> userOrder = UserOrder.local(
     productVariantId: 0,
@@ -57,6 +57,14 @@ class ProductDetailPageController extends GetxController {
     "Coconut Milk",
     "Skim Milk"
   ];
+  bool get pressed {
+    return _pressed;
+  }
+
+  set pressed(p) {
+    this._pressed = p;
+    update();
+  }
 
   void increaseCount() {
     ++this.userOrder.value.qty;
@@ -167,15 +175,17 @@ class ProductDetailPageController extends GetxController {
       extras: names,
       size: variant?.name ?? " ",
     );
+    // print(cartData.toJson());
     try {
       await cartController.addProductToCart(cartData.toJson());
+    Get.back();
+    showCustomSnackBarMessage(
+        title: "Cart", message: "Item sucessfully added to cart");
+
     } on AppException catch (e) {
       Get.back();
       showCustomSnackBarMessage(title: "Cart", message: e.message);
     }
-    Get.back();
-    showCustomSnackBarMessage(
-        title: "Cart", message: "Item sucessfully added to cart");
   }
 
   void setProductOptionValue() {

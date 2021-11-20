@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
@@ -46,12 +49,28 @@ class ProfileServiceImpl extends ProfileService {
   }
 
   @override
-  Future updateProfile({required Map<String, dynamic> profileData}) async {
+  Future updateProfile(
+      {required final Map<String, dynamic> profileData,
+      File? imageData}) async {
     var remoteSource = RemoteSourceImpl();
+    var newMap = FormData.fromMap(profileData);
+    if (imageData != null) {
+      var image =
+          await MultipartFile.fromFile(imageData.path, filename: "image.png");
+      // profileData["profile_pic"] = null;
+      // profileData.update("profile_pic", (value) => image);
+      newMap = FormData.fromMap({
+        "name":profileData["name"],
+        "email":profileData["email"],
+        "profile_pic":image,
+      });
+    }
 
     try {
-      var afterUpdate = await remoteSource.put('$baseUrl/api/profile/update',
-          body: profileData);
+      var afterUpdate = await remoteSource.put(
+        '$baseUrl/api/profile/update',
+        body: newMap,
+      );
 
       if (afterUpdate is Map<String, dynamic>) {
         return afterUpdate;

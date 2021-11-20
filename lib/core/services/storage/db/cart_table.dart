@@ -26,7 +26,7 @@ class CartHandlerDB {
           await db.delete(Table.cart, where: 'productId = ?', whereArgs: [id]);
       print('remove status $status');
     } on Exception catch (e) {
-      print("Error removing from the cart");
+      print("Error removing from the cart: $e");
     }
     return status;
   }
@@ -38,7 +38,7 @@ class CartHandlerDB {
       print('Number of data removed $status');
       return status;
     } on Exception catch (e) {
-      print("Error removing from the cart");
+      print("Error removing from the cart $e");
     }
   }
 

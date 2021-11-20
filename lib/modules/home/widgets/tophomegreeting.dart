@@ -34,7 +34,7 @@ class TopHomeGreeting extends StatelessWidget {
                     GetX<HomeTabController>(builder: (controller) {
                       var user = controller.user;
                       var firstName = "...";
-                      firstName = user.name?.split(' ').elementAt(0) ?? "User";
+                      firstName = user.name?.split(' ').elementAt(0) ?? "Caffeinator";
                       return Container(
                           child: Text(
                         int.parse(DateFormat.H('en_US')

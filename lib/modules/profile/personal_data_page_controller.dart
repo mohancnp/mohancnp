@@ -1,11 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/user_model.dart';
 import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
-
 import 'profile_page_controller.dart';
 
 class PersonalDataPageController extends GetxController {
@@ -17,18 +19,28 @@ class PersonalDataPageController extends GetxController {
   TextEditingController newpasswordcontroller = TextEditingController();
   TextEditingController confirmpasswordcontroller = TextEditingController();
   var _profileService = locator.get<ProfileService>();
-
   bool obscurecurrentpassword = true;
   String? gender;
   bool changesmade = false;
   bool passwordchangedsuccesfully = false;
   String? imageUri;
   String? errorMessage;
+  File? _imageData;
+
   final profileController = Get.find<ProfilePageController>();
 
   setpasswordchangestate() {
     passwordchangedsuccesfully = !passwordchangedsuccesfully;
     update();
+  }
+
+  set imageData(imd) {
+    _imageData = imd;
+    // update();
+  }
+
+  get imageData {
+    return _imageData;
   }
 
   setchangesmadetrue() {
@@ -60,9 +72,20 @@ class PersonalDataPageController extends GetxController {
     imageUri = profileController.newUser.imageUri;
   }
 
-  updateUserInfoInDbAndServer() async {
-    //todo: add code to implement server user update
+  Future getUserImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (image != null) {
+      imageData = File(image.path);
+      print("Image not null");
+    } else {
+      print("null image data");
+    }
+  }
 
+  updateUserInfoInDbAndServer() async {
     Get.defaultDialog(
         content: SizedBox(
       height: 50,
@@ -79,8 +102,11 @@ class PersonalDataPageController extends GetxController {
     // print(user.toJson());
 
     try {
-      var result =
-          await _profileService.updateProfile(profileData: user.toJson());
+      var result = await _profileService.updateProfile(
+        profileData: user.toJson(),
+        imageData: imageData,
+      );
+      print(result['data']);
       User updatedUser = User.fromJson(result["data"]);
       namecontroller.text = updatedUser.name ?? " ";
       emailcontroller.text = updatedUser.email ?? " ";
@@ -88,7 +114,7 @@ class PersonalDataPageController extends GetxController {
       jobcontroller.text = updatedUser.job ?? " ";
       profileController.newUser = updatedUser;
       Get.find<HomeTabController>().user = updatedUser;
-      // print(result);
+
       if (result != null) {
         Get.back();
         showSnackBarWithMsg("Profile", "update sucessfull!");

@@ -1,4 +1,5 @@
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
+import 'package:metrocoffee/core/models/user_model.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/storage/db/core.dart';
 import 'package:metrocoffee/core/services/storage/db/dbfeilds.dart';
@@ -9,16 +10,31 @@ class CartServiceImpl extends CartService {
   @override
   Future<int> addProductToCart(Map<String, dynamic> product) async {
     var db = locator<DbStorage>().db;
+    // print("product in cart service: $product");
 
     try {
       var data = await db.query(Table.cart,
-          columns: ['id', 'productId', 'price', 'variantId', 'qty', 'name'],
-          where: 'productId = ?',
-          whereArgs: [product['productId']]);
+          columns: [
+            CartFeild.id,
+            CartFeild.productId,
+            CartFeild.price,
+            CartFeild.variantId,
+            CartFeild.qty,
+            CartFeild.name,
+          ],
+          where: '${CartFeild.productId} = ?',
+          whereArgs: [product[CartFeild.productId]]);
+      // print("product count $data");
       var count;
       if (data.length > 0) {
         //update
-        count = db.update(Table.cart, product);
+        // where: '$columnId = ?', whereArgs: [todo.id]
+        count = db.update(
+          Table.cart,
+          product,
+          where: "${CartFeild.productId} = ?",
+          whereArgs:[product[CartFeild.productId]] 
+        );
       } else {
         //insert
         count = await db.insert(Table.cart, product);
@@ -50,7 +66,7 @@ class CartServiceImpl extends CartService {
     try {
       var count =
           await db.delete(Table.cart, where: 'productId = ?', whereArgs: [id]);
-      print('removed item $count');
+      // print('removed item $count');
       return count;
     } on Exception catch (e) {
       print("Error $e");

@@ -130,7 +130,7 @@ class UserInfoShort extends StatelessWidget {
                           children: [TopUpRewardDialog()]));
                 });
           },
-          child: Container(
+          child: SizedBox(
               height: 60.r,
               width: 60.r,
               child: Stack(children: [
@@ -147,24 +147,26 @@ class UserInfoShort extends StatelessWidget {
                               color: Color(0xff5AB898),
                               width: 2.5,
                             )),
-                        child: Center(
-                          child: Obx(() {
-                            final profileController =
-                                Get.find<ProfilePageController>();
+                        child: Obx(() {
+                          final profileController =
+                              Get.find<ProfilePageController>();
 
-                            return Text(
+                          return Center(
+                            child: Text(
                               profileController.newUser.points == null
                                   ? "0"
                                   : "${profileController.newUser.points}",
-                              style: getpoppins(TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff404D4D),
-                                //         fontSize: 17
-                                fontSize: 17.sp,
-                              )),
-                            );
-                          }),
-                        ))),
+                              style: getpoppins(
+                                TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xff404D4D),
+                                  //         fontSize: 17
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                            ),
+                          );
+                        }))),
                 Positioned(
                     top: 0,
                     right: 0,

@@ -15,41 +15,44 @@ class ProductList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
         child: Container(
-      height: 208.h,
+      // height: 224.h,
       padding: EdgeInsets.only(left: 13.w),
       color: Color(0xFFF3F5F5),
-      child: ListView.builder(
-        itemCount: products.length,
-        scrollDirection: Axis.horizontal,
-        clipBehavior: Clip.none,
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          var product = products[index];
-          // print("$index");
-          return ProductCard(
-            imageUri: product.image,
-            name: product.name,
-            id: product.id,
-            tag: tag,
-            price: product.price,
-            onPressed: () {
-              // print("sent id: ${product.id}");
-              var cont = Get.find<ProductDetailPageController>();
-              var rc = Get.find<RedirectionController>();
-              if (rc.userExists) {
-                cont.retrieveProductDetails(id: product.id);
-
-                Get.toNamed(PageName.productdetailpage,
-                    arguments: [product.id, tag]);
-              } else {
-                cont.getPublicProductDetails(id: product.id);
-
-                Get.toNamed(PageName.productdetailpage,
-                    arguments: [product.id, tag]);
-              }
-            },
-          );
-        },
+      child: LimitedBox(
+        maxHeight: 250.h,
+        child: ListView.builder(
+          itemCount: products.length,
+          scrollDirection: Axis.horizontal,
+          clipBehavior: Clip.none,
+          shrinkWrap: true,
+          physics: BouncingScrollPhysics(),
+          itemBuilder: (context, index) {
+            var product = products[index];
+            // print("$index");
+            return ProductCard(
+              imageUri: product.image,
+              name: product.name,
+              id: product.id,
+              tag: tag,
+              price: product.price,
+              onPressed: () {
+                var cont = Get.find<ProductDetailPageController>();
+                var rc = Get.find<RedirectionController>();
+                if (rc.userExists) {
+                  cont.retrieveProductDetails(id: product.id);
+      
+                  Get.toNamed(PageName.productdetailpage,
+                      arguments: [product.id, tag]);
+                } else {
+                  cont.getPublicProductDetails(id: product.id);
+      
+                  Get.toNamed(PageName.productdetailpage,
+                      arguments: [product.id, tag]);
+                }
+              },
+            );
+          },
+        ),
       ),
     ));
   }

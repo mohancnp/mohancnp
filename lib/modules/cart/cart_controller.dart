@@ -100,6 +100,7 @@ class CartController extends GetxController {
 
   Future<String> addProductToCart(Map<String, dynamic> orderData) async {
     var message = "";
+    // print("item to cart: $orderData");
     try {
       var count = await cartService.addProductToCart(orderData);
       if (count > 0) {

@@ -24,10 +24,11 @@ class ProfilePage extends StatelessWidget {
         title: Text(
           "PROFILE",
           style: TextStyle(
-              fontFamily: poppinsmedium,
-              color: Color(0xff404D4D),
-              //         fontSize: 16
-              fontSize: 16.w),
+            fontFamily: poppinsmedium,
+            color: Color(0xff404D4D),
+            //         fontSize: 16
+            fontSize: 16.w,
+          ),
         ),
       ),
       body: SingleChildScrollView(

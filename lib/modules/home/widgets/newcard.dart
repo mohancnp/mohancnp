@@ -29,13 +29,17 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 136.w,
+      // height: 201.w,
       // clipBehavior: Clip.none,
       margin: EdgeInsets.only(
-        left: 15.w,
+        left: 16.w,
         bottom: 5.h,
       ),
-      padding:
-          EdgeInsets.only(left: 10.w, top: 10.h, right: 10.w, bottom: 10.h),
+      padding: EdgeInsets.only(
+        left: 10.w,
+        top: 10.h,
+        right: 10.w,
+      ),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r),
           color: Colors.white,
@@ -43,10 +47,11 @@ class ProductCard extends StatelessWidget {
           shape: BoxShape.rectangle,
           boxShadow: [
             BoxShadow(
-                offset: Offset(0, 3.h),
-                color: Color(0x29000000),
-                // spreadRadius: 2.r,
-                blurRadius: 15.r)
+              offset: Offset(0, 3.h),
+              color: Color(0x29000000),
+              // spreadRadius: 2.r,
+              blurRadius: 15.r,
+            )
           ]),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,36 +66,38 @@ class ProductCard extends StatelessWidget {
                   onTap: onPressed,
                   child: Image.network(
                     "$baseUrl$imageUri",
+                    height: 116.w,
+                    width: 116.w,
                     // color: Colors.blue,
                     fit: BoxFit.cover,
                     loadingBuilder: (context, widget, imageProgress) {
                       if (imageProgress == null) {
                         return widget;
                       }
-                      return Container(
+                      return SizedBox(
+                        height: 116.w,
                         width: 116.w,
-                        height: 116.h,
                         child: SpinKitCubeGrid(
                           color: Palette.coffeeColor,
                         ),
                       );
                     },
-                    height: 116.h,
-                    width: 116.w,
                   ),
                 ),
               ),
             ),
           ),
-          Expanded(
-              child: Text(
+          SizedBox(
+            height: 11.h,
+          ),
+          Text(
             "$name",
             style: getpoppins(TextStyle(
               color: Color(0xFF404D4D),
               fontSize: 12.sp,
               fontFamily: poppinsmedium,
             )),
-          )),
+          ),
           SizedBox(height: 9.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,20 +112,20 @@ class ProductCard extends StatelessWidget {
               GestureDetector(
                 onTap: () => Get.find<HomeTabController>().addToCart(id),
                 child: Container(
-                  width: 28.w,
-                  height: 28.w,
+                  width: 28.r,
+                  height: 28.r,
                   // margin: EdgeInsets.only(right: 10.w),
                   child: Icon(
                     Icons.add,
                     color: Colors.white,
-                    size: 16.w,
+                    size: 16.r,
                   ),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: coffeecolor,
                       boxShadow: [
                         BoxShadow(
-                            offset: Offset(0, 3),
+                            offset: Offset(0, 3.h),
                             color: Color(0x62722030),
                             blurRadius: 10.r)
                       ]),
