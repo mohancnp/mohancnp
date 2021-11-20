@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
@@ -64,8 +65,9 @@ class ProductCard extends StatelessWidget {
                       if (imageProgress == null) {
                         return widget;
                       } else
-                        return CircularProgressIndicator(
+                        return SpinKitRing(
                           color: Palette.coffeeColor,
+                          size: 20.w,
                         );
                     },
                     errorBuilder: (context, object, stackTrace) {

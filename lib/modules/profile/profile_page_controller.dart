@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/controllerbinding.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/user_model.dart';
@@ -7,6 +8,9 @@ import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
+import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
+import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class ProfilePageController extends GetxController {
   var _profileService = locator.get<ProfileService>();
@@ -49,12 +53,26 @@ class ProfilePageController extends GetxController {
   }
 
   Future logout() async {
-    // Get.defaultDialog(
-    //     content: SizedBox(
-    //         height: 30, width: 30, child: CircularProgressIndicator()));
-    // Get.back();
+    // Future.delayed(Duration(milliseconds: 1500));
+    await showCustomDialog(message: "Loggin out");
+    var canLogout = await processLogout();
+    if (canLogout) {
+      Get.back();
+      Get.offAllNamed(PageName.loginpage);
+    }
+  }
+
+  Future processLogout() async {
     locator.get<TempStorage>().delete(TempStorageKeys.authToken);
-    Get.offAllNamed(PageName.loginpage);
-    Get.find<BaseController>().setindex(0);
+    // var hc = Get.find<HomeTabController>();
+    var bc = Get.find<BaseController>();
+    // var categoriesController = Get.find<CategoriesController>();
+    // categoriesController.setActiveCategory = 0;
+    bc.setindex(0);
+    // hc.allBakery.clear();
+    // hc.allDrinks.clear();
+    // hc.allSnacks.clear();
+
+    return true;
   }
 }

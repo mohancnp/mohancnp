@@ -82,7 +82,7 @@ class MemberShipLoginController extends GetxController {
       }
     } else {
       errorMessage = "please fill the form";
-      print("empty membership number or password");
+      // print("empty membership number or password");
     }
   }
 }

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/modules/home/base_controller.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
+import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class RedirectionPage extends StatelessWidget {
   const RedirectionPage({Key? key}) : super(key: key);
@@ -23,7 +26,7 @@ class RedirectionPage extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     fontSize: 20.sp,
                     color: Palette.textColor))),
-            Text("This content is available for only logged in user.",
+            Text("This content is available  only for logged in user.",
                 textAlign: TextAlign.center,
                 style: getpoppins(TextStyle(
                     fontWeight: FontWeight.w400,
@@ -34,8 +37,14 @@ class RedirectionPage extends StatelessWidget {
                 buttonText: "Go to Login Page",
                 width: 300.w,
                 height: 50.h,
-                onPressed: () {
-                  Get.offAllNamed(PageName.loginpage);
+                onPressed: () async {
+                  await showCustomDialog(message: "Loggin out");
+                  var handled =
+                      await Get.find<RedirectionController>().handleUserLogin();
+                  if (handled) {
+                    Get.back();
+                    Get.toNamed(PageName.loginpage);                    
+                  }
                 })
           ],
         ),

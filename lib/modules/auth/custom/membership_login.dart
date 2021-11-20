@@ -212,6 +212,7 @@ class MembershipLoginPage extends StatelessWidget {
                           showCustomDialog();
                           await controller.performMembershipLogin();
                           if (controller.authState == AuthState.loggedIn) {
+                            // Get.reloadAll();
                             Get.offAllNamed(PageName.homepage);
                           } else {
                             Get.back();

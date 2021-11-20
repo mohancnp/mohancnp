@@ -47,7 +47,7 @@ class BaseController extends GetxController {
           updateUserVerificationStatus(UserVerficationStatus.verified);
         }).onError((error, stackTrace) {
           updateUserVerificationStatus(UserVerficationStatus.unverified);
-          print("Error getting data: $error");
+          // print("Error getting data: $error");
         });
         Get.find<HomeTabController>().getUser();
       } on Exception catch (e) {

@@ -4,5 +4,7 @@ import 'package:metrocoffee/ui/src/palette.dart';
 
 showCustomSnackBarMessage({required String title, required String message}) {
   Get.snackbar(title, message,
-      colorText:Palette.textColor, duration: Duration(milliseconds: 1500));
+      colorText:Palette.textColor,
+      backgroundColor: Colors.white,
+       duration: Duration(milliseconds: 1500));
 }
