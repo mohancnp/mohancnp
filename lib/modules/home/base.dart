@@ -30,15 +30,16 @@ class Base extends StatelessWidget {
     return GetBuilder<BaseController>(
         init: BaseController(),
         initState: (v) {
-          // print("Initstate called");
-          Get.find<BaseController>().initializeData();
+          var b = Get.find<BaseController>();
+          b.currentIndex = 0;
+          b.initializeData();
         },
         builder: (basecontroller) {
           var status = basecontroller.userVerificationStatus;
           return (status == UserVerficationStatus.unverified)
               ? LoadingPage()
               : Scaffold(
-                  body: getPages(status, basecontroller.currentindex),
+                  body: getPages(status, basecontroller.currentIndex),
                   bottomNavigationBar: Container(
                       //  height: 83,
                       height: 83.h,
@@ -60,7 +61,7 @@ class Base extends StatelessWidget {
                         showSelectedLabels: false,
                         showUnselectedLabels: false,
                         type: BottomNavigationBarType.fixed,
-                        currentIndex: basecontroller.currentindex,
+                        currentIndex: basecontroller.currentIndex,
                         onTap: (index) {
                           basecontroller.setindex(index);
                         },

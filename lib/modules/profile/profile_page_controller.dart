@@ -57,6 +57,7 @@ class ProfilePageController extends GetxController {
     await showCustomDialog(message: "Loggin out");
     var canLogout = await processLogout();
     if (canLogout) {
+      // Get.find<BaseController>().setindex(0);
       Get.back();
       Get.offAllNamed(PageName.loginpage);
     }
@@ -64,15 +65,6 @@ class ProfilePageController extends GetxController {
 
   Future processLogout() async {
     locator.get<TempStorage>().delete(TempStorageKeys.authToken);
-    // var hc = Get.find<HomeTabController>();
-    var bc = Get.find<BaseController>();
-    // var categoriesController = Get.find<CategoriesController>();
-    // categoriesController.setActiveCategory = 0;
-    bc.setindex(0);
-    // hc.allBakery.clear();
-    // hc.allDrinks.clear();
-    // hc.allSnacks.clear();
-
     return true;
   }
 }

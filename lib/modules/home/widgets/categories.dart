@@ -26,8 +26,9 @@ class CategoriesTabs extends StatelessWidget {
             ),
             SizedBox(
               height: 33.h,
-              child: GetBuilder<CategoriesController>(
-                  builder: (categoriesController) {
+              child: GetBuilder<CategoriesController>(initState: (v) {
+                Get.find<CategoriesController>().setActiveCategory = 0;
+              }, builder: (categoriesController) {
                 return ListView.builder(
                     itemCount: categoriesController.categoryList.length,
                     scrollDirection: Axis.horizontal,

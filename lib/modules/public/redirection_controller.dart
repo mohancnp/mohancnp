@@ -17,14 +17,4 @@ class RedirectionController extends GetxController {
     return _userExists.value.exits;
   }
 
-  Future handleUserLogin() async {
-    // var hc = Get.find<HomeTabController>();
-    var bc = Get.find<BaseController>();
-    bc.setindex(0);
-    // hc.allBakery.clear();
-    // hc.allDrinks.clear();
-    // hc.allSnacks.clear();
-    // hc.allProducts.clear();
-    return true;
-  }
 }

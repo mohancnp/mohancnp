@@ -38,13 +38,7 @@ class RedirectionPage extends StatelessWidget {
                 width: 300.w,
                 height: 50.h,
                 onPressed: () async {
-                  await showCustomDialog(message: "Loggin out");
-                  var handled =
-                      await Get.find<RedirectionController>().handleUserLogin();
-                  if (handled) {
-                    Get.back();
-                    Get.toNamed(PageName.loginpage);                    
-                  }
+                  Get.toNamed(PageName.loginpage);
                 })
           ],
         ),

@@ -5,7 +5,7 @@ import 'package:metrocoffee/modules/public/redirection_controller.dart';
 enum UserVerficationStatus { verified, unverified, unknown }
 
 class BaseController extends GetxController {
-  int currentindex = 0;
+  int _currentindex = 0;
   // bool userIsVerified = false;
 
   UserVerficationStatus _userVerficationStatus =
@@ -19,8 +19,16 @@ class BaseController extends GetxController {
     update();
   }
 
+  set currentIndex(ci) {
+    _currentindex = ci;
+  }
+
+  get currentIndex {
+    return _currentindex;
+  }
+
   setindex(int index) {
-    currentindex = index;
+    currentIndex = index;
     update();
   }
 
@@ -56,10 +64,8 @@ class BaseController extends GetxController {
       }
     } else {
       try {
-        var status = await homeController.initializePublicData();
-        if (status) {
-          updateUserVerificationStatus(UserVerficationStatus.unknown);
-        }
+        await homeController.initializePublicData();
+        updateUserVerificationStatus(UserVerficationStatus.unknown);
       } on Exception catch (e) {
         print(e);
         // print("Exception initializeing data");

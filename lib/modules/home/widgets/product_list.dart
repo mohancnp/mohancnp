@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/placeholder_image.dart';
+import 'package:metrocoffee/core/models/new_product_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/home/widgets/newcard.dart';
 import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
 
 class ProductList extends StatelessWidget {
-  final List<dynamic> products;
+  final List<SingleProduct> products;
   final tag;
   const ProductList({Key? key, required this.products, this.tag})
       : super(key: key);
@@ -30,7 +32,7 @@ class ProductList extends StatelessWidget {
             var product = products[index];
             // print("$index");
             return ProductCard(
-              imageUri: product.image,
+              imageUri: product.image?? imagePlaceholderUri,
               name: product.name,
               id: product.id,
               tag: tag,
@@ -39,13 +41,11 @@ class ProductList extends StatelessWidget {
                 var cont = Get.find<ProductDetailPageController>();
                 var rc = Get.find<RedirectionController>();
                 if (rc.userExists) {
-                  cont.retrieveProductDetails(id: product.id);
-      
+                  cont.retrieveProductDetails(id: product.id);      
                   Get.toNamed(PageName.productdetailpage,
                       arguments: [product.id, tag]);
                 } else {
-                  cont.getPublicProductDetails(id: product.id);
-      
+                  cont.getPublicProductDetails(id: product.id);      
                   Get.toNamed(PageName.productdetailpage,
                       arguments: [product.id, tag]);
                 }

@@ -13,12 +13,11 @@ class ProductServiceImpl extends ProductService {
 
   @override
   Future handleProductsOfType({required String type}) async {
-    // '$baseUrl/api/product', queryParameters: {"type": type}
+    
     try {
       Map<String, dynamic> products = await remoteSource
           .get('$baseUrl/api/product', queryParams: {"type": type});
       return products;
-      // Get.find<HomeTabController>().differentiateProductsType(type, products);
     } on ServerException catch (e) {
       throw AppException(message: e.message);
     }
@@ -30,7 +29,7 @@ class ProductServiceImpl extends ProductService {
       Map<String, dynamic> products =
           await remoteSource.get('$baseUrl/api/product');
       return products;
-      // Get.find<HomeTabController>().differentiateProductsType("All", products);
+      
     } on ServerException catch (e) {
       throw AppException(message: e.message);
     }
@@ -80,7 +79,7 @@ class ProductServiceImpl extends ProductService {
       } else {
         return {"data": products.data};
       }
-      // Get.find<HomeTabController>().differentiateProductsType("All", products);
+      
     } on DioError catch (e) {
       throw getServerException(e);
     }
