@@ -4,12 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
-import 'package:metrocoffee/modules/checkout/widgets/location_widget.dart';
 import 'package:metrocoffee/modules/checkout/widgets/single_order.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/modules/checkout/widgets/timer_widget.dart';
+import 'package:metrocoffee/modules/maps/new/google_map_controller.dart';
+import 'package:metrocoffee/modules/maps/new/google_map_page.dart';
+import 'package:metrocoffee/modules/maps/new/widgets/map_widgets.dart';
+import 'package:metrocoffee/modules/shareables/userpreference.dart';
 import 'package:metrocoffee/modules/shareables/widgets/finalpricecalculationcard.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
@@ -21,7 +25,7 @@ class CheckoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<CheckoutPageController>();
-
+    final uop = Get.arguments;
     return Scaffold(
       backgroundColor: Palette.pagebackgroundcolor,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -99,7 +103,9 @@ class CheckoutPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Delivery Location",
+                      (uop == UserOrderPreference.pickup)
+                          ? "Our Station"
+                          : "Delivery Location",
                       style: getpoppins(TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Palette.textColor,
@@ -107,34 +113,124 @@ class CheckoutPage extends StatelessWidget {
                         fontSize: 14.sp,
                       )),
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 28.w),
-                        child: Row(
-                          children: [
-                            Icon(
-                              FeatherIcons.edit,
-                              size: 13.w,
+                    uop == UserOrderPreference.pickup
+                        ? SizedBox()
+                        : GestureDetector(
+                            onTap: () {
+                              Get.to(() => GoogleMapPage());
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 28.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.add_circle,
+                                    size: 12.r,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 4.w),
+                                    child: Text("Add",
+                                        style: getpoppins(TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Palette.textColor,
+                                          //       fontSize: 14.5
+                                          fontSize: 12.sp,
+                                        ))),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 8.w, top: 4.h),
-                              child: Text("Edit",
-                                  style: getpoppins(TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Palette.textColor,
-                                    //       fontSize: 14.5
-                                    fontSize: 12.sp,
-                                  ))),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                          ),
                   ],
                 ),
               ),
-              LocationWidget(),
+              (uop == UserOrderPreference.delivery)
+                  ? GetX<CustomGoogleMapController>(
+                    init: CustomGoogleMapController(),                    
+                    builder:(controller) {
+                      return ListView.builder(
+                          itemCount: controller.userAddresses.length,
+                          shrinkWrap: true,
+                          primary: false,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 28.w,
+                          ),
+                          itemBuilder: (context, index) {
+                            var admodel = controller.userAddresses[index];
+                            var selectedIndex =
+                                controller.selectedAddressIndex;
+                                print(selectedIndex);
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: AddressDetailWidget(
+                                mainLocation: admodel.title,
+                                subLocation: admodel.subtitle,
+                                selectedLocationBorderColor:
+                                    index == selectedIndex
+                                        ? Palette.coffeeColor
+                                        : Colors.white,
+                                onItemSelected: () {
+                                  controller.selectedAddressIndex = index;
+                                },
+                                onDelete: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) {
+                                        return ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.r)),
+                                          child: SimpleDialog(
+                                              contentPadding: EdgeInsets.all(0),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(18.r),
+                                                ),
+                                              ),
+                                              children: [
+                                                UserPreference(
+                                                  question:
+                                                      "Really Want to Remove Address?",
+                                                  onPressedFirst: () {
+                                                    controller.userAddresses
+                                                        .removeAt(index);
+                                                    Get.back();
+                                                  },
+                                                  firstText: "SURE",
+                                                  onPressedSecond: () {
+                                                    Get.back();
+                                                  },
+                                                  secondText: "CANCEL",
+                                                ),
+                                              ]),
+                                        );
+                                      });
+                                },
+                                onEdit: () {
+                                  Get.to(() => GoogleMapPage(
+                                      initialLat: admodel.mapLocation.lat,
+                                      initialLong: admodel.mapLocation.long));
+                                },
+                              ),
+                            );
+                          });
+                    })
+                  : Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 28.w,
+                      ),
+                      child: AddressDetailWidget(
+                        mainLocation: "Gants Hill Station, Crabrook Rd Shop",
+                        subLocation:
+                            "next to Oyster Top up machine, Ilford IG2 6UD, United Kingdom",
+                        uop: UserOrderPreference.pickup,
+                        selectedLocationBorderColor: Colors.white,
+                        onEdit: () {},
+                        onDelete: () {},
+                        onItemSelected: () {},
+                      ),
+                    ),
               Padding(
                 padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
                 child: Text(
