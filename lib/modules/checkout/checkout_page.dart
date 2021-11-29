@@ -3,6 +3,7 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
@@ -20,12 +21,12 @@ import 'package:metrocoffee/ui/widgets/custom_button.dart';
 import 'checkout_page_controller.dart';
 
 class CheckoutPage extends StatelessWidget {
-  const CheckoutPage({Key? key}) : super(key: key);
+  CheckoutPage({Key? key}) : super(key: key);
+  final uop = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<CheckoutPageController>();
-    final uop = Get.arguments;
     return Scaffold(
       backgroundColor: Palette.pagebackgroundcolor,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -104,7 +105,7 @@ class CheckoutPage extends StatelessWidget {
                   children: [
                     Text(
                       (uop == UserOrderPreference.pickup)
-                          ? "Our Station"
+                          ? "Pickup Location"
                           : "Delivery Location",
                       style: getpoppins(TextStyle(
                         fontWeight: FontWeight.w500,
@@ -146,91 +147,85 @@ class CheckoutPage extends StatelessWidget {
                   ],
                 ),
               ),
-              (uop == UserOrderPreference.delivery)
-                  ? GetX<CustomGoogleMapController>(
-                    init: CustomGoogleMapController(),                    
-                    builder:(controller) {
-                      return ListView.builder(
-                          itemCount: controller.userAddresses.length,
-                          shrinkWrap: true,
-                          primary: false,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 28.w,
-                          ),
-                          itemBuilder: (context, index) {
-                            var admodel = controller.userAddresses[index];
-                            var selectedIndex =
-                                controller.selectedAddressIndex;
-                                print(selectedIndex);
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: AddressDetailWidget(
-                                mainLocation: admodel.title,
-                                subLocation: admodel.subtitle,
-                                selectedLocationBorderColor:
-                                    index == selectedIndex
-                                        ? Palette.coffeeColor
-                                        : Colors.white,
-                                onItemSelected: () {
-                                  controller.selectedAddressIndex = index;
-                                },
-                                onDelete: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) {
-                                        return ClipRRect(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8.r)),
-                                          child: SimpleDialog(
-                                              contentPadding: EdgeInsets.all(0),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(18.r),
-                                                ),
-                                              ),
-                                              children: [
-                                                UserPreference(
-                                                  question:
-                                                      "Really Want to Remove Address?",
-                                                  onPressedFirst: () {
-                                                    controller.userAddresses
-                                                        .removeAt(index);
-                                                    Get.back();
-                                                  },
-                                                  firstText: "SURE",
-                                                  onPressedSecond: () {
-                                                    Get.back();
-                                                  },
-                                                  secondText: "CANCEL",
-                                                ),
-                                              ]),
-                                        );
-                                      });
-                                },
-                                onEdit: () {
-                                  Get.to(() => GoogleMapPage(
-                                      initialLat: admodel.mapLocation.lat,
-                                      initialLong: admodel.mapLocation.long));
-                                },
-                              ),
-                            );
-                          });
-                    })
-                  : Padding(
+              (uop == UserOrderPreference.pickup)
+                  ? Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 28.w,
                       ),
                       child: AddressDetailWidget(
-                        mainLocation: "Gants Hill Station, Crabrook Rd Shop",
-                        subLocation:
-                            "next to Oyster Top up machine, Ilford IG2 6UD, United Kingdom",
+                        mainLocation: CompanyDetail.mainLocation,
+                        subLocation: CompanyDetail.subLocation,
                         uop: UserOrderPreference.pickup,
-                        selectedLocationBorderColor: Colors.white,
                         onEdit: () {},
                         onDelete: () {},
-                        onItemSelected: () {},
+                        onItemSelected: 0,
                       ),
-                    ),
+                    )
+                  : GetX<CustomGoogleMapController>(
+                      // init: CustomGoogleMapController(),
+                      builder: (controller) {
+                        return ListView.builder(
+                            itemCount: controller.userAddresses.length,
+                            shrinkWrap: true,
+                            primary: false,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 28.w,
+                            ),
+                            itemBuilder: (context, index) {
+                              var admodel = controller.userAddresses[index];
+                              // print(selectedIndex);
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: AddressDetailWidget(
+                                  mainLocation: admodel.title,
+                                  subLocation: admodel.subtitle,
+                                  onItemSelected: index,
+                                  onDelete: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (_) {
+                                          return ClipRRect(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(8.r),
+                                            ),
+                                            child: SimpleDialog(
+                                                contentPadding:
+                                                    EdgeInsets.all(0),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(18.r),
+                                                  ),
+                                                ),
+                                                children: [
+                                                  UserPreference(
+                                                    question:
+                                                        "Really Want to Remove Address?",
+                                                    onPressedFirst: () {
+                                                      controller.userAddresses
+                                                          .removeAt(index);
+                                                      Get.back();
+                                                    },
+                                                    firstText: "SURE",
+                                                    onPressedSecond: () {
+                                                      Get.back();
+                                                    },
+                                                    secondText: "CANCEL",
+                                                  ),
+                                                ]),
+                                          );
+                                        });
+                                  },
+                                  onEdit: () {
+                                    Get.to(() => GoogleMapPage(
+                                          initialLat: admodel.mapLocation.lat,
+                                          initialLong: admodel.mapLocation.long,
+                                        ));
+                                  },
+                                ),
+                              );
+                            });
+                      }),
               Padding(
                 padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
                 child: Text(
@@ -246,7 +241,9 @@ class CheckoutPage extends StatelessWidget {
               Container(
                 height: 91.h,
                 // padding: EdgeInsets.symmetric(horizontal: 22.w),
-                margin: EdgeInsets.symmetric(horizontal: 28.w),
+                margin: EdgeInsets.symmetric(
+                  horizontal: 28.w,
+                ),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(9)),

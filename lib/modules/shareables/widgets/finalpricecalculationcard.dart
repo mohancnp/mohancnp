@@ -101,10 +101,11 @@ class FinalProductCalculationCard extends StatelessWidget {
                         child: Text(
                       "\$ ${controller.totalAmount.toStringAsPrecision(3)}",
                       style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff404D4D),
-                          //      fontSize: 16
-                          fontSize: 16.sp)),
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff404D4D),
+                        //      fontSize: 16
+                        fontSize: 16.sp,
+                      )),
                     ));
                   }),
                 ],

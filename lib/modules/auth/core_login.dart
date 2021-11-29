@@ -62,7 +62,7 @@ class LoginPage extends StatelessWidget {
 
                     style: Theme.of(context).textTheme.headline1,
                     // style: TextStyle(
-                    //   fontFamily: MetroFontsFamily.freightDispBold,
+                    //   fontFamily: CustomFont.freightDispBold,
                     //   color: Colors.white,
                     //   fontSize: 42.sp,
                     // ),

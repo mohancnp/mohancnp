@@ -52,10 +52,10 @@ class SearchBarTest extends StatelessWidget {
                 child: TextField(
               enabled: enabled,
               style: TextStyle(
-                  fontFamily: poppinsregular,
-                  color: Colors.black87,
-                  //     fontSize: 11.5
-                  fontSize: 10.sp),
+                fontFamily: poppinsregular,
+                color: Colors.black87,
+                fontSize: 12.sp,
+              ),
               decoration: InputDecoration(
                 // contentPadding: EdgeInsets.symmetric(vertical: (10 / 8.12).h),
                 border: InputBorder.none,

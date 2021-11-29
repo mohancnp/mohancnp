@@ -9,7 +9,7 @@ extension CustomStyles on TextTheme {
     return TextStyle(
       fontSize: 10.sp,
       color: Palette.darkGrey1,
-      fontFamily: MetroFontsFamily.poppinsRegular,
+      fontFamily: CustomFont.poppinsRegular,
       fontWeight: FontWeight.w400,
     );
   }
@@ -18,7 +18,7 @@ extension CustomStyles on TextTheme {
     return TextStyle(
       fontSize: 13.sp,
       color: Palette.darkGrey1,
-      fontFamily: MetroFontsFamily.poppinsRegular,
+      fontFamily: CustomFont.poppinsRegular,
       fontWeight: FontWeight.bold,
     );
   }

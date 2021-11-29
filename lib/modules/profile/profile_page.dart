@@ -256,113 +256,113 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          top: 20.h,
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          //                  vertical: 14, horizontal: 12
-                          vertical: 14.h,
-                          horizontal: 12.w,
-                        ),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
-                                  blurRadius: 10.r,
-                                  offset: Offset(0, 3.r))
-                            ],
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.r))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(children: [
-                              Icon(
-                                Icons.supervised_user_circle_sharp,
-                                color: Color(0xff404D4D),
-                                //       size: 18,
-                                size: 18.sp,
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  //        left: 11
-                                  left: 11.w,
-                                ),
-                                child: Text(
-                                  "Referral Code",
-                                  style: getpoppins(TextStyle(
-                                    color: Color(0xff404D4D),
-                                    //   fontSize: 13.5,
-                                    fontSize: 13.5.sp,
-                                    fontWeight: FontWeight.w400,
-                                  )),
-                                ),
-                              )
-                            ]),
-                            Icon(
-                              CupertinoIcons.forward,
-                              color: Color(0xff404D4D),
-                              //     size: 20,
-                              size: 20.sp,
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          top: 20.h,
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          //                  vertical: 14, horizontal: 12
-                          vertical: 14.h,
-                          horizontal: 12.w,
-                        ),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
-                                  blurRadius: 10.r,
-                                  offset: Offset(0, 3.r))
-                            ],
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.r))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(children: [
-                              Icon(
-                                FeatherIcons.settings,
-                                color: Color(0xff404D4D),
-                                //       size: 18,
-                                size: 18.r,
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  //        left: 11
-                                  left: 11.w,
-                                ),
-                                child: Text(
-                                  "Settings",
-                                  style: getpoppins(TextStyle(
-                                      color: Color(0xff404D4D),
-                                      //   fontSize: 13.5,
-                                      fontSize: 13.5.sp,
-                                      fontWeight: FontWeight.w400)),
-                                ),
-                              )
-                            ]),
-                            Icon(
-                              CupertinoIcons.forward,
-                              color: Color(0xff404D4D),
-                              //     size: 20,
-                              size: 20.sp,
-                            )
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   margin: EdgeInsets.only(
+                      //     top: 20.h,
+                      //   ),
+                      //   padding: EdgeInsets.symmetric(
+                      //     //                  vertical: 14, horizontal: 12
+                      //     vertical: 14.h,
+                      //     horizontal: 12.w,
+                      //   ),
+                      //   decoration: BoxDecoration(
+                      //       color: Colors.white,
+                      //       boxShadow: [
+                      //         BoxShadow(
+                      //             color: Colors.black.withOpacity(0.05),
+                      //             blurRadius: 10.r,
+                      //             offset: Offset(0, 3.r))
+                      //       ],
+                      //       borderRadius:
+                      //           BorderRadius.all(Radius.circular(10.r))),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Row(children: [
+                      //         Icon(
+                      //           Icons.supervised_user_circle_sharp,
+                      //           color: Color(0xff404D4D),
+                      //           //       size: 18,
+                      //           size: 18.sp,
+                      //         ),
+                      //         Container(
+                      //           margin: EdgeInsets.only(
+                      //             //        left: 11
+                      //             left: 11.w,
+                      //           ),
+                      //           child: Text(
+                      //             "Referral Code",
+                      //             style: getpoppins(TextStyle(
+                      //               color: Color(0xff404D4D),
+                      //               //   fontSize: 13.5,
+                      //               fontSize: 13.5.sp,
+                      //               fontWeight: FontWeight.w400,
+                      //             )),
+                      //           ),
+                      //         )
+                      //       ]),
+                      //       Icon(
+                      //         CupertinoIcons.forward,
+                      //         color: Color(0xff404D4D),
+                      //         //     size: 20,
+                      //         size: 20.sp,
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
+                      // Container(
+                      //   margin: EdgeInsets.only(
+                      //     top: 20.h,
+                      //   ),
+                      //   padding: EdgeInsets.symmetric(
+                      //     //                  vertical: 14, horizontal: 12
+                      //     vertical: 14.h,
+                      //     horizontal: 12.w,
+                      //   ),
+                      //   decoration: BoxDecoration(
+                      //       color: Colors.white,
+                      //       boxShadow: [
+                      //         BoxShadow(
+                      //             color: Colors.black.withOpacity(0.05),
+                      //             blurRadius: 10.r,
+                      //             offset: Offset(0, 3.r))
+                      //       ],
+                      //       borderRadius:
+                      //           BorderRadius.all(Radius.circular(10.r))),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Row(children: [
+                      //         Icon(
+                      //           FeatherIcons.settings,
+                      //           color: Color(0xff404D4D),
+                      //           //       size: 18,
+                      //           size: 18.r,
+                      //         ),
+                      //         Container(
+                      //           margin: EdgeInsets.only(
+                      //             //        left: 11
+                      //             left: 11.w,
+                      //           ),
+                      //           child: Text(
+                      //             "Settings",
+                      //             style: getpoppins(TextStyle(
+                      //                 color: Color(0xff404D4D),
+                      //                 //   fontSize: 13.5,
+                      //                 fontSize: 13.5.sp,
+                      //                 fontWeight: FontWeight.w400)),
+                      //           ),
+                      //         )
+                      //       ]),
+                      //       Icon(
+                      //         CupertinoIcons.forward,
+                      //         color: Color(0xff404D4D),
+                      //         //     size: 20,
+                      //         size: 20.sp,
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 14.h),
                         child: SizedBox(

@@ -1,4 +1,4 @@
-class MetroFontsFamily{
+class CustomFont{
   static const String poppinsSemiBold="PoppinsSemiBold";
   static const String poppinsMedium="PoppinsMedium";
   static const String poppinsBold="PoppinsBold";

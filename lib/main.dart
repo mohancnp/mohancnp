@@ -5,11 +5,8 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_it/get_it.dart';
 import 'package:metrocoffee/core/controllerbinding.dart';
-import 'package:metrocoffee/modules/home/widgets/searchbar.dart';
-import 'package:metrocoffee/modules/maps/initial.dart';
 import 'package:metrocoffee/modules/maps/new/google_map_page.dart';
 import 'package:metrocoffee/modules/maps/new/widgets/map_widgets.dart';
-import 'package:metrocoffee/search_bar_test.dart';
 import 'package:metrocoffee/ui/app_name.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
@@ -49,16 +46,16 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.brown,
           brightness: Brightness.light,
-          fontFamily: MetroFontsFamily.poppinsRegular,
+          fontFamily: CustomFont.poppinsRegular,
           textTheme: TextTheme(
             headline1: TextStyle(
               fontSize: 42.sp,
               fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontFamily: MetroFontsFamily.freightDispBold,
+              fontFamily: CustomFont.freightDispBold,
             ),
             button: TextStyle(
-              fontFamily: MetroFontsFamily.poppinsRegular,
+              fontFamily: CustomFont.poppinsRegular,
               fontSize: 15.sp,
               color: Colors.black,
             ),
@@ -67,7 +64,7 @@ class MyApp extends StatelessWidget {
             bodyText2:
                 TextStyle(fontSize: 12.sp, fontWeight: FontWeight.normal),
             caption: TextStyle(
-              fontFamily: MetroFontsFamily.poppinsLight,
+              fontFamily: CustomFont.poppinsLight,
               color: Color(0xF3F3F3D6),
               fontSize: 11.5.sp,
             ),
@@ -113,8 +110,7 @@ class Test extends StatelessWidget {
                           mainLocation: admodel.title,
                           subLocation: admodel.subtitle,
                           onDelete: () {},
-                          selectedLocationBorderColor: Colors.white,
-                          onItemSelected: (){},
+                          onItemSelected: 0,
                           onEdit: () {
                             Get.to(() => GoogleMapPage(
                                 initialLat: admodel.mapLocation.lat,

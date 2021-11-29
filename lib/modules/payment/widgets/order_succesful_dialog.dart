@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
 
 class OrderSuccesfulDialog extends StatelessWidget {
@@ -61,14 +62,11 @@ class OrderSuccesfulDialog extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                // Get.reloadAll();
-                // Get.find<HomeTabController>().update();
                 Get.offAllNamed(PageName.homepage);
-                // baseController.setindex(0);
               },
               child: Container(
-//            height: 42,width: 205,
-                height: screenwidth * 0.1021, width: screenwidth * 0.498,
+                height: screenwidth * 0.1021,
+                width: screenwidth * 0.498,
                 decoration: BoxDecoration(
                     color: coffeecolor,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -93,11 +91,8 @@ class OrderSuccesfulDialog extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Get.reloadAll();
+                Get.find<BaseController>().setindex(2);
                 Get.offAllNamed(PageName.homepage);
-
-                // Navigator.pushNamedAndRemoveUntil(
-                //     context, "/MyOrders", (route) => true);
               },
               child: Container(
                 margin: EdgeInsets.only(

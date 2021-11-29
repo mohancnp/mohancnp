@@ -10,6 +10,7 @@ import 'package:metrocoffee/modules/profile/profile_page.dart';
 import 'package:metrocoffee/modules/public/redirection_page.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 
+// ignore: must_be_immutable
 class Base extends StatelessWidget {
   List privatePages = [
     Home(),

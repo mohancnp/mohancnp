@@ -1,22 +1,27 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:metrocoffee/core/models/map_location_model.dart';
+import 'package:metrocoffee/core/constants/company_detail.dart';
+import 'package:metrocoffee/core/constants/google.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
 import 'google_map_controller.dart';
 import 'places_selection_page.dart';
 import 'widgets/map_widgets.dart';
 import 'package:get/get.dart';
-import 'package:flutter_animarker/flutter_map_marker_animation.dart';
 
 class GoogleMapPage extends StatelessWidget {
   GoogleMapPage({Key? key, this.initialLat, this.initialLong})
       : super(key: key);
   final double? initialLat, initialLong;
+
+  // ignore: non_constant_identifier_names
   var TAG = "COMMENTS";
   final controller = Get.find<CustomGoogleMapController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,11 +29,13 @@ class GoogleMapPage extends StatelessWidget {
       body: GetBuilder<CustomGoogleMapController>(
           init: CustomGoogleMapController(),
           initState: (v) {
-            controller.setMarker(initialLat, initialLong);
+            controller.initLat = initialLat;
+            controller.initLong = initialLong;
+            controller.setMarker();
           },
           builder: (cgmapController) {
             // print("$TAG ${cgmapController.markers[MarkerId("MetroMarker")]}");
-            print("$TAG ${cgmapController.markers.values}");
+            // print("$TAG ${cgmapController.markers.values}");
 
             return Stack(
               children: [
@@ -41,60 +48,29 @@ class GoogleMapPage extends StatelessWidget {
                       radius: 5.r,
                       // visible: cgmapController.moving ? false : true,
                       center: LatLng(
-                          cgmapController.markers[MarkerId("MetroMarker")]!
-                              .position.latitude,
-                          cgmapController.markers[MarkerId("MetroMarker")]!
-                              .position.longitude),
+                          cgmapController.markers[MarkerId(markerId)]?.position
+                                  .latitude ??
+                              CompanyDetail.companyLat,
+                          cgmapController.markers[MarkerId(markerId)]?.position
+                                  .longitude ??
+                              CompanyDetail.companyLong),
                       fillColor: Palette.coffeeColor.withOpacity(0.8),
                     )
                   ]),
-                  onCameraMove: (data) {
-                    // print("$TAG: on camera move called");
-                    var marker = Marker(
-                      draggable: false,
-                      markerId: MarkerId("MetroMarker"),
-                      position:
-                          LatLng(data.target.latitude, data.target.longitude),
-                      infoWindow: const InfoWindow(
-                        title: 'Metro Coffee ',
-                      ),
-                    );
-                    cgmapController.updateMarker(marker);
-                  },
-                  onCameraMoveStarted: () {
-                    cgmapController.currentLocation = "Searching";
-                  },
-                  onCameraIdle: () async {
-                    // cgmapController.moving = false;
-                    var marker =
-                        cgmapController.markers[MarkerId("MetroMarker")];
-                    var newMarker = RippleMarker(
-                      draggable: false,
-                      markerId: MarkerId("MetroMarker"),
-                      position: LatLng(marker!.position.latitude,
-                          marker.position.longitude),
-                      infoWindow: const InfoWindow(
-                        title: 'Metro Coffee  ',
-                      ),
-                    );
-                    cgmapController.updateMarker(newMarker);
-                    var addressList = await cgmapController
-                        .getSelectedLocationName(MapLocation(
-                            newMarker.position.latitude,
-                            newMarker.position.longitude));
-
-                    cgmapController.currentLocation =
-                        "${addressList[0]}  ${addressList[1]}";
-                  },
+                  onCameraMove: (data) => controller.doOnCameraMove(data),
+                  onCameraMoveStarted: () =>
+                      cgmapController.currentLocation = "Searching",
+                  onCameraIdle: controller.doOnCameraIdle,
                   onMapCreated: (GoogleMapController mapController) {
                     if (!cgmapController.gController.isCompleted) {
                       cgmapController.gController.complete(mapController);
-                      // cgmapController.mapId.complete(mapController.mapId);
                     }
                   },
                   initialCameraPosition: CameraPosition(
-                    target: LatLng(controller.companyLatitude,
-                        controller.companyLongitued),
+                    target: LatLng(
+                      CompanyDetail.companyLat,
+                      CompanyDetail.companyLong,
+                    ),
                     zoom: 15,
                   ),
                 ),
@@ -107,7 +83,6 @@ class GoogleMapPage extends StatelessWidget {
                       leading: GestureDetector(
                         onTap: () {
                           Get.back();
-                          // Get.delete<CustomGoogleMapController>();
                         },
                         child: Container(
                           height: 24.w,
@@ -165,28 +140,8 @@ class GoogleMapPage extends StatelessWidget {
                         CustomReusableBtn(
                           height: 48.h,
                           width: 320.w,
-                          onPressed: () async {
-                            var marker = cgmapController
-                                .markers[MarkerId("MetroMarker")];
-                            var maplocation = MapLocation(
-                                marker?.position.latitude ??
-                                    controller.companyLatitude,
-                                marker?.position.longitude ??
-                                    controller.companyLongitued);
-                            var addressList = await cgmapController
-                                .getSelectedLocationName(maplocation);
-                            cgmapController.currentLocation =
-                                "${addressList[0]}  ${addressList[1]}";
-                            var addressModel = AddressModel(
-                                title: addressList[0],
-                                subtitle: addressList[1],
-                                mapLocation: maplocation);
-
-                            cgmapController.userAddresses.add(addressModel);
-                            cgmapController.userAddresses.refresh();
-                            Get.back();
-                          },
-                          buttonText: 'Set Location',
+                          onPressed: controller.addOrUpdateLocation,
+                          buttonText: 'SET LOCATION',
                         ),
                       ],
                     ),

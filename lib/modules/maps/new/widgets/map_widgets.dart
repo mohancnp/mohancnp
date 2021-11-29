@@ -71,10 +71,9 @@ class AddressDetailWidget extends StatelessWidget {
   final String subLocation;
   final void Function() onEdit;
   final void Function() onDelete;
-  final void Function() onItemSelected;
-
+  final int onItemSelected;
   final UserOrderPreference? uop;
-  final Color selectedLocationBorderColor;
+  // final Color selectedLocationBorderColor;
 
   const AddressDetailWidget({
     Key? key,
@@ -82,104 +81,109 @@ class AddressDetailWidget extends StatelessWidget {
     required this.subLocation,
     required this.onEdit,
     required this.onDelete,
-    required this.selectedLocationBorderColor,
+    // required this.selectedLocationBorderColor,
     required this.onItemSelected,
     this.uop,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.find<CustomGoogleMapController>();
-
     return GestureDetector(
-      onTap: onItemSelected,
-      child: AnimatedContainer(
-        height: 72.h,
-        width: 320.w,
-        duration: Duration(milliseconds: 500),
-        padding: EdgeInsets.all(4.r),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8.r),
-            border: Border.all(
-              color: selectedLocationBorderColor,
-            )),
-        alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  height: 50.r,
-                  width: 50.r,
-                  margin: EdgeInsets.only(left: 4.w),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.home,
-                    color: Colors.black54,
-                    size: 20.sp,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Palette.grieshWhite,
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(left: 16.w, top: 8.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "$mainLocation",
-                      style: Theme.of(context).textTheme.normalTextHeading,
+      onTap: () {
+        CustomGoogleMapController.to.selectedAddressIndex = onItemSelected;
+      },
+      child: Obx(() {
+        return AnimatedContainer(
+          height: 72.h,
+          width: 320.w,
+          duration: Duration(milliseconds: 500),
+          padding: EdgeInsets.all(4.r),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.r),
+              border: Border.all(
+                color: (onItemSelected ==
+                        CustomGoogleMapController.to.selectedAddressIndex)
+                    ? Palette.coffeeColor
+                    : Colors.white,
+              )),
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    height: 50.r,
+                    width: 50.r,
+                    margin: EdgeInsets.only(left: 4.w),
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.home,
+                      color: Colors.black54,
+                      size: 20.sp,
                     ),
-                    Expanded(
-                      child: Text(
-                        "$subLocation",
-                        style: Theme.of(context).textTheme.normalText,
+                    decoration: BoxDecoration(
+                      color: Palette.grieshWhite,
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16.w, top: 8.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "$mainLocation",
+                        style: Theme.of(context).textTheme.normalTextHeading,
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Text(
+                          "$subLocation",
+                          style: Theme.of(context).textTheme.normalText,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            (uop != null)
-                ? SizedBox()
-                : Padding(
-                    padding: EdgeInsets.only(right: 8.r),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: onEdit,
-                          child: Icon(
-                            FeatherIcons.edit,
-                            size: 20.h,
-                            color: Palette.darkGrey1,
+              (uop != null)
+                  ? SizedBox()
+                  : Padding(
+                      padding: EdgeInsets.only(right: 8.r),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: onEdit,
+                            child: Icon(
+                              FeatherIcons.edit,
+                              size: 20.h,
+                              color: Palette.darkGrey1,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 10.h),
-                        GestureDetector(
-                          onTap: onDelete,
-                          child: Icon(
-                            CupertinoIcons.delete,
-                            size: 20.h,
-                            color: Colors.red,
+                          SizedBox(height: 10.h),
+                          GestureDetector(
+                            onTap: onDelete,
+                            child: Icon(
+                              CupertinoIcons.delete,
+                              size: 20.h,
+                              color: Colors.red,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-          ],
-        ),
-      ),
+                        ],
+                      ),
+                    )
+            ],
+          ),
+        );
+      }),
     );
   }
 }
