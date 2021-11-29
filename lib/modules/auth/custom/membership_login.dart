@@ -138,7 +138,7 @@ class MembershipLoginPage extends StatelessWidget {
                                     ),
                                     keyboardType: TextInputType.visiblePassword,
                                     textInputAction: TextInputAction.next,
-                                    obscureText: mc.eye ? true : false,
+                                    obscureText: mc.eye ? false : true,
                                     decoration: InputDecoration(
                                       suffixIcon: GestureDetector(
                                         onTap: () {

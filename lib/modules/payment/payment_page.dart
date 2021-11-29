@@ -35,7 +35,7 @@ class PaymentPage extends StatelessWidget {
             }),
             Container(
               height: 57.h,
-              width: 120.w,
+              width: 150.w,
               margin: EdgeInsets.only(top: 10.h, bottom: 10.h),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.r),
