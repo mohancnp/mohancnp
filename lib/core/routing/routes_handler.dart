@@ -17,6 +17,7 @@ import 'package:metrocoffee/modules/home/searchpage.dart';
 import 'package:metrocoffee/modules/profile/contents/favorite_products.dart';
 import 'package:metrocoffee/modules/profile/contents/my_order.dart';
 import 'package:metrocoffee/modules/profile/contents/order_details.dart';
+import 'package:metrocoffee/ui/widgets/no_internet.dart';
 
 class RouteHandler {
   static Map<String, WidgetBuilder> getRoutes() {
@@ -42,6 +43,8 @@ class RouteHandler {
       PageName.productdetailpage: (BuildContext context) => ProductDetailPage(),
       PageName.productCartPage: (BuildContext context) => MyProductCart(),
       PageName.searchPage: (BuildContext context) => SearchPage(),
+      PageName.nointernetpage:(BuildContext context)=>NoInternet(),
+
     };
   }
 }
