@@ -42,24 +42,12 @@ class GoogleMapPage extends StatelessWidget {
                 GoogleMap(
                   mapType: MapType.normal,
                   markers: cgmapController.markers.values.toSet(),
-                  circles: Set<Circle>.of([
-                    Circle(
-                      circleId: CircleId("currentLocation"),
-                      radius: 5.r,
-                      // visible: cgmapController.moving ? false : true,
-                      center: LatLng(
-                          cgmapController.markers[MarkerId(markerId)]?.position
-                                  .latitude ??
-                              CompanyDetail.companyLat,
-                          cgmapController.markers[MarkerId(markerId)]?.position
-                                  .longitude ??
-                              CompanyDetail.companyLong),
-                      fillColor: Palette.coffeeColor.withOpacity(0.8),
-                    )
-                  ]),
+                  circles: cgmapController.getCircles(),
                   onCameraMove: (data) => controller.doOnCameraMove(data),
-                  onCameraMoveStarted: () =>
-                      cgmapController.currentLocation = "Searching",
+                  onCameraMoveStarted: () {
+                    cgmapController.currentLocation = "Searching";
+                    cgmapController.circleFlag = true;
+                  },
                   onCameraIdle: controller.doOnCameraIdle,
                   onMapCreated: (GoogleMapController mapController) {
                     if (!cgmapController.gController.isCompleted) {

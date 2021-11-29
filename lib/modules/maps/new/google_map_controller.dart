@@ -7,6 +7,7 @@ import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/google.dart';
 import 'package:metrocoffee/core/models/map_location_model.dart';
 import 'package:geocoding/geocoding.dart' as geo;
+import 'package:metrocoffee/ui/src/palette.dart';
 
 class CustomGoogleMapController extends GetxController {
   double? initLat, initLong;
@@ -17,7 +18,7 @@ class CustomGoogleMapController extends GetxController {
   late Location location;
   Rx<String> _currentLocation = "Search Your Destination".obs;
   List<MapLocation> selectedLocations = <MapLocation>[];
-
+  bool circleFlag = false;
   RxList<AddressModel> userAddresses = <AddressModel>[
     // AddressModel(
     //     title: "Gants Hill Station",
@@ -108,6 +109,7 @@ class CustomGoogleMapController extends GetxController {
   }
 
   doOnCameraIdle() async {
+    circleFlag = true;
     var marker = markers[MarkerId(markerId)];
     var newMarker = Marker(
       draggable: false,
@@ -120,12 +122,12 @@ class CustomGoogleMapController extends GetxController {
     updateMarker(newMarker);
     var addressList = await getSelectedLocationName(
         MapLocation(newMarker.position.latitude, newMarker.position.longitude));
-
     currentLocation = "${addressList[0]}  ${addressList[1]}";
   }
 
   doOnCameraStart() {}
   doOnCameraMove(CameraPosition data) {
+    circleFlag = false;
     var marker = Marker(
       draggable: false,
       markerId: MarkerId(markerId),
@@ -156,6 +158,28 @@ class CustomGoogleMapController extends GetxController {
     }
     userAddresses.refresh();
     Get.back();
+  }
+
+  Set<Circle> getCircles() {
+    final circleSet = Set<Circle>.of([]);
+    if (circleFlag) {
+      print('true');
+      circleSet.add(Circle(
+        circleId: CircleId("currentLocation"),
+        radius: 5,
+        // visible: cgmapController.moving ? false : true,
+        center: LatLng(
+            markers[MarkerId(markerId)]?.position.latitude ??
+                CompanyDetail.companyLat,
+            markers[MarkerId(markerId)]?.position.longitude ??
+                CompanyDetail.companyLong),
+        fillColor: Palette.coffeeColor.withOpacity(0.8),
+      ));
+    } else {
+      print('false');
+      circleSet.clear();
+    }
+    return circleSet;
   }
 }
 
