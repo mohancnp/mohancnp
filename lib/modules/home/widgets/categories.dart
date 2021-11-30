@@ -12,7 +12,7 @@ class CategoriesTabs extends StatelessWidget {
     return Material(
       color: Color(0xFFF3F5F5),
       child: Container(
-        margin: EdgeInsets.only(left: 28.w),
+        margin: EdgeInsets.only(left: 28.w, top: 42.h),
         // clipBehavior: Clip.none,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +27,10 @@ class CategoriesTabs extends StatelessWidget {
             SizedBox(
               height: 33.h,
               child: GetBuilder<CategoriesController>(
-                  builder: (categoriesController) {
+                init: CategoriesController(),
+                initState: (v) {
+                // Get.find<CategoriesController>().setActiveCategory = 0;
+              }, builder: (categoriesController) {
                 return ListView.builder(
                     itemCount: categoriesController.categoryList.length,
                     scrollDirection: Axis.horizontal,

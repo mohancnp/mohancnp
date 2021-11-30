@@ -57,11 +57,21 @@ dependencies:
   flutter_spinkit: ^5.1.0
   pull_to_refresh: ^2.0.0
   dots_indicator: ^2.0.0
+  responsive_sizer: ^3.0.4+4
+  image_picker: ^0.8.4+4
+  json_annotation: ^4.1.0
+  google_place: ^0.4.3
+  flutter_animarker: ^3.2.0
+  time_picker_widget: ^1.0.0+10
+  
+  
 
 
 dev_dependencies:
+  build_runner: ^2.1.5
   flutter_test:
     sdk: flutter
+  json_serializable: ^4.1.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -83,14 +93,15 @@ flutter:
       - assets/images/cupwithsteam.png
       - assets/images/steam.png
       - assets/images/nathan-dumlao-c2Y16tC3yO8-unsplash@3x.png
-      - assets/images/metro coffee logo@3x.png
+      - assets/images/metro_coffee_logo.png
       - assets/images/nathan-dumlao-ikU3J1nr52w-unsplash@3x.png
       - assets/images/coffeematcropped.png
       - assets/images/coffematt.png
-      - assets/images/home-icon-silhouette.svg
-      - assets/images/bell.svg
-      - assets/images/shopping-cart.svg
-      - assets/images/user.svg
+      - assets/images/bottomnav/home-icon-silhouette.svg
+      - assets/images/bottomnav/bell.svg
+      - assets/images/bottomnav/shopping-cart.svg
+      - assets/images/bottomnav/user.svg
+      - assets/images/bottomnav/order_history.svg
       - assets/images/cart_add.svg
       - assets/images/utility/EmptyState.svg
       - assets/images/utility/Error.svg

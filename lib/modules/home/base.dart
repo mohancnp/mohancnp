@@ -2,26 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/home/home.dart';
-import 'package:metrocoffee/screens/base/order_history.dart';
-import 'package:metrocoffee/screens/base/profile.dart';
-import 'package:metrocoffee/screens/widgets/dialogs/loading.dart';
-import 'package:metrocoffee/ui/widgets.dart/utility_info_widget.dart';
+import 'package:metrocoffee/modules/notifications/notifications.dart';
+import 'package:metrocoffee/modules/profile/contents/my_order.dart';
+import 'package:metrocoffee/modules/profile/profile_page.dart';
+import 'package:metrocoffee/modules/public/redirection_page.dart';
+import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 
+// ignore: must_be_immutable
 class Base extends StatelessWidget {
-  List pages = [
+  List privatePages = [
     Home(),
-    // MembershipLoginPage(),
-    UtilityInfoWidget(
-      title: "You Are All Caught Up",
-      svgImageUri: UtilityIcons.illustrations,
-      content: "Looks like you do not have any notifications",
-      buttonText: "Start Browsing",
-    ),
-    OrderHistory(),
-    Profile()
+    Notifications(),
+    MyOrderPage(),
+    ProfilePage(),
+  ];
+  List publicPages = [
+    Home(),
+    RedirectionPage(),
+    RedirectionPage(),
+    RedirectionPage(),
   ];
 
   @override
@@ -29,11 +30,17 @@ class Base extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<BaseController>(
         init: BaseController(),
+        initState: (v) {
+          var b = Get.find<BaseController>();
+          b.currentIndex = 0;
+          b.initializeData();
+        },
         builder: (basecontroller) {
-          return basecontroller.userVerificationStatus ==
-                  UserVerficationStatus.verified
-              ? Scaffold(
-                  body: pages[basecontroller.currentindex],
+          var status = basecontroller.userVerificationStatus;
+          return (status == UserVerficationStatus.unverified)
+              ? LoadingPage()
+              : Scaffold(
+                  body: getPages(status, basecontroller.currentIndex),
                   bottomNavigationBar: Container(
                       //  height: 83,
                       height: 83.h,
@@ -55,7 +62,7 @@ class Base extends StatelessWidget {
                         showSelectedLabels: false,
                         showUnselectedLabels: false,
                         type: BottomNavigationBarType.fixed,
-                        currentIndex: basecontroller.currentindex,
+                        currentIndex: basecontroller.currentIndex,
                         onTap: (index) {
                           basecontroller.setindex(index);
                         },
@@ -66,7 +73,7 @@ class Base extends StatelessWidget {
                         items: [
                           BottomNavigationBarItem(
                             activeIcon: SvgPicture.asset(
-                              "assets/images/home-icon-silhouette.svg",
+                              "assets/images/bottomnav/home-icon-silhouette.svg",
                               //       width: 24,
                               width: 20.w,
                               height: 20.h,
@@ -75,7 +82,7 @@ class Base extends StatelessWidget {
                             backgroundColor: Colors.transparent,
                             label: "",
                             icon: SvgPicture.asset(
-                              "assets/images/home-icon-silhouette.svg",
+                              "assets/images/bottomnav/home-icon-silhouette.svg",
                               //                      width: 24,
                               width: 20.w,
                               height: 20.h,
@@ -84,7 +91,7 @@ class Base extends StatelessWidget {
                           ),
                           BottomNavigationBarItem(
                             activeIcon: SvgPicture.asset(
-                              "assets/images/bell.svg",
+                              "assets/images/bottomnav/bell.svg",
                               //                 height: 24,
                               width: 20.w,
                               height: 20.h,
@@ -93,7 +100,7 @@ class Base extends StatelessWidget {
                             label: "",
                             backgroundColor: Colors.transparent,
                             icon: SvgPicture.asset(
-                              "assets/images/bell.svg",
+                              "assets/images/bottomnav/bell.svg",
                               //                      height: 24,
                               width: 20.w,
                               height: 20.h,
@@ -102,7 +109,7 @@ class Base extends StatelessWidget {
                           ),
                           BottomNavigationBarItem(
                             activeIcon: SvgPicture.asset(
-                              "assets/images/shopping-cart.svg",
+                              "assets/images/bottomnav/order_history.svg",
                               //               height: 24,
                               width: 20.w,
                               height: 20.h,
@@ -111,7 +118,7 @@ class Base extends StatelessWidget {
                             label: "",
                             backgroundColor: Colors.transparent,
                             icon: SvgPicture.asset(
-                              "assets/images/shopping-cart.svg",
+                              "assets/images/bottomnav/order_history.svg",
                               //            height: 24,
                               width: 20.w,
                               height: 20.h,
@@ -129,16 +136,23 @@ class Base extends StatelessWidget {
                             label: "",
                             backgroundColor: Colors.transparent,
                             icon: SvgPicture.asset(
-                              "assets/images/user.svg",
+                              "assets/images/bottomnav/user.svg",
                               //             height: 24,
-                              height: screenwidth * 0.0583,
+                              height: 20.h,
+                              width: 20.w,
                               color: Colors.black38,
                             ),
                           ),
                         ],
                       )),
-                )
-              : LoadingPage();
+                );
         });
+  }
+
+  getPages(UserVerficationStatus st, int index) {
+    if (st == UserVerficationStatus.unknown) {
+      return publicPages[index];
+    } else
+      return privatePages[index];
   }
 }

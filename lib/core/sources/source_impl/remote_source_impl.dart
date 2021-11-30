@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import '../../config.dart';
 import '../../exceptions/dio_exceptions.dart';
@@ -31,9 +33,10 @@ class RemoteSourceImpl implements RemoteSource {
   @override
   Future<Map<String, dynamic>> post(
     String url, {
-    Map<String, dynamic>? body = const {},
+    dynamic body = const {},
     Map<String, dynamic>? queryParams,
   }) async {
+
     try {
       final response = await _dio.post(
         url,
@@ -52,7 +55,7 @@ class RemoteSourceImpl implements RemoteSource {
   @override
   Future<Map<String, dynamic>> put(
     String url, {
-    Map<String, dynamic>? body,
+    dynamic body,
     Map<String, dynamic>? queryParams,
   }) async {
     try {

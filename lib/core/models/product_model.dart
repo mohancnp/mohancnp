@@ -4,6 +4,7 @@ class Product {
   dynamic price;
   bool isFavorite;
   dynamic type;
+  
   Product(
       {required this.id,
       required this.name,

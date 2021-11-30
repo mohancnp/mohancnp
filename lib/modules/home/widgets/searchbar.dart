@@ -11,60 +11,48 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
     return Container(
         height: 36.h,
-        margin:
-            EdgeInsets.only(top: 23.h, left: 28.w, right: 28.w, bottom: 23.h),
-        padding: EdgeInsets.only(
-            //       bottom: 4,
-            top: 10.h,
-            bottom: 10.h),
-        width: screenwidth,
+        width: 375.w,
         decoration: BoxDecoration(
             color: Color(0xffFFEEF1),
-            borderRadius: BorderRadius.all(Radius.circular(15)),
+            borderRadius: BorderRadius.all(Radius.circular(15.r)),
             boxShadow: [
               BoxShadow(
-                  color: Color(0x24550E1C),
-                  offset: Offset(0, 3.h),
-                  blurRadius: 15.r)
+                color: Color(0x24550E1C),
+                offset: Offset(0, 3.h),
+                blurRadius: 15.r,
+              )
             ]),
         child: GestureDetector(
           onTap: () => Get.toNamed(PageName.searchPage),
-          child: Row(children: [
-            Container(
-              margin: EdgeInsets.symmetric(
-                  //        horizontal: 12
-                  horizontal: screenwidth * 0.02919),
-              child: Icon(
-                Ionicons.search,
-                color: Color(0xff404D4D),
-                //        size: 22,
-                size: 13.03.w,
-              ),
-            ),
-            Expanded(
-                child: Container(
-                    child: TextField(
+          child: Center(
+            child: TextField(
               enabled: enabled,
               style: TextStyle(
-                  fontFamily: poppinsregular,
-                  color: Colors.black87,
-                  //     fontSize: 11.5
-                  fontSize: 10.sp),
+                fontFamily: poppinsregular,
+                color: Colors.black87,
+                fontSize: 10.sp,
+              ),
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(bottom: 11.5.h),
                 border: InputBorder.none,
+                // contentPadding:
+                //     EdgeInsets.only(right: 8.w, top: 0, left: 0, bottom: 0),
+                prefixIcon: Icon(
+                  Ionicons.search,
+                  color: Colors.black26,
+                  size: 13.r,
+                ),
                 hintText: 'What will energize you today?',
                 hintStyle: TextStyle(
-                    fontFamily: poppinslight,
-                    color: Color(0xC2404D4D),
-                    //     fontSize: 11.5
-                    fontSize: 10.sp),
+                  fontFamily: poppinslight,
+                  color: Color(0xC2404D4D),
+                  height: 1.8,
+                  fontSize: 11.sp,
+                ),
               ),
-            )))
-          ]),
+            ),
+          ),
         ));
   }
 }

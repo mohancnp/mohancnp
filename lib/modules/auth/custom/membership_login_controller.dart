@@ -8,6 +8,8 @@ import 'package:metrocoffee/core/models/user_model.dart';
 import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
 import 'package:metrocoffee/core/services/storage/db/user_table.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
+import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 
 class MemberShipLoginController extends GetxController {
   TextEditingController _membershipNumberController = TextEditingController();
@@ -69,16 +71,19 @@ class MemberShipLoginController extends GetxController {
         _passwordController.text = "";
         errorMessage = "";
         _authState = AuthState.loggedIn;
+        Get.find<RedirectionController>().userExists = true;
       } on AppException catch (e) {
+        _authState = AuthState.error;
         print(e.message);
         errorMessage = e.message;
       } on ServerException catch (e) {
+        _authState = AuthState.error;
         print(e.message);
         errorMessage = e.message;
       }
     } else {
       errorMessage = "please fill the form";
-      print("empty membership number or password");
+      // print("empty membership number or password");
     }
   }
 }

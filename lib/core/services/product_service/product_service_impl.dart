@@ -1,46 +1,120 @@
-import 'package:get/get.dart';
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
+import 'package:metrocoffee/core/exceptions/dio_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
-import 'package:metrocoffee/modules/home/hometab_controller.dart';
-import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
 import '../../config.dart';
 import 'product_service.dart';
 
 class ProductServiceImpl extends ProductService {
+  var remoteSource = RemoteSourceImpl();
+
   @override
   Future handleProductsOfType({required String type}) async {
-    // '$baseUrl/api/product', queryParameters: {"type": type}
-    var remoteSource = RemoteSourceImpl();
+    
     try {
       Map<String, dynamic> products = await remoteSource
           .get('$baseUrl/api/product', queryParams: {"type": type});
-      Get.find<HomeTabController>().differentiateProductsType(type, products);
+      return products;
     } on ServerException catch (e) {
-      throw ServerException(code: e.code, message: e.message);
+      throw AppException(message: e.message);
     }
   }
 
   @override
   Future handleAllProducts() async {
-    var remoteSource = RemoteSourceImpl();
     try {
       Map<String, dynamic> products =
           await remoteSource.get('$baseUrl/api/product');
-      Get.find<HomeTabController>().differentiateProductsType("All", products);
+      return products;
+      
+    } on ServerException catch (e) {
+      throw AppException(message: e.message);
+    }
+  }
+
+  @override
+  Future handleProductDetail({required int id}) async {
+    try {
+      Map<String, dynamic> productDetail =
+          await remoteSource.get('$baseUrl/api/product/$id');
+      var prodObj = ProductDetail.fromJson(productDetail['data']);
+      return prodObj;
     } on ServerException catch (e) {
       throw ServerException(code: e.code, message: e.message);
     }
   }
 
   @override
-  Future handleProductDetail({required int id}) async {
-    var remoteSource = RemoteSourceImpl();
+  Future getFavoriteProducts() async {
     try {
-      Map<String, dynamic> productDetail =
-          await remoteSource.get('$baseUrl/api/product/$id');
-      var prodObj = ProductDetail.fromJson(productDetail['data']);
-      Get.find<ProductDetailPageController>().productDetail = prodObj;
+      var products = await remoteSource.get('$baseUrl/api/favourite');
+      return products;
+    } on ServerException catch (e) {
+      throw (AppException(message: e.message));
+    }
+  }
+
+  @override
+  Future toggleFavoriteProduct({required int id}) async {
+    try {
+      var products = await remoteSource.post('$baseUrl/api/favourite/$id');
+      return products;
+    } on ServerException catch (e) {
+      throw (AppException(message: e.message));
+    }
+  }
+
+  @override
+  Future getPublicProducts() async {
+    try {
+      var token =
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiZGZkODgxMDc0MmVjMWQ0YzU1YWJkNGQ4MDYxM2E5YjYxYWNjZDc3OTNiNTBmNzA1NzgyN2ZhNTg2NWQxZjA5MWJmNmY4NTgxMjM4MWUyNzIiLCJpYXQiOjE2MzUyNjgyNzMuODgyNzcyLCJuYmYiOjE2MzUyNjgyNzMuODgyODIxLCJleHAiOjE2NjY4MDQyNzMuODc5NTk2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.mHPXsWSDaFiqNFYZLAtEhiFxdldBDE0W4IXYCg-n4HcG9sr9yZud9PoOKvXnV4qFl-eWECReojYeIOTle_r-5C0D9q93c5sqvv7b3lyzWQUNvP4NuP8EqpjbZm9b3nChZpR_VFSqwPBFYjz8S8cHwAQaGlgI78-k3O3SN7iUUVsn2rZBlE109GfG4B0hai5NsSj0RJtHoR79Pic7DXLWt1aLCYybVo3Bm7l70dLLJF5qlmDZwKB6H8rOHMsyJaZzsDMovECaYkowfndeW8p5vguBXgwwIG81rxTPUXVThkTcsYmglkaRZI1HF9MWSvblyeOiQr26-KMOHznejAauNzfY0c0k3cpMqoS89fQ024mVxeZHYm9loN_YSrYVjXKcFzqEBaHz8-_5XTcwZJKU-LVLjUMa_jq0cLvey4GDZoH6Z36exDGD3eqsYvXE6Buih4vfzPalyP-UxAZp_7woGVlgH-d0SViT9Zpw0OZuaCbhkQvABCK-izpm32ndJnRCUwmA5tBELwFE7saOrUHhY08C6XXnmtDDRUMy2-tezPjj4B32vvzJPn9iJgW1oXuFRD19xL9yvoA2aA4rHAcb4QNke7wXadeASFhA0U6-mbyO2vqxJoBTinzZgJonBllhbottq7sev6jFQoM3IzQU9kwQ_NHkn7g8COP7DjKzq9E";
+      dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+      var products = await dio.get('$baseUrl/api/product');
+      if (products.data is Map<String, dynamic>) {
+        return products.data;
+      } else {
+        return {"data": products.data};
+      }
+      
+    } on DioError catch (e) {
+      throw getServerException(e);
+    }
+  }
+
+  @override
+  Future getPublicProductsOfType({required String type}) async {
+    try {
+      var token =
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiZGZkODgxMDc0MmVjMWQ0YzU1YWJkNGQ4MDYxM2E5YjYxYWNjZDc3OTNiNTBmNzA1NzgyN2ZhNTg2NWQxZjA5MWJmNmY4NTgxMjM4MWUyNzIiLCJpYXQiOjE2MzUyNjgyNzMuODgyNzcyLCJuYmYiOjE2MzUyNjgyNzMuODgyODIxLCJleHAiOjE2NjY4MDQyNzMuODc5NTk2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.mHPXsWSDaFiqNFYZLAtEhiFxdldBDE0W4IXYCg-n4HcG9sr9yZud9PoOKvXnV4qFl-eWECReojYeIOTle_r-5C0D9q93c5sqvv7b3lyzWQUNvP4NuP8EqpjbZm9b3nChZpR_VFSqwPBFYjz8S8cHwAQaGlgI78-k3O3SN7iUUVsn2rZBlE109GfG4B0hai5NsSj0RJtHoR79Pic7DXLWt1aLCYybVo3Bm7l70dLLJF5qlmDZwKB6H8rOHMsyJaZzsDMovECaYkowfndeW8p5vguBXgwwIG81rxTPUXVThkTcsYmglkaRZI1HF9MWSvblyeOiQr26-KMOHznejAauNzfY0c0k3cpMqoS89fQ024mVxeZHYm9loN_YSrYVjXKcFzqEBaHz8-_5XTcwZJKU-LVLjUMa_jq0cLvey4GDZoH6Z36exDGD3eqsYvXE6Buih4vfzPalyP-UxAZp_7woGVlgH-d0SViT9Zpw0OZuaCbhkQvABCK-izpm32ndJnRCUwmA5tBELwFE7saOrUHhY08C6XXnmtDDRUMy2-tezPjj4B32vvzJPn9iJgW1oXuFRD19xL9yvoA2aA4rHAcb4QNke7wXadeASFhA0U6-mbyO2vqxJoBTinzZgJonBllhbottq7sev6jFQoM3IzQU9kwQ_NHkn7g8COP7DjKzq9E";
+      dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+      var products = await dio
+          .get('$baseUrl/api/product', queryParameters: {"type": type});
+      if (products.data is Map<String, dynamic>) {
+        return products.data;
+      } else {
+        return {"data": products.data};
+      }
+    } on DioError catch (e) {
+      throw getServerException(e);
+    }
+  }
+
+  @override
+  Future getPublicProductDetail({required int id}) async {
+    try {
+      var token =
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiZGZkODgxMDc0MmVjMWQ0YzU1YWJkNGQ4MDYxM2E5YjYxYWNjZDc3OTNiNTBmNzA1NzgyN2ZhNTg2NWQxZjA5MWJmNmY4NTgxMjM4MWUyNzIiLCJpYXQiOjE2MzUyNjgyNzMuODgyNzcyLCJuYmYiOjE2MzUyNjgyNzMuODgyODIxLCJleHAiOjE2NjY4MDQyNzMuODc5NTk2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.mHPXsWSDaFiqNFYZLAtEhiFxdldBDE0W4IXYCg-n4HcG9sr9yZud9PoOKvXnV4qFl-eWECReojYeIOTle_r-5C0D9q93c5sqvv7b3lyzWQUNvP4NuP8EqpjbZm9b3nChZpR_VFSqwPBFYjz8S8cHwAQaGlgI78-k3O3SN7iUUVsn2rZBlE109GfG4B0hai5NsSj0RJtHoR79Pic7DXLWt1aLCYybVo3Bm7l70dLLJF5qlmDZwKB6H8rOHMsyJaZzsDMovECaYkowfndeW8p5vguBXgwwIG81rxTPUXVThkTcsYmglkaRZI1HF9MWSvblyeOiQr26-KMOHznejAauNzfY0c0k3cpMqoS89fQ024mVxeZHYm9loN_YSrYVjXKcFzqEBaHz8-_5XTcwZJKU-LVLjUMa_jq0cLvey4GDZoH6Z36exDGD3eqsYvXE6Buih4vfzPalyP-UxAZp_7woGVlgH-d0SViT9Zpw0OZuaCbhkQvABCK-izpm32ndJnRCUwmA5tBELwFE7saOrUHhY08C6XXnmtDDRUMy2-tezPjj4B32vvzJPn9iJgW1oXuFRD19xL9yvoA2aA4rHAcb4QNke7wXadeASFhA0U6-mbyO2vqxJoBTinzZgJonBllhbottq7sev6jFQoM3IzQU9kwQ_NHkn7g8COP7DjKzq9E";
+      dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+      var productDetail = await dio.get('$baseUrl/api/product/$id');
+      if (productDetail.data is Map<String, dynamic>) {
+        var prodObj = ProductDetail.fromJson(productDetail.data['data']);
+        return prodObj;
+      }
+      return null;
     } on ServerException catch (e) {
       throw ServerException(code: e.code, message: e.message);
     }

@@ -6,6 +6,7 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/socials.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -28,9 +29,7 @@ class LoginPage extends StatelessWidget {
           ),
           backgroundColor: Colors.transparent,
           body: Container(
-            padding: EdgeInsets.symmetric(
-                //        horizontal: 18
-                horizontal: 18.w),
+            padding: EdgeInsets.symmetric(horizontal: 18.w),
             height: 812.h,
             width: 375.w,
             decoration: BoxDecoration(
@@ -47,28 +46,26 @@ class LoginPage extends StatelessWidget {
               children: [
                 Container(
                   child: Image.asset(
-                    "assets/images/metro coffee logo@3x.png",
+                    "assets/images/metro_coffee_logo.png",
                     width: 54.w,
                   ),
-                  padding: EdgeInsets.all(
-                      //     5
-                      5.w),
+                  padding: EdgeInsets.all(5.w),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white.withOpacity(0.4),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      //          top: 25
-                      top: 25.h),
+                  margin: EdgeInsets.only(top: 25.h),
                   child: Text(
                     "Welcome to\nMetro Coffee",
-                    style: TextStyle(
-                        fontFamily: freightbold,
-                        color: Colors.white,
-                        //       fontSize: 42
-                        fontSize: 42.sp),
+
+                    style: Theme.of(context).textTheme.headline1,
+                    // style: TextStyle(
+                    //   fontFamily: CustomFont.freightDispBold,
+                    //   color: Colors.white,
+                    //   fontSize: 42.sp,
+                    // ),
                   ),
                 ),
                 ClipRRect(
@@ -79,11 +76,8 @@ class LoginPage extends StatelessWidget {
                               Get.toNamed(PageName.membershiploginpage);
                             },
                             child: Container(
-                              margin: EdgeInsets.only(
-                                  //       top: 33
-                                  top: 33.h),
+                              margin: EdgeInsets.only(top: 33.h),
                               width: 375.w,
-                              //    height: 49,
                               height: 49.h,
                               decoration: BoxDecoration(
                                   border: Border.all(
@@ -95,11 +89,7 @@ class LoginPage extends StatelessWidget {
                                 child: Text(
                                   "Continue with Membership",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: poppinsregular,
-                                      //        fontSize: 15,
-                                      fontSize: 15.sp,
-                                      color: Colors.black),
+                                  style: Theme.of(context).textTheme.button,
                                 ),
                               ),
                             )))),
@@ -122,13 +112,10 @@ class LoginPage extends StatelessWidget {
                           height: 2.h,
                           color: Colors.white30,
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(4.w),
-                          child: Text(
-                            "or login with",
-                            style: TextStyle(
-                                color: Colors.white54, fontSize: 14.sp),
-                          ),
+                        Text(
+                          "or login with",
+                          style:
+                              TextStyle(color: Colors.white54, fontSize: 14.sp),
                         ),
                         Container(
                           width: 115.w,
@@ -192,15 +179,10 @@ class LoginPage extends StatelessWidget {
         child: BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
       child: GestureDetector(
-          onTap: () {
-            // Get.toNamed(PageName.emailloginpage);
-          },
+          onTap: () {},
           child: Container(
-            margin: EdgeInsets.only(
-                //      top: 27
-                top: screenwidth * 0.0656),
+            margin: EdgeInsets.only(top: screenwidth * 0.0656),
             width: screenwidth,
-            //     height: 49,
             height: screenwidth * 0.1192,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(23)),
@@ -214,19 +196,16 @@ class LoginPage extends StatelessWidget {
                           Icon(
                             FeatherIcons.mail,
                             color: Colors.white,
-                            //     size: 20,
                             size: screenwidth * 0.0486,
                           ),
                           Container(
-                            margin: EdgeInsets.only(
-                                //       left: 17
-                                left: screenwidth * 0.04136),
+                            margin:
+                                EdgeInsets.only(left: screenwidth * 0.04136),
                             child: Text(
                               "Continue with Email",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: poppinsregular,
-                                  //        fontSize: 15,
                                   fontSize: screenwidth * 0.0364,
                                   color: Colors.white54),
                             ),

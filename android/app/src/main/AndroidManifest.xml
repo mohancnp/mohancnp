@@ -10,7 +10,7 @@
         android:label="Metro Coffee">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAeQovUYnp9qL_ss6vcGLx18hBMJhkpXYI" />
+            android:value="AIzaSyDlCfv00hBFzNtRRJuVk8XsBQidQtIPpi4" />
 
         <activity
             android:name=".MainActivity"

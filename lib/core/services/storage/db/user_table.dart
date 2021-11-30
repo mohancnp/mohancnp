@@ -7,7 +7,7 @@ import 'package:sqflite/sqlite_api.dart';
 
 class UserTableHandler {
   Future addUser(User client) async {
-    print("add user method called");
+    // print("add user method called");
     Database db = locator<DbStorage>().db;
     try {
       int affectedRows = await db.rawInsert('''INSERT INTO ${Table.user}(

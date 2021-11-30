@@ -1,5 +1,6 @@
 class ProductDetail {
   int? id;
+  int? productId;
   dynamic price;
   String? name;
   String? imageUri;
@@ -11,6 +12,7 @@ class ProductDetail {
   List<ProductOption>? options;
   List<ProductAddOn>? addons;
   ProductDetail.empty();
+
   ProductDetail(
       {required this.id,
       required this.price,
@@ -76,6 +78,15 @@ class Variant {
     this.imageUri,
     this.productName,
   );
+  Variant.dummy(
+    this.id,
+    this.productId,
+    this.name,
+    this.sku,
+    this.imageUri,
+    this.productName,
+  );
+
   Variant(
       {required this.id,
       required this.productId,
@@ -145,6 +156,7 @@ class ProductAddOn {
   String? image;
   String? name;
   dynamic cost;
+  bool selected = false;
 
   ProductAddOn();
 

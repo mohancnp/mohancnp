@@ -26,4 +26,6 @@ class CartFeild {
   static const String imageUri = "imageUri";
   static const String options = "options";
   static const String addons = "addons";
+  static const String size = "size";
+  static const String extras = 'extras';
 }
