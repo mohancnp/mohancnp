@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         initialBinding: ControllerBinding(),
         title: metrocoffee,
         theme: ThemeData(
-          primarySwatch: Colors.brown,
+          primarySwatch: MetroColor.coffee,
           brightness: Brightness.light,
           fontFamily: CustomFont.poppinsRegular,
           textTheme: TextTheme(

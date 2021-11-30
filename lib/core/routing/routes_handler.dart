@@ -44,7 +44,6 @@ class RouteHandler {
       PageName.productCartPage: (BuildContext context) => MyProductCart(),
       PageName.searchPage: (BuildContext context) => SearchPage(),
       PageName.nointernetpage:(BuildContext context)=>NoInternet(),
-
     };
   }
 }

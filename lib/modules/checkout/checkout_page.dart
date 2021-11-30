@@ -19,10 +19,13 @@ import 'package:metrocoffee/modules/shareables/widgets/finalpricecalculationcard
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
 import 'checkout_page_controller.dart';
+import 'package:time_picker_widget/time_picker_widget.dart';
 
+// ignore: must_be_immutable
 class CheckoutPage extends StatelessWidget {
   CheckoutPage({Key? key}) : super(key: key);
   final uop = Get.arguments;
+  String? selectedTime;
 
   @override
   Widget build(BuildContext context) {
@@ -164,68 +167,66 @@ class CheckoutPage extends StatelessWidget {
                   : GetX<CustomGoogleMapController>(
                       // init: CustomGoogleMapController(),
                       builder: (controller) {
-                        return ListView.builder(
-                            itemCount: controller.userAddresses.length,
-                            shrinkWrap: true,
-                            primary: false,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 28.w,
-                            ),
-                            itemBuilder: (context, index) {
-                              var admodel = controller.userAddresses[index];
-                              // print(selectedIndex);
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: AddressDetailWidget(
-                                  mainLocation: admodel.title,
-                                  subLocation: admodel.subtitle,
-                                  onItemSelected: index,
-                                  onDelete: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) {
-                                          return ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(8.r),
-                                            ),
-                                            child: SimpleDialog(
-                                                contentPadding:
-                                                    EdgeInsets.all(0),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(18.r),
-                                                  ),
+                      return ListView.builder(
+                          itemCount: controller.userAddresses.length,
+                          shrinkWrap: true,
+                          primary: false,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 28.w,
+                          ),
+                          itemBuilder: (context, index) {
+                            var admodel = controller.userAddresses[index];
+                            // print(selectedIndex);
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: AddressDetailWidget(
+                                mainLocation: admodel.title,
+                                subLocation: admodel.subtitle,
+                                onItemSelected: index,
+                                onDelete: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) {
+                                        return ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(8.r),
+                                          ),
+                                          child: SimpleDialog(
+                                              contentPadding: EdgeInsets.all(0),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(18.r),
                                                 ),
-                                                children: [
-                                                  UserPreference(
-                                                    question:
-                                                        "Really Want to Remove Address?",
-                                                    onPressedFirst: () {
-                                                      controller.userAddresses
-                                                          .removeAt(index);
-                                                      Get.back();
-                                                    },
-                                                    firstText: "SURE",
-                                                    onPressedSecond: () {
-                                                      Get.back();
-                                                    },
-                                                    secondText: "CANCEL",
-                                                  ),
-                                                ]),
-                                          );
-                                        });
-                                  },
-                                  onEdit: () {
-                                    Get.to(() => GoogleMapPage(
-                                          initialLat: admodel.mapLocation.lat,
-                                          initialLong: admodel.mapLocation.long,
-                                        ));
-                                  },
-                                ),
-                              );
-                            });
-                      }),
+                                              ),
+                                              children: [
+                                                UserPreference(
+                                                  question:
+                                                      "Really Want to Remove Address?",
+                                                  onPressedFirst: () {
+                                                    controller.userAddresses
+                                                        .removeAt(index);
+                                                    Get.back();
+                                                  },
+                                                  firstText: "SURE",
+                                                  onPressedSecond: () {
+                                                    Get.back();
+                                                  },
+                                                  secondText: "CANCEL",
+                                                ),
+                                              ]),
+                                        );
+                                      });
+                                },
+                                onEdit: () {
+                                  Get.to(() => GoogleMapPage(
+                                        initialLat: admodel.mapLocation.lat,
+                                        initialLong: admodel.mapLocation.long,
+                                      ));
+                                },
+                              ),
+                            );
+                          });
+                    }),
               Padding(
                 padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
                 child: Text(
@@ -238,44 +239,78 @@ class CheckoutPage extends StatelessWidget {
                   )),
                 ),
               ),
-              Container(
-                height: 91.h,
-                // padding: EdgeInsets.symmetric(horizontal: 22.w),
-                margin: EdgeInsets.symmetric(
-                  horizontal: 28.w,
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(9)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          offset: Offset(0, 3),
-                          blurRadius: 10)
-                    ]),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Obx(() {
-                        return GestureDetector(
-                          onTap: () {
-                            TimeOfDay _time =
-                                TimeOfDay.now().replacing(minute: 30);
-
-                            Navigator.of(context).push(showPicker(
-                                value: _time,
-                                borderRadius: 9,
-                                okText: "SET TIME",
-                                accentColor: Palette.coffeeColor,
-                                onChange: (v) {
-                                  controller.selectedTimeFrame.value =
-                                      "${v.hour}:${v.minute}";
-                                  // print("${v.hour}:${v.minute}");
-                                }));
-                          },
-                          child: Row(
+              Obx(() {
+                return GestureDetector(
+                  onTap: () {
+                    TimeOfDay _currentTime = TimeOfDay.now();
+                    var remainder = _currentTime.minute % 15;
+                    showCustomTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay(
+                          hour: calculateHoursWithRemainder(
+                              remainder, _currentTime),
+                          minute: calculateMinutesWithRemainder(
+                              remainder, _currentTime),
+                        ),
+                        onFailValidation: (context) {
+                          showMessage(context, "Shift Unavailbale");
+                          // print("unavailable");
+                        },
+                        selectableTimePredicate: (time) =>
+                            (time!.hour >= _currentTime.hour) &&
+                            (time.minute % 15 == 0)).then((time) {
+                      if (time != null) {
+                        if (time.hour > _currentTime.hour) {
+                          controller.selectedTimeFrame.value =
+                              "${time.hour}:${time.minute}";
+                        } else {
+                          if ((time.minute - _currentTime.minute) >= 15) {
+                            controller.selectedTimeFrame.value =
+                                "${time.hour}:${time.minute}";
+                          } else {
+                            print("reached else");
+                            controller.selectedTimeFrame.value =
+                                "${_currentTime.hour}:${_currentTime.minute + 15}";
+                          }
+                        }
+                      }
+                      // print(time.format(context));
+                    });
+                    // Navigator.of(context).push(
+                    //   showPicker(
+                    //       value: _time,
+                    //       onChangeDateTime: (value) {},
+                    //       borderRadius: 9,
+                    //       okText: "SET TIME",
+                    //       accentColor: Palette.coffeeColor,
+                    //       onChange: (v) {
+                    //         controller.selectedTimeFrame.value =
+                    //             "${v.hour}:${v.minute}";
+                    //         // print("${v.hour}:${v.minute}");
+                    //       }),
+                    // );
+                  },
+                  child: Container(
+                    height: 64.h,
+                    // padding: EdgeInsets.symmetric(horizontal: 22.w),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 28.w,
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(9)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              offset: Offset(0, 3),
+                              blurRadius: 10)
+                        ]),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -287,32 +322,33 @@ class CheckoutPage extends StatelessWidget {
                               )
                             ],
                           ),
-                        );
-                      }),
-                      Divider(
-                        color: Palette.darkGery.withOpacity(0.15),
-                        thickness: 1.5,
+                          Divider(
+                            color: Palette.darkGery.withOpacity(0.15),
+                            thickness: 1.5,
+                          ),
+                          // Expanded(
+                          //   child: ListView.builder(
+                          //       itemCount: controller.timeValues.length,
+                          //       // clipBehavior: Clip.none,
+                          //       scrollDirection: Axis.horizontal,
+                          //       itemBuilder: (context, index) {
+                          //         return TimerWidget(
+                          //             index: index,
+                          //             onPressed: () {
+                          //               controller.selectedTimeIndex.value =
+                          //                   index;
+                          //               controller.selectedTimeFrame.value =
+                          //                   controller.timeValues[controller
+                          //                       .selectedTimeIndex.value];
+                          //             });
+                          //       }),
+                          // )
+                        ],
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                            itemCount: controller.timeValues.length,
-                            // clipBehavior: Clip.none,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return TimerWidget(
-                                  index: index,
-                                  onPressed: () {
-                                    controller.selectedTimeIndex.value = index;
-                                    controller.selectedTimeFrame.value =
-                                        controller.timeValues[
-                                            controller.selectedTimeIndex.value];
-                                  });
-                            }),
-                      )
-                    ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
               Padding(
                 padding: EdgeInsets.only(top: 24.h),
                 child: Center(
@@ -335,4 +371,80 @@ class CheckoutPage extends StatelessWidget {
       ),
     );
   }
+
+  calculateMinutesWithRemainder(int remainder, currentTime) {
+    var newValue = (15 - remainder) + currentTime.minute;
+
+    if (remainder != 0) {
+      if (newValue == 60) {
+        return 00;
+      }
+    }
+    return newValue;
+  }
+
+  calculateHoursWithRemainder(int remainder, TimeOfDay currentTime) {
+    if (remainder != 0) {
+      var newValue = (15 - remainder) + currentTime.minute;
+      if (newValue == 60) {
+        return currentTime.hour + 1;
+      }
+    }
+    return currentTime.hour;
+  }
 }
+
+showMessage(BuildContext context, String message) => showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 16,
+            ),
+            Icon(
+              Icons.warning,
+              color: Colors.amber,
+              size: 56,
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                message,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Color(0xFF231F20),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            InkWell(
+              onTap: () => Navigator.of(context).pop(),
+              child: Container(
+                alignment: Alignment.center,
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(vertical: 16),
+                decoration: BoxDecoration(
+                    border: Border(top: BorderSide(color: Color(0xFFE8ECF3)))),
+                child: Text(
+                  'Cerrar',
+                  style: TextStyle(
+                      color: Color(0xFF2058CA),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    });

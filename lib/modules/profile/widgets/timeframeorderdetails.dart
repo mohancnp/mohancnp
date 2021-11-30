@@ -206,7 +206,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
               itemBuilder: (context, index) {
                 OrderProduct? orderProduct =
                     orderDetail.orderProductList?.elementAt(index);
-                print(orderProduct?.variant);
+                // print(orderProduct?.variant);
                 if (orderProduct != null) {
                   return OrderDetailRow(
                     odp: orderProduct,
@@ -254,24 +254,24 @@ class TimeFrameOrderDetails extends StatelessWidget {
             onTap: () {
               //allow to cancel order if it is pending
               if (orderDetail.status == OrderStatus.pending) {
-                showDialog(
-                    context: context,
-                    builder: (_) {
-                      return ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(18)),
-                          child: SimpleDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18)),
-                              ),
-                              children: [
-                                orderDetail.id != null
-                                    ? CancelOrderDialog(
-                                        orderId: orderDetail.id!,
-                                      )
-                                    : SizedBox()
-                              ]));
-                    });
+                // showDialog(
+                //     context: context,
+                //     builder: (_) {
+                //       return ClipRRect(
+                //           borderRadius: BorderRadius.all(Radius.circular(18)),
+                //           child: SimpleDialog(
+                //               shape: RoundedRectangleBorder(
+                //                 borderRadius:
+                //                     BorderRadius.all(Radius.circular(18)),
+                //               ),
+                //               children: [
+                //                 orderDetail.id != null
+                //                     ? CancelOrderDialog(
+                //                         orderId: orderDetail.id!,
+                //                       )
+                //                     : SizedBox()
+                //               ]));
+                //     });
               } else if (orderDetail.status == OrderStatus.delivered) {
                 showDialog(
                     context: context,
@@ -328,7 +328,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
 
   String getTextAccordingToStatus() {
     if (orderDetail.status == OrderStatus.pending) {
-      return "Cancel Order";
+      return "In Progress";
     } else if (orderDetail.status == OrderStatus.delivered) {
       return "Re Order";
     }

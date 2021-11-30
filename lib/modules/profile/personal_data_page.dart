@@ -180,10 +180,10 @@ class PersonalDataPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             color: coffeecolor),
                         width: 130.w,
-                        height: 32.h,
+                        height: 50.h,
                         child: MaterialButton(
                           child: Text(
-                            "update",
+                            "UPDATE",
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: personaldatacontroller

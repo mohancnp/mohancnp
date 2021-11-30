@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 
 class TimeFrameOrders extends StatelessWidget {
   final int? index;
@@ -98,12 +99,9 @@ class TimeFrameOrders extends StatelessWidget {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                // Get.find<OrderHistoryController>()
-              },
-              child: Container(
-                child: Row(
+            Column(
+              children: [
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -136,47 +134,41 @@ class TimeFrameOrders extends StatelessWidget {
                     )
                   ],
                 ),
-              ),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.greenAccent),
+                      borderRadius: BorderRadius.circular(4)),
+                  margin: EdgeInsets.only(top: 16),
+                  padding: EdgeInsets.all(4),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.cancel_rounded,
+                        color: Palette.coffeeColor,
+//                            size: 15,
+                        size: 12,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+//                                left: 4
+                            left: 4),
+                        child: Text(
+                          "Pending",
+                          style: getpoppins(TextStyle(
+                              fontWeight: FontWeight.w300,
+                              color: Colors.red,
+//                                  fontSize: 10.5
+                              fontSize: 12)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             )
           ],
         ),
       ),
     );
-  }
-
-  getimageforrow1(int? index) {
-    if (index == 0) {
-      return "assets/images/coffee1.png";
-    }
-    if (index == 1) {
-      return "assets/images/coffe2.png";
-    }
-    if (index == 2) {
-      return "assets/images/coffee4.png";
-    }
-  }
-
-  gettitleforrow1(int? index) {
-    if (index == 0) {
-      return "Café Latte";
-    }
-    if (index == 1) {
-      return "Latte Machiato";
-    }
-    if (index == 2) {
-      return "Café Americano";
-    }
-  }
-
-  getpriceforrow1(int? index) {
-    if (index == 0) {
-      return "3.00";
-    }
-    if (index == 1) {
-      return "2.00";
-    }
-    if (index == 2) {
-      return "4.00";
-    }
   }
 }

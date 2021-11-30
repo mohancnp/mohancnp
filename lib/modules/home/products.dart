@@ -52,28 +52,28 @@ class ProductsPage extends StatelessWidget {
                             products: np.mostPopular!,
                             tag: "mpList",
                           ),
-                Padding(
-                  padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
-                  child: Text(
-                    "Recommended",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500, color: Color(0xFF344141)),
-                  ),
-                ),
-                (np == null)
-                    ? SizedBox(
-                        child: Center(
-                        child: Text("N/A"),
-                      ))
-                    : (np.mostPopular == null)
-                        ? SizedBox(
-                            child: Center(
-                            child: Text("N/A"),
-                          ))
-                        : ProductList(
-                            products: np.recommendation!,
-                            tag: "rcList",
-                          ),
+                // Padding(
+                //   padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
+                //   child: Text(
+                //     "Recommended",
+                //     style: TextStyle(
+                //         fontWeight: FontWeight.w500, color: Color(0xFF344141)),
+                //   ),
+                // ),
+                //   (np == null)
+                //       ? SizedBox(
+                //           child: Center(
+                //           child: Text("N/A"),
+                //         ))
+                //       : (np.mostPopular == null)
+                //           ? SizedBox(
+                //               child: Center(
+                //               child: Text("N/A"),
+                //             ))
+                //           : ProductList(
+                //               products: np.recommendation!,
+                //               tag: "rcList",
+                //             ),
               ],
             )
           : SizedBox(
