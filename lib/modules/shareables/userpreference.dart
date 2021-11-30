@@ -6,8 +6,14 @@ import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class UserPreference extends StatelessWidget {
-  UserPreference({Key? key}) : super(key: key);
+  final void Function() onPressedFirst;
+  final void Function() onPressedSecond;
+  final String firstText;
+  final String secondText;
+  final String question;
 
+  UserPreference({Key? key,required this.question,required this.onPressedFirst,required this.firstText,required this.secondText, required this.onPressedSecond})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -40,7 +46,7 @@ class UserPreference extends StatelessWidget {
               Center(
                   child: SizedBox(
                 child: Text(
-                  "How would you like to\nhave your order?",
+                  "$question",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       height: 1.4,
@@ -53,10 +59,7 @@ class UserPreference extends StatelessWidget {
                 height: 10.h,
               ),
               GestureDetector(
-                onTap: () {
-                  Get.back();
-                  Get.toNamed(PageName.checkoutpage);
-                },
+                onTap:onPressedFirst,
                 child: Container(
 //            width: 185,height: 36,
                   width: 185.w, height: 36.h,
@@ -72,7 +75,7 @@ class UserPreference extends StatelessWidget {
                       ]),
                   child: Center(
                     child: Text(
-                      "Collections",
+                      "$firstText",
                       textAlign: TextAlign.center,
                       style: getpoppins(TextStyle(
                           fontWeight: FontWeight.w300,
@@ -84,10 +87,7 @@ class UserPreference extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Get.back();
-                  Get.toNamed(PageName.checkoutpage);
-                },
+                onTap: onPressedSecond,
                 child: Container(
                   margin: EdgeInsets.only(
 //                top: 16
@@ -109,7 +109,7 @@ class UserPreference extends StatelessWidget {
                       ]),
                   child: Center(
                     child: Text(
-                      "Delivery",
+                      "$secondText",
                       textAlign: TextAlign.center,
                       style: getpoppins(TextStyle(
                         fontWeight: FontWeight.w300,

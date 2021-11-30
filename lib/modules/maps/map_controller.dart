@@ -21,6 +21,9 @@ class MapController extends GetxController {
   RxList<CustomLocation> deliveryLocationList = <CustomLocation>[].obs;
   Rx<int> selectedAddressIndex = 0.obs;
   Rx<UIState> uiState = UIState.passive.obs;
+  double companyLatitude = 51.5767841909041;
+  double companyLongitued = 0.0671225322487236;
+
   // RxList<Address> addresses = <Address>[].obs;
   addNewLocationFromMap() {}
 
@@ -113,7 +116,9 @@ class MapController extends GetxController {
 
   Future<List<dynamic>> getCurrentLocationName(LocationData data) async {
     List<geo.Placemark> pm = await geo.placemarkFromCoordinates(
-        data.latitude ?? 27.7172, data.longitude ?? 85.3240);
+      data.latitude ?? companyLatitude,
+      data.longitude ?? companyLongitued,
+    );
     return pm;
   }
 

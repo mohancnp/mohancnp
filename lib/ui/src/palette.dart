@@ -6,4 +6,6 @@ class Palette {
   static Color pagebackgroundcolor = Color(0xFFF3F5F5);
   static Color coffeeColorShadow = Color(0x4DC3916A);
   static Color darkGery = Color(0xFF404D4D);
+  static Color darkGrey1 = Color(0xC2404D4D);
+  static Color grieshWhite=Color(0xFFE8E8E8);
 }

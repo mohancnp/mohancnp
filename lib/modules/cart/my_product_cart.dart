@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
+import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
@@ -57,7 +58,28 @@ class MyProductCart extends StatelessWidget {
                                               ),
                                             ),
                                             children: [
-                                              UserPreference(),
+                                              UserPreference(
+                                                question:
+                                                    "How would you like to\nhave your order?",
+                                                onPressedFirst: () {
+                                                  Get.back();
+                                                  Get.toNamed(
+                                                      PageName.checkoutpage,
+                                                      arguments:
+                                                          UserOrderPreference
+                                                              .pickup);
+                                                },
+                                                firstText: "COLLECTIONS",
+                                                onPressedSecond: () {
+                                                  Get.back();
+                                                  Get.toNamed(
+                                                      PageName.checkoutpage,
+                                                      arguments:
+                                                          UserOrderPreference
+                                                              .delivery);
+                                                },
+                                                secondText: "DELIVERY",
+                                              ),
                                             ]),
                                       );
                                     });

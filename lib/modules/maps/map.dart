@@ -7,6 +7,7 @@ import 'package:location/location.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/modules/maps/map_controller.dart';
 import 'package:metrocoffee/core/models/location.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 import 'widgets/widget_map.dart';
 
 class GoogleMapScreen extends StatefulWidget {
@@ -17,77 +18,81 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
-  //for draggable sheet control
 
+  //for draggable sheet control
   late BuildContext draggableContext;
 
   //map related
-
   Marker? source, destination;
   late GoogleMapController googleMapController;
   late Location location;
   Set<Marker> _markers = {};
 
   //variables for ui control
-
   double min = 0.4, initial = 0.7, max = 0.7;
   var _expanding = true;
   double containerH = 585.h, containerW = 338.w;
-  double currentLat = 27.7172;
-  double currentLong = 85.3240;
+  // double currentLat = 27.7172;
+  // double currentLong = 85.3240;
+  double companyLatitude = 51.5767841909041;
+  double companyLongitued = 0.0671225322487236;
+
   //controller
   final MapController mapController = Get.find<MapController>();
+
   // final CheckoutController checkoutController = Get.find<CheckoutController>();
   @override
   void initState() {
-    location = new Location();
-    mapController.getCurrentUserLocation(location).then((locationData) {
-      currentLat = locationData.latitude ?? 27.7172;
-      currentLong = locationData.longitude ?? 85.3240;
+    // location = new Location();
+    // mapController.getCurrentUserLocation(location).then((locationData) {
+    //   currentLat = locationData.latitude ?? companyLatitude;
+    //   currentLong = locationData.longitude ?? companyLongitued;
 
-      mapController.getCurrentLocationName(locationData).then((placeMarkList) {
-        geo.Placemark pm = placeMarkList.elementAt(0);
+    //   mapController.getCurrentLocationName(locationData).then((placeMarkList) {
+    //     geo.Placemark pm = placeMarkList.elementAt(0);
+    //     mapController.current.value.mainLocation =
+    //         "${pm.locality}${pm.subLocality}";
+    //     mapController.current.value.subLocation = "${pm.name}${pm.street}";
+    //     mapController.deliveryLocationList.add(mapController.current.value);
 
-        mapController.current.value.mainLocation =
-            "${pm.locality}${pm.subLocality}";
-        mapController.current.value.subLocation = "${pm.name}${pm.street}";
-        mapController.deliveryLocationList.add(mapController.current.value);
-
-        setState(() {
-          source = Marker(
-              markerId: MarkerId("${locationData.latitude}"),
-              infoWindow: InfoWindow(
-                  title: "${pm.administrativeArea}", snippet: "${pm.locality}"),
-              position: LatLng(locationData.latitude ?? currentLat,
-                  locationData.longitude ?? currentLong));
-        });
-      });
-      // print(locationData);
-    });
+    //     setState(() {
+    //       source = Marker(
+    //           markerId: MarkerId("${locationData.latitude}"),
+    //           draggable: true,
+    //           onDragEnd: (endPosition) {
+    //             print(endPosition);
+    //           },
+    //           infoWindow: InfoWindow(
+    //               title: "${pm.administrativeArea}", snippet: "${pm.locality}"),
+    //           position: LatLng(locationData.latitude ?? currentLat,
+    //               locationData.longitude ?? currentLong));
+    //     });
+    //   });
+    //   // print(locationData);
+    // });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
     return Scaffold(
         appBar: AppBar(
             title: Text('SET LOCATION'),
             elevation: 0,
             foregroundColor: Colors.black.withOpacity(0.7),
-            backgroundColor: Color(0xffF3F5F5),
+            backgroundColor: Palette.pagebackgroundcolor,
             leading: GestureDetector(
                 onTap: () async {
-                  CustomLocation newLocation = mapController
-                      .deliveryLocationList
-                      .elementAt(mapController.selectedAddressIndex.value);
-                  await mapController.addNewAddressToserver(newLocation);
+                  // CustomLocation newLocation = mapController
+                  //     .deliveryLocationList
+                  //     .elementAt(mapController.selectedAddressIndex.value);
+                  // await mapController.addNewAddressToserver(newLocation);
                   // await checkoutController.getLocations();
                   Get.back();
                 },
                 child: Icon(CupertinoIcons.back))),
-        backgroundColor: Color(0xffF3F5F5),
+        backgroundColor: Palette.pagebackgroundcolor,
 
         // extendBody: false,
         body: Stack(
@@ -96,55 +101,64 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               mapType: MapType.normal,
               markers: _markers,
               myLocationEnabled: true,
-              // myLocationButtonEnabled: true,
+              myLocationButtonEnabled: true,
               onLongPress: (latLong) async {
-                geo.Placemark pm =
-                    await mapController.getSelectedLocationNameWith(latLong);
-                CustomLocation newLocation = CustomLocation(
-                  "${pm.locality}${pm.subLocality}",
-                  "${pm.name}${pm.street}",
-                  latLong.latitude,
-                  latLong.longitude,
-                );
-                mapController.addNewDeliveryLocation(newLocation);
+                // geo.Placemark pm =
+                //     await mapController.getSelectedLocationNameWith(latLong);
+                // CustomLocation newLocation = CustomLocation(
+                //   "${pm.locality}${pm.subLocality}",
+                //   "${pm.name}${pm.street}",
+                //   latLong.latitude,
+                //   latLong.longitude,
+                // );
+                // mapController.addNewDeliveryLocation(newLocation);
 
-                setState(() {
-                  mapController.delivery.value.mainLocation = pm.locality!;
-                  mapController.delivery.value.subLocation = pm.street!;
-                  // print(pm.subThoroughfare);
-                  _markers.clear();
-                  _markers.add(Marker(
-                      markerId: MarkerId(latLong.toString()),
-                      infoWindow: InfoWindow(
-                          title: "${pm.administrativeArea}",
-                          snippet: "${pm.locality}"),
-                      position: latLong));
-                });
+                // setState(() {
+                //   mapController.delivery.value.mainLocation = pm.locality!;
+                //   mapController.delivery.value.subLocation = pm.street!;
+                //   // print(pm.subThoroughfare);
+                //   _markers.clear();
+                //   _markers.add(Marker(
+                //       markerId: MarkerId(latLong.toString()),
+                //       infoWindow: InfoWindow(
+                //           title: "${pm.administrativeArea}",
+                //           snippet: "${pm.locality}"),
+                //       position: latLong));
+                // });
                 // print("object");
               },
               onMapCreated: (GoogleMapController mapController) {
-                _markers.add(source ??
-                    Marker(
-                        markerId: MarkerId('currentLocationMarker'),
-                        position: LatLng(currentLat, currentLong)));
+                _markers.add(
+                  Marker(
+                      markerId: MarkerId('companyLocationMarker'),
+                      onDragEnd: (selectedPosition) {
+                        companyLatitude = selectedPosition.latitude;
+                        companyLongitued = selectedPosition.longitude;
+                      },
+                      draggable: true,
+                      position: LatLng(
+                        companyLatitude,
+                        companyLongitued,
+                      )),
+                );
                 googleMapController = mapController;
                 // _markers.add(source);
                 // _markers.add(destination);
               },
               initialCameraPosition: CameraPosition(
-                  target: LatLng(currentLat, currentLong), zoom: 15),
+                target: LatLng(companyLatitude, companyLongitued),
+                zoom: 15,
+              ),
             ),
             SizedBox.expand(
               child: NotificationListener<DraggableScrollableNotification>(
                 onNotification: (c) {
                   if (c.extent > max * 0.8) {
-                    // print('in betwwen');
                     setState(() {
                       _expanding = true;
                       initial = max;
                     });
                   } else if (c.extent <= max * 0.8) {
-                    // print('down');
                     setState(() {
                       //expanding on drag
                       _expanding = false;

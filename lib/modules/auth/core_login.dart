@@ -6,6 +6,7 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/socials.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -58,10 +59,13 @@ class LoginPage extends StatelessWidget {
                   margin: EdgeInsets.only(top: 25.h),
                   child: Text(
                     "Welcome to\nMetro Coffee",
-                    style: TextStyle(
-                        fontFamily: freightbold,
-                        color: Colors.white,
-                        fontSize: 42.sp),
+
+                    style: Theme.of(context).textTheme.headline1,
+                    // style: TextStyle(
+                    //   fontFamily: MetroFontsFamily.freightDispBold,
+                    //   color: Colors.white,
+                    //   fontSize: 42.sp,
+                    // ),
                   ),
                 ),
                 ClipRRect(
@@ -85,10 +89,7 @@ class LoginPage extends StatelessWidget {
                                 child: Text(
                                   "Continue with Membership",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: poppinsregular,
-                                      fontSize: 15.sp,
-                                      color: Colors.black),
+                                  style: Theme.of(context).textTheme.button,
                                 ),
                               ),
                             )))),
