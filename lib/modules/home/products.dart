@@ -16,66 +16,73 @@ class ProductsPage extends StatelessWidget {
     return GetBuilder<HomeTabController>(builder: (homeController) {
       var np = homeController.actualProduct;
       return controller.dataState == DataState.loaded
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                (np == null)
-                    ? SizedBox(
-                        child: Center(
-                        child: Text("N/A"),
-                      ))
-                    : ProductList(
-                        products: np.products,
-                        tag: "pList",
-                      ),
-                Padding(
-                  padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
-                  child: Text(
-                    "Most Popular",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500, color: Color(0xFF344141)),
+          ? SingleChildScrollView(
+            // clipBehavior: Clip.none,
+            physics: AlwaysScrollableScrollPhysics(),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                
+                children: [
+                  (np == null)
+                      ? SizedBox(
+                          child: Center(
+                          child: Text("N/A"),
+                        ))
+                      : ProductList(
+                          products: np.products,
+                          tag: "pList",
+                        ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
+                    child: Text(
+                      "Most Popular",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Color(0xFF344141)),
+                    ),
                   ),
-                ),
-                (np == null)
-                    ? SizedBox(
-                        child: Center(
-                        child: Text("N/A"),
-                      ))
-                    : (np.mostPopular == null)
-                        ? SizedBox(
-                            child: Center(
-                            child: Text("N/A"),
-                          ))
-                        : ProductList(
-                            products: np.mostPopular!,
-                            tag: "mpList",
-                          ),
-                // Padding(
-                //   padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
-                //   child: Text(
-                //     "Recommended",
-                //     style: TextStyle(
-                //         fontWeight: FontWeight.w500, color: Color(0xFF344141)),
-                //   ),
-                // ),
-                //   (np == null)
-                //       ? SizedBox(
-                //           child: Center(
-                //           child: Text("N/A"),
-                //         ))
-                //       : (np.mostPopular == null)
-                //           ? SizedBox(
-                //               child: Center(
-                //               child: Text("N/A"),
-                //             ))
-                //           : ProductList(
-                //               products: np.recommendation!,
-                //               tag: "rcList",
-                //             ),
-              ],
-            )
+                  (np == null)
+                      ? SizedBox(
+                          child: Center(
+                          child: Text("N/A"),
+                        ))
+                      : (np.mostPopular == null)
+                          ? SizedBox(
+                              child: Center(
+                              child: Text("N/A"),
+                            ))
+                          : ProductList(
+                              products: np.mostPopular!,
+                              tag: "mpList",
+                            ),
+          
+                  SizedBox(height: 16.h)
+                  // Padding(
+                  //   padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
+                  //   child: Text(
+                  //     "Recommended",
+                  //     style: TextStyle(
+                  //         fontWeight: FontWeight.w500, color: Color(0xFF344141)),
+                  //   ),
+                  // ),
+                  //   (np == null)
+                  //       ? SizedBox(
+                  //           child: Center(
+                  //           child: Text("N/A"),
+                  //         ))
+                  //       : (np.mostPopular == null)
+                  //           ? SizedBox(
+                  //               child: Center(
+                  //               child: Text("N/A"),
+                  //             ))
+                  //           : ProductList(
+                  //               products: np.recommendation!,
+                  //               tag: "rcList",
+                  //             ),
+                ],
+              ),
+          )
           : SizedBox(
               child: SpinKitRing(
                 color: Palette.coffeeColor,

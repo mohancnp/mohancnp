@@ -30,14 +30,12 @@ class AddonsWidget extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: 16.w),
-                          child: Stack(clipBehavior: Clip.none, children: [
-                            GestureDetector(
-                              onTap: () {
-                                controller.toogleAddonSelection(index);
-                              },
-                              child: Container(
+                        return GestureDetector(
+                          onTap: () => controller.toogleAddonSelection(index),
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 16.w),
+                            child: Stack(clipBehavior: Clip.none, children: [
+                              Container(
                                 padding: EdgeInsets.only(
                                     //          left: 12,bottom: 4,right: 4
                                     left: 12.w,
@@ -101,18 +99,18 @@ class AddonsWidget extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                            ),
-                            addons[index].image != null
-                                ? Positioned(
-                                    left: 24.w,
-                                    child: Image.network(
-                                      "$baseUrl${addons[index].image}",
-                                      width: 86.w,
-                                      height: 46.h,
-                                    ),
-                                  )
-                                : SizedBox(),
-                          ]),
+                              addons[index].image != null
+                                  ? Positioned(
+                                      left: 24.w,
+                                      child: Image.network(
+                                        "$baseUrl${addons[index].image}",
+                                        width: 86.w,
+                                        height: 46.h,
+                                      ),
+                                    )
+                                  : SizedBox(),
+                            ]),
+                          ),
                         );
                       }));
         });

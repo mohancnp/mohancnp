@@ -275,14 +275,14 @@ class ProductDetailPage extends StatelessWidget {
                                       )),
                                 ),
                                 SizeOptionWIdget(),
-                                controller.productDetail.addons == null
+                                controller.productDetail.options == null
                                     ? SizedBox()
-                                    : controller.productDetail.addons!.isEmpty
+                                    : controller.productDetail.options!.isEmpty
                                         ? SizedBox()
                                         : ToppingsOptionWidget(),
-                                controller.productDetail.addons == null
+                                controller.productDetail.options == null
                                     ? SizedBox()
-                                    : controller.productDetail.addons!.isEmpty
+                                    : controller.productDetail.options!.isEmpty
                                         ? SizedBox()
                                         : MilkOptionWidget(),
                                 Column(

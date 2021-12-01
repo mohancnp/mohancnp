@@ -29,11 +29,9 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 136.w,
-      // height: 201.w,
-      // clipBehavior: Clip.none,
+      //max height is given from the listview in the parent.
       margin: EdgeInsets.only(
         left: 16.w,
-        bottom: 5.h,
       ),
       padding: EdgeInsets.only(
         left: 10.w,
@@ -66,7 +64,7 @@ class ProductCard extends StatelessWidget {
                   onTap: onPressed,
                   child: Image.network(
                     "$baseUrl$imageUri",
-                    height: 116.w,
+                    height: 116.h,
                     width: 116.w,
                     // color: Colors.blue,
                     fit: BoxFit.cover,
@@ -74,11 +72,13 @@ class ProductCard extends StatelessWidget {
                       if (imageProgress == null) {
                         return widget;
                       }
-                      return SizedBox(
-                        height: 116.w,
-                        width: 116.w,
-                        child: SpinKitCubeGrid(
-                          color: Palette.coffeeColor,
+                      return Center(
+                        child: SizedBox(
+                          height: 116.r,
+                          width: 116.r,
+                          child: SpinKitCubeGrid(
+                            color: Palette.coffeeColor,
+                          ),
                         ),
                       );
                     },
@@ -88,50 +88,56 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 11.h,
+            height: 10.h,
           ),
-          Text(
-            "$name",
-            style: getpoppins(TextStyle(
-              color: Color(0xFF404D4D),
-              fontSize: 12.sp,
-              fontFamily: poppinsmedium,
-            )),
+          Flexible(
+            fit: FlexFit.loose,
+            child: Text(
+              "$name",
+              style: getpoppins(TextStyle(
+                color: Color(0xFF404D4D),
+                fontSize: 12.sp,
+                fontFamily: poppinsmedium,
+              )),
+            ),
           ),
-          SizedBox(height: 9.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "\$ $price",
-                style: getpoppins(TextStyle(
-                    color: coffeecolor,
-                    fontSize: 20.sp,
-                    fontFamily: poppinsmedium)),
-              ),
-              GestureDetector(
-                onTap: () => Get.find<HomeTabController>().addToCart(id),
-                child: Container(
-                  width: 28.r,
-                  height: 28.r,
-                  // margin: EdgeInsets.only(right: 10.w),
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 16.r,
-                  ),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
+          SizedBox(height: 10.h),
+          Flexible(
+            fit: FlexFit.loose,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "\$ $price",
+                  style: getpoppins(TextStyle(
                       color: coffeecolor,
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset(0, 3.h),
-                            color: Color(0x62722030),
-                            blurRadius: 10.r)
-                      ]),
+                      fontSize: 20.sp,
+                      fontFamily: poppinsmedium)),
                 ),
-              )
-            ],
+                GestureDetector(
+                  onTap: () => Get.find<HomeTabController>().addToCart(id),
+                  child: Container(
+                    width: 28.w,
+                    height: 28.w,
+                    // margin: EdgeInsets.only(right: 10.w),
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 16.w,
+                    ),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: coffeecolor,
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0, 3.h),
+                              color: Color(0x62722030),
+                              blurRadius: 10.r)
+                        ]),
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       ),

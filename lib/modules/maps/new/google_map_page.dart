@@ -42,7 +42,7 @@ class GoogleMapPage extends StatelessWidget {
                 GoogleMap(
                   mapType: MapType.normal,
                   markers: cgmapController.markers.values.toSet(),
-                  circles: cgmapController.getCircles(),
+                  // circles: cgmapController.getCircles(),
                   onCameraMove: (data) => controller.doOnCameraMove(data),
                   onCameraMoveStarted: () {
                     cgmapController.currentLocation = "Searching";

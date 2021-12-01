@@ -44,6 +44,7 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 40.h),
                 Container(
                   child: Image.asset(
                     "assets/images/metro_coffee_logo.png",
@@ -68,6 +69,7 @@ class LoginPage extends StatelessWidget {
                     // ),
                   ),
                 ),
+                SizedBox(height: 30.h),
                 ClipRRect(
                     child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
@@ -101,29 +103,32 @@ class LoginPage extends StatelessWidget {
                     left: 16.w,
                     right: 16.w,
                   ),
-                  child: Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: 115.w,
-                          height: 2.h,
-                          color: Colors.white30,
-                        ),
-                        Text(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        height: 2.h,
+                        width: 112.w,
+                        // width: double.infinity,
+                        color: Colors.white30,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                        child: Text(
                           "or login with",
                           style:
-                              TextStyle(color: Colors.white54, fontSize: 14.sp),
+                              TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14.sp),
                         ),
-                        Container(
-                          width: 115.w,
-                          height: 2.h,
-                          color: Colors.white30,
-                        ),
-                      ],
-                    ),
+                      ),
+                      Container(
+                        height: 2.h,
+                        width: 112.w,
+                        // width: double.infinity,
+                        color: Colors.white30,
+                      ),
+                    ],
                   ),
                 ),
                 Padding(

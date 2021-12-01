@@ -152,7 +152,8 @@ flutter:
       - assets/images/recommendationicon/hamburger.png
       - assets/images/onboarding/on1.png
       - assets/images/onboarding/on2.png
-      - assets/images/onboarding/on3.png      
+      - assets/images/onboarding/on3.png     
+      - assets/images/map/set_map.png 
       
   #   - images/a_dot_ham.jpeg
 

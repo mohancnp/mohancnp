@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,6 +12,8 @@ import 'package:metrocoffee/ui/src/palette.dart';
 
 class CustomGoogleMapController extends GetxController {
   double? initLat, initLong;
+  BitmapDescriptor? pinLocationIcon;
+
   static CustomGoogleMapController get to => Get.find();
   late Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   final gController = Completer<GoogleMapController>();
@@ -87,19 +90,27 @@ class CustomGoogleMapController extends GetxController {
   }
 
   setMarker() {
-    var marker = Marker(
-      markerId: MarkerId(markerId),
-      position: LatLng(
-        initLat ?? CompanyDetail.companyLat,
-        initLong ?? CompanyDetail.companyLong,
-      ),
-      infoWindow: const InfoWindow(
-          title: 'Metro Coffee Office', snippet: "United Kingdom"),
-    );
-    if (markers.length < 1) {
-      markers.addAll({MarkerId(markerId): marker});
-      update();
-    }
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(devicePixelRatio: 2.5), '$customMarkerIcon')
+        .then((onValue) {
+      pinLocationIcon = onValue;
+      var marker = Marker(
+        markerId: MarkerId(markerId),
+        icon: pinLocationIcon == null
+            ? BitmapDescriptor.defaultMarker
+            : pinLocationIcon!,
+        position: LatLng(
+          initLat ?? CompanyDetail.companyLat,
+          initLong ?? CompanyDetail.companyLong,
+        ),
+        infoWindow: const InfoWindow(
+            title: 'Metro Coffee Office', snippet: "United Kingdom"),
+      );
+      if (markers.length < 1) {
+        markers.addAll({MarkerId(markerId): marker});
+        update();
+      }
+    });
   }
 
   updateMarker(Marker marker) {
@@ -113,6 +124,9 @@ class CustomGoogleMapController extends GetxController {
     var marker = markers[MarkerId(markerId)];
     var newMarker = Marker(
       draggable: false,
+      icon: pinLocationIcon == null
+          ? BitmapDescriptor.defaultMarker
+          : pinLocationIcon!,
       markerId: MarkerId(markerId),
       position: LatLng(marker!.position.latitude, marker.position.longitude),
       infoWindow: const InfoWindow(
@@ -130,6 +144,9 @@ class CustomGoogleMapController extends GetxController {
     circleFlag = false;
     var marker = Marker(
       draggable: false,
+      icon: pinLocationIcon == null
+          ? BitmapDescriptor.defaultMarker
+          : pinLocationIcon!,
       markerId: MarkerId(markerId),
       position: LatLng(data.target.latitude, data.target.longitude),
       infoWindow: const InfoWindow(
@@ -163,7 +180,6 @@ class CustomGoogleMapController extends GetxController {
   Set<Circle> getCircles() {
     final circleSet = Set<Circle>.of([]);
     if (circleFlag) {
-      print('true');
       circleSet.add(Circle(
         circleId: CircleId("currentLocation"),
         radius: 5,
@@ -176,7 +192,6 @@ class CustomGoogleMapController extends GetxController {
         fillColor: Palette.coffeeColor.withOpacity(0.8),
       ));
     } else {
-      print('false');
       circleSet.clear();
     }
     return circleSet;

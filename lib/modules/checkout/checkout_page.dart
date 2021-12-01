@@ -268,7 +268,10 @@ class CheckoutPage extends StatelessWidget {
                             controller.selectedTimeFrame.value =
                                 "${time.hour}:${time.minute}";
                           } else {
-                            print("reached else");
+                            if (_currentTime.minute + 15 > 59) {
+                              controller.selectedTimeFrame.value =
+                                  "${_currentTime.hour + 1}:${_currentTime.minute + 15 - 59}";
+                            }
                             controller.selectedTimeFrame.value =
                                 "${_currentTime.hour}:${_currentTime.minute + 15}";
                           }

@@ -12,32 +12,31 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Palette.pagebackgroundcolor,
-        body: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            child: Stack(children: [
-              Container(
-                height: 153.h,
-                width: 375.w,
-                color: Palette.coffeeColor,
-              ),
-              // TopHomeGreeting(),
+        body: Stack(
+          children: [
+          Container(
+            height: 153.h,
+            width: 375.w,
+            color: Palette.coffeeColor,
+          ),
+          // TopHomeGreeting(),
 
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TopHomeGreeting(),
-                  CategoriesTabs(),
-                  SizedBox(height: 33.h),
-                  ProductsPage(),
-                ],
-              ),
-              Positioned(
-                top: 135.h,
-                left: 28.w,
-                right: 28.w,
-                child: SearchBar(),
-              ),
-            ])));
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TopHomeGreeting(),
+              CategoriesTabs(),
+              SizedBox(height: 32.h),
+              Expanded(child: ProductsPage()),
+            ],
+          ),
+          Positioned(
+            top: 135.h,
+            left: 28.w,
+            right: 28.w,
+            child: SearchBar(),
+          ),
+        ]));
   }
 }
