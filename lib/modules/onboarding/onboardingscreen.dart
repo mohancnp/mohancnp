@@ -61,7 +61,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
   @override
   Widget build(BuildContext context) {
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     _controller.forward();
 
     return Material(
@@ -240,13 +240,13 @@ class SlidableWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 487.h,
+      height: 490.h,
       width: 375.w,
       color: coffeecolor,
       clipBehavior: Clip.none,
       child: Image.asset(
         "$backgroundImage",
-        fit: BoxFit.fitWidth,
+        fit: BoxFit.none,
       ),
     );
   }

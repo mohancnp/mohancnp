@@ -42,8 +42,6 @@ class Base extends StatelessWidget {
               : Scaffold(
                   body: getPages(status, basecontroller.currentIndex),
                   bottomNavigationBar: Container(
-                      //  height: 83,
-                      height: 83.h,
                       decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(

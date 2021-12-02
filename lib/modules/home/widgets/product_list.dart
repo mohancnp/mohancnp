@@ -17,7 +17,7 @@ class ProductList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
         child: Container(
-      height: 210.h,
+      height: 248.h,
       padding: EdgeInsets.only(left: 13.w),
       color: Color(0xFFF3F5F5),
       child: ListView.builder(

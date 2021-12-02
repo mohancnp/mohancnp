@@ -13,7 +13,6 @@ import 'package:metrocoffee/ui/src/palette.dart';
 class CustomGoogleMapController extends GetxController {
   double? initLat, initLong;
   BitmapDescriptor? pinLocationIcon;
-
   static CustomGoogleMapController get to => Get.find();
   late Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   final gController = Completer<GoogleMapController>();

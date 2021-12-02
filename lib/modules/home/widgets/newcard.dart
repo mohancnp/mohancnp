@@ -6,7 +6,6 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-
 import '../hometab_controller.dart';
 
 class ProductCard extends StatelessWidget {
@@ -28,7 +27,8 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 136.w,
+      width: 140.w,
+      // height: 201.w,
       //max height is given from the listview in the parent.
       margin: EdgeInsets.only(
         left: 16.w,
@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
               offset: Offset(0, 3.h),
               color: Color(0x29000000),
               // spreadRadius: 2.r,
-              blurRadius: 15.r,
+              blurRadius: 16.r,
             )
           ]),
       child: Column(
@@ -64,7 +64,7 @@ class ProductCard extends StatelessWidget {
                   onTap: onPressed,
                   child: Image.network(
                     "$baseUrl$imageUri",
-                    height: 116.h,
+                    height: 116.w,
                     width: 116.w,
                     // color: Colors.blue,
                     fit: BoxFit.cover,
@@ -90,20 +90,17 @@ class ProductCard extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-          Flexible(
-            fit: FlexFit.loose,
-            child: Text(
-              "$name",
-              style: getpoppins(TextStyle(
-                color: Color(0xFF404D4D),
-                fontSize: 12.sp,
-                fontFamily: poppinsmedium,
-              )),
-            ),
+          Text(
+            "$name",
+            maxLines: 2,
+            style: getpoppins(TextStyle(
+              color: Color(0xFF404D4D),
+              fontSize: 12.sp,
+              fontFamily: poppinsmedium,
+            )),
           ),
           SizedBox(height: 10.h),
-          Flexible(
-            fit: FlexFit.loose,
+          Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -117,8 +114,8 @@ class ProductCard extends StatelessWidget {
                 GestureDetector(
                   onTap: () => Get.find<HomeTabController>().addToCart(id),
                   child: Container(
-                    width: 28.w,
-                    height: 28.w,
+                    width: 28.r,
+                    height: 28.r,
                     // margin: EdgeInsets.only(right: 10.w),
                     child: Icon(
                       Icons.add,
