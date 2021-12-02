@@ -6,7 +6,6 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/socials.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
-import 'package:metrocoffee/ui/src/fonts.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -118,8 +117,9 @@ class LoginPage extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 4.0, right: 4.0),
                         child: Text(
                           "or login with",
-                          style:
-                              TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14.sp),
+                          style: TextStyle(
+                              color: Colors.white.withOpacity(0.8),
+                              fontSize: 14.sp),
                         ),
                       ),
                       Container(

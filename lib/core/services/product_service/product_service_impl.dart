@@ -1,10 +1,17 @@
 import 'dart:io';
+
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:metrocoffee/core/constants/placeholder_json.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/dio_exceptions.dart';
+import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
+import 'package:metrocoffee/core/models/category.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
+import 'package:metrocoffee/core/models/product_model.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
+
 import '../../config.dart';
 import 'product_service.dart';
 
@@ -13,7 +20,6 @@ class ProductServiceImpl extends ProductService {
 
   @override
   Future handleProductsOfType({required String type}) async {
-    
     try {
       Map<String, dynamic> products = await remoteSource
           .get('$baseUrl/api/product', queryParams: {"type": type});
@@ -29,7 +35,6 @@ class ProductServiceImpl extends ProductService {
       Map<String, dynamic> products =
           await remoteSource.get('$baseUrl/api/product');
       return products;
-      
     } on ServerException catch (e) {
       throw AppException(message: e.message);
     }
@@ -79,7 +84,6 @@ class ProductServiceImpl extends ProductService {
       } else {
         return {"data": products.data};
       }
-      
     } on DioError catch (e) {
       throw getServerException(e);
     }
@@ -117,6 +121,64 @@ class ProductServiceImpl extends ProductService {
       return null;
     } on ServerException catch (e) {
       throw ServerException(code: e.code, message: e.message);
+    }
+  }
+
+  @override
+  Future<Either<List<Category>, Failure>> getCatoriesList() async {
+    var failureData =
+        Failure(tag: "cateogory", message: "error retrieving category");
+
+    try {
+      List<Category> _actualList = [];
+
+      var results = await Future.delayed(Duration(seconds: 2)).then((value) {
+        if (categoryListDummy is List<Map<String, dynamic>>) {
+          categoryListDummy.forEach((element) {
+            _actualList.add(Category.fromJson(element));
+          });
+          return _actualList;
+        } else {
+          return <Category>[];
+        }
+      });
+      return Left(results);
+    } on ServerException catch (e) {
+      print(e.message);
+      return Right(failureData);
+    } catch (e) {
+      print(e);
+      return Right(failureData);
+    }
+  }
+
+  @override
+  Future<Either<List<Product>, Failure>> getProductForCategory({
+    required int id,
+  }) async {
+    var failureData =
+        Failure(tag: "menus: ", message: "error retrieving menus");
+    try {
+      List<Product> _actualList = [];
+
+      var results = await Future.delayed(Duration(seconds: 2)).then((value) {
+        if (productListDummy is List<Map<String, dynamic>>) {
+          productListDummy.forEach((element) {
+            _actualList.add(Product.fromJson(element));
+          });
+          return _actualList;
+        } else {
+          return <Product>[];
+        }
+      });
+      return Left(results);
+    } on ServerException catch (e) {
+      // print(e.message);
+      failureData.message = e.message;
+      return Right(failureData);
+    } catch (e) {
+      print(e);
+      return Right(failureData);
     }
   }
 }

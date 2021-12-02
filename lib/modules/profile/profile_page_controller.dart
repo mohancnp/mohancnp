@@ -5,7 +5,6 @@ import 'package:metrocoffee/core/models/user_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
-import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class ProfilePageController extends GetxController {
   var _profileService = locator.get<ProfileService>();

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/locator.dart';
+import 'package:metrocoffee/core/models/new_product_model.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
-import 'package:metrocoffee/core/models/product_model.dart';
 import 'package:metrocoffee/modules/profile/contents/favorite_product_card.dart';
 import '../../../core/theme.dart';
 
@@ -15,17 +15,18 @@ class FavoriteProductsPage extends StatefulWidget {
 }
 
 class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
-  List<Product> productList = [];
+  NewProduct? productList;
   @override
   void initState() {
     super.initState();
-    locator.get<ProductService>().getFavoriteProducts().then((response) {
-      List<dynamic> responseData = response['data']['data'];
-      responseData.forEach((element) {
-        productList.add(Product.fromJson(element));
-      });
-      setState(() {});
-    });
+    // locator.get<ProductService>().getFavoriteProducts().then((response) {
+    //   List<dynamic> responseData = response['data']['data'];
+    //   responseData.forEach((element) {
+    //     NewProduct.all(products: products)
+    //     productList?.pr(NewProduct.fromJson(element));
+    //   });
+    //   setState(() {});
+    // });
   }
 
   @override
@@ -80,23 +81,23 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
                   color: Color(0xffA5A5A5).withOpacity(0.4),
                 ),
               ),
-              Container(
-                width: screenwidth,
-                padding: EdgeInsets.symmetric(
-                  horizontal: screenwidth * 0.0535,
-                ),
-                child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: productList.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      return FavoriteProductCard(
-                        index: index,
-                        product: productList.elementAt(index),
-                      );
-                    }),
-              ),
+              // Container(
+              //   width: screenwidth,
+              //   padding: EdgeInsets.symmetric(
+              //     horizontal: screenwidth * 0.0535,
+              //   ),
+              //   child: ListView.builder(
+              //       physics: NeverScrollableScrollPhysics(),
+              //       shrinkWrap: true,
+              //       itemCount: productList.length,
+              //       scrollDirection: Axis.vertical,
+              //       itemBuilder: (context, index) {
+              //         return FavoriteProductCard(
+              //           index: index,
+              //           product: productList.elementAt(index),
+              //         );
+              //       }),
+              // ),
             ],
           ),
         ),

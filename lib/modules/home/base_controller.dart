@@ -5,9 +5,9 @@ import 'package:metrocoffee/modules/public/redirection_controller.dart';
 enum UserVerficationStatus { verified, unverified, unknown }
 
 class BaseController extends GetxController {
-  int _currentindex = 0;
-  // bool userIsVerified = false;
+  static BaseController get to => Get.find();
 
+  int _currentindex = 0;
   UserVerficationStatus _userVerficationStatus =
       UserVerficationStatus.unverified;
 
@@ -32,44 +32,43 @@ class BaseController extends GetxController {
     update();
   }
 
-  // setUserVerified() {
-  //   userIsVerified = true;
-  //   update();
-  // }
-
-  // unverifyUser() {
-  //   userIsVerified = false;
-  // }
-
   @override
   void onInit() {
     super.onInit();
+    determineUserType();
+  }
+
+  Future determineUserType() async {
+    if (RedirectionController.to.userExists)
+      updateUserVerificationStatus(UserVerficationStatus.verified);
+    else
+      updateUserVerificationStatus(UserVerficationStatus.unknown);
   }
 
   Future<void> initializeData() async {
     var rc = Get.find<RedirectionController>();
     var homeController = Get.find<HomeTabController>();
     if (rc.userExists) {
-      try {
-        homeController.initializeAllData().then((value) {
-          updateUserVerificationStatus(UserVerficationStatus.verified);
-        }).onError((error, stackTrace) {
-          updateUserVerificationStatus(UserVerficationStatus.unverified);
-          // print("Error getting data: $error");
-        });
-        Get.find<HomeTabController>().getUser();
-      } on Exception catch (e) {
-        print(e);
-        // print("Exception initializeing data");
-      }
+      updateUserVerificationStatus(UserVerficationStatus.verified);
+      // try {
+      //   homeController.initializeAllData().then((value) {
+      //   }).onError((error, stackTrace) {
+      //     updateUserVerificationStatus(UserVerficationStatus.unverified);
+      //     // print("Error getting data: $error");
+      //   });
+      //   Get.find<HomeTabController>().getUser();
+      // } on Exception catch (e) {
+      //   print(e);
+      //   // print("Exception initializeing data");
+      // }
     } else {
-      try {
-        await homeController.initializePublicData();
-        updateUserVerificationStatus(UserVerficationStatus.unknown);
-      } on Exception catch (e) {
-        print(e);
-        // print("Exception initializeing data");
-      }
+      updateUserVerificationStatus(UserVerficationStatus.unknown);
+      // try {
+      //   await homeController.initializePublicData();
+      // } on Exception catch (e) {
+      //   print(e);
+      //   // print("Exception initializeing data");
+      // }
     }
   }
 }

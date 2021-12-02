@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:get_it/get_it.dart';
 import 'package:metrocoffee/core/controllerbinding.dart';
 import 'package:metrocoffee/modules/maps/new/google_map_page.dart';
 import 'package:metrocoffee/modules/maps/new/widgets/map_widgets.dart';
@@ -15,7 +14,6 @@ import 'core/routing/names.dart';
 import 'core/routing/routes_handler.dart';
 import 'modules/maps/new/google_map_controller.dart';
 
-GetIt getIt = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

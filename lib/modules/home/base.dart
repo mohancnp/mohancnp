@@ -12,6 +12,8 @@ import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 
 // ignore: must_be_immutable
 class Base extends StatelessWidget {
+  final b = Get.put(BaseController());
+
   List privatePages = [
     Home(),
     Notifications(),
@@ -27,14 +29,8 @@ class Base extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<BaseController>(
         init: BaseController(),
-        initState: (v) {
-          var b = Get.find<BaseController>();
-          b.currentIndex = 0;
-          b.initializeData();
-        },
         builder: (basecontroller) {
           var status = basecontroller.userVerificationStatus;
           return (status == UserVerficationStatus.unverified)
@@ -56,7 +52,7 @@ class Base extends StatelessWidget {
                           )),
                       child: BottomNavigationBar(
                         //         iconSize: 24,
-                        iconSize: screenwidth * 0.0583,
+                        iconSize: 24.r,
                         showSelectedLabels: false,
                         showUnselectedLabels: false,
                         type: BottomNavigationBarType.fixed,

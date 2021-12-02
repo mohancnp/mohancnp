@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/product_model.dart';
+import 'package:metrocoffee/core/models/new_product_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
 
 class FavoriteProductCard extends StatelessWidget {
   final int? index;
-  final Product product;
+  final SingleProduct product;
   FavoriteProductCard({Key? key, required this.product, @required this.index})
       : super(key: key);
 
@@ -19,12 +19,12 @@ class FavoriteProductCard extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        Get.find<ProductDetailPageController>()
-            .retrieveProductDetails(id: product.id);
-        Get.toNamed(
-          PageName.productdetailpage,
-          arguments: [product.id, "fav"],
-        );
+        // Get.find<ProductDetailPageController>()
+        //     .retrieveProductDetails(id: product.);
+        // Get.toNamed(
+        //   PageName.productdetailpage,
+        //   arguments: [product.id, "fav"],
+        // );
       },
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -51,17 +51,17 @@ class FavoriteProductCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    //     height: 100, width: 100,
-                    height: screenwidth * 0.2433, width: screenwidth * 0.2433,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(9)),
-                    ),
-                    child: Image.network(
-                      "$baseUrl" + "${product.image}",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  // Container(
+                  //   //     height: 100, width: 100,
+                  //   height: screenwidth * 0.2433, width: screenwidth * 0.2433,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.all(Radius.circular(9)),
+                  //   ),
+                  //   child: Image.network(
+                  //     "$baseUrl" + "${product.products}",
+                  //     fit: BoxFit.cover,
+                  //   ),
+                  // ),
                   Container(
                     //  height: 76,
                     height: screenwidth * 0.1849,

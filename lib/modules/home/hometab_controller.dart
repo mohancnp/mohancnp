@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/placeholder_json.dart';
 import 'package:metrocoffee/core/constants/product_type.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
+import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
@@ -22,16 +25,11 @@ import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/internet.dart';
 
-class HomeTabController extends GetxController {
+class HomeTabController extends GetxController with StateMixin<List<Product>> {
+  static HomeTabController get to => Get.find();
+
   int currentpageindex = 0;
   bool internetConnected = false;
-  Map<String, NewProduct?> data = {
-    ProductType.drinks: null,
-    ProductType.bakery: null,
-    ProductType.snacks: null
-  };
-  NewProduct? actualProduct;
-  DataState _dataState = DataState.NA;
   var _productService = locator<ProductService>();
   var _cartService = locator<CartService>();
 
@@ -39,13 +37,9 @@ class HomeTabController extends GetxController {
   Rx<User> _user = User().obs;
 
   set user(User newUser) {
-    // print("Name received: ${newUser.name}");
     this._user.value = newUser;
     this._user.refresh();
   }
-
-  get dataState => this._dataState;
-  set dataState(value) => this._dataState = value;
 
   User get user {
     return _user.value;
@@ -55,46 +49,62 @@ class HomeTabController extends GetxController {
     user = await Get.find<ProfilePageController>().getProfile();
   }
 
-  Future initializeAllData() async {
-    dataState = DataState.loading;
-    var loaded = await getProductsOfType(ProductType.drinks);
-    if (loaded) {
-      var l = await getProductsOfType(ProductType.bakery);
-      if (l) {
-        var completed = await getProductsOfType(ProductType.snacks);
-        if (completed) {
-          dataState = DataState.loaded;
-          getRightList();
-        } else
-          dataState = DataState.error;
-      } else
-        dataState = DataState.error;
-    } else
-      dataState = DataState.error;
+  getDataForCategoryId({required int id}) async {
+    var productList = await _productService.getProductForCategory(id: id);
+    print("getting data");
 
-    //used to display cart product count in the home page
-    await Get.find<CartController>().getAllCartProducts();
+    unfoldData(productList);
+  }
+
+  unfoldData(Either<List<Product>, Failure> productList) {
+    print("unfolding data");
+    productList.fold((products) {
+      change(products, status: RxStatus.success());
+    }, (r) {
+      change(null, status: RxStatus.error(r.message));
+    });
+  }
+
+  Future initializeAllData() async {
+    // dataState = DataState.loading;
+    // var loaded = await getProductsOfType(ProductType.drinks);
+    // if (loaded) {
+    //   var l = await getProductsOfType(ProductType.bakery);
+    //   if (l) {
+    //     var completed = await getProductsOfType(ProductType.snacks);
+    //     if (completed) {
+    //       dataState = DataState.loaded;
+    //       getRightList();
+    //     } else
+    //       dataState = DataState.error;
+    //   } else
+    //     dataState = DataState.error;
+    // } else
+    //   dataState = DataState.error;
+
+    // //used to display cart product count in the home page
+    // await Get.find<CartController>().getAllCartProducts();
   }
 
   Future initializePublicData() async {
-    dataState = DataState.loading;
-    var loaded = await getPublicProductsOfType(ProductType.drinks);
-    if (loaded) {
-      var l = await getPublicProductsOfType(ProductType.bakery);
-      if (l) {
-        var completed = await getPublicProductsOfType(ProductType.snacks);
-        if (completed) {
-          dataState = DataState.loaded;
-          getRightList();
-        } else
-          dataState = DataState.error;
-      } else
-        dataState = DataState.error;
-    } else
-      dataState = DataState.error;
+    // dataState = DataState.loading;
+    // var loaded = await getPublicProductsOfType(ProductType.drinks);
+    // if (loaded) {
+    //   var l = await getPublicProductsOfType(ProductType.bakery);
+    //   if (l) {
+    //     var completed = await getPublicProductsOfType(ProductType.snacks);
+    //     if (completed) {
+    //       dataState = DataState.loaded;
+    //       // getRightList();
+    //     } else
+    //       dataState = DataState.error;
+    //   } else
+    //     dataState = DataState.error;
+    // } else
+    //   dataState = DataState.error;
 
     //used to display cart product count in the home page
-    await Get.find<CartController>().getAllCartProducts();
+    // await Get.find<CartController>().getAllCartProducts();
   }
 
   Future checkInternet() async {
@@ -104,15 +114,15 @@ class HomeTabController extends GetxController {
   }
 
   Future getProductsOfType(String type) async {
-    try {
-      var products = await _productService.handleProductsOfType(type: type);
-      var newProduct = NewProduct.fromJson(products["data"]);
-      data[type] = newProduct;
-      return true;
-    } on ServerException catch (e) {
-      print(e.message);
-      return false;
-    }
+    // try {
+    //   var products = await _productService.handleProductsOfType(type: type);
+    //   var newProduct = NewProduct.fromJson(products["data"]);
+    //   data[type] = newProduct;
+    //   return true;
+    // } on ServerException catch (e) {
+    //   print(e.message);
+    //   return false;
+    // }
   }
 
   Future addToCart(int id) async {
@@ -205,28 +215,60 @@ class HomeTabController extends GetxController {
   }
 
   Future<bool> getPublicProductsOfType(String type) async {
-    try {
-      var products = await _productService.getPublicProductsOfType(type: type);
-      var newProduct = NewProduct.fromJson(products["data"]);
-      data[type] = newProduct;
-      return true;
-    } on ServerException catch (e) {
-      print(e.message);
-      return false;
-    }
+    // try {
+    //   var products = await _productService.getPublicProductsOfType(type: type);
+    //   var newProduct = NewProduct.fromJson(products["data"]);
+    //   data[type] = newProduct;
+    //   return true;
+    // } on ServerException catch (e) {
+    //   print(e.message);
+    //   return false;
+    // }
+    return false;
   }
 
   getRightList() {
-    NewProduct? np;
-    var controller = Get.find<CategoriesController>();
-    if (controller.activeCategory == ProductType.bakery) {
-      np = data[ProductType.bakery];
-    } else if (controller.activeCategory == ProductType.drinks) {
-      np = data[ProductType.drinks];
-    } else {
-      np = data[ProductType.snacks];
+    // NewProduct? np;
+    // var controller = Get.find<CategoriesController>();
+    // if (controller.activeCategory == ProductType.bakery) {
+    //   np = data[ProductType.bakery];
+    // } else if (controller.activeCategory == ProductType.drinks) {
+    //   np = data[ProductType.drinks];
+    // } else {
+    //   np = data[ProductType.snacks];
+    // }
+    // actualProduct = np;
+    // update();
+  }
+
+  @override
+  void onInit() {
+    // print("on init home");
+    getCategoryData();
+    // getUser();
+    super.onInit();
+  }
+
+  getCategoryData() async {
+    // print("getting category data loading");
+    change(null, status: RxStatus.loading());
+    var list = CategoriesController.to.categoryList;
+    if (list.isEmpty) {
+      await CategoriesController.to.getCategories();
     }
-    actualProduct = np;
-    update();
+    if (list.isNotEmpty) {
+      // print("getting category data loading");
+      for (var i = 0; i < list.length; i++) {
+        var element = list.elementAt(i);
+        if (element.selected != null) {
+          if (element.selected!) {
+            getDataForCategoryId(id: element.id);
+          }
+        }
+      }
+    } else {
+      // print("empty category list");
+      change(null, status: RxStatus.error("No Categories Found"));
+    }
   }
 }

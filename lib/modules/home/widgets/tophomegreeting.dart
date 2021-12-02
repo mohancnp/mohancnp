@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TopHomeGreeting extends StatelessWidget {
   TopHomeGreeting({Key? key}) : super(key: key);
   final controller = Get.find<CartController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(

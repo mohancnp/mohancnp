@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:metrocoffee/modules/home/hometab_controller.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
@@ -18,18 +17,15 @@ class CategoryTab extends StatelessWidget {
     this.pressed = false,
     this.index = 0,
   }) : super(key: key);
-  final categoriesController = Get.find<CategoriesController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        categoriesController.setActiveCategory = index ?? 0;
-        Get.find<HomeTabController>().getRightList();
+        CategoriesController.to.setActiveCategory = index ?? 0;
+        HomeTabController.to.getCategoryData();
       },
       child: AnimatedContainer(
-        // width: 114.w,
-        // height: 33.h,
         margin: EdgeInsets.only(right: 10.w),
         padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
         duration: Duration(

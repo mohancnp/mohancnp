@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/home/widgets/category_tab_widget.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 
-class CategoriesTabs extends StatelessWidget {
+class CategoriesTabs extends GetView<CategoriesController> {
   CategoriesTabs({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -26,26 +29,33 @@ class CategoriesTabs extends StatelessWidget {
             ),
             SizedBox(
               height: 33.h,
-              child: GetBuilder<CategoriesController>(
-                init: CategoriesController(),
-                initState: (v) {
-                // Get.find<CategoriesController>().setActiveCategory = 0;
-              }, builder: (categoriesController) {
-                return ListView.builder(
-                    itemCount: categoriesController.categoryList.length,
-                    scrollDirection: Axis.horizontal,
-                    clipBehavior: Clip.none,
-                    itemBuilder: (context, index) {
-                      var category =
-                          categoriesController.categoryList.elementAt(index);
-                      return CategoryTab(
-                        name: category.name,
-                        imagePath: category.imageUri,
-                        pressed: category.selected,
-                        index: index,
-                      );
-                    });
-              }),
+              child: controller.obx(
+                (categories) {
+                  if (categories != null) {
+                    return ListView.builder(
+                        itemCount: categories.length,
+                        scrollDirection: Axis.horizontal,
+                        clipBehavior: Clip.none,
+                        itemBuilder: (context, index) {
+                          var category = categories.elementAt(index);
+                          // print(category);
+                          return CategoryTab(
+                            name: category.name,
+                            imagePath: category.imageUri,
+                            pressed: category.selected,
+                            index: index,
+                          );
+                        });
+                  }
+                  return Text("....");
+                },
+                onLoading: SpinKitRing(
+                  color: Palette.coffeeColor,
+                  size: 20.r,
+                ),
+                onEmpty: Text("Empty Categories "),
+                onError: (error) => Text("$error"),
+              ),
             )
           ],
         ),

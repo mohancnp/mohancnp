@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:metrocoffee/modules/home/base_controller.dart';
-import 'package:metrocoffee/modules/home/hometab_controller.dart';
 
 class UserExistence {
   bool exits;
@@ -8,6 +6,8 @@ class UserExistence {
 }
 
 class RedirectionController extends GetxController {
+  static RedirectionController get to => Get.find();
+
   Rx<UserExistence> _userExists = UserExistence(false).obs;
   set userExists(bool status) {
     _userExists.value.exits = status;
@@ -16,5 +16,4 @@ class RedirectionController extends GetxController {
   bool get userExists {
     return _userExists.value.exits;
   }
-
 }
