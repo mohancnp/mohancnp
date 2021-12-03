@@ -19,19 +19,19 @@ class ProductList extends StatelessWidget {
     return Material(
         child: Container(
       height: 248.h,
+      width: double.infinity,
       padding: EdgeInsets.only(left: 13.w),
       color: Color(0xFFF3F5F5),
       child: ListView.builder(
         itemCount: products.length,
         scrollDirection: Axis.horizontal,
-        clipBehavior: Clip.none,
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           var product = products[index];
           // print("$index");
           return ProductCard(
-            imageUri: product.productImage ,
+            imageUri: product.productImage,
             name: product.productName,
             id: product.id,
             tag: tag,

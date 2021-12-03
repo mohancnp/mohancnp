@@ -13,5 +13,6 @@ abstract class ProductService {
   Future getPublicProductsOfType({required String type});
   Future getPublicProductDetail({required int id});
   Future<Either<List<Category>, Failure>> getCatoriesList();
-  Future<Either<List<Product>, Failure>> getProductForCategory({required int id});
+  Future<Either<CategoryProduct, Failure>> getProductForCategory(
+      {required int id});
 }

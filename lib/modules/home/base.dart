@@ -37,6 +37,7 @@ class Base extends StatelessWidget {
               ? LoadingPage()
               : Scaffold(
                   body: getPages(status, basecontroller.currentIndex),
+                  
                   bottomNavigationBar: Container(
                       decoration: BoxDecoration(
                           boxShadow: [

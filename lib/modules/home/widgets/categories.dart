@@ -13,7 +13,7 @@ class CategoriesTabs extends GetView<CategoriesController> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Color(0xFFF3F5F5),
+      color: Palette.pagebackgroundcolor,
       child: Container(
         margin: EdgeInsets.only(left: 28.w, top: 42.h),
         // clipBehavior: Clip.none,

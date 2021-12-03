@@ -28,35 +28,70 @@ const categoryListDummy = [
   },
 ];
 
-const productListDummy = [
-  {
-    "id": 151,
-    "product_name": "Americano",
-    "product_price": 3,
-    "features_image":
-        "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
-  },
-  {
-    "id": 156,
-    "product_name": "Ham & Cheese Croissant",
-    "product_price": 3,
-    "features_image":
-        "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
-  }
-];
+// const productListDummy = [
+//   {
+//     "id": 151,
+//     "product_name": "Americano",
+//     "product_price": 3,
+//     "features_image":
+//         "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
+//   },
+//   {
+//     "id": 156,
+//     "product_name": "Ham & Cheese Croissant",
+//     "product_price": 3,
+//     "features_image":
+//         "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
+//   }
+// ];
 const mostPopularDummy = [
   {
     "id": 156,
     "product_name": "Ham & Cheese Croissant",
     "product_price": 3,
     "features_image":
-        "features_image_156_ham-&-cheese-croissant_20211130102007_LaDHPOVHWzS9T3h_106KB.png"
+        "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
   },
   {
     "id": 151,
     "product_name": "Americano",
     "product_price": 3,
     "features_image":
-        "features_image_151_americano_20211130085454_L5gjqeJ3jG32AN7_127KB.png"
+        "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
   }
 ];
+
+const categoryProduct = {
+  "products": [
+    {
+      "id": 151,
+      "product_name": "Americano",
+      "product_price": 3,
+      "features_image":
+          "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
+    },
+    {
+      "id": 156,
+      "product_name": "Ham & Cheese Croissant",
+      "product_price": 3,
+      "features_image":
+          "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
+    }
+  ],
+  "most_popular_products": [
+    {
+      "id": 151,
+      "product_name": "Americano",
+      "product_price": 3,
+      "features_image":
+          "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
+    },
+    {
+      "id": 156,
+      "product_name": "Ham & Cheese Croissant",
+      "product_price": 3,
+      "features_image":
+          "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
+    }
+  ]
+};

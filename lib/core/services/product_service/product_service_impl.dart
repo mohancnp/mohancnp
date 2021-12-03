@@ -153,31 +153,20 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future<Either<List<Product>, Failure>> getProductForCategory({
+  Future<Either<CategoryProduct, Failure>> getProductForCategory({
     required int id,
   }) async {
     var failureData =
         Failure(tag: "menus: ", message: "error retrieving menus");
     try {
-      List<Product> _actualList = [];
-
-      var results = await Future.delayed(Duration(seconds: 2)).then((value) {
-        if (productListDummy is List<Map<String, dynamic>>) {
-          productListDummy.forEach((element) {
-            _actualList.add(Product.fromJson(element));
-          });
-          return _actualList;
-        } else {
-          return <Product>[];
-        }
-      });
+      await Future.delayed(Duration(seconds: 2));
+      var results = CategoryProduct.fromJson(categoryProduct);
       return Left(results);
     } on ServerException catch (e) {
-      // print(e.message);
       failureData.message = e.message;
       return Right(failureData);
     } catch (e) {
-      print(e);
+      // print(e);
       return Right(failureData);
     }
   }

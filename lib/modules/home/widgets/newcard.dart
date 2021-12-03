@@ -33,6 +33,7 @@ class ProductCard extends StatelessWidget {
       margin: EdgeInsets.only(
         left: 16.w,
       ),
+      // // clipBehavior: Clip.none,
       padding: EdgeInsets.only(
         left: 10.w,
         top: 10.h,

@@ -6,17 +6,12 @@ import 'package:metrocoffee/core/services/product_service/product_service.dart';
 class CategoriesController extends GetxController
     with StateMixin<List<Category>> {
   static CategoriesController get to => Get.find();
-  // String _activeCategory = ProductType.drinks;
   List<Category> _categoryList = <Category>[];
   var _productService = locator.get<ProductService>();
-
-  // String get activeCategory => this._activeCategory;
-
   List<Category> get categoryList {
     return _categoryList;
   }
 
- 
   set setActiveCategory(int index) {
     for (int i = 0; i < categoryList.length; i++) {
       if (i == index) {

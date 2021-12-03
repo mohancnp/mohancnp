@@ -1,17 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/placeholder_json.dart';
-import 'package:metrocoffee/core/constants/product_type.dart';
-import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
-import 'package:metrocoffee/core/models/new_product_model.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/models/product_model.dart';
 import 'package:metrocoffee/core/models/user_model.dart';
@@ -25,7 +20,8 @@ import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/internet.dart';
 
-class HomeTabController extends GetxController with StateMixin<List<Product>> {
+class HomeTabController extends GetxController
+    with StateMixin<CategoryProduct> {
   static HomeTabController get to => Get.find();
 
   int currentpageindex = 0;
@@ -50,16 +46,15 @@ class HomeTabController extends GetxController with StateMixin<List<Product>> {
   }
 
   getDataForCategoryId({required int id}) async {
-    var productList = await _productService.getProductForCategory(id: id);
-    print("getting data");
-
-    unfoldData(productList);
+    var categoryProduct = await _productService.getProductForCategory(id: id);
+    print("getting products data");
+    unfoldData(categoryProduct);
   }
 
-  unfoldData(Either<List<Product>, Failure> productList) {
-    print("unfolding data");
-    productList.fold((products) {
-      change(products, status: RxStatus.success());
+  unfoldData(Either<CategoryProduct, Failure> categoryProduct) {
+    categoryProduct.fold((l) {
+      // print(l.products);
+      change(l, status: RxStatus.success());
     }, (r) {
       change(null, status: RxStatus.error(r.message));
     });
@@ -250,14 +245,15 @@ class HomeTabController extends GetxController with StateMixin<List<Product>> {
   }
 
   getCategoryData() async {
-    // print("getting category data loading");
+    print("getting category data loading");
     change(null, status: RxStatus.loading());
     var list = CategoriesController.to.categoryList;
     if (list.isEmpty) {
       await CategoriesController.to.getCategories();
+      list = CategoriesController.to.categoryList;
     }
     if (list.isNotEmpty) {
-      // print("getting category data loading");
+      print("category list is available");
       for (var i = 0; i < list.length; i++) {
         var element = list.elementAt(i);
         if (element.selected != null) {
@@ -267,8 +263,8 @@ class HomeTabController extends GetxController with StateMixin<List<Product>> {
         }
       }
     } else {
-      // print("empty category list");
-      change(null, status: RxStatus.error("No Categories Found"));
+      print("empty category list");
+      change(null, status: RxStatus.error("No Products For Category"));
     }
   }
 }

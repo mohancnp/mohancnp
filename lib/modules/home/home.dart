@@ -7,7 +7,6 @@ import 'package:metrocoffee/modules/home/widgets/categories.dart';
 import 'package:metrocoffee/modules/home/widgets/searchbar.dart';
 import 'package:metrocoffee/modules/home/widgets/tophomegreeting.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-
 import 'widgets/categories_controller.dart';
 
 class Home extends StatelessWidget {
@@ -31,7 +30,6 @@ class Home extends StatelessWidget {
             children: [
               TopHomeGreeting(),
               CategoriesTabs(),
-              SizedBox(height: 32.h),
               Expanded(child: ProductsPage()),
             ],
           ),
