@@ -12,7 +12,7 @@ import 'package:metrocoffee/core/services/order_service/order_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/checkout_page_controller.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
-import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 

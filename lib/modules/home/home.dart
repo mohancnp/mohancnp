@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/modules/home/products.dart';
 import 'package:metrocoffee/modules/home/widgets/categories.dart';
 import 'package:metrocoffee/modules/home/widgets/searchbar.dart';
@@ -11,7 +11,7 @@ import 'widgets/categories_controller.dart';
 
 class Home extends StatelessWidget {
   final controllerCategories = Get.put(CategoriesController());
-  final controllerHome = Get.put(HomeTabController());
+  final controllerHome = Get.put(HomeController());
 
   Home({Key? key}) : super(key: key);
   @override

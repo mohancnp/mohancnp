@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/new_product_model.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/models/product_model.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
 
 class FavoriteProductCard extends StatelessWidget {
   final int? index;
-  final SingleProduct product;
+  final Product product;
   FavoriteProductCard({Key? key, required this.product, @required this.index})
       : super(key: key);
 
@@ -74,7 +70,7 @@ class FavoriteProductCard extends StatelessWidget {
                       children: [
                         Container(
                           child: Text(
-                            "${product.name}",
+                            "${product.productName}",
                             style: getpoppins(TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff404D4D),
@@ -84,7 +80,7 @@ class FavoriteProductCard extends StatelessWidget {
                         ),
                         Container(
                           child: Text(
-                            '\$ ' + "${product.price}",
+                            '\$ ' + "${product.productPrice}",
                             style: getpoppins(TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff550E1C),

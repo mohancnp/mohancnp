@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:expandable/expandable.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/icons/product_option_name.dart';
@@ -24,7 +23,6 @@ class ProductDetailPageController extends GetxController {
   ExpandableController milksexpandableController = ExpandableController();
   ProductDetail _productDetail = ProductDetail.empty();
   bool _pressed = false;
-
   Rx<UserOrder> userOrder = UserOrder.local(
     productVariantId: 0,
     qty: 1,

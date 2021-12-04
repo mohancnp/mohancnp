@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/new_product_model.dart';
-import 'package:metrocoffee/core/services/product_service/product_service.dart';
-import 'package:metrocoffee/modules/profile/contents/favorite_product_card.dart';
 import '../../../core/theme.dart';
 
 class FavoriteProductsPage extends StatefulWidget {
@@ -15,7 +11,7 @@ class FavoriteProductsPage extends StatefulWidget {
 }
 
 class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
-  NewProduct? productList;
+  // CategoryProduct cp;
   @override
   void initState() {
     super.initState();

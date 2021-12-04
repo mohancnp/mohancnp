@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/on_empty_widget.dart';
 import 'package:metrocoffee/ui/widgets/on_error_widget.dart';
 import 'widgets/product_list.dart';
 
-class ProductsPage extends GetView<HomeTabController> {
+class ProductsPage extends GetView<HomeController> {
   ProductsPage({Key? key}) : super(key: key);
 
   @override
@@ -17,7 +17,6 @@ class ProductsPage extends GetView<HomeTabController> {
       physics: AlwaysScrollableScrollPhysics(),
       child: controller.obx(
         (categoryProduct) {
-          // print(" on sucess: $categoryProduct");
           if (categoryProduct != null) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -29,7 +28,6 @@ class ProductsPage extends GetView<HomeTabController> {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: ProductList(
                     products: categoryProduct.products,
-                    tag: "pList",
                   ),
                 ),
                 categoryProduct.mostPopular.isEmpty
@@ -46,7 +44,6 @@ class ProductsPage extends GetView<HomeTabController> {
                       ),
                 ProductList(
                   products: categoryProduct.mostPopular,
-                  tag: "mpList",
                 ),
               ],
             );

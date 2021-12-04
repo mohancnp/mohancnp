@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
-import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -32,7 +32,7 @@ class TopHomeGreeting extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GetX<HomeTabController>(builder: (controller) {
+                    GetX<HomeController>(builder: (controller) {
                       var user = controller.user;
                       var firstName = "...";
                       firstName =

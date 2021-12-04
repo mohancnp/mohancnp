@@ -23,7 +23,6 @@ class ControllerBinding extends Bindings {
     Get.put(NotificationController());
     Get.put(PersonalDataPageController());
     Get.lazyPut(() => MemberShipLoginController());
-    Get.put(ProductDetailPageController());
     Get.put(CheckoutPageController());
     Get.put(PaymentPageController());
     Get.put(OrderHistoryController());

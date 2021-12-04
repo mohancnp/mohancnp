@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
 
 enum UserVerficationStatus { verified, unverified, unknown }
@@ -47,7 +47,7 @@ class BaseController extends GetxController {
 
   Future<void> initializeData() async {
     var rc = Get.find<RedirectionController>();
-    var homeController = Get.find<HomeTabController>();
+    var homeController = Get.find<HomeController>();
     if (rc.userExists) {
       updateUserVerificationStatus(UserVerficationStatus.verified);
       // try {

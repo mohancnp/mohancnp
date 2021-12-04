@@ -13,7 +13,7 @@ import 'core/locator.dart';
 import 'core/routing/names.dart';
 import 'core/routing/routes_handler.dart';
 import 'modules/maps/new/google_map_controller.dart';
-
+import 'modules/products/product_detail_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,7 +71,9 @@ class MyApp extends StatelessWidget {
 
         initialRoute: PageName.splashscreenpage,
         // home: Test(),
-        routes: RouteHandler.getRoutes(),
+        // routes: RouteHandler.getRoutes(),
+        getPages: RouteHandler.getPages(),
+        // unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage(),
       ),
     );
   }

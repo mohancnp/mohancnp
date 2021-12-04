@@ -132,17 +132,11 @@ class ProductServiceImpl extends ProductService {
     try {
       List<Category> _actualList = [];
 
-      var results = await Future.delayed(Duration(seconds: 2)).then((value) {
-        if (categoryListDummy is List<Map<String, dynamic>>) {
-          categoryListDummy.forEach((element) {
-            _actualList.add(Category.fromJson(element));
-          });
-          return _actualList;
-        } else {
-          return <Category>[];
-        }
+      await Future.delayed(Duration(seconds: 2));
+      categoryListDummy.forEach((element) {
+        _actualList.add(Category.fromJson(element));
       });
-      return Left(results);
+      return Left(_actualList);
     } on ServerException catch (e) {
       print(e.message);
       return Right(failureData);
@@ -161,6 +155,23 @@ class ProductServiceImpl extends ProductService {
     try {
       await Future.delayed(Duration(seconds: 2));
       var results = CategoryProduct.fromJson(categoryProduct);
+      return Left(results);
+    } on ServerException catch (e) {
+      failureData.message = e.message;
+      return Right(failureData);
+    } catch (e) {
+      // print(e);
+      return Right(failureData);
+    }
+  }
+
+  @override
+  Future<Either<ProductDetail, Failure>> getProductDetailWithId(int id) async {
+    var failureData =
+        Failure(tag: "product detail: ", message: "error retrieving menus");
+    try {
+      await Future.delayed(Duration(seconds: 2));
+      var results = ProductDetail.fromJson(productDetail);
       return Left(results);
     } on ServerException catch (e) {
       failureData.message = e.message;

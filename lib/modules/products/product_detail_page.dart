@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -17,7 +16,6 @@ import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-
 import 'product_detail_page_controller.dart';
 import 'widgets/addons_widget.dart';
 import 'widgets/milk_options_widget.dart';
@@ -28,34 +26,28 @@ import 'widgets/toppings_option_widget.dart';
 
 class ProductDetailPage extends StatelessWidget {
   ProductDetailPage({Key? key}) : super(key: key);
-  final controller = Get.find<ProductDetailPageController>();
+
+  final controller = Get.put(ProductDetailPageController());
   final cartController = Get.find<CartController>();
- 
+
   @override
   Widget build(BuildContext context) {
-    timeDilation = 1;
-    var idAndTag = Get.arguments;
-    var tag, id;
-    if (idAndTag != null) {
-      tag = idAndTag[1];
-      id = idAndTag[0];
-    }
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<ProductDetailPageController>(
         init: ProductDetailPageController(),
         initState: (v) {
-          controller.productDetail = ProductDetail.empty();
-          controller.toppings = [];
-          controller.milks = [];
-          controller.tempOptions = null;
-          controller.userOrder.value = UserOrder.local(
-            productVariantId: -1,
-            qty: 1,
-            orderProductAddons: [],
-            orderProductOptions: [],
-          );
-          controller.pressed=false;
-          cartController.getAllCartProducts();
+          // controller.productDetail = ProductDetail.empty();
+          // controller.toppings = [];
+          // controller.milks = [];
+          // controller.tempOptions = null;
+          // controller.userOrder.value = UserOrder.local(
+          //   productVariantId: -1,
+          //   qty: 1,
+          //   orderProductAddons: [],
+          //   orderProductOptions: [],
+          // );
+          // controller.pressed=false;
+          // cartController.getAllCartProducts();
         },
         builder: (controller) {
           // print("${controller.productDetail.ingredients}");
@@ -91,7 +83,7 @@ class ProductDetailPage extends StatelessWidget {
                               AnimatedContainer(
                                 duration: Duration(milliseconds: 1000),
                                 height: 47.h,
-                                width:pC.pressed ? 212.w : 180,
+                                width: pC.pressed ? 212.w : 180,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
                                   color: Palette.coffeeColor,
@@ -124,21 +116,18 @@ class ProductDetailPage extends StatelessWidget {
                     child: Column(children: [
                       Stack(
                         children: [
-                          Hero(
-                            tag: "$id$tag",
-                            child: Container(
-                              height: 373.h,
-                              width: 375.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(8.w),
-                                      bottomRight: Radius.circular(8.w)),
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        "$baseUrl${controller.productDetail.imageUri}",
-                                      ))),
-                            ),
+                          Container(
+                            height: 373.h,
+                            width: 375.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(8.w),
+                                    bottomRight: Radius.circular(8.w)),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                      "$baseUrl${controller.productDetail.imageUri}",
+                                    ))),
                           ),
                           Positioned(
                             top: 49.h,

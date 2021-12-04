@@ -7,7 +7,7 @@ import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/user_model.dart';
 import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
-import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'profile_page_controller.dart';
 
 class PersonalDataPageController extends GetxController {
@@ -113,7 +113,7 @@ class PersonalDataPageController extends GetxController {
       gender = updatedUser.gender;
       jobcontroller.text = updatedUser.job ?? " ";
       profileController.newUser = updatedUser;
-      Get.find<HomeTabController>().user = updatedUser;
+      Get.find<HomeController>().user = updatedUser;
 
       if (result != null) {
         Get.back();

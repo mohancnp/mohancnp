@@ -4,7 +4,7 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
-import 'package:metrocoffee/modules/home/hometab_controller.dart';
+import 'package:metrocoffee/modules/home/home_controller.dart';
 
 class OrderSuccesfulDialog extends StatelessWidget {
   OrderSuccesfulDialog({Key? key}) : super(key: key);

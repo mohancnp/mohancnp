@@ -20,9 +20,9 @@ import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/internet.dart';
 
-class HomeTabController extends GetxController
+class HomeController extends GetxController
     with StateMixin<CategoryProduct> {
-  static HomeTabController get to => Get.find();
+  static HomeController get to => Get.find();
 
   int currentpageindex = 0;
   bool internetConnected = false;
@@ -238,7 +238,7 @@ class HomeTabController extends GetxController
 
   @override
   void onInit() {
-    // print("on init home");
+    print("on init home");
     getCategoryData();
     // getUser();
     super.onInit();

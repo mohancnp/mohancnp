@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/auth/core_login.dart';
 import 'package:metrocoffee/modules/auth/custom/membership_login.dart';
@@ -43,7 +44,80 @@ class RouteHandler {
       PageName.productdetailpage: (BuildContext context) => ProductDetailPage(),
       PageName.productCartPage: (BuildContext context) => MyProductCart(),
       PageName.searchPage: (BuildContext context) => SearchPage(),
-      PageName.nointernetpage:(BuildContext context)=>NoInternet(),
+      PageName.nointernetpage: (BuildContext context) => NoInternet(),
     };
+  }
+
+  static List<GetPage> getPages() {
+    return [
+      GetPage(
+        name: PageName.splashscreenpage,
+        page: () => SplashScreen(),
+      ),
+      GetPage(
+        name: PageName.onboardingpage,
+        page: () => OnBoardingScreen(),
+      ),
+      GetPage(
+        name: PageName.loginpage,
+        page: () => LoginPage(),
+      ),
+      GetPage(
+        name: PageName.homepage,
+        page: () => Base(),
+      ),
+      GetPage(
+        name: PageName.membershiploginpage,
+        page: () => MembershipLoginPage(),
+      ),
+      GetPage(
+        name: PageName.personaldatapage,
+        page: () => PersonalDataPage(),
+      ),
+      GetPage(
+        name: PageName.changepasswordpage,
+        page: () => ChangePasswordPage(),
+      ),
+      GetPage(
+        name: PageName.myorderspage,
+        page: () => MyOrderPage(),
+      ),
+      GetPage(
+        name: PageName.favouritesproductpage,
+        page: () => FavoriteProductsPage(),
+      ),
+      GetPage(
+        name: PageName.orderdetailspage,
+        page: () => OrderDetails(),
+      ),
+      GetPage(
+        name: PageName.paymentspage,
+        page: () => PaymentPage(),
+      ),
+      GetPage(
+        name: PageName.ordersucessfullpage,
+        page: () => OrderSuccesfulPage(),
+      ),
+      GetPage(
+        name: PageName.googlemappage,
+        page: () => GoogleMapScreen(),
+      ),
+      GetPage(
+        name: PageName.productdetailpage + '/:productId',
+        page: () => ProductDetailPage(),
+      ),
+      GetPage(
+        name: PageName.productCartPage,
+        page: () => MyProductCart(),
+      ),
+      GetPage(
+        name: PageName.searchPage,
+        page: () => SearchPage(),
+      ),
+      GetPage(
+        name: PageName.nointernetpage,
+        page: () => NoInternet(),
+      ),
+    ];
   }
 }

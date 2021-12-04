@@ -6,13 +6,11 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-import '../hometab_controller.dart';
 
 class ProductCard extends StatelessWidget {
   final String imageUri;
   final String name;
   final int id;
-  final tag;
   final dynamic price;
   final void Function() onPressed;
   const ProductCard(
@@ -20,7 +18,6 @@ class ProductCard extends StatelessWidget {
       required this.imageUri,
       required this.name,
       required this.id,
-      this.tag,
       required this.onPressed,
       required this.price})
       : super(key: key);
@@ -58,32 +55,29 @@ class ProductCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(4.r),
-            child: Hero(
-              tag: "$id$tag",
-              child: Material(
-                child: InkWell(
-                  onTap: onPressed,
-                  child: Image.network(
-                    "$baseUrl$imageUri",
-                    height: 116.w,
-                    width: 116.w,
-                    // color: Colors.blue,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, widget, imageProgress) {
-                      if (imageProgress == null) {
-                        return widget;
-                      }
-                      return Center(
-                        child: SizedBox(
-                          height: 116.r,
-                          width: 116.r,
-                          child: SpinKitCubeGrid(
-                            color: Palette.coffeeColor,
-                          ),
+            child: Material(
+              child: InkWell(
+                onTap: onPressed,
+                child: Image.network(
+                  "$baseUrl$imageUri",
+                  height: 116.w,
+                  width: 116.w,
+                  // color: Colors.blue,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, widget, imageProgress) {
+                    if (imageProgress == null) {
+                      return widget;
+                    }
+                    return Center(
+                      child: SizedBox(
+                        height: 116.r,
+                        width: 116.r,
+                        child: SpinKitCubeGrid(
+                          color: Palette.coffeeColor,
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -113,7 +107,8 @@ class ProductCard extends StatelessWidget {
                       fontFamily: poppinsmedium)),
                 ),
                 GestureDetector(
-                  onTap: () => Get.find<HomeTabController>().addToCart(id),
+                  onTap: () => null,
+                  //  Get.find<HomeTabController>().addToCart(id)
                   child: Container(
                     width: 28.r,
                     height: 28.r,
