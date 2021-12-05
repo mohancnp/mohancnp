@@ -138,7 +138,7 @@ class ProductServiceImpl extends ProductService {
       });
       return Left(_actualList);
     } on ServerException catch (e) {
-      print(e.message);
+      print("code: ${e.code} msg: ${e.message}");
       return Right(failureData);
     } catch (e) {
       print(e);
@@ -157,6 +157,7 @@ class ProductServiceImpl extends ProductService {
       var results = CategoryProduct.fromJson(categoryProduct);
       return Left(results);
     } on ServerException catch (e) {
+      print("code: ${e.code} msg: ${e.message}");
       failureData.message = e.message;
       return Right(failureData);
     } catch (e) {
@@ -174,10 +175,11 @@ class ProductServiceImpl extends ProductService {
       var results = ProductDetail.fromJson(productDetail);
       return Left(results);
     } on ServerException catch (e) {
+      print("code: ${e.code} msg: ${e.message}");
       failureData.message = e.message;
       return Right(failureData);
     } catch (e) {
-      // print(e);
+      print(e.toString());
       return Right(failureData);
     }
   }

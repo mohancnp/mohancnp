@@ -4,4 +4,5 @@ class CompanyDetail {
       "next to Oyster Top up machine, Ilford IG2 6UD, United Kingdom";
   static double companyLat = 51.5767841909041;
   static double companyLong = 0.0671225322487236;
+  
 }

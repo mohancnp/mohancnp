@@ -50,6 +50,7 @@ class CategoriesController extends GetxController
     });
   }
 
+
   setDefaultCategory() {
     for (var i = 0; i < _categoryList.length; i++) {
       var element = _categoryList[i];

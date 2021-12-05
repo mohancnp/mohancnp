@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
-import '../../../core/theme.dart';
+import 'package:metrocoffee/core/theme.dart';
 
 class OrderDetailRow extends StatelessWidget {
   final OrderProduct odp;
@@ -25,7 +25,7 @@ class OrderDetailRow extends StatelessWidget {
             children: [
               Container(
                 child: Text(
-                  "${odp.variant?.productName ?? ' '}",
+                  "Prodct Name",
                   style: getpoppins(TextStyle(
                       fontWeight: FontWeight.w500,
                       color: darkgrey,

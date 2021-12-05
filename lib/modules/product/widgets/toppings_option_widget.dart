@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
+import 'package:metrocoffee/modules/product/product_detail_page_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:expandable/expandable.dart';
@@ -8,21 +8,21 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
-class MilkOptionWidget extends StatelessWidget {
-  const MilkOptionWidget({
+class ToppingsOptionWidget extends StatelessWidget {
+  const ToppingsOptionWidget({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
+    return GetX<ProductDetailPageController>(
         init: ProductDetailPageController(),
         builder: (ProductDetailPageController controller) {
           return Container(
             width: 320.w,
-            margin: EdgeInsets.only(left: 28.w, top: 29.h, right: 28.w),
+            margin: EdgeInsets.only(left: 28.w, top: 32.h, right: 28.w),
             child: ExpandablePanel(
-              controller: controller.milksexpandableController,
+              controller: controller.toppingsexpandableController,
               theme: ExpandableThemeData(
                   animationDuration: Duration(milliseconds: 240),
                   tapBodyToCollapse: true,
@@ -43,7 +43,7 @@ class MilkOptionWidget extends StatelessWidget {
                             ? Colors.black.withOpacity(0.08)
                             : Colors.transparent,
                         blurRadius: 20.r,
-                        offset: Offset(0, 3.h))
+                        offset: Offset(0, 3.r))
                   ],
                   color: Color(0xffE8E8E8),
                   borderRadius: controller.toppingsexpandableController.expanded
@@ -58,18 +58,17 @@ class MilkOptionWidget extends StatelessWidget {
                   children: [
                     Container(
                       child: Text(
-                        "Milks",
+                        "Toppings",
                         style: getpoppins(TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: Palette.darkGery,
+                            color: darkgrey,
                             //         fontSize: 14.5
                             fontSize: 14.sp)),
                       ),
                     ),
-                    Container(
-                        child: Row(children: [
+                    Row(children: [
                       Text(
-                        controller.currentmilk,
+                        controller.productDetail.toppings[0].name,
                         style: getpoppins(TextStyle(
                             fontWeight: FontWeight.w500,
                             color: coffeecolor,
@@ -79,17 +78,17 @@ class MilkOptionWidget extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(
                             //       left: 12
-                            left: 12.w),
+                            left: 12.sp),
                         child: Icon(
-                          controller.milksexpandableController.expanded
+                          controller.toppingsexpandableController.expanded
                               ? FeatherIcons.chevronUp
                               : FeatherIcons.chevronDown,
-                          color: Palette.coffeeColor,
+                          color: coffeecolor,
                           //         size: 17,
                           size: 17.w,
                         ),
                       )
-                    ])),
+                    ]),
                   ],
                 ),
               ),
@@ -115,29 +114,32 @@ class MilkOptionWidget extends StatelessWidget {
                         bottomRight: Radius.circular(9.r)),
                   ),
                   child: ListView.builder(
-                      itemCount: controller.milks.length,
+                      itemCount: controller.productDetail.toppings.length,
                       padding: EdgeInsets.all(0),
-                      // physics: AlwaysScrollableScrollPhysics(),
+                      physics: AlwaysScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+                        var topping =
+                            controller.productDetail.toppings.elementAt(index);
                         return GestureDetector(
                             onTap: () {
-                              var milks = controller.milks;
-                              controller.setcuttentmilk(milks.elementAt(index));
-                              controller.milksexpandableController.expanded =
-                                  false;
+                              topping.selected = !topping.selected;
+                              // var toppings = controller.toppings;
+                              // controller
+                              //     .setcurrenttopping(toppings.elementAt(index));
+                              // controller.toppingsexpandableController.expanded =
+                              //     false;
                             },
                             child: Container(
-                              margin: EdgeInsets.only(top: 8.r),
+                              margin: EdgeInsets.only(top: 8.h),
                               child: Text(
-                                controller.milks.elementAt(index),
+                                topping.name,
                                 style: getpoppins(TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    color: controller.currentmilk ==
-                                            "${controller.milks.elementAt(index)}"
-                                        ? coffeecolor
-                                        : darkgrey,
-                                    fontSize: 12.5.sp)),
+                                    color: topping.selected
+                                        ? Palette.coffeeColor
+                                        : Palette.darkGery,
+                                    fontSize: 12.5)),
                               ),
                             ));
                       })),

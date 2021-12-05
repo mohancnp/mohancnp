@@ -5,18 +5,18 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
+import 'package:metrocoffee/modules/product/product_detail_page_controller.dart';
 
 class AddonsWidget extends StatelessWidget {
   const AddonsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ProductDetailPageController>(
+    return GetX<ProductDetailPageController>(
         init: ProductDetailPageController(),
         builder: (controller) {
           var addons = controller.productDetail.addons;
-          return addons == null
+          return addons.isEmpty
               ? SizedBox()
               : Container(
                   height: 140.h,
@@ -31,7 +31,7 @@ class AddonsWidget extends StatelessWidget {
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () => controller.toogleAddonSelection(index),
+                          onTap: () => null,
                           child: Padding(
                             padding: EdgeInsets.only(right: 16.w),
                             child: Stack(clipBehavior: Clip.none, children: [
@@ -80,7 +80,7 @@ class AddonsWidget extends StatelessWidget {
                                       children: [
                                         Container(
                                           child: Text(
-                                            "\$ ${addons[index].cost}",
+                                            "\$ ${addons[index].price}",
                                             style: getpoppins(TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 color: darkgrey,
@@ -99,7 +99,7 @@ class AddonsWidget extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              addons[index].image != null
+                              addons[index].image.isNotEmpty
                                   ? Positioned(
                                       left: 24.w,
                                       child: Image.network(

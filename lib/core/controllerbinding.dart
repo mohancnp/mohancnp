@@ -6,7 +6,6 @@ import 'package:metrocoffee/modules/maps/new/google_map_controller.dart';
 import 'package:metrocoffee/modules/notifications/notification_controller.dart';
 // import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
 import 'package:metrocoffee/modules/payment/payment_page_controller.dart';
-import 'package:metrocoffee/modules/products/product_detail_page_controller.dart';
 import 'package:metrocoffee/modules/profile/contents/order_details_controller.dart';
 import 'package:metrocoffee/modules/profile/contents/order_history_controller.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page_controller.dart';

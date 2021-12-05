@@ -11,7 +11,7 @@ import 'package:metrocoffee/modules/maps/map.dart';
 import 'package:metrocoffee/modules/onboarding/onboardingscreen.dart';
 import 'package:metrocoffee/modules/payment/order_succesful_page.dart';
 import 'package:metrocoffee/modules/payment/payment_page.dart';
-import 'package:metrocoffee/modules/products/product_detail_page.dart';
+import 'package:metrocoffee/modules/product/product_detail_page.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page.dart';
 import 'package:metrocoffee/modules/shareables/change_password.dart';
 import 'package:metrocoffee/modules/home/searchpage.dart';

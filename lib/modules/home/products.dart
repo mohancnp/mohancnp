@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/app_message.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/on_empty_widget.dart';
@@ -49,15 +50,15 @@ class ProductsPage extends GetView<HomeController> {
             );
           }
           return EmptyDataWidget(
-            message: "No Products Available",
+            message: AppMessage.notFound,
           );
         },
         onEmpty: EmptyDataWidget(
-          message: "No Products Available",
+          message: AppMessage.notFound,
         ),
         onError: (error) {
           return OnErrorWidget(
-            message: error ?? "Error Occured",
+            message: error ?? AppMessage.somethingWentWrong,
           );
         },
         onLoading: SizedBox(

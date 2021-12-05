@@ -9,11 +9,11 @@ import 'package:metrocoffee/modules/maps/new/widgets/map_widgets.dart';
 import 'package:metrocoffee/ui/app_name.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+
 import 'core/locator.dart';
 import 'core/routing/names.dart';
 import 'core/routing/routes_handler.dart';
 import 'modules/maps/new/google_map_controller.dart';
-import 'modules/products/product_detail_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
