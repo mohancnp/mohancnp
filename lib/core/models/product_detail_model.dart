@@ -1,8 +1,30 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'product_detail_model.g.dart';
 
 @JsonSerializable()
 class ProductDetail {
+  Product product;
+  @JsonKey(name: "varients")
+  List<Variant> variants;
+  List<Topping> toppings;
+  @JsonKey(name: "addons_extras")
+  List<Addon> addons;
+
+  ProductDetail({
+    required this.variants,
+    required this.toppings,
+    required this.addons,
+    required this.product,
+  });
+  factory ProductDetail.fromJson(Map<String, dynamic> json) =>
+      _$ProductDetailFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductDetailToJson(this);
+}
+
+@JsonSerializable()
+class Product {
   @JsonKey(name: "product_id")
   int id;
   @JsonKey(name: "product_name")
@@ -11,26 +33,19 @@ class ProductDetail {
   String description;
   @JsonKey(name: "features_image")
   String image;
-  List<Variant> variants;
-  List<Topping> toppings;
-  List<Addon> addons;
   @JsonKey(ignore: true)
   int qty;
-
-  ProductDetail({
+  Product({
     required this.id,
     required this.name,
     required this.description,
     required this.image,
-    required this.variants,
-    required this.toppings,
-    required this.addons,
     this.qty = 1,
   });
-  factory ProductDetail.fromJson(Map<String, dynamic> json) =>
-      _$ProductDetailFromJson(json);
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ProductDetailToJson(this);
+  Map<String, dynamic> toJson() => _$ProductToJson(this);
 }
 
 @JsonSerializable()
@@ -63,7 +78,7 @@ class Topping {
   @JsonKey(name: "topping_id")
   int id;
   String name;
-  String price;
+  double price;
   @JsonKey(ignore: true)
   bool selected = false;
   Topping(

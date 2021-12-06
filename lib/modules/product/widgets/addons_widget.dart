@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/modules/product/product_detail_page_controller.dart';
 
 class AddonsWidget extends StatelessWidget {
@@ -23,25 +23,23 @@ class AddonsWidget extends StatelessWidget {
                   padding: EdgeInsets.only(left: 28.w),
                   child: ListView.builder(
                       itemCount: addons.length,
-                      // padding: EdgeInsets.only(right: 10.w),
                       clipBehavior: Clip.none,
-
-                      // shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
+                        // print("added");
+                        int i = addons[index].id;
                         return GestureDetector(
-                          onTap: () => null,
+                          onTap: () {
+                            controller.handleAddonSelection(i);
+                            controller.calculateTotal();
+                          },
                           child: Padding(
                             padding: EdgeInsets.only(right: 16.w),
                             child: Stack(clipBehavior: Clip.none, children: [
                               Container(
                                 padding: EdgeInsets.only(
-                                    //          left: 12,bottom: 4,right: 4
-                                    left: 12.w,
-                                    bottom: 4.h,
-                                    right: 4.w),
-                                //                      height: 88,width: 110,
+                                    left: 12.w, bottom: 4.h, right: 4.w),
                                 height: 87.h,
                                 width: 100.w,
                                 decoration: BoxDecoration(
@@ -66,11 +64,10 @@ class AddonsWidget extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        "${addons.elementAt(index).name} ",
+                                        "${addons[index].name} ",
                                         style: getpoppins(TextStyle(
                                             fontWeight: FontWeight.w300,
                                             color: darkgrey,
-                                            //              fontSize: 12
                                             fontSize: 12.sp)),
                                       ),
                                     ),
@@ -84,14 +81,12 @@ class AddonsWidget extends StatelessWidget {
                                             style: getpoppins(TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 color: darkgrey,
-                                                //             fontSize: 13.5
                                                 fontSize: 13.sp)),
                                           ),
                                         ),
                                         Icon(
                                           CupertinoIcons.add_circled_solid,
                                           color: coffeecolor,
-                                          //      size: 21,
                                           size: 21.sp,
                                         )
                                       ],
@@ -103,7 +98,7 @@ class AddonsWidget extends StatelessWidget {
                                   ? Positioned(
                                       left: 24.w,
                                       child: Image.network(
-                                        "$baseUrl${addons[index].image}",
+                                        "$dummyUrl/${addons[index].image}",
                                         width: 86.w,
                                         height: 46.h,
                                       ),

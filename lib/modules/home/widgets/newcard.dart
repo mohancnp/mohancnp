@@ -57,8 +57,9 @@ class ProductCard extends StatelessWidget {
             child: Material(
               child: InkWell(
                 onTap: onPressed,
+                //  https://pioneersoftech.com/cp_metrocoffee/resources/uploads/product/{id}/
                 child: Image.network(
-                  "$baseUrl$imageUri",
+                  "$dummyUrl/resources/uploads/product/$id/$imageUri",
                   height: 116.w,
                   width: 116.w,
                   // color: Colors.blue,

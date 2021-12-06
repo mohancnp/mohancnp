@@ -62,11 +62,13 @@ const categoryProduct = {
   ]
 };
 const productDetail = {
-  "product_id": 151,
-  "product_name": "Americano",
-  "short_description": "Americano",
-  "features_image":
-      "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png",
+  "product": {
+    "product_id": 151,
+    "product_name": "Americano",
+    "short_description": "Americano",
+    "features_image":
+        "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png"
+  },
   "varients": [
     {
       "product_id": 151,
@@ -89,7 +91,7 @@ const productDetail = {
   "addons_extras": [
     {
       "addons_extra_id": 2,
-      "name": "Choklate",
+      "name": "Choclate",
       "image":
           "/storage/uploads/product/2021/9//vLFZDfjpWBIJLynHzIO8a7rOjvH53D6gaRB4EOAZ.png",
       "price": 1

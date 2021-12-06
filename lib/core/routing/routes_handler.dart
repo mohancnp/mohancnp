@@ -14,7 +14,7 @@ import 'package:metrocoffee/modules/payment/payment_page.dart';
 import 'package:metrocoffee/modules/product/product_detail_page.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page.dart';
 import 'package:metrocoffee/modules/shareables/change_password.dart';
-import 'package:metrocoffee/modules/home/searchpage.dart';
+import 'package:metrocoffee/modules/product_search/searchpage.dart';
 import 'package:metrocoffee/modules/profile/contents/favorite_products.dart';
 import 'package:metrocoffee/modules/profile/contents/my_order.dart';
 import 'package:metrocoffee/modules/profile/contents/order_details.dart';
@@ -103,7 +103,7 @@ class RouteHandler {
         page: () => GoogleMapScreen(),
       ),
       GetPage(
-        name: PageName.productdetailpage + '/:productId',
+        name: PageName.productdetailpage + '/:id',
         page: () => ProductDetailPage(),
       ),
       GetPage(

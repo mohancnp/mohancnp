@@ -4,6 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
 
 class SearchBar extends StatelessWidget {
   final bool enabled;
@@ -25,10 +26,16 @@ class SearchBar extends StatelessWidget {
               )
             ]),
         child: GestureDetector(
-          onTap: () => Get.toNamed(PageName.searchPage),
+          onTap: () {
+            if (!enabled) {
+              Get.toNamed(PageName.searchPage);
+            }
+          },
           child: Center(
             child: TextField(
               enabled: enabled,
+              controller: SearchPageController.to.searchBarController,
+              onEditingComplete: () => SearchPageController.to.performSearch(),
               style: TextStyle(
                 fontFamily: poppinsregular,
                 color: Colors.black87,

@@ -24,15 +24,19 @@ class ProductDetailPageController extends GetxController
     with StateMixin<ProductDetail> {
   ExpandableController toppingsexpandableController = ExpandableController();
   var _productService = locator.get<ProductService>();
+  var params;
   late Rx<ProductDetail> _productDetail = ProductDetail(
-    id: 0,
-    name: "",
-    description: "",
-    image: "",
+    product: Product(
+      id: 0,
+      name: "",
+      description: "",
+      image: "",
+    ),
     variants: [],
     toppings: [],
     addons: [],
   ).obs;
+  Rx<double> totalPrice = 0.0.obs;
   ProductDetail get productDetail {
     return _productDetail.value;
   }
@@ -42,25 +46,92 @@ class ProductDetailPageController extends GetxController
   }
 
   Future getProductDetail() async {
-    int? id = Get.arguments["productId"];
-    if (id != null) {
+    // print("not null");
+
+    if (params != null) {
+      int id = int.parse(params["id"]);
       var response = await _productService.getProductDetailWithId(id);
       response.fold((l) => handleResponse(l), (r) => handleFailure(r));
     }
+    // print(args);
   }
 
   handleResponse(ProductDetail p) {
+    // print("handling rsponse");
     change(p, status: RxStatus.success());
+    totalPrice.value = p.variants[0].price;
     productDetail = p;
     // productDetail.refresh();
   }
 
+
+  calculateTotal() {
+    totalPrice.value = 0.0;
+    // var toppings = productDetail.toppings;
+    var addons = productDetail.addons;
+
+    double total = 0.0;
+    for (var i = 0; i < productDetail.variants.length; i++) {
+      if (productDetail.variants[i].selected) {
+        total = productDetail.variants[i].price;
+        break;
+      }
+    }
+    // for (var i = 0; i < toppings.length; i++) {
+    //   if (toppings[i].selected) {
+    //     total += toppings[i].price;
+    //     break;
+    //   }
+    // }
+    for (var i = 0; i < addons.length; i++) {
+      if (addons[i].selected) {
+        total += addons[i].price;
+      }
+    }
+    totalPrice.value = total * productDetail.product.qty;
+  }
+
   handleFailure(Failure f) {
+    print("handling failure");
     change(null, status: RxStatus.error(f.message));
+  }
+
+  handleSizeSelection(atIndex) {
+    var variants = productDetail.variants;
+    productDetail.variants[atIndex].selected = true;
+    for (var i = 0; i < variants.length; i++) {
+      if (variants[i].productId != variants[atIndex].productId) {
+        productDetail.variants[i].selected = false;
+      }
+    }
+    _productDetail.refresh();
+  }
+
+  handleAddonSelection(id) {
+    var addons = productDetail.addons;
+    for (var i = 0; i < addons.length; i++) {
+      if (id == addons[i].id) {
+        productDetail.addons[i].selected = !productDetail.addons[i].selected;
+      }
+    }
+    _productDetail.refresh();
+  }
+
+  addCount() {
+    productDetail.product.qty += 1;
+    _productDetail.refresh();
+  }
+
+  removeCount() {
+    if (productDetail.product.qty > 1) {
+      productDetail.product.qty -= 1;
+      _productDetail.refresh();
+    }
   }
 
   @override
   void onInit() {
+    params = Get.parameters;
     getProductDetail();
     super.onInit();
   }

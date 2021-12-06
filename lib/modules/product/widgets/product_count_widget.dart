@@ -21,7 +21,6 @@ class ProductCountWidget extends StatelessWidget {
             Container(
                 width: 375.w,
                 margin: EdgeInsets.only(
-                  //       bottom: 8
                   bottom: 8.h,
                 ),
                 child: GetX<ProductDetailPageController>(builder: (controller) {
@@ -30,23 +29,21 @@ class ProductCountWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          // controller.decreaseCount();
+                          controller.removeCount();
+                          controller.calculateTotal();
                         },
                         child: Icon(
                           CupertinoIcons.minus_circle,
-                          color: controller.productDetail.qty < 2
+                          color: controller.productDetail.product.qty < 2
                               ? Palette.coffeeColor.withOpacity(0.4)
                               : Palette.coffeeColor,
-                          //      size: 27.5,
                           size: 27.w,
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(
-                            //          horizontal: 22
-                            horizontal: 22.w),
+                        margin: EdgeInsets.symmetric(horizontal: 22.w),
                         child: Text(
-                          "${controller.productDetail.qty}",
+                          "${controller.productDetail.product.qty}",
                           style: getpoppins(TextStyle(
                               fontWeight: FontWeight.w400,
                               color: coffeecolor,
@@ -55,13 +52,12 @@ class ProductCountWidget extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // add products to be orderd in cart
-                          // controller.increaseCount();
+                          controller.addCount();
+                          controller.calculateTotal();
                         },
                         child: Icon(
                           CupertinoIcons.plus_circle,
                           color: coffeecolor,
-                          //      size: 27.5,
                           size: 27.w,
                         ),
                       ),

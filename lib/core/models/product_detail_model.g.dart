@@ -8,31 +8,41 @@ part of 'product_detail_model.dart';
 
 ProductDetail _$ProductDetailFromJson(Map<String, dynamic> json) {
   return ProductDetail(
-    id: json['product_id'] as int,
-    name: json['product_name'] as String,
-    description: json['short_description'] as String,
-    image: json['features_image'] as String,
-    variants: (json['variants'] as List<dynamic>)
+    variants: (json['varients'] as List<dynamic>)
         .map((e) => Variant.fromJson(e as Map<String, dynamic>))
         .toList(),
     toppings: (json['toppings'] as List<dynamic>)
         .map((e) => Topping.fromJson(e as Map<String, dynamic>))
         .toList(),
-    addons: (json['addons'] as List<dynamic>)
+    addons: (json['addons_extras'] as List<dynamic>)
         .map((e) => Addon.fromJson(e as Map<String, dynamic>))
         .toList(),
+    product: Product.fromJson(json['product'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$ProductDetailToJson(ProductDetail instance) =>
     <String, dynamic>{
+      'product': instance.product,
+      'varients': instance.variants,
+      'toppings': instance.toppings,
+      'addons_extras': instance.addons,
+    };
+
+Product _$ProductFromJson(Map<String, dynamic> json) {
+  return Product(
+    id: json['product_id'] as int,
+    name: json['product_name'] as String,
+    description: json['short_description'] as String,
+    image: json['features_image'] as String,
+  );
+}
+
+Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'product_id': instance.id,
       'product_name': instance.name,
       'short_description': instance.description,
       'features_image': instance.image,
-      'variants': instance.variants,
-      'toppings': instance.toppings,
-      'addons': instance.addons,
     };
 
 Variant _$VariantFromJson(Map<String, dynamic> json) {
@@ -55,7 +65,7 @@ Topping _$ToppingFromJson(Map<String, dynamic> json) {
   return Topping(
     id: json['topping_id'] as int,
     name: json['name'] as String,
-    price: json['price'] as String,
+    price: (json['price'] as num).toDouble(),
   );
 }
 

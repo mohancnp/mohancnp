@@ -29,8 +29,7 @@ import 'widgets/toppings_option_widget.dart';
 class ProductDetailPage extends GetView<ProductDetailPageController> {
   ProductDetailPage({Key? key}) : super(key: key);
 
-  final productDetailController = Get.put(ProductDetailPageController());
-  // final cartController = Get.find<CartController>();
+  final controller = Get.put(ProductDetailPageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,47 +43,61 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                 topLeft: Radius.circular(9.r),
                 topRight: Radius.circular(9.r),
               )),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                dollar + "  ",
-                style: getpoppins(TextStyle(
-                    color: Palette.textColor,
-                    fontSize: 26.sp,
-                    fontWeight: FontWeight.w500)),
-              ),
-              AnimatedContainer(
-                duration: Duration(milliseconds: 1000),
-                height: 47.h,
-                // width: pC.pressed ? 212.w : 180,
-                width: 180.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.r),
-                  color: Palette.coffeeColor,
-                ),
-                child: TextButton.icon(
-                    onPressed: () async {
-                      // controller.pressed = true;
-                      // await controller.addProductToCart();
-                      // await cartController.getAllCartProducts();
-                    },
-                    icon: Icon(
-                      CupertinoIcons.cart_badge_plus,
-                      color: Colors.white,
-                      // color: Palette.coffeeColor,
-                    ),
-                    label: Text(
-                      "Add To Cart",
-                      style: getpoppins(TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w300,
-                      )),
-                    )),
-              ),
-            ],
-          )),
+          child: Obx(() {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                controller.totalPrice == 0.0
+                    ? SizedBox(
+                        height: 10.h,
+                        width: 10.w,
+                        child: CircularProgressIndicator(),
+                      )
+                    : Text(
+                        dollar + " ${controller.totalPrice.value}",
+                        style: getpoppins(TextStyle(
+                            color: Palette.textColor,
+                            fontSize: 26.sp,
+                            fontWeight: FontWeight.w500)),
+                      ),
+                controller.totalPrice == 0.0
+                    ? SizedBox(
+                        height: 10.h,
+                        width: 10.w,
+                        child: CircularProgressIndicator(),
+                      )
+                    : AnimatedContainer(
+                        duration: Duration(milliseconds: 1000),
+                        height: 47.h,
+                        // width: pC.pressed ? 212.w : 180,
+                        width: 180.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Palette.coffeeColor,
+                        ),
+                        child: TextButton.icon(
+                            onPressed: () {
+                              // controller.pressed = true;
+                              // await controller.addProductToCart();
+                              // await cartController.getAllCartProducts();
+                            },
+                            icon: Icon(
+                              CupertinoIcons.cart_badge_plus,
+                              color: Colors.white,
+                              // color: Palette.coffeeColor,
+                            ),
+                            label: Text(
+                              "Add To Cart",
+                              style: getpoppins(TextStyle(
+                                color: Colors.white,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w300,
+                              )),
+                            )),
+                      ),
+              ],
+            );
+          })),
       body: controller.obx((pd) {
         if (pd == null) {
           return OnErrorWidget(
@@ -105,7 +118,8 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(
-                              "$baseUrl${pd.image}",
+                              // $dummyUrl/resources/uploads/product/$id/$imageUri
+                              "$dummyUrl/resources/uploads/product/${pd.product.id}/${pd.product.image}",
                             ))),
                   ),
                   Positioned(
@@ -180,16 +194,16 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                     ),
                   ),
                   Positioned(
-                    top: pd.description.isNotEmpty ? 240.h : null,
-                    bottom: pd.description.isNotEmpty ? 0.h : null,
+                    top: pd.product.description.isNotEmpty ? 240.h : null,
+                    bottom: pd.product.description.isNotEmpty ? 0.h : null,
                     child: ClipRRect(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(8.r),
                           topRight: Radius.circular(8.r),
                         ),
                         child: ProductDescriptionWidget(
-                          name: pd.name,
-                          description: pd.description,
+                          name: pd.product.name,
+                          description: pd.product.description,
                           isFavorite: false,
                         )),
                   ),

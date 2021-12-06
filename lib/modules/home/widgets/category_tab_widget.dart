@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
@@ -36,8 +37,8 @@ class CategoryTab extends StatelessWidget {
           children: [
             Padding(
                 padding: EdgeInsets.only(right: 10.w),
-                child: Image.asset(
-                  "$imagePath",
+                child: Image.network(
+                  "$dummyUrl/$imagePath",
                 )),
             // SvgPicture.asset("assetName"),
             Center(

@@ -4,7 +4,7 @@ part 'product_model.g.dart';
 @JsonSerializable()
 class CategoryProduct {
   List<Product> products;
-  @JsonKey(name: "most_popular_products")
+  @JsonKey(name: "most_popular_products", includeIfNull: false)
   List<Product> mostPopular;
   CategoryProduct(this.products, this.mostPopular);
 

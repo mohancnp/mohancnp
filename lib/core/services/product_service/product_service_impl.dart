@@ -8,6 +8,7 @@ import 'package:metrocoffee/core/exceptions/dio_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/models/category.dart';
+import 'package:metrocoffee/core/models/filter_model.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/models/product_model.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
@@ -131,11 +132,12 @@ class ProductServiceImpl extends ProductService {
 
     try {
       List<Category> _actualList = [];
-
-      await Future.delayed(Duration(seconds: 2));
-      categoryListDummy.forEach((element) {
-        _actualList.add(Category.fromJson(element));
-      });
+      var response = await remoteSource.get("$dummyUrl/api/category_list");
+      if (response["data"] is List<dynamic>) {
+        response["data"].forEach((element) {
+          _actualList.add(Category.fromJson(element));
+        });
+      }
       return Left(_actualList);
     } on ServerException catch (e) {
       print("code: ${e.code} msg: ${e.message}");
@@ -153,15 +155,15 @@ class ProductServiceImpl extends ProductService {
     var failureData =
         Failure(tag: "menus: ", message: "error retrieving menus");
     try {
-      await Future.delayed(Duration(seconds: 2));
-      var results = CategoryProduct.fromJson(categoryProduct);
+      var response = await remoteSource.get("$dummyUrl/api/cat_prod_list/$id");
+      var results = CategoryProduct.fromJson(response);
       return Left(results);
     } on ServerException catch (e) {
       print("code: ${e.code} msg: ${e.message}");
       failureData.message = e.message;
       return Right(failureData);
     } catch (e) {
-      // print(e);
+      print(e);
       return Right(failureData);
     }
   }
@@ -169,17 +171,43 @@ class ProductServiceImpl extends ProductService {
   @override
   Future<Either<ProductDetail, Failure>> getProductDetailWithId(int id) async {
     var failureData =
-        Failure(tag: "product detail: ", message: "error retrieving menus");
+        Failure(tag: "product detail: ", message: "error retrieving details");
     try {
-      await Future.delayed(Duration(seconds: 2));
-      var results = ProductDetail.fromJson(productDetail);
+      var data = await remoteSource.get(
+        "$dummyUrl/api/product_detail/$id",
+      );
+      var results = ProductDetail.fromJson(data);
+      results.variants[0].selected = true;
+      results.addons[0].selected = true;
       return Left(results);
     } on ServerException catch (e) {
       print("code: ${e.code} msg: ${e.message}");
       failureData.message = e.message;
       return Right(failureData);
     } catch (e) {
-      print(e.toString());
+      print(e);
+      return Right(failureData);
+    }
+  }
+
+  @override
+  Future<Either<FilterProduct, Failure>> getFilteredList(String filter) async {
+    var failureData =
+        Failure(tag: "product detail: ", message: "no product found");
+    try {
+      var data = await remoteSource.get("$dummyUrl/api/product_list_filter",
+          queryParams: {"prod": filter});
+      var results = FilterProduct.fromJson(data);
+
+      // results.variants[0].selected = true;
+      // results.addons[0].selected = true;
+      return Left(results);
+    } on ServerException catch (e) {
+      print("code: ${e.code} msg: ${e.message}");
+      failureData.message = e.message;
+      return Right(failureData);
+    } catch (e) {
+      print(e);
       return Right(failureData);
     }
   }

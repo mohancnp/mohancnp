@@ -29,7 +29,7 @@ class TempratureOptionWidget extends StatelessWidget {
                 //         height: 41,
                 height: 40.h,
                 width: 375.w,
-                alignment: controller.productDetail.qty == 1
+                alignment: controller.productDetail.product.qty == 1
                     ? Alignment.centerLeft
                     : Alignment.centerRight,
                 decoration: BoxDecoration(
@@ -42,7 +42,7 @@ class TempratureOptionWidget extends StatelessWidget {
                     //                height: 41,
                     height: 40.w,
                     width: 375.w,
-                    alignment: controller.productDetail.qty == 1
+                    alignment: controller.productDetail.product.qty == 1
                         ? Alignment.centerLeft
                         : Alignment.centerRight,
 
@@ -80,7 +80,7 @@ class TempratureOptionWidget extends StatelessWidget {
                                     style: TextStyle(
                                         fontFamily: proximanovaregular,
                                         fontSize: 17.w,
-                                        color: controller.productDetail.qty == 1
+                                        color: controller.productDetail.product.qty == 1
                                             ? Color(0xFFFEFEFE)
                                             : Palette.textColor),
                                   )),
@@ -105,7 +105,7 @@ class TempratureOptionWidget extends StatelessWidget {
                                       fontFamily: proximanovaregular,
                                       //             fontSize: 15.5,
                                       fontSize: 17.w,
-                                      color: controller.productDetail.qty == 1
+                                      color: controller.productDetail.product.qty == 1
                                           ? Color(0xFFFEFEFE)
                                           : Palette.textColor),
                                 )),

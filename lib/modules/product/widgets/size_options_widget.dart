@@ -12,43 +12,49 @@ class SizeOptionWIdget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ProductDetailPageController>(
+    return GetX<ProductDetailPageController>(
         init: ProductDetailPageController(),
         builder: (controller) {
-          return ListView.builder(
-              itemCount: controller.productDetail.variants.length,
-              itemBuilder: (context, index) {
-                var variant =
-                    controller.productDetail.variants.elementAt(index);
-
-                return GestureDetector(
-                  onTap: () => variant.selected = !variant.selected,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Palette.grieshWhite,
-                      border: variant.selected
-                          ? Border.all(color: Color(0xFF707070), width: 1.5.w)
-                          : null,
-                      borderRadius: BorderRadius.circular(4.r),
-                    ),
-                    width: 92.w,
-                    height: 40.h,
-                    margin: EdgeInsets.only(right: 16.w),
-                    child: Center(
-                      child: Text(
-                        "S",
-                        style: getpoppins(
-                          TextStyle(
-                              color: Palette.darkGery,
-                              fontWeight: controller.productDetail == 0
-                                  ? FontWeight.bold
-                                  : FontWeight.w400),
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 28.w, vertical: 12.h),
+            height: 50.h,
+            child: ListView.builder(
+                itemCount: controller.productDetail.variants.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  final variant = controller.productDetail.variants[index];
+                  return GestureDetector(
+                    onTap: () {
+                      controller.handleSizeSelection(index);
+                      controller.calculateTotal();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Palette.grieshWhite,
+                        border: variant.selected
+                            ? Border.all(color: Color(0xFF707070), width: 1.5.w)
+                            : null,
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                      width: 92.w,
+                      height: 40.h,
+                      margin: EdgeInsets.only(right: 16.w),
+                      child: Center(
+                        child: Text(
+                          variant.size,
+                          style: getpoppins(
+                            TextStyle(
+                                color: Palette.darkGery,
+                                fontWeight: controller.productDetail == 0
+                                    ? FontWeight.bold
+                                    : FontWeight.w400),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              });
+                  );
+                }),
+          );
         });
   }
 }
