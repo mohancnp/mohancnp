@@ -119,7 +119,7 @@ class SearchPage extends StatelessWidget {
                         var product = controller.ctp.products[index];
                         print(product.productName);
                         return ProductCard(
-                          imageUri: "$imagePlaceholderUri",
+                          imageUri: "${product.productImage}",
                           name: "${product.productName}",
                           id: product.id,
                           onPressed: () {},

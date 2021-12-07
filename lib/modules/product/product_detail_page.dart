@@ -15,6 +15,7 @@ import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/modules/product/widgets/toppings_multiselect.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/on_error_widget.dart';
@@ -245,9 +246,9 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                               )),
                         ),
                         const SizeOptionWIdget(),
-                        // pd.toppings.isEmpty
-                        //     ? const SizedBox()
-                        //     : const ToppingsOptionWidget(),
+                        pd.toppings.isEmpty
+                            ? const SizedBox()
+                            : ToppingsMultiSelect(),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,

@@ -64,7 +64,7 @@ class AddonsWidget extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        "${addons[index].name} ",
+                                        "${addons[index].name}",
                                         style: getpoppins(TextStyle(
                                             fontWeight: FontWeight.w300,
                                             color: darkgrey,
@@ -98,10 +98,15 @@ class AddonsWidget extends StatelessWidget {
                                   ? Positioned(
                                       left: 24.w,
                                       child: Image.network(
-                                        "$dummyUrl/${addons[index].image}",
-                                        width: 86.w,
-                                        height: 46.h,
-                                      ),
+                                          "$dummyUrl/${addons[index].image}",
+                                          width: 86.w,
+                                          height: 46.h, errorBuilder: (
+                                        BuildContext context,
+                                        Object exception,
+                                        StackTrace? stackTrace,
+                                      ) {
+                                        return const Text('😢');
+                                      }),
                                     )
                                   : SizedBox(),
                             ]),

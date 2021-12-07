@@ -1,6 +1,7 @@
 // import 'package:expandable/expandable.dart';
 import 'package:expandable/expandable.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
@@ -23,8 +24,11 @@ import 'package:metrocoffee/core/services/product_service/product_service.dart';
 class ProductDetailPageController extends GetxController
     with StateMixin<ProductDetail> {
   ExpandableController toppingsexpandableController = ExpandableController();
+  static ProductDetailPageController get to => Get.find();
+
   var _productService = locator.get<ProductService>();
   var params;
+  RxList<String> selectedToppings = <String>[].obs;
   late Rx<ProductDetail> _productDetail = ProductDetail(
     product: Product(
       id: 0,
@@ -64,31 +68,55 @@ class ProductDetailPageController extends GetxController
     // productDetail.refresh();
   }
 
-
-  calculateTotal() {
+  calculateTotal([List<String>? tpl]) {
     totalPrice.value = 0.0;
-    // var toppings = productDetail.toppings;
-    var addons = productDetail.addons;
-
     double total = 0.0;
-    for (var i = 0; i < productDetail.variants.length; i++) {
-      if (productDetail.variants[i].selected) {
-        total = productDetail.variants[i].price;
-        break;
+    total = getSizeAmount();
+    if (tpl != null) {
+      total += getToppingsAmount(tpl);
+    }
+    total += getAddonsAmount();
+    totalPrice.value = total * productDetail.product.qty;
+    print("calculated total");
+  }
+
+  double getToppingsAmount(tpl) {
+    var total = 0.0;
+    var toppings = productDetail.toppings;
+
+    for (var i = 0; i < tpl.length; i++) {
+      for (var j = 0; j < toppings.length; j++) {
+        var topping = toppings[j];
+        var newName = "${topping.name}   $dollar${topping.price}";
+        if (newName == tpl[i]) {
+          total += toppings[j].price;
+          break;
+        }
       }
     }
-    // for (var i = 0; i < toppings.length; i++) {
-    //   if (toppings[i].selected) {
-    //     total += toppings[i].price;
-    //     break;
-    //   }
-    // }
+    return total;
+  }
+
+  double getAddonsAmount() {
+    var addons = productDetail.addons;
+    var total = 0.0;
     for (var i = 0; i < addons.length; i++) {
       if (addons[i].selected) {
         total += addons[i].price;
       }
     }
-    totalPrice.value = total * productDetail.product.qty;
+    return total;
+  }
+
+  double getSizeAmount() {
+    var t = 0.0;
+    for (var i = 0; i < productDetail.variants.length; i++) {
+      if (productDetail.variants[i].selected) {
+        t = productDetail.variants[i].price;
+        break;
+      }
+    }
+    return t;
   }
 
   handleFailure(Failure f) {
@@ -134,5 +162,21 @@ class ProductDetailPageController extends GetxController
     params = Get.parameters;
     getProductDetail();
     super.onInit();
+  }
+
+  getToppingsList() {
+    List<String> toppingsList = [];
+    for (var i = 0; i < productDetail.toppings.length; i++) {
+      var topping = productDetail.toppings[i];
+      toppingsList.add("${topping.name}   $dollar${topping.price}");
+    }
+    return toppingsList;
+  }
+
+  refreshToppingList(List<String> x) {
+    // print("refreshing toppings");
+    selectedToppings.clear();
+    selectedToppings.addAll(x);
+    // selectedToppings.refresh();
   }
 }
