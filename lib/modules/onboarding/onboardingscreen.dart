@@ -243,10 +243,9 @@ class SlidableWidget extends StatelessWidget {
       height: 490.h,
       width: 375.w,
       color: coffeecolor,
-      clipBehavior: Clip.none,
       child: Image.asset(
         "$backgroundImage",
-        fit: BoxFit.none,
+        fit: BoxFit.cover,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:metrocoffee/resource/flavor_config_provider.dart';
 import 'package:metrocoffee/modules/auth/custom/membership_login_controller.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/checkout_page_controller.dart';
@@ -17,7 +18,6 @@ class ControllerBinding extends Bindings {
   void dependencies() {
     Get.put(RedirectionController());
     Get.put(ProfilePageController());
-    // Get.put(HomeTabController());
     Get.put(CartController());
     Get.put(NotificationController());
     Get.put(PersonalDataPageController());

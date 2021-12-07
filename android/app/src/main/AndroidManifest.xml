@@ -7,7 +7,7 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="Metro Coffee">
+        android:label="@string/app_name">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDlCfv00hBFzNtRRJuVk8XsBQidQtIPpi4" />

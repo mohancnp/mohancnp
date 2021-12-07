@@ -49,6 +49,28 @@ android {
         versionName flutterVersionName
         multiDexEnabled true
     }
+    flavorDimensions "app"
+
+    productFlavors {
+        dev {
+            dimension "app"
+            applicationIdSuffix ".dev"
+            versionCode 1
+            versionName "1.0"
+        }
+        prod {
+            dimension "app"
+            applicationIdSuffix ".prod"
+            versionCode 1
+            versionName "1.0"
+        }
+        qa {
+            dimension "app"
+            applicationIdSuffix ".qa"
+            versionCode 1
+            versionName "1.0"
+        }
+    }
 
     signingConfigs {
         release {

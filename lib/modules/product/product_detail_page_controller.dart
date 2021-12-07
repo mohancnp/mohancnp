@@ -40,6 +40,7 @@ class ProductDetailPageController extends GetxController
     toppings: [],
     addons: [],
   ).obs;
+  List<String>? tpl;
   Rx<double> totalPrice = 0.0.obs;
   ProductDetail get productDetail {
     return _productDetail.value;
@@ -68,7 +69,7 @@ class ProductDetailPageController extends GetxController
     // productDetail.refresh();
   }
 
-  calculateTotal([List<String>? tpl]) {
+  calculateTotal() {
     totalPrice.value = 0.0;
     double total = 0.0;
     total = getSizeAmount();

@@ -14,6 +14,109 @@
       },
       "oauth_client": [
         {
+          "client_id": "432074400499-6t87jire0si4lnq1h4vms7k23mdqculj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clickandpress.metrocoffee.np",
+            "certificate_hash": "be73127b829ce32a4b6e5cffa56072414cd88fbe"
+          }
+        },
+        {
+          "client_id": "432074400499-cpvngad9hh4lr7nh8f23u0me1aavajhg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clickandpress.metrocoffee.np",
+            "certificate_hash": "bbf92d1facbedf829070fc2485654801db1e88d9"
+          }
+        },
+        {
+          "client_id": "432074400499-49tfnnleubv8pgd6eghe5shg5rbjrqrk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlCfv00hBFzNtRRJuVk8XsBQidQtIPpi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432074400499-49tfnnleubv8pgd6eghe5shg5rbjrqrk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432074400499:android:26bd3f7940b8af74938d86",
+        "android_client_info": {
+          "package_name": "com.clickandpress.metrocoffee.np.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432074400499-49tfnnleubv8pgd6eghe5shg5rbjrqrk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlCfv00hBFzNtRRJuVk8XsBQidQtIPpi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432074400499-49tfnnleubv8pgd6eghe5shg5rbjrqrk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432074400499:android:056f7f0988cbe8cf938d86",
+        "android_client_info": {
+          "package_name": "com.clickandpress.metrocoffee.np.prod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432074400499-49tfnnleubv8pgd6eghe5shg5rbjrqrk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlCfv00hBFzNtRRJuVk8XsBQidQtIPpi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432074400499-49tfnnleubv8pgd6eghe5shg5rbjrqrk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432074400499:android:1b10bf864ec32330938d86",
+        "android_client_info": {
+          "package_name": "com.clickandpress.metrocoffee.np.qa"
+        }
+      },
+      "oauth_client": [
+        {
           "client_id": "432074400499-49tfnnleubv8pgd6eghe5shg5rbjrqrk.apps.googleusercontent.com",
           "client_type": 3
         }
