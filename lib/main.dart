@@ -27,8 +27,10 @@ void main() async {
     statusBarIconBrightness: Brightness.light,
   ));
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
   ]);
 
   runApp(MyApp());
