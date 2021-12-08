@@ -10,7 +10,7 @@ import 'package:metrocoffee/modules/maps/new/widgets/map_widgets.dart';
 import 'package:metrocoffee/ui/app_name.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-import 'package:metrocoffee/util/internet.dart';
+
 import 'core/locator.dart';
 import 'core/routing/names.dart';
 import 'core/routing/routes_handler.dart';
