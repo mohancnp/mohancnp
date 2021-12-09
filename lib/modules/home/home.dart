@@ -4,17 +4,17 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/modules/home/products.dart';
 import 'package:metrocoffee/modules/home/widgets/categories.dart';
+import 'package:metrocoffee/modules/home/widgets/tophomegreeting.dart';
 import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
 import 'package:metrocoffee/modules/shareables/widgets/searchbar.dart';
-import 'package:metrocoffee/modules/home/widgets/tophomegreeting.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+
 import 'widgets/categories_controller.dart';
 
 class Home extends StatelessWidget {
   final controllerCategories = Get.put(CategoriesController());
   final controllerHome = Get.put(HomeController());
   final controllerSearh = Get.put(SearchPageController());
-
   Home({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {

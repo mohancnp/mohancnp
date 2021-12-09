@@ -5,7 +5,7 @@ import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
 import 'package:metrocoffee/core/services/storage/db/core.dart';
-import 'package:metrocoffee/core/services/storage/db/dbfeilds.dart';
+import 'package:metrocoffee/core/services/storage/db/dbconst.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
 import 'package:metrocoffee/resource/app_config.dart';
 

@@ -3,7 +3,6 @@ import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/product/product_detail_page_controller.dart';
-import 'package:metrocoffee/ui/src/palette.dart';
 
 class TempratureOptionWidget extends StatelessWidget {
   const TempratureOptionWidget({
@@ -15,92 +14,50 @@ class TempratureOptionWidget extends StatelessWidget {
     return GetX<ProductDetailPageController>(
         init: ProductDetailPageController(),
         builder: (controller) {
-          return SizedBox(
+          return Container(
+              margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+              height: 40.h,
               width: 375.w,
-              child: AnimatedContainer(
-                margin: EdgeInsets.only(
-                  left: 20.w,
-                  right: 20.w,
-                  top: 16.h,
-                  bottom: 16.h,
-                ),
-                duration: Duration(milliseconds: 350),
-                height: 40.h,
-                width: 375.w,
-                alignment: controller.productDetail.product.qty == 1
-                    ? Alignment.centerLeft
-                    : Alignment.centerRight,
-                decoration: BoxDecoration(
-                  color: Color(0xffE8E8E8),
-                  borderRadius: BorderRadius.all(Radius.circular(9.r)),
-                ),
-                child: Stack(children: [
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 250),
-                    height: 40.w,
-                    width: 375.w,
-                    alignment: controller.productDetail.product.qty == 1
-                        ? Alignment.centerLeft
-                        : Alignment.centerRight,
-                    child: AnimatedContainer(
-                      duration: Duration(milliseconds: 250),
-                      height: 40.h,
-                      width: 180.w,
-                      decoration: BoxDecoration(
-                          color: Color(0xff404D4D),
-                          borderRadius: BorderRadius.all(Radius.circular(9))),
-                    ),
-                  ),
-                  controller.productDetail.variants.isNotEmpty
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  height: 41.h,
-                                  width: 160.w,
-                                  color: Colors.transparent,
-                                  child: Center(
-                                      child: Text(
-                                    "S",
-                                    style: TextStyle(
-                                        fontFamily: proximanovaregular,
-                                        fontSize: 17.w,
-                                        color: controller.productDetail.product
-                                                    .qty ==
-                                                1
-                                            ? Color(0xFFFEFEFE)
-                                            : Palette.textColor),
-                                  )),
-                                )),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                height: 40.h,
-                                width: 160.w,
-                                color: Colors.transparent,
-                                child: Center(
-                                    child: Text(
-                                  "M",
-                                  style: TextStyle(
-                                      fontFamily: proximanovaregular,
-                                      fontSize: 17.w,
-                                      color: controller
-                                                  .productDetail.product.qty ==
-                                              1
-                                          ? Color(0xFFFEFEFE)
-                                          : Palette.textColor),
-                                )),
-                              ),
-                            )
-                          ],
-                        )
-                      : SizedBox(
-                          height: 0,
-                        )
-                ]),
-              ));
+              child: controller.productDetail.variants.isNotEmpty
+                  ? ListView.separated(
+                      itemCount: controller.productDetail.productTypes.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        var item = controller.productDetail.productTypes[index];
+                        return GestureDetector(
+                          onTap: () => controller.handleProductTypeSelection(index),
+                          child: AnimatedContainer(
+                            height: 40.h,
+                            width: 160.w,
+                            duration: Duration(milliseconds: 250),
+                            decoration: BoxDecoration(
+                                color: item.selected
+                                    ? Color(0xff404D4D)
+                                    : Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(9))),
+                            child: Center(
+                                child: Text(
+                              "${item.name}",
+                              style: TextStyle(
+                                  fontFamily: proximanovaregular,
+                                  fontSize: 17.w,
+                                  color: item.selected
+                                      ? Color(0xFFFEFEFE)
+                                      : Colors.black87),
+                            )),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(
+                          width: 10.w,
+                        );
+                      },
+                    )
+                  : SizedBox(
+                      height: 0,
+                    ));
         });
   }
 }

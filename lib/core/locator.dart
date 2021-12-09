@@ -30,12 +30,14 @@ Future<void> setupLocator() async {
     await storageService.openDB();
     return storageService;
   });
+  locator.isReady<DbStorage>().whenComplete(() {
+    locator.registerSingleton<CartService>(CartServiceImpl());
+  });
   locator.isReady<TempStorage>().whenComplete(() {
     locator.registerLazySingleton<RemoteSource>(() => RemoteSourceImpl());
     locator.registerSingleton<AuthService>(AuthServiceImpl());
     locator.registerSingleton<UserTableHandler>(UserTableHandler());
     locator.registerSingleton<ProductService>(ProductServiceImpl());
-    locator.registerSingleton<CartService>(CartServiceImpl());
     locator.registerSingleton<OrderService>(OrderServiceImpl());
     locator.registerSingleton<ProfileService>(ProfileServiceImpl());
     locator.registerSingleton<NotificationService>(NotificationServiceImpl());

@@ -18,6 +18,9 @@ ProductDetail _$ProductDetailFromJson(Map<String, dynamic> json) {
         .map((e) => Addon.fromJson(e as Map<String, dynamic>))
         .toList(),
     product: Product.fromJson(json['product'] as Map<String, dynamic>),
+    productTypes: (json['product_type'] as List<dynamic>)
+        .map((e) => ProductType.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -26,7 +29,23 @@ Map<String, dynamic> _$ProductDetailToJson(ProductDetail instance) =>
       'product': instance.product,
       'varients': instance.variants,
       'toppings': instance.toppings,
+      'product_type': instance.productTypes,
       'addons_extras': instance.addons,
+    };
+
+ProductType _$ProductTypeFromJson(Map<String, dynamic> json) {
+  return ProductType(
+    id: json['product_type_id'] as int,
+    name: json['name'] as String,
+    price: (json['price'] as num).toDouble(),
+  );
+}
+
+Map<String, dynamic> _$ProductTypeToJson(ProductType instance) =>
+    <String, dynamic>{
+      'product_type_id': instance.id,
+      'name': instance.name,
+      'price': instance.price,
     };
 
 Product _$ProductFromJson(Map<String, dynamic> json) {

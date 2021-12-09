@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +8,7 @@ import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/product/widgets/toppings_multiselect.dart';
 import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
@@ -17,11 +17,13 @@ import 'product_detail_page_controller.dart';
 import 'widgets/addons_widget.dart';
 import 'widgets/product_count_widget.dart';
 import 'widgets/size_options_widget.dart';
+import 'widgets/temp_options_widget.dart';
 
 class ProductDetailPage extends GetView<ProductDetailPageController> {
   ProductDetailPage({Key? key}) : super(key: key);
 
   final controller = Get.put(ProductDetailPageController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,9 +50,10 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                     : Text(
                         dollar + " ${controller.totalPrice.value}",
                         style: getpoppins(TextStyle(
-                            color: Palette.textColor,
-                            fontSize: 26.sp,
-                            fontWeight: FontWeight.w500)),
+                          color: Palette.textColor,
+                          fontSize: 26.sp,
+                          fontWeight: FontWeight.w500,
+                        )),
                       ),
                 controller.totalPrice == 0.0
                     ? SizedBox(
@@ -68,11 +71,7 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                           color: Palette.coffeeColor,
                         ),
                         child: TextButton.icon(
-                            onPressed: () {
-                              // controller.pressed = true;
-                              // await controller.addProductToCart();
-                              // await cartController.getAllCartProducts();
-                            },
+                            onPressed: controller.addProductToCart,
                             icon: Icon(
                               CupertinoIcons.cart_badge_plus,
                               color: Colors.white,
@@ -108,15 +107,14 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                             bottomLeft: Radius.circular(8.w),
                             bottomRight: Radius.circular(8.w)),
                         image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              // ${AppConfig.baseUrl}/resources/uploads/product/$id/$imageUri
-                              "${AppConfig.baseUrl}/resources/uploads/product/${pd.product.id}/${pd.product.image}",
-                            ))),
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            "${AppConfig.baseUrl}${AppConfig.productImagePath}${pd.product.id}/${pd.product.image}",
+                          ),
+                        )),
                   ),
                   Positioned(
-                    top: 49.h,
-                    // top: 49.h,
+                    top: 48.h,
                     child: SizedBox(
                       width: 375.w,
                       child: Row(
@@ -138,10 +136,7 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              //navigate for only the logged in users
-                              // Get.toNamed(PageName.productCartPage);
-                            },
+                            onTap: () {},
                             child: Stack(
                               children: [
                                 Padding(
@@ -156,27 +151,32 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                                 // int count = cartController.cartCount.value;
                                 Positioned(
                                     left: 10.w,
-                                    child: AnimatedContainer(
-                                      height: 12.w,
-                                      width: 12.w,
-                                      alignment: Alignment.center,
-                                      child: Text("1",
-                                          style: TextStyle(fontSize: 8.sp)),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              offset: Offset(1, 1),
-                                              color: Colors.black12,
-                                            ),
-                                            BoxShadow(
-                                              offset: Offset(-1, -1),
-                                              color: Colors.black12,
-                                            )
-                                          ],
-                                          shape: BoxShape.circle),
-                                      duration: Duration(milliseconds: 500),
-                                    ))
+                                    child: Obx(() {
+                                      var count = Get.find<CartController>()
+                                          .cartCount
+                                          .value;
+                                      return AnimatedContainer(
+                                        height: count < 1 ? 0.w : 12.w,
+                                        width: count < 1 ? 0.w : 12.w,
+                                        alignment: Alignment.center,
+                                        child: Text("$count",
+                                            style: TextStyle(fontSize: 8.sp)),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                offset: Offset(1, 1),
+                                                color: Colors.black12,
+                                              ),
+                                              BoxShadow(
+                                                offset: Offset(-1, -1),
+                                                color: Colors.black12,
+                                              )
+                                            ],
+                                            shape: BoxShape.circle),
+                                        duration: Duration(milliseconds: 500),
+                                      );
+                                    }))
                               ],
                             ),
                           ),
@@ -209,11 +209,11 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        // pd.variants.isNotEmpty
-                        //     ? const TempratureOptionWidget()
-                        //     : SizedBox(
-                        //         height: 8.h,
-                        //       ),
+                        pd.productTypes.isNotEmpty
+                            ? const TempratureOptionWidget()
+                            : SizedBox(
+                                height: 8.h,
+                              ),
                         Padding(
                           padding: EdgeInsets.only(left: 28.w),
                           child: Text(

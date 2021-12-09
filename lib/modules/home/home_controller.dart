@@ -10,6 +10,7 @@ import 'package:metrocoffee/core/models/cart_model.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/models/product_model.dart';
 import 'package:metrocoffee/core/models/user_model.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
@@ -20,8 +21,7 @@ import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/internet.dart';
 
-class HomeController extends GetxController
-    with StateMixin<CategoryProduct> {
+class HomeController extends GetxController with StateMixin<CategoryProduct> {
   static HomeController get to => Get.find();
 
   int currentpageindex = 0;
@@ -121,46 +121,7 @@ class HomeController extends GetxController
   }
 
   Future addToCart(int id) async {
-    bool verifiedUser = Get.find<RedirectionController>().userExists;
-    showCustomDialog();
-    var prodObj;
-    try {
-      if (verifiedUser) {
-        prodObj = await getProductDetail(id);
-      } else {
-        prodObj = await getPublicProductDetail(id);
-        // showCustomSnackBarMessage(
-        //     title: "Message", message: "Functionality Not Available");
-      }
-      var product = CartModel(
-        productId: prodObj.id!,
-        variantId: prodObj.allVariants![0].id,
-        qty: 1,
-        price: prodObj.allVariants![0].price,
-        addons: jsonEncode([]),
-        imageUri: prodObj.imageUri ?? "",
-        options: jsonEncode(['']),
-        name: prodObj.name!,
-        size: prodObj.allVariants![0].name,
-        extras: "",
-      );
-      var count = await _cartService.addProductToCart(product.toJson());
-      if (count > 0) {
-        Get.back();
-        Get.find<CartController>().cartCount.value++;
-        showCustomSnackBarMessage(title: "Message", message: "added to cart");
-      }
-    } on AppException catch (e) {
-      Get.back();
-      showCustomSnackBarMessage(
-          title: "Message", message: "something went wrong");
-      print(e);
-    } on Exception catch (e) {
-      Get.back();
-      showCustomSnackBarMessage(
-          title: "Message", message: "something went wrong");
-    }
-
+    Get.toNamed("${PageName.productdetailpage}" + "/$id");
     // try {
     //   showCustomDialog();
     //   var prodObj = await getProductDetail(id);

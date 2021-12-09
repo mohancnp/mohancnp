@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/currency.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 
 class FinalProductCalculationCard extends StatelessWidget {
@@ -24,10 +25,7 @@ class FinalProductCalculationCard extends StatelessWidget {
             )
           ],
           borderRadius: BorderRadius.all(Radius.circular(9))),
-      padding: EdgeInsets.symmetric(
-          //     vertical: 26,horizontal: 26
-          vertical: 26.h,
-          horizontal: 26.w),
+      padding: EdgeInsets.symmetric(vertical: 26.h, horizontal: 26.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -40,18 +38,17 @@ class FinalProductCalculationCard extends StatelessWidget {
                   style: getpoppins(TextStyle(
                       fontWeight: FontWeight.w300,
                       color: Color(0xff404D4D),
-                      //       fontSize: 12.5
                       fontSize: 12.sp)),
                 ),
               ),
               Container(
                 child: Text(
-                  "\$0.00",
+                  "$dollar 0",
                   style: getpoppins(TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Color(0xff404D4D),
-                      //      fontSize: 12.5
-                      fontSize: 12.sp)),
+                    fontWeight: FontWeight.w300,
+                    color: Color(0xff404D4D),
+                    fontSize: 12.sp,
+                  )),
                 ),
               ),
             ],
@@ -65,17 +62,15 @@ class FinalProductCalculationCard extends StatelessWidget {
                   style: getpoppins(TextStyle(
                       fontWeight: FontWeight.w300,
                       color: Color(0xff404D4D),
-                      //       fontSize: 12.5
                       fontSize: 12.sp)),
                 ),
               ),
               SizedBox(
                   child: Text(
-                "\$ 2.0",
+                "$dollar 0.0",
                 style: getpoppins(TextStyle(
                     fontWeight: FontWeight.w300,
                     color: Color(0xff404D4D),
-                    //      fontSize: 12.5
                     fontSize: 12.sp)),
               )),
             ],
@@ -90,20 +85,19 @@ class FinalProductCalculationCard extends StatelessWidget {
                     child: Text(
                       "Total",
                       style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff404D4D),
-                          //       fontSize: 16
-                          fontSize: 16.sp)),
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff404D4D),
+                        fontSize: 16.sp,
+                      )),
                     ),
                   ),
                   Obx(() {
                     return SizedBox(
                         child: Text(
-                      "\$ ${controller.totalAmount.toStringAsPrecision(3)}",
+                      "$dollar ${controller.totalAmount.toStringAsPrecision(3)}",
                       style: getpoppins(TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Color(0xff404D4D),
-                        //      fontSize: 16
                         fontSize: 16.sp,
                       )),
                     ));

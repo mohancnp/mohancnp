@@ -7,6 +7,10 @@ class ProductDetail {
   @JsonKey(name: "varients")
   List<Variant> variants;
   List<Topping> toppings;
+
+  @JsonKey(name: "product_type")
+  List<ProductType> productTypes;
+
   @JsonKey(name: "addons_extras")
   List<Addon> addons;
 
@@ -15,11 +19,32 @@ class ProductDetail {
     required this.toppings,
     required this.addons,
     required this.product,
+    required this.productTypes,
   });
   factory ProductDetail.fromJson(Map<String, dynamic> json) =>
       _$ProductDetailFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductDetailToJson(this);
+}
+
+@JsonSerializable()
+class ProductType {
+  @JsonKey(name: "product_type_id")
+  int id;
+  String name;
+  double price;
+  @JsonKey(ignore: true)
+  bool selected;
+  ProductType({
+    required this.id,
+    required this.name,
+    required this.price,
+    this.selected = false,
+  });
+  factory ProductType.fromJson(Map<String, dynamic> json) =>
+      _$ProductTypeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductTypeToJson(this);
 }
 
 @JsonSerializable()
@@ -100,12 +125,13 @@ class Addon {
   double price;
   @JsonKey(ignore: true)
   bool selected = false;
-  Addon(
-      {required this.id,
-      required this.name,
-      required this.image,
-      required this.price,
-      this.selected = false});
+  Addon({
+    required this.id,
+    required this.name,
+    required this.image,
+    required this.price,
+    this.selected = false,
+  });
   factory Addon.fromJson(Map<String, dynamic> json) => _$AddonFromJson(json);
 
   Map<String, dynamic> toJson() => _$AddonToJson(this);

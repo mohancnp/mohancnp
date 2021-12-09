@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/config.dart';
+import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/cart_model.dart';
+import 'package:metrocoffee/core/models/cart_instance_model.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
-  final CartModel cartModel;
+  final CartInstance cartModel;
   final int index;
   ProductCard({Key? key, required this.cartModel, required this.index})
       : super(key: key);
@@ -23,13 +23,8 @@ class ProductCard extends StatelessWidget {
     return Container(
       width: 320.w,
       height: 100.h,
-      padding: EdgeInsets.symmetric(
-          //        horizontal: 8,vertical: 6
-          horizontal: 8.w,
-          vertical: 6.h),
-      margin: EdgeInsets.only(
-          //     bottom: 20
-          bottom: 20.h),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+      margin: EdgeInsets.only(bottom: 20.h),
       decoration: BoxDecoration(
           color: Color(0xffFBFBFB),
           borderRadius: BorderRadius.all(Radius.circular(9)),
@@ -48,23 +43,23 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  //     height: 100, width: 100,
                   height: 100.h,
                   width: 100.h,
                   clipBehavior: Clip.hardEdge,
-
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                     borderRadius: BorderRadius.all(Radius.circular(9)),
                   ),
                   child: Image.network(
-                    "${AppConfig.baseUrl}${cartModel.imageUri}",
-                    // color: Colors.blue,
+                    "${AppConfig.baseUrl}${AppConfig.productImagePath}${cartModel.imageUri}",
                     fit: BoxFit.cover,
-
                     loadingBuilder: (context, widget, imageProgress) {
                       if (imageProgress == null) {
-                        return widget;
+                        return Center(
+                          child: Image.asset(
+                            AppConfig.metroCoffeeLogoAssetPath,
+                          ),
+                        );
                       } else
                         return SpinKitRing(
                           color: Palette.coffeeColor,
@@ -72,19 +67,19 @@ class ProductCard extends StatelessWidget {
                         );
                     },
                     errorBuilder: (context, object, stackTrace) {
-                      return const Text('😢');
+                      // print(
+                      //     "${AppConfig.baseUrl}${AppConfig.productImagePath}${cartModel.imageUri}");
+                      return Center(
+                        child: Image.asset(
+                          AppConfig.metroCoffeeLogoAssetPath,
+                        ),
+                      );
                     },
-
-                    // height: 100.h,
-                    // width: 100.w,
                   ),
                 ),
                 Container(
-                  //  height: 76,
                   height: 76.h,
-                  margin: EdgeInsets.only(
-                      //        left: 18
-                      left: 18.w),
+                  margin: EdgeInsets.only(left: 18.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,36 +89,30 @@ class ProductCard extends StatelessWidget {
                         style: getpoppins(TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Color(0xff404D4D),
-                            //       fontSize: 14.5
                             fontSize: 14.sp)),
                       ),
                       Text(
-                        '\$ ${cartModel.updatedPrice?.toStringAsPrecision(3)}',
+                        '$dollar ${(cartModel.totalPrice * cartModel.qty).toStringAsPrecision(3)}',
                         style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff550E1C),
-                            //         fontSize: 14.5
-                            fontSize: 14.sp)),
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff550E1C),
+                          fontSize: 14.sp,
+                        )),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           GestureDetector(
-                            onTap: () async {
-                              await cartController.decreaseItemCount(index);
-                            },
+                            onTap: () async => cartController.decreaseItemQty(
+                                cartModel, index),
                             child: Icon(
                               CupertinoIcons.minus_circle,
-
-                              //       size: 20,
                               size: 24.r,
                               color: Colors.black54,
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.symmetric(
-                                //         horizontal: 6
-                                horizontal: 6.w),
+                            margin: EdgeInsets.symmetric(horizontal: 6.w),
                             child: Text(
                               "${cartModel.qty}",
                               style: getpoppins(TextStyle(
@@ -133,12 +122,10 @@ class ProductCard extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () async {
-                              await cartController.increaseItemCount(index);
-                            },
+                            onTap: () async => cartController.increaseItemQty(
+                                cartModel, index),
                             child: Icon(
                               CupertinoIcons.plus_circle,
-                              //      size: 20,
                               size: 24.r,
                               color: Colors.black54,
                             ),
@@ -163,21 +150,14 @@ class ProductCard extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(18.r)),
                               ),
-                              children: [
-                                // DeleteOrderDialog()
-                                //   OrderSuccesfulDialog()
-                                //  CancelOrderDialog()
-                                // DeleteOrderDialog()
-                              ]));
+                              children: []));
                     });
               },
               child: GestureDetector(
-                onTap: () async {
-                  await cartController.removeItemAtIndex(index);
-                },
+                onTap: () async => cartController.removeItemFromCart(
+                    cartModel.productId, index),
                 child: Icon(
                   CupertinoIcons.xmark_circle,
-                  //    size: 18,
                   size: 18.sp,
                   color: Colors.redAccent,
                 ),
