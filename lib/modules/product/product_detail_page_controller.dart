@@ -23,7 +23,6 @@ import 'package:metrocoffee/core/services/product_service/product_service.dart';
 // import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 class ProductDetailPageController extends GetxController
     with StateMixin<ProductDetail> {
-  ExpandableController toppingsexpandableController = ExpandableController();
   static ProductDetailPageController get to => Get.find();
 
   var _productService = locator.get<ProductService>();

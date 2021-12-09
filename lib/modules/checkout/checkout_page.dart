@@ -1,7 +1,7 @@
-import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
@@ -9,8 +9,6 @@ import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/widgets/single_order.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/modules/checkout/widgets/timer_widget.dart';
 import 'package:metrocoffee/modules/maps/new/google_map_controller.dart';
 import 'package:metrocoffee/modules/maps/new/google_map_page.dart';
 import 'package:metrocoffee/modules/maps/new/widgets/map_widgets.dart';
@@ -18,8 +16,9 @@ import 'package:metrocoffee/modules/shareables/userpreference.dart';
 import 'package:metrocoffee/modules/shareables/widgets/finalpricecalculationcard.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
-import 'checkout_page_controller.dart';
 import 'package:time_picker_widget/time_picker_widget.dart';
+
+import 'checkout_page_controller.dart';
 
 // ignore: must_be_immutable
 class CheckoutPage extends StatelessWidget {
