@@ -4,13 +4,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
-import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/home/widgets/newcard.dart';
 import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-import 'package:metrocoffee/ui/widgets/on_error_widget.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
+
 import '../shareables/widgets/searchbar.dart';
 
 class SearchPage extends StatelessWidget {
@@ -130,31 +129,6 @@ class SearchPage extends StatelessWidget {
                   }),
             ),
           ),
-          // Padding(
-          //   padding: EdgeInsets.only(left: 28.w, bottom: 16.h),
-          //   child: Text("Recommendation",
-          //       style: getpoppins(TextStyle(
-          //         fontSize: 15.sp,
-          //         fontWeight: FontWeight.w500,
-          //         color: Color(0xFF344141),
-          //       ))),
-          // // ),
-          // Container(
-          //     margin: EdgeInsets.only(
-          //       left: 18.w,
-          //     ),
-          //     child: Wrap(
-          //       runSpacing: 15.h,
-          //       children: List.generate(5, (index) {
-          //         return RecommendationCategory(
-          //           name: index == 0 ? "Drinks" : "Bakery",
-          //           imagePath: index == 0
-          //               ? RecommendationIcons.mostpopular
-          //               : RecommendationIcons.bakery,
-          //           pressed: index == 0,
-          //         );
-          //       }),
-          //     )),
         ],
       ),
     );

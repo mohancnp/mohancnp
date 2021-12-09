@@ -7,8 +7,8 @@ import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
 import 'package:metrocoffee/core/services/storage/db/core.dart';
 import 'package:metrocoffee/core/services/storage/db/dbfeilds.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 
-import '../../config.dart';
 import '../../locator.dart';
 
 class ProfileServiceImpl extends ProfileService {
@@ -16,7 +16,7 @@ class ProfileServiceImpl extends ProfileService {
   Future getUserDetail() async {
     var remoteSource = RemoteSourceImpl();
     try {
-      var profile = await remoteSource.get('$baseUrl/api/profile');
+      var profile = await remoteSource.get('${AppConfig.baseUrl}/api/profile');
       return profile;
     } on ServerException catch (e) {
       print("${e.code}: ${e.message}");
@@ -39,7 +39,7 @@ class ProfileServiceImpl extends ProfileService {
       };
 
       var passwordStatus = await remoteSource
-          .post('$baseUrl/api/profile/change-password', body: data);
+          .post('${AppConfig.baseUrl}/api/profile/change-password', body: data);
       // print(passwordStatus);
       return passwordStatus;
     } on ServerException catch (e) {
@@ -68,7 +68,7 @@ class ProfileServiceImpl extends ProfileService {
 
     try {
       var afterUpdate = await remoteSource.put(
-        '$baseUrl/api/profile/update',
+        '${AppConfig.baseUrl}/api/profile/update',
         body: newMap,
       );
 

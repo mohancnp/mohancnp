@@ -6,6 +6,7 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/product/product_detail_page_controller.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 
 class AddonsWidget extends StatelessWidget {
   const AddonsWidget({Key? key}) : super(key: key);
@@ -98,7 +99,7 @@ class AddonsWidget extends StatelessWidget {
                                   ? Positioned(
                                       left: 24.w,
                                       child: Image.network(
-                                          "$dummyUrl/${addons[index].image}",
+                                          "${AppConfig.baseUrl}/${addons[index].image}",
                                           width: 86.w,
                                           height: 46.h, errorBuilder: (
                                         BuildContext context,

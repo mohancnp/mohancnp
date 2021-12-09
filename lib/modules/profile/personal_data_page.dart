@@ -2,11 +2,11 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'widgets/user_data_feilds.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -101,7 +101,7 @@ class PersonalDataPage extends StatelessWidget {
                                               38.w,
                                             ),
                                             child: Image.network(
-                                              "$baseUrl${personaldatacontroller.imageUri!}",
+                                              "${AppConfig.baseUrl}${personaldatacontroller.imageUri!}",
                                               width: 76.w,
                                               loadingBuilder: (context, widget,
                                                   imageChunkEvent) {

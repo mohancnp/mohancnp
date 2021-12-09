@@ -2,11 +2,11 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page_controller.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/modules/shareables/widgets/change_password_feild.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import '../../core/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -159,7 +159,7 @@ class ChangePasswordPage extends StatelessWidget {
                                         32.r,
                                       ),
                                       child: Image.network(
-                                        "$baseUrl${user.imageUri}",
+                                        "${AppConfig.baseUrl}${user.imageUri}",
                                         fit: BoxFit.cover,
                                         height: 64.r,
                                         width: 64.r,

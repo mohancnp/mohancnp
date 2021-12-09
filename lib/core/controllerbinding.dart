@@ -1,11 +1,9 @@
 import 'package:get/get.dart';
-import 'package:metrocoffee/resource/flavor_config_provider.dart';
 import 'package:metrocoffee/modules/auth/custom/membership_login_controller.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/checkout_page_controller.dart';
 import 'package:metrocoffee/modules/maps/new/google_map_controller.dart';
 import 'package:metrocoffee/modules/notifications/notification_controller.dart';
-// import 'package:metrocoffee/GetXController/contentcontrollers/profile/profile_controller.dart';
 import 'package:metrocoffee/modules/payment/payment_page_controller.dart';
 import 'package:metrocoffee/modules/profile/contents/order_details_controller.dart';
 import 'package:metrocoffee/modules/profile/contents/order_history_controller.dart';

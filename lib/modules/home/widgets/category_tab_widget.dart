@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/modules/home/home_controller.dart';
-import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/modules/home/home_controller.dart';
+import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 
 class CategoryTab extends StatelessWidget {
   final String name;
@@ -38,7 +38,7 @@ class CategoryTab extends StatelessWidget {
             Padding(
                 padding: EdgeInsets.only(right: 10.w),
                 child: Image.network(
-                  "$dummyUrl/$imagePath",
+                  "${AppConfig.baseUrl}/$imagePath",
                 )),
             // SvgPicture.asset("assetName"),
             Center(

@@ -32,17 +32,6 @@ class ProductList extends StatelessWidget {
             price: product.productPrice,
             onPressed: () {
               Get.toNamed(PageName.productdetailpage + "/${product.id}");
-              // var cont = Get.find<ProductDetailPageController>();
-              // var rc = Get.find<RedirectionController>();
-              // if (rc.userExists) {
-              //   cont.retrieveProductDetails(id: product.id);
-              //   Get.toNamed(PageName.productdetailpage,
-              //       arguments: [product.id, tag]);
-              // } else {
-              //   cont.getPublicProductDetails(id: product.id);
-              //   Get.toNamed(PageName.productdetailpage,
-              //       arguments: [product.id, tag]);
-              // }
             },
           );
         },

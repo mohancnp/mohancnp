@@ -56,8 +56,8 @@ class GoogleMapPage extends StatelessWidget {
                   },
                   initialCameraPosition: CameraPosition(
                     target: LatLng(
-                      CompanyDetail.companyLat,
-                      CompanyDetail.companyLong,
+                      CompanyDetail.lat,
+                      CompanyDetail.long,
                     ),
                     zoom: 15,
                   ),
@@ -148,9 +148,9 @@ class GoogleMapPage extends StatelessWidget {
                 //       controller.getCurrentUserLocation().then((locationData) {
                 //         controller
                 //             .getSelectedLocationNameWith(LatLng(
-                //                 locationData.latitude ?? controller.companyLatitude,
+                //                 locationData.latitude ?? controller.latitude,
                 //                 locationData.longitude ??
-                //                     controller.companyLongitued))
+                //                     controller.longitued))
                 //             .then((placemark) {
                 //           controller.currentLocation = placemark.thoroughfare ??
                 //               " " + " " + "${placemark.street ?? ' '}";

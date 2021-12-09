@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
@@ -59,7 +60,7 @@ class ProductCard extends StatelessWidget {
                 onTap: onPressed,
                 //  https://pioneersoftech.com/cp_metrocoffee/resources/uploads/product/{id}/
                 child: Image.network(
-                  "$dummyUrl/resources/uploads/product/$id/$imageUri",
+                  "${AppConfig.baseUrl}/resources/uploads/product/$id/$imageUri",
                   height: 116.w,
                   width: 116.w,
                   // color: Colors.blue,

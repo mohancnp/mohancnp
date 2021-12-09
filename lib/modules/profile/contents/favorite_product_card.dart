@@ -54,7 +54,7 @@ class FavoriteProductCard extends StatelessWidget {
                   //     borderRadius: BorderRadius.all(Radius.circular(9)),
                   //   ),
                   //   child: Image.network(
-                  //     "$baseUrl" + "${product.products}",
+                  //     "${AppConfig.baseUrl}" + "${product.products}",
                   //     fit: BoxFit.cover,
                   //   ),
                   // ),

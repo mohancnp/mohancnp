@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 
-String baseUrl = "https://metro.clickandpress.com";
-String dummyUrl = "https://pioneersoftech.com/cp_metrocoffee";
 BaseOptions options = BaseOptions(
-  baseUrl: baseUrl,
+  baseUrl: AppConfig.baseUrl,
   connectTimeout: 20000,
   sendTimeout: 50000,
   receiveTimeout: 50000,

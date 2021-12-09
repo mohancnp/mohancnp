@@ -34,8 +34,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   double containerH = 585.h, containerW = 338.w;
   // double currentLat = 27.7172;
   // double currentLong = 85.3240;
-  double companyLatitude = 51.5767841909041;
-  double companyLongitued = 0.0671225322487236;
+  double latitude = 51.5767841909041;
+  double longitued = 0.0671225322487236;
 
   //controller
   final MapController mapController = Get.find<MapController>();
@@ -45,8 +45,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   void initState() {
     // location = new Location();
     // mapController.getCurrentUserLocation(location).then((locationData) {
-    //   currentLat = locationData.latitude ?? companyLatitude;
-    //   currentLong = locationData.longitude ?? companyLongitued;
+    //   currentLat = locationData.latitude ?? latitude;
+    //   currentLong = locationData.longitude ?? longitued;
 
     //   mapController.getCurrentLocationName(locationData).then((placeMarkList) {
     //     geo.Placemark pm = placeMarkList.elementAt(0);
@@ -132,13 +132,13 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   Marker(
                       markerId: MarkerId('companyLocationMarker'),
                       onDragEnd: (selectedPosition) {
-                        companyLatitude = selectedPosition.latitude;
-                        companyLongitued = selectedPosition.longitude;
+                        latitude = selectedPosition.latitude;
+                        longitued = selectedPosition.longitude;
                       },
                       draggable: true,
                       position: LatLng(
-                        companyLatitude,
-                        companyLongitued,
+                        latitude,
+                        longitued,
                       )),
                 );
                 googleMapController = mapController;
@@ -146,7 +146,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 // _markers.add(destination);
               },
               initialCameraPosition: CameraPosition(
-                target: LatLng(companyLatitude, companyLongitued),
+                target: LatLng(latitude, longitued),
                 zoom: 15,
               ),
             ),

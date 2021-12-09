@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 
 import 'auth_service.dart';
 
@@ -18,8 +19,8 @@ class AuthServiceImpl extends AuthService {
       "password": password
     };
     try {
-      var response =
-          await dio.post("$baseUrl/api/membership-login", data: data);
+      var response = await dio.post("${AppConfig.baseUrl}/api/membership-login",
+          data: data);
       var user = response.data["data"];
       return user;
     } on SocketException catch (e) {

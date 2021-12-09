@@ -1,31 +1,22 @@
 import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
-import 'package:metrocoffee/core/enums/data_state.dart';
-import 'package:metrocoffee/core/models/order_model.dart';
-import 'package:metrocoffee/core/models/product_detail_model.dart';
-import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/product/widgets/toppings_multiselect.dart';
-import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/on_error_widget.dart';
 import 'product_detail_page_controller.dart';
 import 'widgets/addons_widget.dart';
-import 'widgets/milk_options_widget.dart';
 import 'widgets/product_count_widget.dart';
 import 'widgets/size_options_widget.dart';
-import 'widgets/temp_options_widget.dart';
-import 'widgets/toppings_option_widget.dart';
 
 class ProductDetailPage extends GetView<ProductDetailPageController> {
   ProductDetailPage({Key? key}) : super(key: key);
@@ -119,8 +110,8 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(
-                              // $dummyUrl/resources/uploads/product/$id/$imageUri
-                              "$dummyUrl/resources/uploads/product/${pd.product.id}/${pd.product.image}",
+                              // ${AppConfig.baseUrl}/resources/uploads/product/$id/$imageUri
+                              "${AppConfig.baseUrl}/resources/uploads/product/${pd.product.id}/${pd.product.image}",
                             ))),
                   ),
                   Positioned(

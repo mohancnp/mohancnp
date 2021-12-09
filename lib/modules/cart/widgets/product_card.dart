@@ -7,6 +7,7 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
@@ -57,7 +58,7 @@ class ProductCard extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(9)),
                   ),
                   child: Image.network(
-                    "$baseUrl${cartModel.imageUri}",
+                    "${AppConfig.baseUrl}${cartModel.imageUri}",
                     // color: Colors.blue,
                     fit: BoxFit.cover,
 

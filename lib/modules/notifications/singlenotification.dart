@@ -3,6 +3,7 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/models/notification_model.dart' as n;
+import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/util/date_trimmer.dart';
 
 class SingleNotification extends StatelessWidget {
@@ -62,7 +63,7 @@ class SingleNotification extends StatelessWidget {
                   color: Color(0xffE8E8E8), shape: BoxShape.circle),
               child: notification.notificationData.nestedData?.image != null
                   ? Image.network(
-                      "$baseUrl${notification.notificationData.nestedData?.image}",
+                      "${AppConfig.baseUrl}${notification.notificationData.nestedData?.image}",
                       height: 54.h,
                       fit: BoxFit.cover,
                     )
