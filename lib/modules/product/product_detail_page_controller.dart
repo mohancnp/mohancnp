@@ -1,5 +1,3 @@
-// import 'package:expandable/expandable.dart';
-import 'package:expandable/expandable.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
@@ -7,23 +5,8 @@ import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 
-// import 'package:metrocoffee/core/constants/icons/product_option_name.dart';
-// import 'package:metrocoffee/core/constants/variants_type.dart';
-// import 'package:metrocoffee/core/enums/data_state.dart';
-// import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
-// import 'package:metrocoffee/core/locator.dart';
-// import 'package:metrocoffee/core/models/cart_model.dart';
-// import 'package:metrocoffee/core/models/order_model.dart';
-// import 'package:metrocoffee/core/models/product_detail_model.dart';
-// import 'package:metrocoffee/core/services/product_service/product_service.dart';
-// import 'package:metrocoffee/modules/cart/cart_controller.dart';
-// import 'package:metrocoffee/modules/product/product_view_model.dart';
-// import 'package:metrocoffee/modules/public/redirection_controller.dart';
-// import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
-// import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 class ProductDetailPageController extends GetxController
     with StateMixin<ProductDetail> {
-  ExpandableController toppingsexpandableController = ExpandableController();
   static ProductDetailPageController get to => Get.find();
 
   var _productService = locator.get<ProductService>();
@@ -51,22 +34,17 @@ class ProductDetailPageController extends GetxController
   }
 
   Future getProductDetail() async {
-    // print("not null");
-
     if (params != null) {
       int id = int.parse(params["id"]);
       var response = await _productService.getProductDetailWithId(id);
       response.fold((l) => handleResponse(l), (r) => handleFailure(r));
     }
-    // print(args);
   }
 
   handleResponse(ProductDetail p) {
-    // print("handling rsponse");
     change(p, status: RxStatus.success());
     totalPrice.value = p.variants[0].price;
     productDetail = p;
-    // productDetail.refresh();
   }
 
   calculateTotal() {
@@ -175,9 +153,7 @@ class ProductDetailPageController extends GetxController
   }
 
   refreshToppingList(List<String> x) {
-    // print("refreshing toppings");
     selectedToppings.clear();
     selectedToppings.addAll(x);
-    // selectedToppings.refresh();
   }
 }

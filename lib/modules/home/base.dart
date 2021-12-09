@@ -12,7 +12,7 @@ import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 
 // ignore: must_be_immutable
 class Base extends StatelessWidget {
-  final b = Get.put(BaseController());
+  final baseController = Get.put(BaseController());
 
   List privatePages = [
     Home(),
@@ -37,7 +37,6 @@ class Base extends StatelessWidget {
               ? LoadingPage()
               : Scaffold(
                   body: getPages(status, basecontroller.currentIndex),
-                  
                   bottomNavigationBar: Container(
                       decoration: BoxDecoration(
                           boxShadow: [

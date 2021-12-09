@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/routing/names.dart';
-import 'package:metrocoffee/resource/flavor_config_provider.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
@@ -36,8 +36,8 @@ class TopHomeGreeting extends StatelessWidget {
                     GetX<HomeController>(builder: (controller) {
                       var user = controller.user;
                       var firstName = "...";
-                      firstName =
-                          user.name?.split(' ').elementAt(0) ?? "${FlavorConfigProvider.to.config.appTitle}";
+                      firstName = user.name?.split(' ').elementAt(0) ??
+                          "${AppConfig.appTitle}";
                       return Container(
                           child: Text(
                         int.parse(DateFormat.H('en_US')

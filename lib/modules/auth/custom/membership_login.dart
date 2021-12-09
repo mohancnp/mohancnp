@@ -62,10 +62,7 @@ class MembershipLoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 20.h,
-                    ),
-
+                    SizedBox(height: 20.h),
                     Container(
                       child: Image.asset(
                         "assets/images/metro_coffee_logo.png",
@@ -79,9 +76,7 @@ class MembershipLoginPage extends StatelessWidget {
                         color: Colors.white.withOpacity(0.4),
                       ),
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    SizedBox(height: 20.h),
 
                     Container(
                       margin: EdgeInsets.only(
@@ -96,9 +91,7 @@ class MembershipLoginPage extends StatelessWidget {
                             fontSize: 42.sp),
                       ),
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                    SizedBox(height: 10.h),
 
                     GetBuilder<MemberShipLoginController>(
                         init: MemberShipLoginController(),

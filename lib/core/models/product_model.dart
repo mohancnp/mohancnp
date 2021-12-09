@@ -23,7 +23,12 @@ class Product {
   double productPrice;
   @JsonKey(name: "features_image")
   String productImage;
-  Product(this.id, this.productName, this.productPrice, this.productImage);
+  Product({
+    required this.id,
+    required this.productName,
+    required this.productPrice,
+    required this.productImage,
+  });
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
 

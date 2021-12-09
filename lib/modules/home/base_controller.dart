@@ -47,7 +47,6 @@ class BaseController extends GetxController {
 
   Future<void> initializeData() async {
     var rc = Get.find<RedirectionController>();
-    var homeController = Get.find<HomeController>();
     if (rc.userExists) {
       updateUserVerificationStatus(UserVerficationStatus.verified);
       // try {

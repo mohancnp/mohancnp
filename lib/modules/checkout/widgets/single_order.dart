@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/models/cart_model.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class SingleOrder extends StatelessWidget {
@@ -40,7 +41,7 @@ class SingleOrder extends StatelessWidget {
               borderRadius: BorderRadius.circular(9.r),
               // clipBehavior: Clip.hardEdge,
               child: Image.network(
-                "$baseUrl${cartModel.imageUri}",
+                "${AppConfig.baseUrl}${cartModel.imageUri}",
                 loadingBuilder: (context, widget, imageChunkEvent) {
                   if (imageChunkEvent == null) {
                     return widget;

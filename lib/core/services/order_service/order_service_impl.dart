@@ -2,8 +2,7 @@ import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/services/order_service/order_service.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
-
-import '../../config.dart';
+import 'package:metrocoffee/resource/app_config.dart';
 import 'order_service.dart';
 
 class OrderServiceImpl extends OrderService {
@@ -13,7 +12,7 @@ class OrderServiceImpl extends OrderService {
 
     try {
       Map<String, dynamic> afterOrder =
-          await remoteSource.post('$baseUrl/api/order', body: data);
+          await remoteSource.post('${AppConfig.baseUrl}/api/order', body: data);
       return afterOrder;
       // print(afterOrder);
     } on ServerException catch (e) {
@@ -25,7 +24,7 @@ class OrderServiceImpl extends OrderService {
   Future getAllOrder() async {
     var remoteSource = RemoteSourceImpl();
     try {
-      var orders = await remoteSource.get('$baseUrl/api/order');
+      var orders = await remoteSource.get('${AppConfig.baseUrl}/api/order');
       return orders;
     } on ServerException catch (e) {
       throw (AppException(message: e.message));
@@ -36,7 +35,7 @@ class OrderServiceImpl extends OrderService {
   Future getOrderDetailWithId({required int id}) async {
     var remoteSource = RemoteSourceImpl();
     try {
-      var orderDetail = await remoteSource.get('$baseUrl/api/order/$id');
+      var orderDetail = await remoteSource.get('${AppConfig.baseUrl}/api/order/$id');
       return orderDetail;
     } on ServerException catch (e) {
       throw (AppException(message: e.message));
@@ -48,7 +47,7 @@ class OrderServiceImpl extends OrderService {
     var remoteSource = RemoteSourceImpl();
     try {
       var orderCancelStatus =
-          await remoteSource.post('$baseUrl/api/order/$id/cancel');
+          await remoteSource.post('${AppConfig.baseUrl}/api/order/$id/cancel');
       return orderCancelStatus;
     } on ServerException catch (e) {
       throw (AppException(message: e.message));
@@ -60,7 +59,7 @@ class OrderServiceImpl extends OrderService {
     var remoteSource = RemoteSourceImpl();
     try {
       var reorderStatus = await remoteSource
-          .post('$baseUrl/api/order/reorder', body: {"order_id": id});
+          .post('${AppConfig.baseUrl}/api/order/reorder', body: {"order_id": id});
       return reorderStatus;
     } on ServerException catch (e) {
       throw (AppException(message: e.message));

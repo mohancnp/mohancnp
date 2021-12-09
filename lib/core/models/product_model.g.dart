@@ -25,10 +25,10 @@ Map<String, dynamic> _$CategoryProductToJson(CategoryProduct instance) =>
 
 Product _$ProductFromJson(Map<String, dynamic> json) {
   return Product(
-    json['id'] as int,
-    json['product_name'] as String,
-    (json['product_price'] as num).toDouble(),
-    json['features_image'] as String,
+    id: json['id'] as int,
+    productName: json['product_name'] as String,
+    productPrice: (json['product_price'] as num).toDouble(),
+    productImage: json['features_image'] as String,
   );
 }
 

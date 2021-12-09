@@ -14,6 +14,5 @@ class Category {
   Category(this.id, this.name, this.imageUri, [this.selected]);
   factory Category.fromJson(Map<String, dynamic> json) =>
       _$CategoryFromJson(json);
-
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }

@@ -99,8 +99,8 @@ class CustomGoogleMapController extends GetxController {
             ? BitmapDescriptor.defaultMarker
             : pinLocationIcon!,
         position: LatLng(
-          initLat ?? CompanyDetail.companyLat,
-          initLong ?? CompanyDetail.companyLong,
+          initLat ?? CompanyDetail.lat,
+          initLong ?? CompanyDetail.long,
         ),
         infoWindow: const InfoWindow(
             title: 'Metro Coffee Office', snippet: "United Kingdom"),
@@ -158,8 +158,8 @@ class CustomGoogleMapController extends GetxController {
   addOrUpdateLocation() async {
     var marker = markers[MarkerId(markerId)];
     var maplocation = MapLocation(
-      marker?.position.latitude ?? CompanyDetail.companyLat,
-      marker?.position.longitude ?? CompanyDetail.companyLong,
+      marker?.position.latitude ?? CompanyDetail.lat,
+      marker?.position.longitude ?? CompanyDetail.long,
     );
     var addressList = await getSelectedLocationName(maplocation);
     currentLocation = "${addressList[0]}  ${addressList[1]}";
@@ -185,9 +185,9 @@ class CustomGoogleMapController extends GetxController {
         // visible: cgmapController.moving ? false : true,
         center: LatLng(
             markers[MarkerId(markerId)]?.position.latitude ??
-                CompanyDetail.companyLat,
+                CompanyDetail.lat,
             markers[MarkerId(markerId)]?.position.longitude ??
-                CompanyDetail.companyLong),
+                CompanyDetail.long),
         fillColor: Palette.coffeeColor.withOpacity(0.8),
       ));
     } else {

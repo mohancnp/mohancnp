@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:metrocoffee/core/controllerbinding.dart';
-import 'package:metrocoffee/resource/flavor_config_provider.dart';
 import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/app_name.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
@@ -13,7 +12,7 @@ import 'core/locator.dart';
 import 'core/routing/names.dart';
 import 'core/routing/routes_handler.dart';
 
-void mainCommon(AppConfig appConfig) async {
+void mainCommon() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -24,7 +23,6 @@ void mainCommon(AppConfig appConfig) async {
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
-  Get.put(FlavorConfigProvider(appConfig));
   runApp(MyApp());
 }
 
