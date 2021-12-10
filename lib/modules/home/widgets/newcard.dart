@@ -4,7 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
@@ -23,6 +22,8 @@ class ProductCard extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print("${AppConfig.baseUrl}$imageUri");
+    
     return Container(
       width: 140.w,
       //max height is given from the listview in the parent.
@@ -56,7 +57,7 @@ class ProductCard extends StatelessWidget {
               child: InkWell(
                 onTap: onPressed,
                 child: Image.network(
-                  "${AppConfig.baseUrl}$imageUri",
+                  "${AppConfig.baseUrl}/$imageUri",
                   height: 116.w,
                   width: 116.w,
                   fit: BoxFit.cover,

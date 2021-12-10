@@ -101,27 +101,25 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
             child: Column(children: [
               Stack(
                 children: [
-                  Obx(() {
-                    return Container(
-                      height: 373.h,
-                      width: 375.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(8.w),
-                          bottomRight: Radius.circular(8.w),
-                        ),
-                        color: Colors.red,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              AppConfig.baseUrl + "/${pd.product.image}"),
-                          onError: (obj, error) {
-                            print(error);
-                          },
-                        ),
+                  Container(
+                    height: 373.h,
+                    width: 375.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(8.w),
+                        bottomRight: Radius.circular(8.w),
                       ),
-                    );
-                  }),
+                      color: Colors.red,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            AppConfig.baseUrl + "/${pd.product.image}"),
+                        onError: (obj, error) {
+                          print(error);
+                        },
+                      ),
+                    ),
+                  ),
                   Positioned(
                     top: 49.h,
                     // top: 49.h,
