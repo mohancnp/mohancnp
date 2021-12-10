@@ -5,7 +5,7 @@ part 'filter_model.g.dart';
 @JsonSerializable()
 class FilterProduct {
   List<Product> products;
-  FilterProduct(this.products);
+  FilterProduct({required this.products});
   factory FilterProduct.fromJson(Map<String, dynamic> json) =>
       _$FilterProductFromJson(json);
 

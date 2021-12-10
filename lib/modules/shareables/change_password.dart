@@ -6,7 +6,7 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page_controller.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/modules/shareables/widgets/change_password_feild.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import '../../core/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

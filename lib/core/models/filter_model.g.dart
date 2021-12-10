@@ -8,7 +8,7 @@ part of 'filter_model.dart';
 
 FilterProduct _$FilterProductFromJson(Map<String, dynamic> json) {
   return FilterProduct(
-    (json['products'] as List<dynamic>)
+    products: (json['products'] as List<dynamic>)
         .map((e) => Product.fromJson(e as Map<String, dynamic>))
         .toList(),
   );

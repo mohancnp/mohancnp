@@ -31,13 +31,13 @@ class CategoriesController extends GetxController
     update();
   }
 
-  getCategories() async {
+ Future getCategories() async {
     change(null, status: RxStatus.loading());
     var categories = await _productService.getCatoriesList();
     unfoldData(categories);
   }
 
-  unfoldData(categories) {
+ void unfoldData(categories) {
     categories.fold((l) {
       _categoryList = l;
       setDefaultCategory();

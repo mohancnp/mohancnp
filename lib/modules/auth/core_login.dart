@@ -59,13 +59,7 @@ class LoginPage extends StatelessWidget {
                   margin: EdgeInsets.only(top: 25.h),
                   child: Text(
                     "Welcome to\nMetro Coffee",
-
                     style: Theme.of(context).textTheme.headline1,
-                    // style: TextStyle(
-                    //   fontFamily: CustomFont.freightDispBold,
-                    //   color: Colors.white,
-                    //   fontSize: 42.sp,
-                    // ),
                   ),
                 ),
                 SizedBox(height: 30.h),
@@ -110,7 +104,6 @@ class LoginPage extends StatelessWidget {
                       Container(
                         height: 2.h,
                         width: 112.w,
-                        // width: double.infinity,
                         color: Colors.white30,
                       ),
                       Padding(
@@ -125,7 +118,6 @@ class LoginPage extends StatelessWidget {
                       Container(
                         height: 2.h,
                         width: 112.w,
-                        // width: double.infinity,
                         color: Colors.white30,
                       ),
                     ],

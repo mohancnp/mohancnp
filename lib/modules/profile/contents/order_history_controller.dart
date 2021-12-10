@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/order_model.dart';
-import 'package:metrocoffee/core/services/order_service/order_service.dart';
+import 'package:metrocoffee/core/models/older/order_model.dart';
+import 'package:metrocoffee/core/services/older/order_service/order_service.dart';
 
 class OrderHistoryController extends GetxController {
   DataState _dataState = DataState.NA;

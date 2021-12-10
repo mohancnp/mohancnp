@@ -4,7 +4,7 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/config.dart';
 
 class CategoryTab extends StatelessWidget {
   final String name;

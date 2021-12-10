@@ -5,14 +5,13 @@ import 'package:metrocoffee/core/enums/order_state.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/order_model.dart';
+import 'package:metrocoffee/core/models/older/order_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
-import 'package:metrocoffee/core/services/order_service/order_service.dart';
+import 'package:metrocoffee/core/services/older/order_service/order_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/checkout_page_controller.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
-import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 

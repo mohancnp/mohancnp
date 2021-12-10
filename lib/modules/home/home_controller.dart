@@ -6,10 +6,11 @@ import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/cart_model.dart';
+import 'package:metrocoffee/core/models/older/cart_model.dart';
 import 'package:metrocoffee/core/models/product_detail_model.dart';
 import 'package:metrocoffee/core/models/product_model.dart';
-import 'package:metrocoffee/core/models/user_model.dart';
+import 'package:metrocoffee/core/models/older/user_model.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
@@ -20,8 +21,7 @@ import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/internet.dart';
 
-class HomeController extends GetxController
-    with StateMixin<CategoryProduct> {
+class HomeController extends GetxController with StateMixin<CategoryProduct> {
   static HomeController get to => Get.find();
 
   int currentpageindex = 0;
@@ -41,17 +41,17 @@ class HomeController extends GetxController
     return _user.value;
   }
 
-  getUser() async {
+  void getUser() async {
     user = await Get.find<ProfilePageController>().getProfile();
   }
 
-  getDataForCategoryId({required int id}) async {
+  void getDataForCategoryId({required int id}) async {
     var categoryProduct = await _productService.getProductForCategory(id: id);
     print("getting products data");
     unfoldData(categoryProduct);
   }
 
-  unfoldData(Either<CategoryProduct, Failure> categoryProduct) {
+  void unfoldData(Either<CategoryProduct, Failure> categoryProduct) {
     categoryProduct.fold((l) {
       // print(l.products);
       change(l, status: RxStatus.success());
@@ -106,18 +106,6 @@ class HomeController extends GetxController
     bool ready = await InternetConnectionHelper.isConnectionReady();
     return ready;
     // getProducts();
-  }
-
-  Future getProductsOfType(String type) async {
-    // try {
-    //   var products = await _productService.handleProductsOfType(type: type);
-    //   var newProduct = NewProduct.fromJson(products["data"]);
-    //   data[type] = newProduct;
-    //   return true;
-    // } on ServerException catch (e) {
-    //   print(e.message);
-    //   return false;
-    // }
   }
 
   Future addToCart(int id) async {
@@ -222,7 +210,7 @@ class HomeController extends GetxController
     return false;
   }
 
-  getRightList() {
+  void getRightList() {
     // NewProduct? np;
     // var controller = Get.find<CategoriesController>();
     // if (controller.activeCategory == ProductType.bakery) {
@@ -244,7 +232,7 @@ class HomeController extends GetxController
     super.onInit();
   }
 
-  getCategoryData() async {
+  void getCategoryData() async {
     print("getting category data loading");
     change(null, status: RxStatus.loading());
     var list = CategoriesController.to.categoryList;
@@ -266,5 +254,13 @@ class HomeController extends GetxController
       print("empty category list");
       change(null, status: RxStatus.error("No Products For Category"));
     }
+  }
+
+  void navigateToPageDetail(String routeName, int id) {
+    Get.toNamed(routeName + "/$id");
+  }
+
+  void navigateToRoute(String routeName) {
+    Get.toNamed(routeName);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:metrocoffee/resource/app_config.dart';
 
 BaseOptions options = BaseOptions(
   baseUrl: AppConfig.baseUrl,
@@ -7,4 +6,8 @@ BaseOptions options = BaseOptions(
   sendTimeout: 50000,
   receiveTimeout: 50000,
 );
-var dio = Dio(options);
+
+class AppConfig {
+  static String appTitle = "";
+  static String baseUrl = "";
+}

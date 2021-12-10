@@ -8,9 +8,10 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
+import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/product/widgets/toppings_multiselect.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/on_error_widget.dart';
 import 'product_detail_page_controller.dart';
@@ -100,20 +101,27 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
             child: Column(children: [
               Stack(
                 children: [
-                  Container(
-                    height: 373.h,
-                    width: 375.w,
-                    decoration: BoxDecoration(
+                  Obx(() {
+                    return Container(
+                      height: 373.h,
+                      width: 375.w,
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(8.w),
-                            bottomRight: Radius.circular(8.w)),
+                          bottomLeft: Radius.circular(8.w),
+                          bottomRight: Radius.circular(8.w),
+                        ),
+                        color: Colors.red,
                         image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              // ${AppConfig.baseUrl}/resources/uploads/product/$id/$imageUri
-                              "${AppConfig.baseUrl}/resources/uploads/product/${pd.product.id}/${pd.product.image}",
-                            ))),
-                  ),
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              AppConfig.baseUrl + "/${pd.product.image}"),
+                          onError: (obj, error) {
+                            print(error);
+                          },
+                        ),
+                      ),
+                    );
+                  }),
                   Positioned(
                     top: 49.h,
                     // top: 49.h,

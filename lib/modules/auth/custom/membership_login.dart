@@ -37,7 +37,6 @@ class MembershipLoginPage extends StatelessWidget {
                 icon: Icon(
                   CupertinoIcons.back,
                   color: Colors.white,
-                  //      size: 28,
                   size: 28.w,
                 ),
               ),
@@ -45,9 +44,7 @@ class MembershipLoginPage extends StatelessWidget {
             backgroundColor: Colors.transparent,
             body: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.symmetric(
-                    //        horizontal: 18
-                    horizontal: 18.w),
+                padding: EdgeInsets.symmetric(horizontal: 18.w),
                 height: 812.h,
                 width: 375.w,
                 decoration: BoxDecoration(
@@ -68,31 +65,24 @@ class MembershipLoginPage extends StatelessWidget {
                         "assets/images/metro_coffee_logo.png",
                         width: 58.w,
                       ),
-                      padding: EdgeInsets.all(
-                          //     5
-                          5.w),
+                      padding: EdgeInsets.all(5.w),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.white.withOpacity(0.4),
                       ),
                     ),
                     SizedBox(height: 20.h),
-
                     Container(
-                      margin: EdgeInsets.only(
-                          //          top: 25
-                          top: 25.h),
+                      margin: EdgeInsets.only(top: 25.h),
                       child: Text(
                         "Welcome to\nMetro Coffee",
                         style: TextStyle(
                             fontFamily: freightbold,
                             color: Colors.white,
-                            //       fontSize: 42
                             fontSize: 42.sp),
                       ),
                     ),
                     SizedBox(height: 10.h),
-
                     GetBuilder<MemberShipLoginController>(
                         init: MemberShipLoginController(),
                         builder: (mc) {
@@ -121,8 +111,6 @@ class MembershipLoginPage extends StatelessWidget {
                                       ),
                                       border: InputBorder.none,
                                       hintText: 'Membership No.',
-                                      // contentPadding:
-                                      //     EdgeInsets.symmetric(vertical: 8.h),
                                       hintStyle: TextStyle(
                                           fontFamily: poppinsregular,
                                           color: Color(0xff404d4d)),
@@ -154,20 +142,11 @@ class MembershipLoginPage extends StatelessWidget {
                                               ? FeatherIcons.eye
                                               : FeatherIcons.eyeOff,
                                           color: Color(0xff404d4d),
-                                          //                 size: 18,
                                           size: 18.sp,
                                         ),
                                       ),
                                       border: InputBorder.none,
-                                      // prefix: Center(
-                                      //   child: Text(
-                                      //     "password",
-                                      //     style: TextStyle(color: Colors.red),
-                                      //   ),
-                                      // ),
                                       hintText: 'Password',
-                                      // contentPadding:
-                                      //     EdgeInsets.symmetric(vertical: 8.h),
                                       hintStyle: TextStyle(
                                         fontFamily: poppinsregular,
                                         color: Color(0xff404d4d),
@@ -181,16 +160,12 @@ class MembershipLoginPage extends StatelessWidget {
                         }),
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                       Container(
-                        margin: EdgeInsets.only(
-//                            top: 13,left: 10
-                            top: 13.h,
-                            left: 10.w),
+                        margin: EdgeInsets.only(top: 13.h, left: 10.w),
                         child: Text(
                           "Forgot Password?",
                           style: TextStyle(
                               fontFamily: proximanovaregular,
                               color: Colors.white70,
-                              //                           fontSize: 14.5
                               fontSize: 14.sp),
                         ),
                       )
@@ -204,20 +179,17 @@ class MembershipLoginPage extends StatelessWidget {
                             style: TextStyle(
                                 fontFamily: proximanovaregular,
                                 color: Colors.redAccent,
-                                //                           fontSize: 14.5
                                 fontSize: 14.sp),
                           ),
                         ),
                       );
                     }),
-                    // Obx(() => Text("${controller.authState}")),
                     Center(
                       child: SignInBtn(
                         onpressed: () async {
                           showCustomDialog();
                           await controller.performMembershipLogin();
                           if (controller.authState == AuthState.loggedIn) {
-                            // Get.reloadAll();
                             Get.offAllNamed(PageName.homepage);
                           } else {
                             Get.back();
@@ -229,7 +201,6 @@ class MembershipLoginPage extends StatelessWidget {
                 ),
               ),
             )),
-        // getLoadingDialog(membershiplogincontroller.state)
       ],
     );
   }

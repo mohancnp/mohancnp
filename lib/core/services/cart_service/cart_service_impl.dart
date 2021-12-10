@@ -1,5 +1,4 @@
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
-import 'package:metrocoffee/core/models/user_model.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/storage/db/core.dart';
 import 'package:metrocoffee/core/services/storage/db/dbfeilds.dart';

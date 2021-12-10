@@ -5,8 +5,8 @@ part 'product_model.g.dart';
 class CategoryProduct {
   List<Product> products;
   @JsonKey(name: "most_popular_products", includeIfNull: false)
-  List<Product> mostPopular;
-  CategoryProduct(this.products, this.mostPopular);
+  List<Product> mostPopularProducts;
+  CategoryProduct({required this.products, required this.mostPopularProducts});
 
   factory CategoryProduct.fromJson(Map<String, dynamic> json) =>
       _$CategoryProductFromJson(json);
@@ -22,12 +22,12 @@ class Product {
   @JsonKey(name: "product_price")
   double productPrice;
   @JsonKey(name: "features_image")
-  String productImage;
+  String featuresImage;
   Product({
     required this.id,
     required this.productName,
     required this.productPrice,
-    required this.productImage,
+    required this.featuresImage,
   });
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);

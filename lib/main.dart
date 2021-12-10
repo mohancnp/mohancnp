@@ -3,8 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:metrocoffee/core/controllerbinding.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/controller_binding.dart';
 import 'package:metrocoffee/ui/app_name.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
@@ -20,7 +19,6 @@ void mainCommon() async {
     statusBarIconBrightness: Brightness.light,
   ));
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
   runApp(MyApp());

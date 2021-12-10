@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/notification_model.dart';
-import 'package:metrocoffee/core/services/notification_service/notification_service.dart';
+import 'package:metrocoffee/core/models/older/notification_model.dart';
+import 'package:metrocoffee/core/services/older/notification_service/notification_service.dart';
 
 class NotificationController extends GetxController {
   DataState _dataState = DataState.NA;
@@ -27,7 +27,7 @@ class NotificationController extends GetxController {
     update();
   }
 
-  Future getAllNotifications({int? pageNumber}) async {
+  Future getAllNotifications({int pageNumber = 1}) async {
     // print("called");
     notifications.clear();
     _dataState = DataState.loading;

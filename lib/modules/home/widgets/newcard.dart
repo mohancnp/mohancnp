@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
@@ -25,12 +25,10 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 140.w,
-      // height: 201.w,
       //max height is given from the listview in the parent.
       margin: EdgeInsets.only(
         left: 16.w,
       ),
-      // // clipBehavior: Clip.none,
       padding: EdgeInsets.only(
         left: 10.w,
         top: 10.h,
@@ -45,7 +43,6 @@ class ProductCard extends StatelessWidget {
             BoxShadow(
               offset: Offset(0, 3.h),
               color: Color(0x29000000),
-              // spreadRadius: 2.r,
               blurRadius: 16.r,
             )
           ]),
@@ -58,12 +55,10 @@ class ProductCard extends StatelessWidget {
             child: Material(
               child: InkWell(
                 onTap: onPressed,
-                //  https://pioneersoftech.com/cp_metrocoffee/resources/uploads/product/{id}/
                 child: Image.network(
-                  "${AppConfig.baseUrl}/resources/uploads/product/$id/$imageUri",
+                  "${AppConfig.baseUrl}$imageUri",
                   height: 116.w,
                   width: 116.w,
-                  // color: Colors.blue,
                   fit: BoxFit.cover,
                   loadingBuilder: (context, widget, imageProgress) {
                     if (imageProgress == null) {
@@ -109,11 +104,9 @@ class ProductCard extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () => null,
-                  //  Get.find<HomeTabController>().addToCart(id)
                   child: Container(
                     width: 28.r,
                     height: 28.r,
-                    // margin: EdgeInsets.only(right: 10.w),
                     child: Icon(
                       Icons.add,
                       color: Colors.white,

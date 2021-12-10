@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
-import 'package:metrocoffee/core/models/cart_model.dart';
+import 'package:metrocoffee/core/models/older/cart_model.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/widgets/single_order.dart';
 import 'package:metrocoffee/modules/maps/new/google_map_controller.dart';

@@ -6,7 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/google.dart';
-import 'package:metrocoffee/core/models/map_location_model.dart';
+import 'package:metrocoffee/core/models/older/map_location_model.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:metrocoffee/ui/src/palette.dart';
 

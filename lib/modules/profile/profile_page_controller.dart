@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/user_model.dart';
+import 'package:metrocoffee/core/models/older/user_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
-import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
+import 'package:metrocoffee/core/services/older/profile_service/profile_service.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 
 class ProfilePageController extends GetxController {

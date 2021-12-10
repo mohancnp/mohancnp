@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/user_model.dart';
+import 'package:metrocoffee/core/models/older/user_model.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'topup_reward_dialog.dart';
 

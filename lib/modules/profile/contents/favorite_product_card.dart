@@ -14,22 +14,11 @@ class FavoriteProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: () {
-        // Get.find<ProductDetailPageController>()
-        //     .retrieveProductDetails(id: product.);
-        // Get.toNamed(
-        //   PageName.productdetailpage,
-        //   arguments: [product.id, "fav"],
-        // );
-      },
+      onTap: () {},
       child: Container(
         padding: EdgeInsets.symmetric(
-            //        horizontal: 8,vertical: 6
-            horizontal: screenwidth * 0.0194,
-            vertical: screenwidth * 0.0145),
-        margin: EdgeInsets.only(
-            //     bottom: 20
-            bottom: screenwidth * 0.0486),
+            horizontal: screenwidth * 0.0194, vertical: screenwidth * 0.0145),
+        margin: EdgeInsets.only(bottom: screenwidth * 0.0486),
         decoration: BoxDecoration(
             color: Color(0xffFBFBFB),
             borderRadius: BorderRadius.all(Radius.circular(9)),
@@ -47,23 +36,9 @@ class FavoriteProductCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // Container(
-                  //   //     height: 100, width: 100,
-                  //   height: screenwidth * 0.2433, width: screenwidth * 0.2433,
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.all(Radius.circular(9)),
-                  //   ),
-                  //   child: Image.network(
-                  //     "${AppConfig.baseUrl}" + "${product.products}",
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
                   Container(
-                    //  height: 76,
                     height: screenwidth * 0.1849,
-                    margin: EdgeInsets.only(
-                        //        left: 18
-                        left: screenwidth * 0.0437),
+                    margin: EdgeInsets.only(left: screenwidth * 0.0437),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +49,6 @@ class FavoriteProductCard extends StatelessWidget {
                             style: getpoppins(TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff404D4D),
-                                //       fontSize: 14.5
                                 fontSize: screenwidth * 0.03527)),
                           ),
                         ),
@@ -84,7 +58,6 @@ class FavoriteProductCard extends StatelessWidget {
                             style: getpoppins(TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff550E1C),
-                                //         fontSize: 14.5
                                 fontSize: 16.5)),
                           ),
                         ),
@@ -102,7 +75,6 @@ class FavoriteProductCard extends StatelessWidget {
                   children: [
                     Icon(
                       CupertinoIcons.forward,
-                      //    size: 18,
                       size: 26,
                       color: darkgrey,
                     )

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/routing/names.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
@@ -61,9 +61,8 @@ class TopHomeGreeting extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Get.toNamed(PageName.productCartPage);
-                },
+                onTap: () =>
+                    HomeController.to.navigateToRoute(PageName.productCartPage),
                 child: Stack(
                   children: [
                     Padding(

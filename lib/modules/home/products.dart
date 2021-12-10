@@ -31,7 +31,7 @@ class ProductsPage extends GetView<HomeController> {
                     products: categoryProduct.products,
                   ),
                 ),
-                categoryProduct.mostPopular.isEmpty
+                categoryProduct.mostPopularProducts.isEmpty
                     ? SizedBox()
                     : Padding(
                         padding: EdgeInsets.only(
@@ -44,7 +44,7 @@ class ProductsPage extends GetView<HomeController> {
                         ),
                       ),
                 ProductList(
-                  products: categoryProduct.mostPopular,
+                  products: categoryProduct.mostPopularProducts,
                 ),
               ],
             );

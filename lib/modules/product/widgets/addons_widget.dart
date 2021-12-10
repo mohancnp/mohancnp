@@ -6,7 +6,7 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/product/product_detail_page_controller.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/config.dart';
 
 class AddonsWidget extends StatelessWidget {
   const AddonsWidget({Key? key}) : super(key: key);

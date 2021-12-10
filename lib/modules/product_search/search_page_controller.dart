@@ -11,7 +11,7 @@ class SearchPageController extends GetxController {
   static SearchPageController get to => Get.find();
   String errorMessage = "";
   bool searching = false;
-  FilterProduct ctp = FilterProduct([]);
+  FilterProduct ctp = FilterProduct(products: []);
   Future performSearch() async {
     errorMessage = "";
     searching = true;
@@ -31,6 +31,12 @@ class SearchPageController extends GetxController {
     errorMessage = f.message;
     searching = false;
     update();
+  }
+
+  navigateToSearchPage(String routeName, bool enabled) {
+    if (!enabled) {
+      Get.toNamed(routeName);
+    }
   }
 
   @override

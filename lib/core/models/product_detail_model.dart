@@ -80,11 +80,12 @@ class Topping {
   double price;
   @JsonKey(ignore: true)
   bool selected = false;
-  Topping(
-      {required this.id,
-      required this.name,
-      required this.price,
-      this.selected = false});
+  Topping({
+    required this.id,
+    required this.name,
+    required this.price,
+    this.selected = false,
+  });
   factory Topping.fromJson(Map<String, dynamic> json) =>
       _$ToppingFromJson(json);
 
@@ -100,12 +101,13 @@ class Addon {
   double price;
   @JsonKey(ignore: true)
   bool selected = false;
-  Addon(
-      {required this.id,
-      required this.name,
-      required this.image,
-      required this.price,
-      this.selected = false});
+  Addon({
+    required this.id,
+    required this.name,
+    required this.image,
+    required this.price,
+    this.selected = false,
+  });
   factory Addon.fromJson(Map<String, dynamic> json) => _$AddonFromJson(json);
 
   Map<String, dynamic> toJson() => _$AddonToJson(this);

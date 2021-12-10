@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/cart_model.dart';
+import 'package:metrocoffee/core/models/older/cart_model.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 
 class CartController extends GetxController {

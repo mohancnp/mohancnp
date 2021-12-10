@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/cart_model.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/models/older/cart_model.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class SingleOrder extends StatelessWidget {

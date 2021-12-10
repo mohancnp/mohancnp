@@ -8,7 +8,6 @@ import 'package:metrocoffee/core/services/product_service/product_service.dart';
 class ProductDetailPageController extends GetxController
     with StateMixin<ProductDetail> {
   static ProductDetailPageController get to => Get.find();
-
   var _productService = locator.get<ProductService>();
   var params;
   RxList<String> selectedToppings = <String>[].obs;
@@ -41,13 +40,13 @@ class ProductDetailPageController extends GetxController
     }
   }
 
-  handleResponse(ProductDetail p) {
+  void handleResponse(ProductDetail p) {
     change(p, status: RxStatus.success());
     totalPrice.value = p.variants[0].price;
     productDetail = p;
   }
 
-  calculateTotal() {
+  void calculateTotal() {
     totalPrice.value = 0.0;
     double total = 0.0;
     total = getSizeAmount();
@@ -98,12 +97,12 @@ class ProductDetailPageController extends GetxController
     return t;
   }
 
-  handleFailure(Failure f) {
+  void handleFailure(Failure f) {
     print("handling failure");
     change(null, status: RxStatus.error(f.message));
   }
 
-  handleSizeSelection(atIndex) {
+  void handleSizeSelection(atIndex) {
     var variants = productDetail.variants;
     productDetail.variants[atIndex].selected = true;
     for (var i = 0; i < variants.length; i++) {
@@ -114,7 +113,7 @@ class ProductDetailPageController extends GetxController
     _productDetail.refresh();
   }
 
-  handleAddonSelection(id) {
+  void handleAddonSelection(id) {
     var addons = productDetail.addons;
     for (var i = 0; i < addons.length; i++) {
       if (id == addons[i].id) {
@@ -124,12 +123,12 @@ class ProductDetailPageController extends GetxController
     _productDetail.refresh();
   }
 
-  addCount() {
+  void addCount() {
     productDetail.product.qty += 1;
     _productDetail.refresh();
   }
 
-  removeCount() {
+  void removeCount() {
     if (productDetail.product.qty > 1) {
       productDetail.product.qty -= 1;
       _productDetail.refresh();
@@ -143,7 +142,7 @@ class ProductDetailPageController extends GetxController
     super.onInit();
   }
 
-  getToppingsList() {
+  List<String> getToppingsList() {
     List<String> toppingsList = [];
     for (var i = 0; i < productDetail.toppings.length; i++) {
       var topping = productDetail.toppings[i];
@@ -152,7 +151,7 @@ class ProductDetailPageController extends GetxController
     return toppingsList;
   }
 
-  refreshToppingList(List<String> x) {
+  void refreshToppingList(List<String> x) {
     selectedToppings.clear();
     selectedToppings.addAll(x);
   }
