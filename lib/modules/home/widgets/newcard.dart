@@ -12,14 +12,14 @@ class ProductCard extends StatelessWidget {
   final int id;
   final dynamic price;
   final void Function() onPressed;
-  const ProductCard(
-      {Key? key,
-      required this.imageUri,
-      required this.name,
-      required this.id,
-      required this.onPressed,
-      required this.price})
-      : super(key: key);
+  const ProductCard({
+    Key? key,
+    required this.imageUri,
+    required this.name,
+    required this.id,
+    required this.onPressed,
+    required this.price,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,7 +54,7 @@ class ProductCard extends StatelessWidget {
               child: InkWell(
                 onTap: onPressed,
                 child: Image.network(
-                  "${AppConfig.baseUrl}${AppConfig.productImagePath}$id/$imageUri",
+                  "${AppConfig.baseUrl}/$imageUri",
                   height: 116.w,
                   width: 116.w,
                   fit: BoxFit.cover,

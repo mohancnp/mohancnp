@@ -109,7 +109,7 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            "${AppConfig.baseUrl}${AppConfig.productImagePath}${pd.product.id}/${pd.product.image}",
+                            "${AppConfig.baseUrl}/${pd.product.image}",
                           ),
                         )),
                   ),
