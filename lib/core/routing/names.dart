@@ -21,4 +21,5 @@ class PageName {
   static const nointernetpage = "/NoInternet";
   static const productCartPage = "/ProductCart";
   static const searchPage = "/SearchPage";
+  static const signupPage = "/SignUp";
 }

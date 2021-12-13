@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class UserPreference extends StatelessWidget {
@@ -14,6 +12,7 @@ class UserPreference extends StatelessWidget {
 
   UserPreference({Key? key,required this.question,required this.onPressedFirst,required this.firstText,required this.secondText, required this.onPressedSecond})
       : super(key: key);
+      
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -40,7 +39,7 @@ class UserPreference extends StatelessWidget {
                           "assets/images/nathan-dumlao-ikU3J1nr52w-unsplash@3x.png",
                           width: 162.w,
                           fit: BoxFit.cover,
-                          // height: 115.h,
+                          
                         ))
                   ])),
               Center(
@@ -61,7 +60,7 @@ class UserPreference extends StatelessWidget {
               GestureDetector(
                 onTap:onPressedFirst,
                 child: Container(
-//            width: 185,height: 36,
+
                   width: 185.w, height: 36.h,
                   decoration: BoxDecoration(
                       color: Palette.coffeeColor,
@@ -80,7 +79,7 @@ class UserPreference extends StatelessWidget {
                       style: getpoppins(TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
-                          //      fontSize: 13.5
+                          
                           fontSize: 13.5.sp)),
                     ),
                   ),
@@ -90,9 +89,9 @@ class UserPreference extends StatelessWidget {
                 onTap: onPressedSecond,
                 child: Container(
                   margin: EdgeInsets.only(
-//                top: 16
+
                       top: 16.h),
-//            width: 185,height: 36,
+
                   width: 185.w, height: 36.h,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -114,7 +113,7 @@ class UserPreference extends StatelessWidget {
                       style: getpoppins(TextStyle(
                         fontWeight: FontWeight.w300,
                         color: Palette.coffeeColor,
-                        //      fontSize: 13.5
+                        
                         fontSize: 13.5.sp,
                       )),
                     ),

@@ -4,11 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/socials.dart';
+import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
+import 'package:metrocoffee/resource/app_config.dart';
+import 'custom/email/email_auth_controller.dart';
+import 'custom/membership/membership_login_controller.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
+  final emailController = Get.put(EmailAuthController());
+  final memberShipController = Get.put(MemberShipLoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class LoginPage extends StatelessWidget {
       children: [
         Scaffold(
             body: Image.asset(
-          "assets/images/nathan-dumlao-c2Y16tC3yO8-unsplash@3x.png",
+          loginBackgroundImage,
           width: 375.w,
           fit: BoxFit.cover,
         )),
@@ -45,14 +51,14 @@ class LoginPage extends StatelessWidget {
               children: [
                 SizedBox(height: 40.h),
                 Container(
-                  child: Image.asset(
-                    "assets/images/metro_coffee_logo.png",
-                    width: 54.w,
-                  ),
                   padding: EdgeInsets.all(5.w),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white.withOpacity(0.4),
+                  ),
+                  child: Image.asset(
+                    AppConfig.metroCoffeeLogoAssetPath,
+                    width: 54.w,
                   ),
                 ),
                 Container(
@@ -73,9 +79,8 @@ class LoginPage extends StatelessWidget {
                     child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                         child: GestureDetector(
-                            onTap: () {
-                              Get.toNamed(PageName.membershiploginpage);
-                            },
+                            onTap: () => memberShipController.navigateToRoute(
+                                route: PageName.membershiploginpage),
                             child: Container(
                               margin: EdgeInsets.only(top: 33.h),
                               width: 375.w,
@@ -184,7 +189,9 @@ class LoginPage extends StatelessWidget {
         child: BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
       child: GestureDetector(
-          onTap: () {},
+          onTap: () => emailController.navigateToRoute(
+                routeName: PageName.emailloginpage,
+              ),
           child: Container(
             margin: EdgeInsets.only(top: screenwidth * 0.0656),
             width: screenwidth,
@@ -193,29 +200,32 @@ class LoginPage extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(23)),
                 color: Colors.black87),
             child: Center(
-                child: Container(
-                    width: screenwidth * 0.58,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            FeatherIcons.mail,
-                            color: Colors.white,
-                            size: screenwidth * 0.0486,
-                          ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(left: screenwidth * 0.04136),
-                            child: Text(
-                              "Continue with Email",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontFamily: poppinsregular,
-                                  fontSize: screenwidth * 0.0364,
-                                  color: Colors.white54),
-                            ),
-                          )
-                        ]))),
+              child: Container(
+                width: screenwidth * 0.58,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      FeatherIcons.mail,
+                      color: Colors.white,
+                      size: screenwidth * 0.0486,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: screenwidth * 0.04136),
+                      child: Text(
+                        "Continue with Email",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: poppinsregular,
+                          fontSize: screenwidth * 0.0364,
+                          color: Colors.white54,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
           )),
     ));
   }

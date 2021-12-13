@@ -51,20 +51,17 @@ class ProductCard extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(9)),
                   ),
                   child: Image.network(
-                    "${AppConfig.baseUrl}${AppConfig.productImagePath}${cartModel.imageUri}",
+                    "${AppConfig.baseUrl}/${cartModel.imageUri}",
                     fit: BoxFit.cover,
                     loadingBuilder: (context, widget, imageProgress) {
                       if (imageProgress == null) {
-                        return Center(
-                          child: Image.asset(
-                            AppConfig.metroCoffeeLogoAssetPath,
-                          ),
-                        );
-                      } else
+                        return widget;
+                      } else {
                         return SpinKitRing(
                           color: Palette.coffeeColor,
                           size: 20.w,
                         );
+                      }
                     },
                     errorBuilder: (context, object, stackTrace) {
                       // print(

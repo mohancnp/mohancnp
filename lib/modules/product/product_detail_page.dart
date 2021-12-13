@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/product/widgets/toppings_multiselect.dart';
@@ -123,7 +124,6 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                         children: [
                           InkWell(
                             onTap: () {
-                              // controller.productDetail = ProductDetail.empty();
                               Get.back();
                             },
                             child: Padding(
@@ -136,7 +136,9 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () => controller.navigateTo(
+                              route: PageName.productCartPage,
+                            ),
                             child: Stack(
                               children: [
                                 Padding(

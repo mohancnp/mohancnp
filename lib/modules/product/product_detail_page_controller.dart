@@ -242,4 +242,8 @@ class ProductDetailPageController extends GetxController
     showCustomSnackBarMessage(title: "", message: "sucessfully added an item");
     update();
   }
+
+  navigateTo({required String route}) {
+    Get.toNamed(route);
+  }
 }

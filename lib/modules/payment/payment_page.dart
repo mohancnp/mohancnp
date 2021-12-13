@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/payment/payment_page_controller.dart';
 import 'package:metrocoffee/modules/payment/widgets/credit_card_box.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-
 import 'widgets/payment_options.dart';
 
 class PaymentPage extends StatelessWidget {
@@ -26,7 +26,7 @@ class PaymentPage extends StatelessWidget {
           children: [
             Obx(() {
               return Text(
-                "\$ ${cartController.totalAmount.toStringAsPrecision(3)}",
+                "$dollar ${cartController.totalAmount.toStringAsPrecision(3)}",
                 style: getpoppins(TextStyle(
                     color: Palette.textColor,
                     fontSize: 26.sp,

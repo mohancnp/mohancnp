@@ -8,16 +8,16 @@ import 'package:metrocoffee/core/models/user_model.dart';
 import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
 import 'package:metrocoffee/core/services/storage/db/user_table.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
-import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
 
 class MemberShipLoginController extends GetxController {
   TextEditingController _membershipNumberController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool _showpassword = false;
+  String _errorMessage = "";
+
   bool _eye = false;
   AuthState _authState = AuthState.unverified;
-  String _errorMessage = "";
 
   get errorMessage => this._errorMessage;
 
@@ -85,5 +85,9 @@ class MemberShipLoginController extends GetxController {
       errorMessage = "please fill the form";
       // print("empty membership number or password");
     }
+  }
+
+  void navigateToRoute({required String route}) {
+    Get.toNamed(route);
   }
 }

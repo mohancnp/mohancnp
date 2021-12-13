@@ -7,6 +7,7 @@ import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/cart_instance_model.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/widgets/single_order.dart';
 import 'package:metrocoffee/modules/maps/new/google_map_controller.dart';
@@ -23,12 +24,10 @@ import 'checkout_page_controller.dart';
 // ignore: must_be_immutable
 class CheckoutPage extends StatelessWidget {
   CheckoutPage({Key? key}) : super(key: key);
-  final uop = Get.arguments;
-  String? selectedTime;
-
+  final controller = Get.put(CheckoutPageController());
+  final cartConroller = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<CheckoutPageController>();
     return Scaffold(
       backgroundColor: Palette.pagebackgroundcolor,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -36,16 +35,15 @@ class CheckoutPage extends StatelessWidget {
         buttonText: "Proceed to Pay",
         width: 320.w,
         height: 47.h,
-        onPressed: controller.proceedToPayment,
+        onPressed: () => controller.navigateToRoute(
+            routeName: PageName.paymentspage, defaultRoute: PageName.loginpage),
       ),
       appBar: AppBar(
-        backgroundColor: Color(0xFFF3F5F5),
+        backgroundColor: Palette.pagebackgroundcolor,
         elevation: 0,
         centerTitle: true,
         leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
+          onTap: () => Get.back(),
           child: Container(
             width: 24.w,
             height: 24.h,
@@ -60,10 +58,10 @@ class CheckoutPage extends StatelessWidget {
         title: Text(
           "ORDER SUMMARY",
           style: TextStyle(
-              fontFamily: poppinsmedium,
-              color: Color(0xff404D4D),
-              //       fontSize: 16
-              fontSize: 16.sp),
+            fontFamily: poppinsmedium,
+            color: Palette.darkGery,
+            fontSize: 16.sp,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -75,27 +73,20 @@ class CheckoutPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GetX<CartController>(builder: (controller) {
-                int length = controller.cartProductList.length;
-
-                return length > 0
-                    ? ListView.builder(
-                        itemCount: length,
-                        shrinkWrap: true,
-                        primary: false,
-                        itemBuilder: (context, index) {
-                          CartInstance cartModel =
-                              controller.cartProductList[index];
-                          // print(cartModel.size);
-                          return Padding(
-                            padding: EdgeInsets.only(bottom: 10.h),
-                            child: SingleOrder(
-                              cartModel: cartModel,
-                            ),
-                          );
-                        })
-                    : SizedBox();
-              }),
+              ListView.builder(
+                itemCount: cartConroller.cartProductList.length,
+                shrinkWrap: true,
+                primary: false,
+                itemBuilder: (context, index) {
+                  CartInstance cartModel = cartConroller.cartProductList[index];
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 10.h),
+                    child: SingleOrder(
+                      cartModel: cartModel,
+                    ),
+                  );
+                },
+              ),
               Padding(
                 padding: EdgeInsets.only(top: 24.h, left: 28.w),
                 child: FinalProductCalculationCard(),
@@ -106,7 +97,7 @@ class CheckoutPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      (uop == UserOrderPreference.pickup)
+                      (controller.userPreference == UserOrderPreference.pickup)
                           ? "Pickup Location"
                           : "Delivery Location",
                       style: getpoppins(TextStyle(
@@ -116,7 +107,7 @@ class CheckoutPage extends StatelessWidget {
                         fontSize: 14.sp,
                       )),
                     ),
-                    uop == UserOrderPreference.pickup
+                    controller.userPreference == UserOrderPreference.pickup
                         ? SizedBox()
                         : GestureDetector(
                             onTap: () {
@@ -149,7 +140,7 @@ class CheckoutPage extends StatelessWidget {
                   ],
                 ),
               ),
-              (uop == UserOrderPreference.pickup)
+              (controller.userPreference == UserOrderPreference.pickup)
                   ? Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 28.w,

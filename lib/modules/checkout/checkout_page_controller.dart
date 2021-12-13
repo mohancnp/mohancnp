@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/order_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
-// import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 
 class CheckoutPageController extends GetxController {
   List<String> timeValues =
@@ -14,16 +15,33 @@ class CheckoutPageController extends GetxController {
   RemoteOrder remoteOrder = RemoteOrder.empty();
   TimeOfDay _time = TimeOfDay.now().replacing(minute: 30);
   String timeFrom = "00:00", timeEnd = "00:00";
+  UserOrderPreference userPreference = UserOrderPreference.pickup;
+  var c = Get.find<RedirectionController>();
 
-  void proceedToPayment() {
-    Get.toNamed(PageName.paymentspage);
+  void navigateToRoute({required String routeName, String? defaultRoute}) {
+    if (c.userExists) {
+      Get.toNamed(routeName);
+    } else {
+      if (defaultRoute != null) {
+        Get.toNamed(PageName.loginpage);
+      }
+    }
+  }
+
+  @override
+  void onInit() {
+    print("oninit called");
+    var userPref = Get.arguments;
+    if (userPref != null) {
+      userPreference = userPref;
+    }
+    super.onInit();
   }
 
   setTimeAccordingTimeFromSelection() {
     if (selectedTimeIndex.value > -1) {
       switch (selectedTimeIndex.value) {
         case 0:
-          // var currentTime = "${_time.hour}:${_time.minute}";
           timeFrom = "${_time.hour}:${_time.minute}";
           timeEnd = timeFrom;
           break;
