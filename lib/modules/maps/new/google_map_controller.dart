@@ -89,12 +89,12 @@ class CustomGoogleMapController extends GetxController {
   }
 
   setMarker() {
-    BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(devicePixelRatio: 2.5), '$customMarkerIcon')
+    BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
+            '${Google.customMarkerIcon}')
         .then((onValue) {
       pinLocationIcon = onValue;
       var marker = Marker(
-        markerId: MarkerId(markerId),
+        markerId: MarkerId(Google.markerId),
         icon: pinLocationIcon == null
             ? BitmapDescriptor.defaultMarker
             : pinLocationIcon!,
@@ -106,27 +106,27 @@ class CustomGoogleMapController extends GetxController {
             title: 'Metro Coffee Office', snippet: "United Kingdom"),
       );
       if (markers.length < 1) {
-        markers.addAll({MarkerId(markerId): marker});
+        markers.addAll({MarkerId(Google.markerId): marker});
         update();
       }
     });
   }
 
   updateMarker(Marker marker) {
-    markers.update(MarkerId(markerId), (value) => marker,
+    markers.update(MarkerId(Google.markerId), (value) => marker,
         ifAbsent: () => marker);
     update();
   }
 
   doOnCameraIdle() async {
     circleFlag = true;
-    var marker = markers[MarkerId(markerId)];
+    var marker = markers[MarkerId(Google.markerId)];
     var newMarker = Marker(
       draggable: false,
       icon: pinLocationIcon == null
           ? BitmapDescriptor.defaultMarker
           : pinLocationIcon!,
-      markerId: MarkerId(markerId),
+      markerId: MarkerId(Google.markerId),
       position: LatLng(marker!.position.latitude, marker.position.longitude),
       infoWindow: const InfoWindow(
         title: 'Metro Coffee  ',
@@ -146,7 +146,7 @@ class CustomGoogleMapController extends GetxController {
       icon: pinLocationIcon == null
           ? BitmapDescriptor.defaultMarker
           : pinLocationIcon!,
-      markerId: MarkerId(markerId),
+      markerId: MarkerId(Google.markerId),
       position: LatLng(data.target.latitude, data.target.longitude),
       infoWindow: const InfoWindow(
         title: 'Metro Coffee ',
@@ -156,7 +156,7 @@ class CustomGoogleMapController extends GetxController {
   }
 
   addOrUpdateLocation() async {
-    var marker = markers[MarkerId(markerId)];
+    var marker = markers[MarkerId(Google.markerId)];
     var maplocation = MapLocation(
       marker?.position.latitude ?? CompanyDetail.lat,
       marker?.position.longitude ?? CompanyDetail.long,
@@ -184,9 +184,8 @@ class CustomGoogleMapController extends GetxController {
         radius: 5,
         // visible: cgmapController.moving ? false : true,
         center: LatLng(
-            markers[MarkerId(markerId)]?.position.latitude ??
-                CompanyDetail.lat,
-            markers[MarkerId(markerId)]?.position.longitude ??
+            markers[MarkerId(Google.markerId)]?.position.latitude ?? CompanyDetail.lat,
+            markers[MarkerId(Google.markerId)]?.position.longitude ??
                 CompanyDetail.long),
         fillColor: Palette.coffeeColor.withOpacity(0.8),
       ));

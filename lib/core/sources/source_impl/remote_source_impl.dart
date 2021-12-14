@@ -6,7 +6,7 @@ import '../interceptor.dart';
 import '../remote_source.dart';
 
 class RemoteSourceImpl implements RemoteSource {
-  static final Dio _dio = Dio(options);
+  static final _dio = Dio(options);
 
   RemoteSourceImpl() {
     // Interceptors

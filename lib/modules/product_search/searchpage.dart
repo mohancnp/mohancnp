@@ -7,7 +7,7 @@ import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
-import 'package:metrocoffee/modules/home/widgets/newcard.dart';
+import 'package:metrocoffee/modules/home/widgets/new_card.dart';
 import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';

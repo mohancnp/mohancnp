@@ -23,7 +23,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("${AppConfig.baseUrl}$imageUri");
-    
+
     return Container(
       width: 140.w,
       //max height is given from the listview in the parent.
@@ -67,8 +67,8 @@ class ProductCard extends StatelessWidget {
                     }
                     return Center(
                       child: SizedBox(
-                        height: 116.r,
-                        width: 116.r,
+                        height: 116.w,
+                        width: 116.w,
                         child: SpinKitCubeGrid(
                           color: Palette.coffeeColor,
                         ),

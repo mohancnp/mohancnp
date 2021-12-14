@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/filter_model.dart';
+import 'package:metrocoffee/core/models/filter.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 
 class SearchPageController extends GetxController {

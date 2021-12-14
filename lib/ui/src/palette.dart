@@ -9,6 +9,7 @@ class Palette {
   static Color darkGery = Color(0xFF404D4D);
   static Color darkGrey1 = Color(0xC2404D4D);
   static Color grieshWhite = Color(0xFFE8E8E8);
+  static Color selectedBottomNavIconColor=Color(0xff550E1C);
 }
 
 class MetroColor {

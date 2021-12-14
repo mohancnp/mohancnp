@@ -7,8 +7,8 @@ class PlacesApiController extends GetxController {
   List<AutocompletePrediction>? predictions = [];
   final TextEditingController textEditingController = TextEditingController();
   void autoCompleteSearch() async {
-    print(textEditingController.text); 
-    var result = await GooglePlace(placesApiKey)
+    print(textEditingController.text);
+    var result = await GooglePlace(Google.placesApiKey)
         .autocomplete
         .get(textEditingController.text);
     // print(result?.status);

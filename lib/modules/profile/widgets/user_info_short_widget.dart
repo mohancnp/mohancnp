@@ -20,84 +20,81 @@ class UserInfoShort extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GetX<ProfilePageController>(builder: (controller) {
-          User user = controller.newUser;
-
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                height: 64.r,
-                width: 64.r,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(32.r)),
-                  border: Border.all(
-                    color: Color(0xff5AB898),
-                    width: 2.5,
+        GetX<ProfilePageController>(
+          builder: (controller) {
+            User user = controller.newUser;
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: 64.r,
+                  width: 64.r,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(32.r)),
+                    border: Border.all(
+                      color: Color(0xff5AB898),
+                      width: 2.5,
+                    ),
                   ),
-                ),
-                child: user.imageUri == null
-                    ? Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: Text(
-                          controller.getFirstLetterOfNameAndSurname(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Palette.textColor,
+                  child: user.imageUri == null
+                      ? Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            controller.getImagePlacholder(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Palette.textColor,
+                            ),
+                          ),
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(32.r),
+                          child: Image.network(
+                            "${AppConfig.baseUrl}/${user.imageUri}",
+                            fit: BoxFit.cover,
+                            height: 64.r,
+                            width: 64.r,
+                            loadingBuilder: (context, widget, imageProgress) {
+                              if (imageProgress == null) {
+                                return widget;
+                              } else {
+                                return Center(
+                                  child: Text("Loading"),
+                                );
+                              }
+                            },
+                            errorBuilder: (a, b, c) =>
+                                Center(child: Text("Error")),
                           ),
                         ),
-                      )
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(32.r),
-                        child: Image.network(
-                          "${AppConfig.baseUrl}${user.imageUri}",
-                          fit: BoxFit.cover,
-                          height: 64.r,
-                          width: 64.r,
-                          loadingBuilder: (context, widget, imageProgress) {
-                            if (imageProgress == null) {
-                              return widget;
-                            } else {
-                              return Center(
-                                child: Text("Loading"),
-                              );
-                            }
-                          },
-                          errorBuilder: (a, b, c) =>
-                              Center(child: Text("Error")),
-                        ),
-                      ),
-              ),
-              Container(
-                  //  height: 76,
+                ),
+                Container(
                   height: 76.h,
-                  margin: EdgeInsets.only(
-                      //        left: 12
-                      left: 12.w),
+                  margin: EdgeInsets.only(left: 12.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Welcome",
-                        style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xff404D4D),
-                          //       fontSize: 11.5
-                          fontSize: 11.5.sp,
-                        )),
+                        style: getpoppins(
+                          TextStyle(
+                            fontWeight: FontWeight.w300,
+                            color: Palette.darkGery,
+                            fontSize: 11.5.sp,
+                          ),
+                        ),
                       ),
                       Text(
                         user.name == null ? " " : "${user.name}",
                         style: getpoppins(
                           TextStyle(
                               fontWeight: FontWeight.w500,
-                              color: Color(0xff404D4D),
-                              //         fontSize: 14.5
+                              color: Palette.darkGery,
                               fontSize: 14.5.sp),
                         ),
                       ),
@@ -106,87 +103,98 @@ class UserInfoShort extends StatelessWidget {
                         style: getpoppins(
                           TextStyle(
                               fontWeight: FontWeight.w300,
-                              color: Color(0xff404D4D),
-                              //         fontSize: 11.5
+                              color: Palette.darkGery,
                               fontSize: 11.5.sp),
                         ),
                       )
                     ],
-                  ))
-            ],
-          );
-        }),
+                  ),
+                )
+              ],
+            );
+          },
+        ),
         GestureDetector(
           onTap: () {
             showDialog(
-                context: context,
-                builder: (_) {
-                  return ClipRRect(
+              context: context,
+              builder: (_) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(18)),
+                  child: SimpleDialog(
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(18)),
-                      child: SimpleDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(18)),
-                          ),
-                          children: [TopUpRewardDialog()]));
-                });
+                    ),
+                    children: [
+                      TopUpRewardDialog(),
+                    ],
+                  ),
+                );
+              },
+            );
           },
           child: SizedBox(
-              height: 60.r,
-              width: 60.r,
-              child: Stack(children: [
+            height: 60.r,
+            width: 60.r,
+            child: Stack(
+              children: [
                 Positioned(
-                    bottom: 0,
-                    left: 0,
-                    child: Container(
-                        //                      height: 60, width: 60,
-                        height: 60.r,
-                        width: 60.r,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Color(0xff5AB898),
-                              width: 2.5,
-                            )),
-                        child: Obx(() {
-                          final profileController =
-                              Get.find<ProfilePageController>();
-
-                          return Center(
-                            child: Text(
-                              profileController.newUser.points == null
-                                  ? "0"
-                                  : "${profileController.newUser.points}",
-                              style: getpoppins(
-                                TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff404D4D),
-                                  //         fontSize: 17
-                                  fontSize: 12.sp,
-                                ),
+                  bottom: 0,
+                  left: 0,
+                  child: Container(
+                    height: 60.r,
+                    width: 60.r,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Color(0xff5AB898),
+                          width: 2.5,
+                        )),
+                    child: Obx(
+                      () {
+                        final profileController =
+                            Get.find<ProfilePageController>();
+                        return Center(
+                          child: Text(
+                            profileController.newUser.points == null
+                                ? "0"
+                                : "${profileController.newUser.points}",
+                            style: getpoppins(
+                              TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Palette.darkGery,
+                                fontSize: 12.sp,
                               ),
                             ),
-                          );
-                        }))),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
                 Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Container(
-                      //                                height: 25,width: 25,
-                      height: 25.r,
-                      width: 25.r,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              color: Color(0xff5AB898), width: 2.5.w)),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          "assets/images/badge.svg",
-                          fit: BoxFit.cover,
-                        ),
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    height: 25.r,
+                    width: 25.r,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      border:
+                          Border.all(color: Color(0xff5AB898), width: 2.5.w),
+                    ),
+                    child: Center(
+                      child: SvgPicture.asset(
+                        "assets/images/badge.svg",
+                        fit: BoxFit.cover,
                       ),
-                    ))
-              ])),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         )
       ],
     );

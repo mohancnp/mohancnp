@@ -1,5 +1,5 @@
 
 
 abstract class NotificationService {
-  Future getNotifications({int pageNumber = 1});
+  Future<void> getNotifications({int pageNumber = 1});
 }

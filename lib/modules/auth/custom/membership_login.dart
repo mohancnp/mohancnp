@@ -14,7 +14,7 @@ import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 class MembershipLoginPage extends StatelessWidget {
   MembershipLoginPage({Key? key}) : super(key: key);
 
-  final controller = Get.find<MemberShipLoginController>();
+  final _controller = Get.find<MemberShipLoginController>();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -188,8 +188,8 @@ class MembershipLoginPage extends StatelessWidget {
                       child: SignInBtn(
                         onpressed: () async {
                           showCustomDialog();
-                          await controller.performMembershipLogin();
-                          if (controller.authState == AuthState.loggedIn) {
+                          await _controller.performMembershipLogin();
+                          if (_controller.authState == AuthState.loggedIn) {
                             Get.offAllNamed(PageName.homepage);
                           } else {
                             Get.back();

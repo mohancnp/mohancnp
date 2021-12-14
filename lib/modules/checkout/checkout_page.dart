@@ -155,8 +155,8 @@ class CheckoutPage extends StatelessWidget {
                         horizontal: 28.w,
                       ),
                       child: AddressDetailWidget(
-                        mainLocation: CompanyDetail.mainLocation,
-                        subLocation: CompanyDetail.subLocation,
+                        mainLocation: CompanyDetail.address,
+                        subLocation: CompanyDetail.subAddress,
                         uop: UserOrderPreference.pickup,
                         onEdit: () {},
                         onDelete: () {},
@@ -241,6 +241,7 @@ class CheckoutPage extends StatelessWidget {
               Obx(() {
                 return GestureDetector(
                   onTap: () {
+                    //TODO: logic to refactor
                     TimeOfDay _currentTime = TimeOfDay.now();
                     var remainder = _currentTime.minute % 15;
                     showCustomTimePicker(

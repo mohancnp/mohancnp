@@ -3,9 +3,9 @@ import 'package:metrocoffee/core/services/older/notification_service/notificatio
 import 'package:metrocoffee/core/sources/remote_source.dart';
 
 class NotificationServiceImpl extends NotificationService {
-  var remoteSource = locator.get<RemoteSource>();
+  final _remoteSource = locator.get<RemoteSource>();
   @override
-  Future getNotifications({int pageNumber = 1}) async {
+  Future<void> getNotifications({int pageNumber = 1}) async {
     throw UnimplementedError();
   }
 }

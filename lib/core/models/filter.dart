@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:metrocoffee/core/models/product_model.dart';
-part 'filter_model.g.dart';
+import 'package:metrocoffee/core/models/product.dart';
+
+part 'filter.g.dart';
 
 @JsonSerializable()
 class FilterProduct {

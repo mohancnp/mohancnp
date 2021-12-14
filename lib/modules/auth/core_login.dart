@@ -17,6 +17,7 @@ class LoginPage extends StatelessWidget {
         Scaffold(
             body: Image.asset(
           "assets/images/nathan-dumlao-c2Y16tC3yO8-unsplash@3x.png",
+// TODO: remove width:120
           width: 375.w,
           fit: BoxFit.cover,
         )),
@@ -65,29 +66,30 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 30.h),
                 ClipRRect(
                     child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                        child: GestureDetector(
-                            onTap: () {
-                              Get.toNamed(PageName.membershiploginpage);
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(top: 33.h),
-                              width: 375.w,
-                              height: 49.h,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2.w, color: Color(0xfff3f3f3)),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(23.r)),
-                                  color: Colors.white),
-                              child: Center(
-                                child: Text(
-                                  "Continue with Membership",
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.button,
-                                ),
-                              ),
-                            )))),
+                  filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.toNamed(PageName.membershiploginpage);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 33.h),
+                      width: 375.w,
+                      height: 49.h,
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(width: 2.w, color: Color(0xfff3f3f3)),
+                          borderRadius: BorderRadius.all(Radius.circular(23.r)),
+                          color: Colors.white),
+                      child: Center(
+                        child: Text(
+                          "Continue with Membership",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.button,
+                        ),
+                      ),
+                    ),
+                  ),
+                )),
                 emailbox(context),
                 Container(
                   width: 342.w,
@@ -101,10 +103,11 @@ class LoginPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Container(
-                        height: 2.h,
-                        width: 112.w,
-                        color: Colors.white30,
+                      Expanded(
+                        child: Container(
+                          height: 2.h,
+                          color: Colors.white30,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 4.0, right: 4.0),
@@ -115,10 +118,11 @@ class LoginPage extends StatelessWidget {
                               fontSize: 14.sp),
                         ),
                       ),
-                      Container(
-                        height: 2.h,
-                        width: 112.w,
-                        color: Colors.white30,
+                      Expanded(
+                        child: Container(
+                          height: 2.h,
+                          color: Colors.white30,
+                        ),
                       ),
                     ],
                   ),

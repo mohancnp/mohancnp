@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/product_model.dart';
+import 'package:metrocoffee/core/models/product.dart';
 import 'package:metrocoffee/core/theme.dart';
 
 class FavoriteProductCard extends StatelessWidget {

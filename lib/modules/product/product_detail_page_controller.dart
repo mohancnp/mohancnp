@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/product_detail_model.dart';
+import 'package:metrocoffee/core/models/product_detail.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 
 class ProductDetailPageController extends GetxController
@@ -22,7 +22,7 @@ class ProductDetailPageController extends GetxController
     toppings: [],
     addons: [],
   ).obs;
-  List<String>? tpl;
+  List<String>? toppingStringList;
   Rx<double> totalPrice = 0.0.obs;
   ProductDetail get productDetail {
     return _productDetail.value;
@@ -40,35 +40,36 @@ class ProductDetailPageController extends GetxController
     }
   }
 
-  void handleResponse(ProductDetail p) {
-    change(p, status: RxStatus.success());
-    totalPrice.value = p.variants[0].price;
-    productDetail = p;
+  void handleResponse(ProductDetail productDetail) {
+    change(productDetail, status: RxStatus.success());
+    totalPrice.value = productDetail.variants[0].price;
+    productDetail = productDetail;
   }
 
   void calculateTotal() {
     totalPrice.value = 0.0;
     double total = 0.0;
     total = getSizeAmount();
-    if (tpl != null) {
-      total += getToppingsAmount(tpl);
+    if (toppingStringList != null) {
+      total += getToppingsAmount();
     }
     total += getAddonsAmount();
     totalPrice.value = total * productDetail.product.qty;
     print("calculated total");
   }
 
-  double getToppingsAmount(tpl) {
+  double getToppingsAmount() {
     var total = 0.0;
     var toppings = productDetail.toppings;
-
-    for (var i = 0; i < tpl.length; i++) {
-      for (var j = 0; j < toppings.length; j++) {
-        var topping = toppings[j];
-        var newName = "${topping.name}   $dollar${topping.price}";
-        if (newName == tpl[i]) {
-          total += toppings[j].price;
-          break;
+    if (toppingStringList != null) {
+      for (var i = 0; i < toppingStringList!.length; i++) {
+        for (var j = 0; j < toppings.length; j++) {
+          var topping = toppings[j];
+          var newName = "${topping.name}   $Currency.symbol${topping.price}";
+          if (newName == toppingStringList![i]) {
+            total += toppings[j].price;
+            break;
+          }
         }
       }
     }
@@ -103,6 +104,7 @@ class ProductDetailPageController extends GetxController
   }
 
   void handleSizeSelection(atIndex) {
+    //TODO: remove unnessary reference.
     var variants = productDetail.variants;
     productDetail.variants[atIndex].selected = true;
     for (var i = 0; i < variants.length; i++) {
@@ -146,7 +148,7 @@ class ProductDetailPageController extends GetxController
     List<String> toppingsList = [];
     for (var i = 0; i < productDetail.toppings.length; i++) {
       var topping = productDetail.toppings[i];
-      toppingsList.add("${topping.name}   $dollar${topping.price}");
+      toppingsList.add("${topping.name}   $Currency.symbol${topping.price}");
     }
     return toppingsList;
   }

@@ -1,4 +1,4 @@
-import 'package:metrocoffee/core/models/product_detail_model.dart';
+import 'package:metrocoffee/core/models/product_detail.dart';
 
 import 'address_model.dart';
 

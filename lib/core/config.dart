@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 
 BaseOptions options = BaseOptions(
   baseUrl: AppConfig.baseUrl,
-  connectTimeout: 20000,
-  sendTimeout: 50000,
-  receiveTimeout: 50000,
+  connectTimeout: 10000,
+  sendTimeout: 10000,
+  receiveTimeout: 10000,
 );
 
 class AppConfig {

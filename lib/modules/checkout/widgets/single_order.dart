@@ -41,7 +41,7 @@ class SingleOrder extends StatelessWidget {
               borderRadius: BorderRadius.circular(9.r),
               // clipBehavior: Clip.hardEdge,
               child: Image.network(
-                "${AppConfig.baseUrl}${cartModel.imageUri}",
+                "${AppConfig.baseUrl}/${cartModel.imageUri}",
                 loadingBuilder: (context, widget, imageChunkEvent) {
                   if (imageChunkEvent == null) {
                     return widget;

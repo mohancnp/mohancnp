@@ -94,47 +94,47 @@ class PersonalDataPage extends StatelessWidget {
                                           blurRadius: 10.r,
                                           offset: Offset(0, 3.r))
                                     ]),
-                                child:
-                                    personalDataPageController.imageUri != null
-                                        ? ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                              38.w,
-                                            ),
-                                            child: Image.network(
-                                              "${AppConfig.baseUrl}${personaldatacontroller.imageUri!}",
-                                              width: 76.w,
-                                              loadingBuilder: (context, widget,
-                                                  imageChunkEvent) {
-                                                if (imageChunkEvent == null) {
-                                                  return widget;
-                                                } else {
-                                                  return Center(
-                                                    child: Text("Loading.."),
-                                                  );
-                                                }
-                                              },
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                        : Obx(() {
-                                            var newUser = Get.find<
-                                                    ProfilePageController>()
-                                                .getFirstLetterOfNameAndSurname();
+                                child: personalDataPageController.imageUri !=
+                                        null
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                          38.w,
+                                        ),
+                                        child: Image.network(
+                                          "${AppConfig.baseUrl}${personaldatacontroller.imageUri!}",
+                                          width: 76.w,
+                                          loadingBuilder: (context, widget,
+                                              imageChunkEvent) {
+                                            if (imageChunkEvent == null) {
+                                              return widget;
+                                            } else {
+                                              return Center(
+                                                child: Text("Loading.."),
+                                              );
+                                            }
+                                          },
+                                          fit: BoxFit.fill,
+                                        ),
+                                      )
+                                    : Obx(() {
+                                        var newUser =
+                                            Get.find<ProfilePageController>()
+                                                .getImagePlacholder();
 
-                                            return Container(
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: Text(
-                                                newUser,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Palette.textColor,
-                                                ),
-                                              ),
-                                            );
-                                          }),
+                                        return Container(
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Text(
+                                            newUser,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Palette.textColor,
+                                            ),
+                                          ),
+                                        );
+                                      }),
                               ),
                               Positioned(
                                 left: 86.w,

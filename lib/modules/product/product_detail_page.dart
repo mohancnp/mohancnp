@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
-import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/product/widgets/toppings_multiselect.dart';
-import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/on_error_widget.dart';
+
 import 'product_detail_page_controller.dart';
 import 'widgets/addons_widget.dart';
 import 'widgets/product_count_widget.dart';
@@ -47,7 +47,7 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                         child: CircularProgressIndicator(),
                       )
                     : Text(
-                        dollar + " ${controller.totalPrice.value}",
+                        Currency.symbol + " ${controller.totalPrice.value}",
                         style: getpoppins(TextStyle(
                             color: Palette.textColor,
                             fontSize: 26.sp,
@@ -70,9 +70,7 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                         ),
                         child: TextButton.icon(
                             onPressed: () {
-                              // controller.pressed = true;
-                              // await controller.addProductToCart();
-                              // await cartController.getAllCartProducts();
+                              //TODO; implement add to cart.
                             },
                             icon: Icon(
                               CupertinoIcons.cart_badge_plus,

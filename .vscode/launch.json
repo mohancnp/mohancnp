@@ -5,15 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "metrocoffeeapp",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "metrocoffeeapp (debug mode)",
+            "name": "MetroCoffee Dev",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug"
-        }
+            "program": "lib/main_dev.dart"
+        },
+        {
+            "name": "MetroCoffee QA",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_qa.dart"
+        },
+        {
+            "name": "MetroCoffee Prod",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_prod.dart"
+        },
+
     ]
 }
