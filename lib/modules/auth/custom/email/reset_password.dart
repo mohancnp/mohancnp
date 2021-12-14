@@ -9,15 +9,16 @@ import 'package:metrocoffee/modules/auth/custom/widgets/sign_in_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/text_form_feild_skeleton.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
-class ForgotPasswordPage extends StatefulWidget {
-  const ForgotPasswordPage({Key? key}) : super(key: key);
+class ResetPasswordPage extends StatefulWidget {
+  const ResetPasswordPage({Key? key}) : super(key: key);
 
   @override
-  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
+  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
 }
 
-class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  final emailEditingController = TextEditingController();
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  final passwordEditingController = TextEditingController();
+  final passwordConfirmEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 SizedBox(height: 20.h),
                 SizedBox(height: 20.h),
                 Text(
-                  "Forgot Password?",
+                  "Reset Password",
                   style: TextStyle(
                     fontFamily: freightbold,
                     color: Colors.white,
@@ -57,7 +58,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                 ),
                 Text(
-                  "Enter the email address you used in the intial registration process.",
+                  "Your new password should be different from the previous password",
                   style: TextStyle(
                     fontFamily: proximanovaregular,
                     color: Colors.white,
@@ -67,7 +68,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 FormFeildSkeleton(
                   child: Center(
                     child: TextFormField(
-                      controller: emailEditingController,
+                      controller: passwordEditingController,
                       cursorColor: Colors.black87,
                       style: TextStyle(
                         fontFamily: poppinsregular,
@@ -79,12 +80,41 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         suffixIcon: Icon(
-                          FeatherIcons.user,
-                          color: Color(0xff404d4d),
+                          FeatherIcons.eye,
+                          color: Palette.darkGery,
                           size: 18.sp,
                         ),
                         border: InputBorder.none,
-                        hintText: 'Email Address',
+                        hintText: 'New Password',
+                        hintStyle: TextStyle(
+                          fontFamily: poppinsregular,
+                          color: Palette.darkGery,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                FormFeildSkeleton(
+                  child: Center(
+                    child: TextFormField(
+                      controller: passwordConfirmEditingController,
+                      cursorColor: Colors.black87,
+                      style: TextStyle(
+                        fontFamily: poppinsregular,
+                        color: Colors.black87,
+                        fontSize: 13.sp,
+                        height: 1.8,
+                      ),
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        suffixIcon: Icon(
+                          FeatherIcons.eye,
+                          color: Palette.darkGery,
+                          size: 18.sp,
+                        ),
+                        border: InputBorder.none,
+                        hintText: 'Confirm Password',
                         hintStyle: TextStyle(
                           fontFamily: poppinsregular,
                           color: Palette.darkGery,
@@ -98,37 +128,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 ),
                 Center(
                   child: AuthBtn(
-                    centerBtnText: "SEND INSTRUCTION",
+                    centerBtnText: "CHANGE PASSWORD",
                     onpressed: () => null,
-                  ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Center(
-                  child: Text(
-                    "Remember Password? ",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => null,
-                  child: Center(
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: proximanovaregular,
-                        decoration: TextDecoration.underline,
-                        fontSize: 16.sp,
-                        decorationColor: Colors.white,
-                        height: 1.7,
-                        decorationStyle: TextDecorationStyle.solid,
-                      ),
-                    ),
                   ),
                 ),
               ],
