@@ -54,6 +54,7 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
   Future checkInternet() async {
     bool ready = await InternetConnectionHelper.isConnectionReady();
     return ready;
+    // getProducts();
   }
 
   Future<bool> getPublicProductsOfType(String type) async {

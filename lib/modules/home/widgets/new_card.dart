@@ -12,21 +12,18 @@ class ProductCard extends StatelessWidget {
   final int id;
   final dynamic price;
   final void Function() onPressed;
-  const ProductCard(
-      {Key? key,
-      required this.imageUri,
-      required this.name,
-      required this.id,
-      required this.onPressed,
-      required this.price})
-      : super(key: key);
+  const ProductCard({
+    Key? key,
+    required this.imageUri,
+    required this.name,
+    required this.id,
+    required this.onPressed,
+    required this.price,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print("${AppConfig.baseUrl}$imageUri");
-
     return Container(
       width: 140.w,
-      //max height is given from the listview in the parent.
       margin: EdgeInsets.only(
         left: 16.w,
       ),
@@ -75,6 +72,15 @@ class ProductCard extends StatelessWidget {
                       ),
                     );
                   },
+                  errorBuilder: (context, object, stackTrace) {
+                    // print(
+                    //     "${AppConfig.baseUrl}${AppConfig.productImagePath}$imageUri");
+                    return Center(
+                      child: Image.asset(
+                        AppConfig.metroCoffeeLogoAssetPath,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -114,14 +120,15 @@ class ProductCard extends StatelessWidget {
                       size: 16.w,
                     ),
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: coffeecolor,
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(0, 3.h),
-                              color: Color(0x62722030),
-                              blurRadius: 10.r)
-                        ]),
+                      shape: BoxShape.circle,
+                      color: coffeecolor,
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 3.h),
+                            color: Color(0x62722030),
+                            blurRadius: 10.r)
+                      ],
+                    ),
                   ),
                 )
               ],

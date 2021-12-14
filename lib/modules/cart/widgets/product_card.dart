@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
+import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/older/cart_model.dart';
+import 'package:metrocoffee/core/models/cart_instance_model.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
-  final CartModel cartModel;
+  final CartInstance cartModel;
   final int index;
   ProductCard({Key? key, required this.cartModel, required this.index})
       : super(key: key);
@@ -62,7 +63,13 @@ class ProductCard extends StatelessWidget {
                         );
                     },
                     errorBuilder: (context, object, stackTrace) {
-                      return const Text('😢');
+                      // print(
+                      //     "${AppConfig.baseUrl}${AppConfig.productImagePath}${cartModel.imageUri}");
+                      return Center(
+                        child: Image.asset(
+                          AppConfig.metroCoffeeLogoAssetPath,
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -81,7 +88,7 @@ class ProductCard extends StatelessWidget {
                             fontSize: 14.sp)),
                       ),
                       Text(
-                        '\$ ${cartModel.updatedPrice?.toStringAsPrecision(3)}',
+                        '${Currency.symbol} ${(cartModel.totalPrice * cartModel.qty).toStringAsPrecision(3)}',
                         style: getpoppins(TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Color(0xff550E1C),
@@ -91,9 +98,8 @@ class ProductCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           GestureDetector(
-                            onTap: () async {
-                              await cartController.decreaseItemCount(index);
-                            },
+                            onTap: () async => cartController.decreaseItemQty(
+                                cartModel, index),
                             child: Icon(
                               CupertinoIcons.minus_circle,
                               size: 24.r,
@@ -111,9 +117,8 @@ class ProductCard extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () async {
-                              await cartController.increaseItemCount(index);
-                            },
+                            onTap: () async => cartController.increaseItemQty(
+                                cartModel, index),
                             child: Icon(
                               CupertinoIcons.plus_circle,
                               size: 24.r,
@@ -144,9 +149,8 @@ class ProductCard extends StatelessWidget {
                     });
               },
               child: GestureDetector(
-                onTap: () async {
-                  await cartController.removeItemAtIndex(index);
-                },
+                onTap: () async => cartController.removeItemFromCart(
+                    cartModel.productId, index),
                 child: Icon(
                   CupertinoIcons.xmark_circle,
                   size: 18.sp,

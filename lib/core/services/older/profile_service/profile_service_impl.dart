@@ -5,7 +5,7 @@ import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/services/older/profile_service/profile_service.dart';
 import 'package:metrocoffee/core/services/storage/db/core.dart';
-import 'package:metrocoffee/core/services/storage/db/dbfeilds.dart';
+import 'package:metrocoffee/core/services/storage/db/dbconst.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
 
 /* to be modifed with new auth api later, unused now*/

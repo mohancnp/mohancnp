@@ -2,22 +2,35 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
+import 'package:metrocoffee/core/models/cart_instance_model.dart';
 import 'package:metrocoffee/core/models/product_detail.dart';
+import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
+import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class ProductDetailPageController extends GetxController
     with StateMixin<ProductDetail> {
   static ProductDetailPageController get to => Get.find();
   var _productService = locator.get<ProductService>();
+  var cartService = locator.get<CartService>();
+  late Variant selectedVariant;
+  late ProductType selectedproductType =
+      ProductType(id: -1, name: "None", price: 0.0);
+  late List<Topping> selectedToppingsObject = <Topping>[];
+  late List<Addon> selectedAddons = <Addon>[];
+
   var params;
   RxList<String> selectedToppings = <String>[].obs;
-  late Rx<ProductDetail> _productDetail = ProductDetail(
+  Rx<ProductDetail> _productDetail = ProductDetail(
     product: Product(
       id: 0,
       name: "",
       description: "",
       image: "",
     ),
+    productTypes: [],
     variants: [],
     toppings: [],
     addons: [],
@@ -55,7 +68,18 @@ class ProductDetailPageController extends GetxController
     }
     total += getAddonsAmount();
     totalPrice.value = total * productDetail.product.qty;
-    print("calculated total");
+    // print("calculated total");
+  }
+
+  double getTempOptionTotal() {
+    var price = 0.0;
+    for (var i = 0; i < productDetail.productTypes.length; i++) {
+      if (productDetail.productTypes[i].selected) {
+        price += productDetail.productTypes[i].price;
+        break;
+      }
+    }
+    return price;
   }
 
   double getToppingsAmount() {
@@ -77,10 +101,12 @@ class ProductDetailPageController extends GetxController
   }
 
   double getAddonsAmount() {
+    selectedAddons.clear();
     var addons = productDetail.addons;
     var total = 0.0;
     for (var i = 0; i < addons.length; i++) {
       if (addons[i].selected) {
+        selectedAddons.add(addons[i]);
         total += addons[i].price;
       }
     }
@@ -91,6 +117,7 @@ class ProductDetailPageController extends GetxController
     var t = 0.0;
     for (var i = 0; i < productDetail.variants.length; i++) {
       if (productDetail.variants[i].selected) {
+        selectedVariant = productDetail.variants[i];
         t = productDetail.variants[i].price;
         break;
       }
@@ -156,5 +183,56 @@ class ProductDetailPageController extends GetxController
   void refreshToppingList(List<String> x) {
     selectedToppings.clear();
     selectedToppings.addAll(x);
+  }
+
+  handleProductTypeSelection(int atIndex) {
+    var pt = productDetail.productTypes;
+    var elementToCheck = pt[atIndex];
+    for (var i = 0; i < pt.length; i++) {
+      // var status = productDetail.productTypes[atIndex].selected;
+      if (elementToCheck.id == pt[i].id) {
+        productDetail.productTypes[atIndex].selected = true;
+      } else {
+        productDetail.productTypes[i].selected = false;
+      }
+    }
+    calculateTotal();
+    _productDetail.refresh();
+  }
+
+  Future addProductToCart() async {
+    showCustomDialog();
+    var newInstance = CartInstance(
+      productId: productDetail.product.id,
+      totalPrice: totalPrice.value,
+      qty: productDetail.product.qty,
+      name: productDetail.product.name,
+      selectedVariants: selectedVariant,
+      selectedProductType: selectedproductType,
+      toppingsList: selectedToppingsObject,
+      addons: selectedAddons,
+      imageUri: productDetail.product.image,
+    );
+    // print(newInstance.toJson());
+    var response = await cartService.addProductToCart(newInstance.toJson());
+
+    response.fold(
+        (l) => handleCartProductSucess(l), (r) => handleCartProductFailure(r));
+
+    var countResponse = await cartService.getCount();
+    var cartController = Get.find<CartController>();
+    countResponse.fold((l) => cartController.cartCount.value = l,
+        (r) => print("failure getting count"));
+  }
+
+  handleCartProductFailure(Failure r) {
+    Get.back();
+    showCustomSnackBarMessage(title: "Cart", message: "${r.message}");
+  }
+
+  handleCartProductSucess(int count) {
+    Get.back();
+    showCustomSnackBarMessage(title: "", message: "sucessfully added an item");
+    update();
   }
 }

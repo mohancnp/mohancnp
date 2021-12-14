@@ -2,7 +2,7 @@ import 'core.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../locator.dart';
-import 'dbfeilds.dart';
+import 'dbconst.dart';
 
 class CartHandlerDB {
   Future<int> addToCart(Map<String, dynamic> item) async {
