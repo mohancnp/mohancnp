@@ -155,14 +155,17 @@ class MembershipLoginPage extends StatelessWidget {
                             ],
                           );
                         }),
-                    Container(
-                      margin: EdgeInsets.only(top: 13.h, left: 10.w),
-                      child: Text(
-                        "Forgot Password ?",
-                        style: TextStyle(
-                            fontFamily: proximanovaregular,
-                            color: Colors.white70,
-                            fontSize: 14.sp),
+                    GestureDetector(
+                      onTap: () => Get.toNamed(PageName.forgotPasswordPage),
+                      child: Container(
+                        margin: EdgeInsets.only(top: 13.h, left: 10.w),
+                        child: Text(
+                          "Forgot Password ?",
+                          style: TextStyle(
+                              fontFamily: proximanovaregular,
+                              color: Colors.white70,
+                              fontSize: 14.sp),
+                        ),
                       ),
                     ),
                     GetBuilder<MemberShipLoginController>(builder: (mc) {

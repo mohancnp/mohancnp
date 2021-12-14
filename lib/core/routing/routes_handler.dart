@@ -3,6 +3,7 @@ import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/auth/core_login.dart';
 import 'package:metrocoffee/modules/auth/custom/email/email_login.dart';
 import 'package:metrocoffee/modules/auth/custom/email/email_signup.dart';
+import 'package:metrocoffee/modules/auth/custom/email/forgot_password.dart';
 import 'package:metrocoffee/modules/auth/custom/membership/membership_login.dart';
 import 'package:metrocoffee/modules/cart/my_product_cart.dart';
 import 'package:metrocoffee/modules/checkout/checkout_page.dart';
@@ -103,6 +104,10 @@ class RouteHandler {
       GetPage(
         name: PageName.emailloginpage,
         page: () => EmailLoginPage(),
+      ),
+      GetPage(
+        name: PageName.forgotPasswordPage,
+        page: () => ForgotPasswordPage(),
       ),
     ];
   }

@@ -22,4 +22,5 @@ class PageName {
   static const productCartPage = "/ProductCart";
   static const searchPage = "/SearchPage";
   static const signupPage = "/SignUp";
+  static const forgotPasswordPage = "/ForgotPasswordPage";
 }
