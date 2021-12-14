@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
-import 'package:metrocoffee/core/models/cart_instance_model.dart';
+import 'package:metrocoffee/core/models/cart_instance.dart';
 
 abstract class CartService {
   Future<Either<int, Failure>> addProductToCart(Map<String, dynamic> cartItem);

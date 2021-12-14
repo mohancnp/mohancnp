@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:metrocoffee/core/models/product_detail_model.dart';
+import 'package:metrocoffee/core/models/product_detail.dart';
 import 'package:metrocoffee/core/services/storage/db/dbconst.dart';
-part 'cart_instance_model.g.dart';
+part 'cart_instance.g.dart';
 
 @JsonSerializable()
 class CartInstance {
