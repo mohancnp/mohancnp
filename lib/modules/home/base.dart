@@ -2,18 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/home/home.dart';
 import 'package:metrocoffee/modules/notifications/notifications.dart';
+import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
 import 'package:metrocoffee/modules/profile/contents/my_order.dart';
 import 'package:metrocoffee/modules/profile/profile_page.dart';
 import 'package:metrocoffee/modules/public/redirection_page.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
+import 'home_controller.dart';
+import 'widgets/categories_controller.dart';
+
 // ignore: must_be_immutable
 class Base extends StatelessWidget {
   final baseController = Get.put(BaseController());
+  final controllerCategories = Get.put(CategoriesController());
+  final controllerHome = Get.put(HomeController());
+  final controllerSearh = Get.put(SearchPageController());
+  final cartController = Get.put(CartController());
 
   List privatePages = [
     Home(),

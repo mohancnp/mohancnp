@@ -16,29 +16,30 @@ class TopHomeGreeting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 375.w,
-        height: 153.h,
-        padding: EdgeInsets.only(
-          left: 28.w,
-          right: 28.w,
-          top: 68.h,
-        ),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GetX<HomeController>(builder: (controller) {
-                      var user = controller.user;
-                      var firstName = "...";
-                      firstName =
-                          user.name?.split(' ').elementAt(0) ?? "Caffeinator";
-                      return Container(
-                          child: Text(
+      width: 375.w,
+      height: 153.h,
+      padding: EdgeInsets.only(
+        left: 28.w,
+        right: 28.w,
+        top: 68.h,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GetX<HomeController>(
+                  builder: (controller) {
+                    var user = controller.user;
+                    var firstName = "...";
+                    firstName =
+                        user.name?.split(' ').elementAt(0) ?? "Caffeinator";
+                    return Container(
+                      child: Text(
                         int.parse(DateFormat.H('en_US')
                                     .format(DateTime.now())) <
                                 16
@@ -49,62 +50,68 @@ class TopHomeGreeting extends StatelessWidget {
                           color: Colors.white,
                           fontSize: 20.5.sp,
                         ),
-                      ));
-                    }),
-                    Container(
-                        margin: EdgeInsets.only(top: 4.h),
-                        child: Text(
-                            "You can order drinks for collections or Delivery.",
-                            style: Theme.of(context).textTheme.caption)),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () =>
-                    HomeController.to.navigateToRoute(PageName.productCartPage),
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 10.w),
-                      child: SvgPicture.asset(
-                        cartIcons,
-                        width: 20.w,
-                        height: 20.w,
-                        color: Colors.white,
                       ),
-                    ),
-                    Obx(() {
-                      int count = controller.cartCount.value;
-                      return Positioned(
-                        left: 10.w,
-                        child: count > 0
-                            ? AnimatedContainer(
-                                height: 12.w,
-                                width: 12.w,
-                                alignment: Alignment.center,
-                                child: Text("$count",
-                                    style: TextStyle(fontSize: 8.sp)),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        offset: Offset(1, 1),
-                                        color: Colors.black12,
-                                      ),
-                                      BoxShadow(
-                                        offset: Offset(-1, -1),
-                                        color: Colors.black12,
-                                      )
-                                    ],
-                                    shape: BoxShape.circle),
-                                duration: Duration(milliseconds: 500),
-                              )
-                            : SizedBox(),
-                      );
-                    }),
-                  ],
+                    );
+                  },
                 ),
-              )
-            ]));
+                Container(
+                    margin: EdgeInsets.only(top: 4.h),
+                    child: Text(
+                        "You can order drinks for collections or Delivery.",
+                        style: Theme.of(context).textTheme.caption)),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () =>
+                HomeController.to.navigateToRoute(PageName.productCartPage),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 10.w),
+                  child: SvgPicture.asset(
+                    cartIcons,
+                    width: 20.w,
+                    height: 20.w,
+                    color: Colors.white,
+                  ),
+                ),
+                Obx(
+                  () {
+                    int count = controller.cartCount.value;
+                    return Positioned(
+                      left: 10.w,
+                      child: count > 0
+                          ? AnimatedContainer(
+                              height: 12.w,
+                              width: 12.w,
+                              alignment: Alignment.center,
+                              child: Text("$count",
+                                  style: TextStyle(fontSize: 8.sp)),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(1, 1),
+                                      color: Colors.black12,
+                                    ),
+                                    BoxShadow(
+                                      offset: Offset(-1, -1),
+                                      color: Colors.black12,
+                                    )
+                                  ],
+                                  shape: BoxShape.circle),
+                              duration: Duration(milliseconds: 500),
+                            )
+                          : SizedBox(),
+                    );
+                  },
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

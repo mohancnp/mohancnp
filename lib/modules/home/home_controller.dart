@@ -17,8 +17,8 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
 
   int currentpageindex = 0;
   bool internetConnected = false;
-  var _productService = locator<ProductService>();
-  var _cartService = locator<CartService>();
+  ProductService _productService = locator.get<ProductService>();
+  // late CartService _cartService = locator<CartService>();
 
   Rx<User> _user = User().obs;
 

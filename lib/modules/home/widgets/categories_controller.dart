@@ -10,6 +10,7 @@ class CategoriesController extends GetxController
   static CategoriesController get to => Get.find();
   List<Category> _categoryList = <Category>[];
   var _productService = locator.get<ProductService>();
+
   List<Category> get categoryList {
     return _categoryList;
   }

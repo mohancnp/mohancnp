@@ -8,19 +8,16 @@ import 'package:metrocoffee/modules/home/widgets/tophomegreeting.dart';
 import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
 import 'package:metrocoffee/modules/shareables/widgets/searchbar.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-
 import 'widgets/categories_controller.dart';
 
 class Home extends StatelessWidget {
-  final controllerCategories = Get.put(CategoriesController());
-  final controllerHome = Get.put(HomeController());
-  final controllerSearh = Get.put(SearchPageController());
   Home({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Palette.pagebackgroundcolor,
-        body: Stack(children: [
+      backgroundColor: Palette.pagebackgroundcolor,
+      body: Stack(
+        children: [
           Container(
             height: 153.h,
             width: 375.w,
@@ -32,7 +29,9 @@ class Home extends StatelessWidget {
             children: [
               TopHomeGreeting(),
               CategoriesTabs(),
-              Expanded(child: ProductsPage()),
+              Expanded(
+                child: ProductsPage(),
+              ),
             ],
           ),
           Positioned(
@@ -41,6 +40,8 @@ class Home extends StatelessWidget {
             right: 28.w,
             child: SearchBar(),
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }

@@ -1,16 +1,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
-import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/category.dart';
 import 'package:metrocoffee/core/models/filter.dart';
 import 'package:metrocoffee/core/models/product.dart';
 import 'package:metrocoffee/core/models/product_detail.dart';
-import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
+import 'package:metrocoffee/core/sources/remote_source.dart';
+
 import 'product_service.dart';
 
 class ProductServiceImpl extends ProductService {
-  final _remoteSource = locator<RemoteSourceImpl>();
+  final RemoteSource _remoteSource;
+  ProductServiceImpl(this._remoteSource);
   @override
   Future<Either<List<Category>, Failure>> getCatoriesList() async {
     var failureData =

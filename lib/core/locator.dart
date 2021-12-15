@@ -18,6 +18,7 @@ import 'services/older/profile_service/profile_service_impl.dart';
 import 'sources/remote_source.dart';
 
 GetIt locator = GetIt.instance;
+
 Future<void> setupLocator() async {
   locator.registerSingletonAsync<TempStorage>(() async {
     final service = TempStorage();
@@ -30,17 +31,22 @@ Future<void> setupLocator() async {
     await storageService.openDB();
     return storageService;
   });
+
+  locator.isReady<TempStorage>().whenComplete(
+    () {
+      locator.registerLazySingleton<RemoteSource>(() => RemoteSourceImpl());
+      locator.registerLazySingleton<ProductService>(
+          () => ProductServiceImpl(locator.get()));
+      locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
+      locator.registerLazySingleton<OrderService>(() => OrderServiceImpl());
+      locator.registerLazySingleton<ProfileService>(() => ProfileServiceImpl());
+      locator.registerLazySingleton<NotificationService>(
+          () => NotificationServiceImpl());
+    },
+  );
   locator.isReady<DbStorage>().whenComplete(() {
-    locator.registerSingleton<CartService>(CartServiceImpl());
-  });
-  locator.isReady<TempStorage>().whenComplete(() {
-    locator.registerLazySingleton<RemoteSource>(() => RemoteSourceImpl());
-    locator.registerSingleton<AuthService>(AuthServiceImpl());
-    locator.registerSingleton<UserTableHandler>(UserTableHandler());
-    locator.registerSingleton<ProductService>(ProductServiceImpl());
-    locator.registerSingleton<OrderService>(OrderServiceImpl());
-    locator.registerSingleton<ProfileService>(ProfileServiceImpl());
-    locator.registerSingleton<NotificationService>(NotificationServiceImpl());
+    locator.registerLazySingleton<CartService>(() => CartServiceImpl());
+    locator.registerLazySingleton<UserTableHandler>(() => UserTableHandler());
   });
 
   await locator.allReady();
