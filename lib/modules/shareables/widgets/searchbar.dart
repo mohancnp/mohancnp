@@ -26,11 +26,8 @@ class SearchBar extends StatelessWidget {
               )
             ]),
         child: GestureDetector(
-          onTap: () {
-            if (!enabled) {
-              Get.toNamed(PageName.searchPage);
-            }
-          },
+          onTap: () => SearchPageController.to
+              .navigateToSearchPage(PageName.searchPage, enabled),
           child: Center(
             child: TextField(
               enabled: enabled,

@@ -1,7 +1,5 @@
-import 'package:dartz/dartz.dart';
-
 class Failure {
-  String message, tag;
+  String message;
+  String tag;
   Failure({required this.tag, required this.message});
-  
 }

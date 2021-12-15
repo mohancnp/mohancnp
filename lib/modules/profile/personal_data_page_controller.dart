@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/user_model.dart';
-import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
+import 'package:metrocoffee/core/models/older/user_model.dart';
+import 'package:metrocoffee/core/services/older/profile_service/profile_service.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'profile_page_controller.dart';
 

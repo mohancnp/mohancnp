@@ -11,7 +11,7 @@ import 'package:metrocoffee/modules/auth/custom/membership/membership_login_cont
 import 'package:metrocoffee/modules/auth/custom/widgets/sign_in_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/text_form_feild_skeleton.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/welcome_text.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class EmailLoginPage extends StatelessWidget {
@@ -21,13 +21,10 @@ class EmailLoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Image.asset(
-            loginBackgroundImage,
-            width: 375.w,
-            fit: BoxFit.cover,
-          ),
+        Image.asset(
+          loginBackgroundImage,
+          width: 375.w,
+          fit: BoxFit.cover,
         ),
         Scaffold(
             appBar: AppBar(

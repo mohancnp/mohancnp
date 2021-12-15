@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'product_model.dart';
+part of 'product.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -8,10 +8,10 @@ part of 'product_model.dart';
 
 CategoryProduct _$CategoryProductFromJson(Map<String, dynamic> json) {
   return CategoryProduct(
-    (json['products'] as List<dynamic>)
+    products: (json['products'] as List<dynamic>)
         .map((e) => Product.fromJson(e as Map<String, dynamic>))
         .toList(),
-    (json['most_popular_products'] as List<dynamic>)
+    mostPopularProducts: (json['most_popular_products'] as List<dynamic>)
         .map((e) => Product.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
@@ -20,7 +20,7 @@ CategoryProduct _$CategoryProductFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$CategoryProductToJson(CategoryProduct instance) =>
     <String, dynamic>{
       'products': instance.products,
-      'most_popular_products': instance.mostPopular,
+      'most_popular_products': instance.mostPopularProducts,
     };
 
 Product _$ProductFromJson(Map<String, dynamic> json) {
@@ -28,7 +28,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     productName: json['product_name'] as String,
     productPrice: (json['product_price'] as num).toDouble(),
-    productImage: json['features_image'] as String,
+    featuresImage: json['features_image'] as String,
   );
 }
 
@@ -36,5 +36,5 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'id': instance.id,
       'product_name': instance.productName,
       'product_price': instance.productPrice,
-      'features_image': instance.productImage,
+      'features_image': instance.featuresImage,
     };

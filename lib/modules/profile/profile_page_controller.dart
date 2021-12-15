@@ -1,24 +1,11 @@
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
-import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/user_model.dart';
-import 'package:metrocoffee/core/routing/names.dart';
-import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
-import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
+import 'package:metrocoffee/core/models/older/user_model.dart';
 
 class ProfilePageController extends GetxController {
-  var _profileService = locator.get<ProfileService>();
   Rx<User> _newUser = User().obs;
 
   Future getProfile() async {
-    try {
-      var data = await _profileService.getUserDetail();
-      var user = User.fromJson(data["data"]);
-      newUser = user;
-      return user;
-    } on AppException catch (e) {
-      print(e.message);
-    }
+    //TODO: implement get user profile data
   }
 
   set newUser(User user) {
@@ -30,9 +17,10 @@ class ProfilePageController extends GetxController {
     return _newUser.value;
   }
 
-  String getFirstLetterOfNameAndSurname() {
+  String getImagePlacholder() {
+    //code can be reused later
     var user = this.newUser;
-    String imagePlaceHolder = "N/A";
+    String imagePlaceHolder = "NA";
     if (user.imageUri == null && user.name != null) {
       imagePlaceHolder = "";
       imagePlaceHolder = user.name?.substring(0, 1).toUpperCase() ?? "N";
@@ -47,18 +35,6 @@ class ProfilePageController extends GetxController {
   }
 
   Future logout() async {
-    // Future.delayed(Duration(milliseconds: 1500));
-    // await showCustomDialog(message: "Loggin out");
-    var canLogout = await processLogout();
-    if (canLogout) {
-      // Get.find<BaseController>().setindex(0);
-      // Get.back();
-      Get.offAllNamed(PageName.loginpage);
-    }
-  }
-
-  Future processLogout() async {
-    locator.get<TempStorage>().delete(TempStorageKeys.authToken);
-    return true;
+    //TODO: Implement logout
   }
 }

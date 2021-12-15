@@ -15,14 +15,6 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
   @override
   void initState() {
     super.initState();
-    // locator.get<ProductService>().getFavoriteProducts().then((response) {
-    //   List<dynamic> responseData = response['data']['data'];
-    //   responseData.forEach((element) {
-    //     NewProduct.all(products: products)
-    //     productList?.pr(NewProduct.fromJson(element));
-    //   });
-    //   setState(() {});
-    // });
   }
 
   @override

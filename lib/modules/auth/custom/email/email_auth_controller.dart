@@ -33,9 +33,8 @@ class EmailAuthController extends GetxController {
   }
 
   void navigateToRoute({required String routeName}) {
-    if (redirectionController.userExists) {
-      Get.toNamed(routeName);
-    }
+    if (redirectionController.userExists) {}
+    Get.toNamed(routeName);
   }
 
   Future performEmailLogin() async {}

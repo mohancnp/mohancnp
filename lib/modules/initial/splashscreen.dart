@@ -5,7 +5,9 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/util/internet.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -24,37 +26,41 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _textscaleanimation;
   late Animation<double> _fadeanimation;
   late Animation<double> _downscaleanimation;
-  int initialfadeduration = 2000;
-  int loginstat = 0;
+  int _initialfadeduration = 2000;
+  int _loginstat = 0;
 
   @override
   initState() {
     deployanimation();
     startTime();
 
-    InternetConnectionHelper.isConnectionReady().then((ready) {
-      if (ready) {
-        final tempStorage = TempStorage();
-        var authToken, firsTimeUser;
-        tempStorage.initialise().then((value) {
-          firsTimeUser = tempStorage.readBool(TempStorageKeys.firstTimeUser);
-          authToken = tempStorage.readString(TempStorageKeys.authToken);
-          // print("FTM: $firsTimeUser and auth $authToken");
-          if (firsTimeUser != null) {
-            // print("not the first time user");
-            if (authToken != null) {
-              Get.find<RedirectionController>().userExists = true;
-              // print("authenticated");
-              loginstat = 1;
-            }
-          } else {
-            loginstat = 2;
-          }
-        });
-      } else {
-        loginstat = -1;
-      }
-    });
+    InternetConnectionHelper.isConnectionReady().then(
+      (ready) {
+        if (ready) {
+          final tempStorage = TempStorage();
+          var authToken, firsTimeUser;
+          tempStorage.initialise().then(
+            (value) {
+              firsTimeUser =
+                  tempStorage.readBool(TempStorageKeys.firstTimeUser);
+              authToken = tempStorage.readString(TempStorageKeys.authToken);
+
+              if (firsTimeUser != null) {
+                if (authToken != null) {
+                  Get.find<RedirectionController>().userExists = true;
+
+                  _loginstat = 1;
+                }
+              } else {
+                _loginstat = 2;
+              }
+            },
+          );
+        } else {
+          _loginstat = -1;
+        }
+      },
+    );
     super.initState();
   }
 
@@ -69,64 +75,66 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    double screenheight = MediaQuery.of(context).size.height;
-    double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        height: screenheight,
-        width: screenwidth,
+        height: 812.h,
+        width: 375.w,
         child: ScaleTransition(
-            scale: _downscaleanimation,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                      FadeTransition(
-                          opacity: _fadeanimation,
-                          child: Container(
-                            margin: EdgeInsets.only(
-                                //     bottom:11,left: 5
-                                bottom: screenwidth * 0.02676,
-                                left: screenwidth * 0.01216),
-                            child: Image.asset(
-                              "assets/images/steam.png",
-                              width: screenwidth * 0.105,
-                            ),
-                          )),
-                      ScaleTransition(
-                          scale: _imagescaleanimation,
-                          child: Container(
-                            child:
-                                Image.asset("assets/images/coffee-cup@3x.png",
-                                    //     width: 116,
-                                    width: screenwidth * 0.1605
-                                    //  width: screenwidth*0.282,
-                                    ),
-                          ))
-                    ])),
-                ScaleTransition(
-                    scale: _textscaleanimation,
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          //        top: 24
-                          top: screenwidth * 0.09839),
-                      child: Text(
-                        "Metro Coffee",
-                        style: TextStyle(
-                            fontFamily: montserratmedium,
-                            color: Color(0xff404d4d),
-                            //     fontSize: 25
-                            fontSize: screenwidth * 0.059),
+          scale: _downscaleanimation,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FadeTransition(
+                      opacity: _fadeanimation,
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          bottom: 12.h,
+                          left: 4.w,
+                        ),
+                        child: Image.asset(
+                          "assets/images/steam.png",
+                          width: 40.w,
+                        ),
                       ),
-                    ))
-              ],
-            )),
+                    ),
+                    ScaleTransition(
+                      scale: _imagescaleanimation,
+                      child: Container(
+                        child: Image.asset(
+                          "assets/images/coffee-cup@3x.png",
+                          width: 56.w,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              ScaleTransition(
+                scale: _textscaleanimation,
+                child: Container(
+                  margin: EdgeInsets.only(
+                    top: 36.h,
+                  ),
+                  child: Text(
+                    "Metro Coffee",
+                    style: TextStyle(
+                      fontFamily: montserratmedium,
+                      color: Palette.darkGery,
+                      fontSize: 24.sp,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -142,7 +150,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
     _fadeanimationcontroller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: initialfadeduration),
+      duration: Duration(milliseconds: _initialfadeduration),
     );
     _downscaleanimationcontroller = AnimationController(
       vsync: this,
@@ -167,19 +175,14 @@ class _SplashScreenState extends State<SplashScreen>
     _imagescaleanimationcontroller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _fadeanimationcontroller.forward();
-//_scaleanimationcontroller.reverse();
       }
     });
     _fadeanimationcontroller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-          initialfadeduration = 800;
+          _initialfadeduration = 800;
         });
         _downscaleanimationcontroller.forward();
-//_imagescaleanimationcontroller.reverse();
-//_textscaleanimationcontroller.reverse();
-//_fadeanimationcontroller.reverse();
-        //_scaleanimationco\ntroller.reverse();
       }
     });
   }
@@ -189,18 +192,17 @@ class _SplashScreenState extends State<SplashScreen>
     return new Timer(_duration, navigationPage);
   }
 
-// <0 means no internet, 1 means user logged in, 2 means first time user,
-// 0 menas user has been logged out or simply user not availbale
   void navigationPage() {
-    if (loginstat < 0) {
+    if (_loginstat < 0) {
       Get.offNamed(PageName.nointernetpage);
     } else {
-      // print("login state: $loginstat");
-      Get.offAllNamed(loginstat == 1
-          ? PageName.homepage
-          : loginstat == 2
-              ? PageName.onboardingpage
-              : PageName.homepage);
+      Get.offAllNamed(
+        _loginstat == 1
+            ? PageName.homepage
+            : _loginstat == 2
+                ? PageName.onboardingpage
+                : PageName.homepage,
+      );
     }
   }
 }

@@ -16,15 +16,18 @@ class FinalProductCalculationCard extends StatelessWidget {
       width: 320.w,
       height: 128.h,
       decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 10.r,
-              offset: Offset(0, 3),
-            )
-          ],
-          borderRadius: BorderRadius.all(Radius.circular(9))),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10.r,
+            offset: Offset(0, 3),
+          )
+        ],
+        borderRadius: BorderRadius.all(
+          Radius.circular(9),
+        ),
+      ),
       padding: EdgeInsets.symmetric(vertical: 26.h, horizontal: 26.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -35,20 +38,24 @@ class FinalProductCalculationCard extends StatelessWidget {
               Container(
                 child: Text(
                   "Discount",
-                  style: getpoppins(TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Color(0xff404D4D),
-                      fontSize: 12.sp)),
+                  style: getpoppins(
+                    TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Color(0xff404D4D),
+                        fontSize: 12.sp),
+                  ),
                 ),
               ),
               Container(
                 child: Text(
-                  "$dollar 0",
-                  style: getpoppins(TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Color(0xff404D4D),
-                    fontSize: 12.sp,
-                  )),
+                  "${Currency.symbol} 0",
+                  style: getpoppins(
+                    TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: Color(0xff404D4D),
+                      fontSize: 12.sp,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -59,20 +66,25 @@ class FinalProductCalculationCard extends StatelessWidget {
               Container(
                 child: Text(
                   "Delivery Fee",
-                  style: getpoppins(TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Color(0xff404D4D),
-                      fontSize: 12.sp)),
+                  style: getpoppins(
+                    TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Color(0xff404D4D),
+                        fontSize: 12.sp),
+                  ),
                 ),
               ),
               SizedBox(
-                  child: Text(
-                "$dollar 0.0",
-                style: getpoppins(TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Color(0xff404D4D),
-                    fontSize: 12.sp)),
-              )),
+                child: Text(
+                  "${Currency.symbol} 0.0",
+                  style: getpoppins(
+                    TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Color(0xff404D4D),
+                        fontSize: 12.sp),
+                  ),
+                ),
+              ),
             ],
           ),
           Expanded(
@@ -84,24 +96,31 @@ class FinalProductCalculationCard extends StatelessWidget {
                   Container(
                     child: Text(
                       "Total",
-                      style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff404D4D),
-                        fontSize: 16.sp,
-                      )),
+                      style: getpoppins(
+                        TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff404D4D),
+                          fontSize: 16.sp,
+                        ),
+                      ),
                     ),
                   ),
-                  Obx(() {
-                    return SizedBox(
+                  Obx(
+                    () {
+                      return SizedBox(
                         child: Text(
-                      "$dollar ${controller.totalAmount.toStringAsPrecision(3)}",
-                      style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff404D4D),
-                        fontSize: 16.sp,
-                      )),
-                    ));
-                  }),
+                          "${Currency.symbol} ${controller.totalAmount.toStringAsPrecision(3)}",
+                          style: getpoppins(
+                            TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff404D4D),
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

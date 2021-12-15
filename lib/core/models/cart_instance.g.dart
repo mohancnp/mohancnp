@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart_instance_model.dart';
+part of 'cart_instance.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

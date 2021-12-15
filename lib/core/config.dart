@@ -1,10 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:metrocoffee/resource/app_config.dart';
 
 BaseOptions options = BaseOptions(
   baseUrl: AppConfig.baseUrl,
-  connectTimeout: 20000,
-  sendTimeout: 50000,
-  receiveTimeout: 50000,
+  connectTimeout: 10000,
+  sendTimeout: 10000,
+  receiveTimeout: 10000,
 );
-var dio = Dio(options);
+
+class AppConfig {
+  static String appTitle = "Metro Coffee";
+  static String baseUrl = "https://pioneersoftech.com/cp_metrocoffee";
+  static String metroCoffeeLogoAssetPath =
+      "assets/images/metro_coffee_logo.png";
+}

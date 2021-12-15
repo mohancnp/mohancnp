@@ -22,9 +22,9 @@ class _ToppingsMultiSelectState extends State<ToppingsMultiSelect> {
           setState(() {
             selectedToppings = x;
           });
-          ProductDetailPageController.to.tpl = x;
+          ProductDetailPageController.to.toppingStringList = x;
           ProductDetailPageController.to.calculateTotal();
-          print(x);
+          // print(x);
           //  .refreshToppingList(x);
         },
         options: ProductDetailPageController.to.getToppingsList(),

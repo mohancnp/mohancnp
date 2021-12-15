@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
@@ -22,6 +22,7 @@ class ProductCard extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // print("${AppConfig.baseUrl}/$imageUri");
     return Container(
       width: 140.w,
       margin: EdgeInsets.only(
@@ -64,8 +65,8 @@ class ProductCard extends StatelessWidget {
                     }
                     return Center(
                       child: SizedBox(
-                        height: 116.r,
-                        width: 116.r,
+                        height: 116.w,
+                        width: 116.w,
                         child: SpinKitCubeGrid(
                           color: Palette.coffeeColor,
                         ),
@@ -73,8 +74,6 @@ class ProductCard extends StatelessWidget {
                     );
                   },
                   errorBuilder: (context, object, stackTrace) {
-                    // print(
-                    //     "${AppConfig.baseUrl}${AppConfig.productImagePath}$imageUri");
                     return Center(
                       child: Image.asset(
                         AppConfig.metroCoffeeLogoAssetPath,
@@ -120,14 +119,15 @@ class ProductCard extends StatelessWidget {
                       size: 16.w,
                     ),
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: coffeecolor,
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(0, 3.h),
-                              color: Color(0x62722030),
-                              blurRadius: 10.r)
-                        ]),
+                      shape: BoxShape.circle,
+                      color: coffeecolor,
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 3.h),
+                            color: Color(0x62722030),
+                            blurRadius: 10.r)
+                      ],
+                    ),
                   ),
                 )
               ],

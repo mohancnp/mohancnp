@@ -6,12 +6,17 @@ part 'category.g.dart';
 class Category {
   int id;
   @JsonKey(name: "title")
-  String name;
+  String title;
   @JsonKey(name: "image")
   String imageUri;
   @JsonKey(ignore: true)
   bool? selected;
-  Category(this.id, this.name, this.imageUri, [this.selected]);
+  Category({
+    required this.id,
+    required this.title,
+    required this.imageUri,
+    this.selected,
+  });
   factory Category.fromJson(Map<String, dynamic> json) =>
       _$CategoryFromJson(json);
   Map<String, dynamic> toJson() => _$CategoryToJson(this);

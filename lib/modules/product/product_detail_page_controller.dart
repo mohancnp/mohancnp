@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/cart_instance_model.dart';
-import 'package:metrocoffee/core/models/product_detail_model.dart';
+import 'package:metrocoffee/core/models/cart_instance.dart';
+import 'package:metrocoffee/core/models/product_detail.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
@@ -35,7 +35,7 @@ class ProductDetailPageController extends GetxController
     toppings: [],
     addons: [],
   ).obs;
-  List<String>? tpl;
+  List<String>? toppingStringList;
   Rx<double> totalPrice = 0.0.obs;
   ProductDetail get productDetail {
     return _productDetail.value;
@@ -53,29 +53,23 @@ class ProductDetailPageController extends GetxController
     }
   }
 
-  handleResponse(ProductDetail p) {
-    change(p, status: RxStatus.success());
-    p.variants[0].selected = true;
-    selectedVariant = p.variants[0];
-    if (p.productTypes.isNotEmpty) {
-      p.productTypes[0].selected = true;
-      selectedproductType = p.productTypes[0];
-    }
-    productDetail = p;
-    calculateTotal();
+  void handleResponse(ProductDetail productDetail) {
+    change(productDetail, status: RxStatus.success());
+    totalPrice.value = productDetail.variants[0].price;
+    this.productDetail = productDetail;
   }
 
-  calculateTotal() {
+  void calculateTotal() {
+    // print("calculated");
     totalPrice.value = 0.0;
     double total = 0.0;
     total = getSizeAmount();
-    total += getTempOptionTotal();
-
-    if (tpl != null) {
-      total += getToppingsAmount(tpl);
+    if (toppingStringList != null) {
+      total += getToppingsAmount();
     }
     total += getAddonsAmount();
     totalPrice.value = total * productDetail.product.qty;
+
     // print("calculated total");
   }
 
@@ -90,18 +84,18 @@ class ProductDetailPageController extends GetxController
     return price;
   }
 
-  double getToppingsAmount(tpl) {
+  double getToppingsAmount() {
     var total = 0.0;
     var toppings = productDetail.toppings;
-    selectedToppings.clear();
-    for (var i = 0; i < tpl.length; i++) {
-      for (var j = 0; j < toppings.length; j++) {
-        var topping = toppings[j];
-        var newName = "${topping.name}   $dollar${topping.price}";
-        if (newName == tpl[i]) {
-          selectedToppingsObject.add(toppings[j]);
-          total += toppings[j].price;
-          break;
+    if (toppingStringList != null) {
+      for (int i = 0; i < toppingStringList!.length; i++) {
+        for (int j = 0; j < toppings.length; j++) {
+          var topping = toppings[j];
+          var newName = "${topping.name}   ${Currency.symbol}${topping.price}";
+          if (newName == toppingStringList![i]) {
+            total += toppings[j].price;
+            break;
+          }
         }
       }
     }
@@ -133,12 +127,13 @@ class ProductDetailPageController extends GetxController
     return t;
   }
 
-  handleFailure(Failure f) {
+  void handleFailure(Failure f) {
     print("handling failure");
     change(null, status: RxStatus.error(f.message));
   }
 
-  handleSizeSelection(atIndex) {
+  void handleSizeSelection(atIndex) {
+    //TODO: remove unnessary reference.
     var variants = productDetail.variants;
     productDetail.variants[atIndex].selected = true;
     for (var i = 0; i < variants.length; i++) {
@@ -149,7 +144,7 @@ class ProductDetailPageController extends GetxController
     _productDetail.refresh();
   }
 
-  handleAddonSelection(id) {
+  void handleAddonSelection(id) {
     var addons = productDetail.addons;
     for (var i = 0; i < addons.length; i++) {
       if (id == addons[i].id) {
@@ -159,12 +154,12 @@ class ProductDetailPageController extends GetxController
     _productDetail.refresh();
   }
 
-  addCount() {
+  void addCount() {
     productDetail.product.qty += 1;
     _productDetail.refresh();
   }
 
-  removeCount() {
+  void removeCount() {
     if (productDetail.product.qty > 1) {
       productDetail.product.qty -= 1;
       _productDetail.refresh();
@@ -178,21 +173,21 @@ class ProductDetailPageController extends GetxController
     super.onInit();
   }
 
-  getToppingsList() {
+  List<String> getToppingsList() {
     List<String> toppingsList = [];
     for (var i = 0; i < productDetail.toppings.length; i++) {
       var topping = productDetail.toppings[i];
-      toppingsList.add("${topping.name}   $dollar${topping.price}");
+      toppingsList.add("${topping.name}   ${Currency.symbol}${topping.price}");
     }
     return toppingsList;
   }
 
-  refreshToppingList(List<String> x) {
+  void refreshToppingList(List<String> x) {
     selectedToppings.clear();
     selectedToppings.addAll(x);
   }
 
-  handleProductTypeSelection(int atIndex) {
+  void handleProductTypeSelection(int atIndex) {
     var pt = productDetail.productTypes;
     var elementToCheck = pt[atIndex];
     for (var i = 0; i < pt.length; i++) {
@@ -220,7 +215,6 @@ class ProductDetailPageController extends GetxController
       addons: selectedAddons,
       imageUri: productDetail.product.image,
     );
-    // print(newInstance.toJson());
     var response = await cartService.addProductToCart(newInstance.toJson());
 
     response.fold(
@@ -232,18 +226,18 @@ class ProductDetailPageController extends GetxController
         (r) => print("failure getting count"));
   }
 
-  handleCartProductFailure(Failure r) {
+  void handleCartProductFailure(Failure r) {
     Get.back();
     showCustomSnackBarMessage(title: "Cart", message: "${r.message}");
   }
 
-  handleCartProductSucess(int count) {
+  void handleCartProductSucess(int count) {
     Get.back();
     showCustomSnackBarMessage(title: "", message: "sucessfully added an item");
     update();
   }
 
-  navigateTo({required String route}) {
+  void navigateTo({required String route}) {
     Get.toNamed(route);
   }
 }

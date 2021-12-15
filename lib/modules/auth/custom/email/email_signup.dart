@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
 import 'package:metrocoffee/core/routing/names.dart';
@@ -10,9 +11,7 @@ import 'package:metrocoffee/modules/auth/custom/email/email_auth_controller.dart
 import 'package:metrocoffee/modules/auth/custom/widgets/sign_in_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/text_form_feild_skeleton.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/welcome_text.dart';
-import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class EmailSignUpPage extends StatelessWidget {
   EmailSignUpPage({Key? key}) : super(key: key);

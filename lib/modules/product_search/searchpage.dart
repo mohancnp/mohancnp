@@ -4,12 +4,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
+import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:metrocoffee/modules/home/widgets/newcard.dart';
+import 'package:metrocoffee/modules/home/home_controller.dart';
+import 'package:metrocoffee/modules/home/widgets/new_card.dart';
 import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
-
 import '../shareables/widgets/searchbar.dart';
 
 class SearchPage extends StatelessWidget {
@@ -65,8 +66,9 @@ class SearchPage extends StatelessWidget {
                     ],
                   ),
                 ),
+                SizedBox(height: 26.h),
                 Padding(
-                  padding: EdgeInsets.only(top: 26.h, left: 28.w, right: 28.w),
+                  padding: EdgeInsets.symmetric(horizontal: 28.w),
                   child: SearchBar(
                     enabled: true,
                   ),
@@ -77,7 +79,6 @@ class SearchPage extends StatelessWidget {
           Expanded(
             child: Container(
               width: double.infinity,
-              // height: 700.h,
               margin: EdgeInsets.only(left: 24.w, right: 16.w),
               padding: EdgeInsets.only(top: 16.h),
               child: GetBuilder<SearchPageController>(
@@ -101,7 +102,6 @@ class SearchPage extends StatelessWidget {
                         ),
                       );
                     }
-
                     return GridView.builder(
                       padding: EdgeInsets.zero,
                       // primary: false,
@@ -118,10 +118,12 @@ class SearchPage extends StatelessWidget {
                         var product = controller.ctp.products[index];
                         print(product.productName);
                         return ProductCard(
-                          imageUri: "${product.productImage}",
+                          imageUri: "${product.featuresImage}",
                           name: "${product.productName}",
                           id: product.id,
-                          onPressed: () {},
+                          onPressed: () => HomeController.to
+                              .navigateToPageDetail(
+                                  PageName.productdetailpage, product.id),
                           price: product.productPrice,
                         );
                       },

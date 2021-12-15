@@ -2,8 +2,8 @@ import 'package:geocoding/geocoding.dart' as geo;
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:metrocoffee/core/enums/uistate.dart';
-import 'package:metrocoffee/core/models/location.dart';
+import 'package:metrocoffee/core/enums/ui_state.dart';
+import 'package:metrocoffee/core/models/older/location.dart';
 
 class MapController extends GetxController {
   Rx<CustomLocation> home = CustomLocation(
