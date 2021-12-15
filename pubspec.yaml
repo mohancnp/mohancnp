@@ -64,9 +64,6 @@ dependencies:
   flutter_animarker: ^3.2.0
   time_picker_widget: ^1.0.0+10
   multiselect: ^0.0.4
-  
-  
-
 
 dev_dependencies:
   build_runner: ^2.1.5

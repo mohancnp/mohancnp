@@ -22,6 +22,7 @@ class ProductCard extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // print("${AppConfig.baseUrl}/$imageUri");
     return Container(
       width: 140.w,
       margin: EdgeInsets.only(
@@ -73,8 +74,6 @@ class ProductCard extends StatelessWidget {
                     );
                   },
                   errorBuilder: (context, object, stackTrace) {
-                    // print(
-                    //     "${AppConfig.baseUrl}${AppConfig.productImagePath}$imageUri");
                     return Center(
                       child: Image.asset(
                         AppConfig.metroCoffeeLogoAssetPath,
