@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
-import 'package:metrocoffee/core/models/cart_instance_model.dart';
+import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/storage/db/core.dart';
 import 'package:metrocoffee/core/services/storage/db/dbconst.dart';

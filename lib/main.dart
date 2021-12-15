@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:metrocoffee/core/controllerbinding.dart';
+import 'package:metrocoffee/core/controller_binding.dart';
 import 'package:metrocoffee/ui/app_name.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
@@ -15,11 +15,10 @@ void mainCommon() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // transparent status bar
+    statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.light,
   ));
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
   runApp(MyApp());
@@ -31,7 +30,6 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(375, 812),
       builder: () => GetMaterialApp(
-//        smartManagement: SmartManagement.keepFactory,
         debugShowCheckedModeBanner: false,
         initialBinding: ControllerBinding(),
         title: metrocoffee,
@@ -62,62 +60,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-
         initialRoute: PageName.splashscreenpage,
-        // home: Test(),
-        // routes: RouteHandler.getRoutes(),
         getPages: RouteHandler.getPages(),
-        // unknownRoute: GetPage(name: '/notfound', page: () => UnknownRoutePage(),
       ),
     );
   }
 }
-
-  // class Test extends StatelessWidget {
-  //   Test({Key? key}) : super(key: key);
-
-  //   final controller = Get.put(CustomGoogleMapController());
-
-  //   @override
-  //   Widget build(BuildContext context) {
-  //     return Scaffold(
-  //       backgroundColor: Palette.pagebackgroundcolor,
-  //       body: Center(
-  //         child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: [
-  //             Container(
-  //               height: 200.h,
-  //               width: 375.w,
-  //             ),
-  //             Expanded(
-  //               child: Obx(() {
-  //                 return ListView.builder(
-  //                     itemCount: controller.userAddresses.length,
-  //                     padding:
-  //                         EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
-  //                     itemBuilder: (context, index) {
-  //                       var admodel = controller.userAddresses[index];
-  //                       return Padding(
-  //                         padding: EdgeInsets.only(bottom: 16.h),
-  //                         child: AddressDetailWidget(
-  //                           mainLocation: admodel.title,
-  //                           subLocation: admodel.subtitle,
-  //                           onDelete: () {},
-  //                           onItemSelected: 0,
-  //                           onEdit: () {
-  //                             Get.to(() => GoogleMapPage(
-  //                                 initialLat: admodel.mapLocation.lat,
-  //                                 initialLong: admodel.mapLocation.long));
-  //                           },
-  //                         ),
-  //                       );
-  //                     });
-  //               }),
-  //             )
-  //           ],
-  //         ),
-  //       ),
-  //     );
-  //   }
-  // }

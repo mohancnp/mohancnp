@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/cart_instance_model.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class SingleOrder extends StatelessWidget {
@@ -71,7 +71,7 @@ class SingleOrder extends StatelessWidget {
                   )),
                 ),
                 Text(
-                  "$dollar ${cartModel.totalPrice.toStringAsPrecision(3)}",
+                  "${Currency.symbol} ${cartModel.totalPrice.toStringAsPrecision(3)}",
                   style: getpoppins(
                     TextStyle(
                       fontWeight: FontWeight.w500,
@@ -82,71 +82,74 @@ class SingleOrder extends StatelessWidget {
                 ),
                 Expanded(
                   child: Wrap(
-                      direction: Axis.horizontal,
-                      spacing: 2.0,
-                      runSpacing: 1.0,
-                      children: [
-                        Text(
-                          "Size",
-                          style: getpoppins(
-                            TextStyle(
-                              fontWeight: FontWeight.w300,
-                              color: Palette.coffeeColor,
-                              fontSize: 11.sp,
-                            ),
+                    direction: Axis.horizontal,
+                    spacing: 2.0,
+                    runSpacing: 1.0,
+                    children: [
+                      Text(
+                        "Size",
+                        style: getpoppins(
+                          TextStyle(
+                            fontWeight: FontWeight.w300,
+                            color: Palette.coffeeColor,
+                            fontSize: 11.sp,
                           ),
                         ),
-                        Text(
-                          " ${cartModel.selectedVariants.size} ",
-                          style: getpoppins(
-                            TextStyle(
-                              fontWeight: FontWeight.w300,
-                              color: Palette.coffeeColor,
-                              fontSize: 11.sp,
-                            ),
+                      ),
+                      Text(
+                        " ${cartModel.selectedVariants.size} ",
+                        style: getpoppins(
+                          TextStyle(
+                            fontWeight: FontWeight.w300,
+                            color: Palette.coffeeColor,
+                            fontSize: 11.sp,
                           ),
                         ),
-                        SizedBox(
-                          height: 40.h,
-                          child: ListView.builder(
-                              itemCount: cartModel.toppingsList.length,
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                var cm = cartModel.toppingsList[index];
-                                return Text(
-                                  "| ${cm.name}",
-                                  style: getpoppins(
-                                    TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      color: Palette.coffeeColor,
-                                      fontSize: 11.sp,
-                                    ),
-                                  ),
-                                );
-                              }),
+                      ),
+                      SizedBox(
+                        height: 40.h,
+                        child: ListView.builder(
+                          itemCount: cartModel.toppingsList.length,
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            var cm = cartModel.toppingsList[index];
+                            return Text(
+                              "| ${cm.name}",
+                              style: getpoppins(
+                                TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  color: Palette.coffeeColor,
+                                  fontSize: 11.sp,
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                        SizedBox(
-                          height: 40.h,
-                          child: ListView.builder(
-                              itemCount: cartModel.toppingsList.length,
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                var cm = cartModel.addons[index];
-                                return Text(
-                                  "| ${cm.name}",
-                                  style: getpoppins(
-                                    TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      color: Palette.coffeeColor,
-                                      fontSize: 11.sp,
-                                    ),
-                                  ),
-                                );
-                              }),
-                        )
-                      ]),
+                      ),
+                      SizedBox(
+                        height: 40.h,
+                        child: ListView.builder(
+                          itemCount: cartModel.toppingsList.length,
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            var cm = cartModel.addons[index];
+                            return Text(
+                              "| ${cm.name}",
+                              style: getpoppins(
+                                TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  color: Palette.coffeeColor,
+                                  fontSize: 11.sp,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),

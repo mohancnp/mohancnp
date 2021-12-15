@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/order_model.dart';
+import 'package:metrocoffee/core/models/older/order_model.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 

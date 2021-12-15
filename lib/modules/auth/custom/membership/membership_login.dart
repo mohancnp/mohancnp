@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
 import 'package:metrocoffee/core/enums/auth_state.dart';
@@ -11,13 +12,13 @@ import 'package:metrocoffee/modules/auth/custom/membership/membership_login_cont
 import 'package:metrocoffee/modules/auth/custom/widgets/sign_in_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/text_form_feild_skeleton.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/welcome_text.dart';
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class MembershipLoginPage extends StatelessWidget {
   MembershipLoginPage({Key? key}) : super(key: key);
-  final controller = Get.find<MemberShipLoginController>();
 
+  final _controller = Get.find<MemberShipLoginController>();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -185,14 +186,14 @@ class MembershipLoginPage extends StatelessWidget {
                           ),
                         ),
                       );
-                    }),
+                    },),
                     Center(
                       child: AuthBtn(
                         centerBtnText: "Sign In",
                         onpressed: () async {
                           showCustomDialog();
-                          await controller.performMembershipLogin();
-                          if (controller.authState == AuthState.loggedIn) {
+                          await _controller.performMembershipLogin();
+                          if (_controller.authState == AuthState.loggedIn) {
                             Get.offAllNamed(PageName.homepage);
                           } else {
                             Get.back();
@@ -212,7 +213,7 @@ class MembershipLoginPage extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => controller.navigateToRoute(
+                      onTap: () => _controller.navigateToRoute(
                         route: PageName.signupPage,
                       ),
                       child: Center(

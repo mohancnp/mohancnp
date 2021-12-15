@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
-import 'package:metrocoffee/core/models/cart_instance_model.dart';
+import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/widgets/single_order.dart';
@@ -26,6 +26,8 @@ class CheckoutPage extends StatelessWidget {
   CheckoutPage({Key? key}) : super(key: key);
   final controller = Get.put(CheckoutPageController());
   final cartConroller = Get.put(CartController());
+  final mapController = Get.put(CustomGoogleMapController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,8 +148,8 @@ class CheckoutPage extends StatelessWidget {
                         horizontal: 28.w,
                       ),
                       child: AddressDetailWidget(
-                        mainLocation: CompanyDetail.mainLocation,
-                        subLocation: CompanyDetail.subLocation,
+                        mainLocation: CompanyDetail.address,
+                        subLocation: CompanyDetail.subAddress,
                         uop: UserOrderPreference.pickup,
                         onEdit: () {},
                         onDelete: () {},
@@ -232,6 +234,7 @@ class CheckoutPage extends StatelessWidget {
               Obx(() {
                 return GestureDetector(
                   onTap: () {
+                    //TODO: logic to refactor
                     TimeOfDay _currentTime = TimeOfDay.now();
                     var remainder = _currentTime.minute % 15;
                     showCustomTimePicker(

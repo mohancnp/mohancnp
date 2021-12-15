@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/filter_model.dart';
+import 'package:metrocoffee/core/models/filter.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 
 class SearchPageController extends GetxController {
@@ -11,7 +11,7 @@ class SearchPageController extends GetxController {
   static SearchPageController get to => Get.find();
   String errorMessage = "";
   bool searching = false;
-  FilterProduct ctp = FilterProduct([]);
+  FilterProduct ctp = FilterProduct(products: []);
   Future performSearch() async {
     errorMessage = "";
     searching = true;
@@ -31,6 +31,12 @@ class SearchPageController extends GetxController {
     errorMessage = f.message;
     searching = false;
     update();
+  }
+
+  navigateToSearchPage(String routeName, bool enabled) {
+    if (!enabled) {
+      Get.toNamed(routeName);
+    }
   }
 
   @override

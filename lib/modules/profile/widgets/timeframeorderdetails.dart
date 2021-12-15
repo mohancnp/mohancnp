@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/order_status.dart';
-import 'package:metrocoffee/core/models/order_model.dart';
+import 'package:metrocoffee/core/models/older/order_model.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/profile/widgets/cancel_order_dialog.dart';
 import 'package:metrocoffee/modules/profile/widgets/order_detail_row.dart';

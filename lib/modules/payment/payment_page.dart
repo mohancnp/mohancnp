@@ -26,7 +26,7 @@ class PaymentPage extends StatelessWidget {
           children: [
             Obx(() {
               return Text(
-                "$dollar ${cartController.totalAmount.toStringAsPrecision(3)}",
+                "${Currency.symbol} ${cartController.totalAmount.toStringAsPrecision(3)}",
                 style: getpoppins(TextStyle(
                     color: Palette.textColor,
                     fontSize: 26.sp,

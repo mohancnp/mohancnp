@@ -1,4 +1,6 @@
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/category.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
@@ -8,6 +10,7 @@ class CategoriesController extends GetxController
   static CategoriesController get to => Get.find();
   List<Category> _categoryList = <Category>[];
   var _productService = locator.get<ProductService>();
+
   List<Category> get categoryList {
     return _categoryList;
   }
@@ -31,13 +34,13 @@ class CategoriesController extends GetxController
     update();
   }
 
-  getCategories() async {
+  Future<void> getCategories() async {
     change(null, status: RxStatus.loading());
     var categories = await _productService.getCatoriesList();
     unfoldData(categories);
   }
 
-  unfoldData(categories) {
+  void unfoldData(Either<List<Category>, Failure> categories) {
     categories.fold((l) {
       _categoryList = l;
       setDefaultCategory();
@@ -50,8 +53,7 @@ class CategoriesController extends GetxController
     });
   }
 
-
-  setDefaultCategory() {
+  void setDefaultCategory() {
     for (var i = 0; i < _categoryList.length; i++) {
       var element = _categoryList[i];
       if (i == 0) {

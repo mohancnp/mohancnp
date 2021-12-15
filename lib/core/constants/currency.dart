@@ -1,1 +1,3 @@
-var dollar = "£";
+class Currency {
+  static const String symbol = "£";
+}

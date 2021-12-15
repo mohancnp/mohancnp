@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/order_model.dart';
+import 'package:metrocoffee/core/models/older/order_model.dart';
 import 'package:metrocoffee/modules/profile/widgets/timeframeorders.dart';
 
 class SingleTimeFrameReorders extends StatelessWidget {

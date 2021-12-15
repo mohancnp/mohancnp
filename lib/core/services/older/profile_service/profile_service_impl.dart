@@ -1,22 +1,21 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
-import 'package:metrocoffee/core/services/profile_service/profile_service.dart';
+import 'package:metrocoffee/core/locator.dart';
+import 'package:metrocoffee/core/services/older/profile_service/profile_service.dart';
 import 'package:metrocoffee/core/services/storage/db/core.dart';
 import 'package:metrocoffee/core/services/storage/db/dbconst.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
-import 'package:metrocoffee/resource/app_config.dart';
 
-import '../../locator.dart';
+/* to be modifed with new auth api later, unused now*/
 
 class ProfileServiceImpl extends ProfileService {
   @override
   Future getUserDetail() async {
     var remoteSource = RemoteSourceImpl();
     try {
-      var profile = await remoteSource.get('${AppConfig.baseUrl}/api/profile');
+      var profile = await remoteSource.get('/api/profile');
       return profile;
     } on ServerException catch (e) {
       print("${e.code}: ${e.message}");
@@ -39,7 +38,7 @@ class ProfileServiceImpl extends ProfileService {
       };
 
       var passwordStatus = await remoteSource
-          .post('${AppConfig.baseUrl}/api/profile/change-password', body: data);
+          .post('/api/profile/change-password', body: data);
       // print(passwordStatus);
       return passwordStatus;
     } on ServerException catch (e) {
@@ -60,15 +59,15 @@ class ProfileServiceImpl extends ProfileService {
       // profileData["profile_pic"] = null;
       // profileData.update("profile_pic", (value) => image);
       newMap = FormData.fromMap({
-        "name":profileData["name"],
-        "email":profileData["email"],
-        "profile_pic":image,
+        "name": profileData["name"],
+        "email": profileData["email"],
+        "profile_pic": image,
       });
     }
 
     try {
       var afterUpdate = await remoteSource.put(
-        '${AppConfig.baseUrl}/api/profile/update',
+        '/api/profile/update',
         body: newMap,
       );
 

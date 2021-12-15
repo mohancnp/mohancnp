@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/models/notification_model.dart' as n;
-import 'package:metrocoffee/resource/app_config.dart';
+import 'package:metrocoffee/core/models/older/notification_model.dart' as n;
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/util/date_trimmer.dart';
 
 class SingleNotification extends StatelessWidget {

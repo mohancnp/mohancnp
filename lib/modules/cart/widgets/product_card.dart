@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/cart_instance_model.dart';
+import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
-import 'package:metrocoffee/resource/app_config.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
@@ -89,12 +89,11 @@ class ProductCard extends StatelessWidget {
                             fontSize: 14.sp)),
                       ),
                       Text(
-                        '$dollar ${(cartModel.totalPrice * cartModel.qty).toStringAsPrecision(3)}',
+                        '${Currency.symbol} ${(cartModel.totalPrice * cartModel.qty).toStringAsPrecision(3)}',
                         style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff550E1C),
-                          fontSize: 14.sp,
-                        )),
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff550E1C),
+                            fontSize: 14.sp)),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,

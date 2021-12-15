@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/modules/home/widgets/category_tab_widget.dart';
-import 'package:metrocoffee/modules/shareables/dialogs/loading_single.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/on_empty_widget.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CategoriesTabs extends GetView<CategoriesController> {
   CategoriesTabs({Key? key}) : super(key: key);
@@ -43,7 +41,7 @@ class CategoriesTabs extends GetView<CategoriesController> {
                           var category = categories.elementAt(index);
                           // print(category);
                           return CategoryTab(
-                            name: category.name,
+                            name: category.title,
                             imagePath: category.imageUri,
                             pressed: category.selected,
                             index: index,

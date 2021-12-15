@@ -16,4 +16,6 @@ class RedirectionController extends GetxController {
   bool get userExists {
     return _userExists.value.exits;
   }
+
+  void navigateToAuthentication(String routeName) {}
 }

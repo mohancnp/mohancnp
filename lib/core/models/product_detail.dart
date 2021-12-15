@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'product_detail_model.g.dart';
+
+part 'product_detail.g.dart';
 
 @JsonSerializable()
 class ProductDetail {
@@ -105,11 +106,12 @@ class Topping {
   double price;
   @JsonKey(ignore: true)
   bool selected = false;
-  Topping(
-      {required this.id,
-      required this.name,
-      required this.price,
-      this.selected = false});
+  Topping({
+    required this.id,
+    required this.name,
+    required this.price,
+    this.selected = false,
+  });
   factory Topping.fromJson(Map<String, dynamic> json) =>
       _$ToppingFromJson(json);
 
