@@ -55,6 +55,7 @@ class ProductDetailPageController extends GetxController
 
   void handleResponse(ProductDetail productDetail) {
     change(productDetail, status: RxStatus.success());
+    selectedVariant = productDetail.variants[0];
     totalPrice.value = productDetail.variants[0].price;
     this.productDetail = productDetail;
   }

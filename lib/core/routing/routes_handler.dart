@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/auth/core_login.dart';
-import 'package:metrocoffee/modules/auth/custom/email/email_login.dart';
-import 'package:metrocoffee/modules/auth/custom/email/email_signup.dart';
-import 'package:metrocoffee/modules/auth/custom/email/forgot_password.dart';
+import 'package:metrocoffee/modules/auth/custom/email/login/email_login.dart';
+import 'package:metrocoffee/modules/auth/custom/email/signup/email_signup.dart';
+import 'package:metrocoffee/modules/auth/custom/password/forgot_password.dart';
+import 'package:metrocoffee/modules/auth/custom/password/reset_password.dart';
 import 'package:metrocoffee/modules/auth/custom/membership/membership_login.dart';
+import 'package:metrocoffee/modules/auth/custom/otp_verification.dart';
 import 'package:metrocoffee/modules/cart/my_product_cart.dart';
 import 'package:metrocoffee/modules/checkout/checkout_page.dart';
 import 'package:metrocoffee/modules/home/base.dart';
@@ -108,6 +110,14 @@ class RouteHandler {
       GetPage(
         name: PageName.forgotPasswordPage,
         page: () => ForgotPasswordPage(),
+      ),
+      GetPage(
+        name: PageName.otpVerificationPage,
+        page: () => OtpVerificationPage(),
+      ),
+      GetPage(
+        name: PageName.resetPasswordPage,
+        page: () => ResetPasswordPage(),
       ),
     ];
   }

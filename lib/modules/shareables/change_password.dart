@@ -260,14 +260,16 @@ class ChangePasswordPage extends StatelessWidget {
                       width: 268.w,
                       height: 46.h,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                          color: coffeecolor,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Color(0xffC3916A4D).withOpacity(0.38),
-                                blurRadius: 30.r,
-                                offset: Offset(0, 9.h))
-                          ]),
+                        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                        color: coffeecolor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffC3916A4D).withOpacity(0.38),
+                            blurRadius: 30.r,
+                            offset: Offset(0, 9.h),
+                          )
+                        ],
+                      ),
                       child: Center(
                         child: Text(
                           "Change Password",

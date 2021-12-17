@@ -23,7 +23,7 @@ class CheckoutPageController extends GetxController {
       Get.toNamed(routeName);
     } else {
       if (defaultRoute != null) {
-        Get.toNamed(PageName.loginpage);
+        Get.toNamed(defaultRoute);
       }
     }
   }

@@ -6,19 +6,19 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
-import 'package:metrocoffee/core/enums/auth_state.dart';
 import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/auth/custom/membership/membership_login_controller.dart';
-import 'package:metrocoffee/modules/auth/custom/widgets/sign_in_btn.dart';
-import 'package:metrocoffee/modules/auth/custom/widgets/text_form_feild_skeleton.dart';
+import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
+import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
+import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
+import 'package:metrocoffee/modules/auth/custom/widgets/input_feild_wrapper.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/welcome_text.dart';
-import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 
 class MembershipLoginPage extends StatelessWidget {
   MembershipLoginPage({Key? key}) : super(key: key);
+  final _controller = Get.put(MemberShipLoginController());
 
-  final _controller = Get.find<MemberShipLoginController>();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -29,6 +29,18 @@ class MembershipLoginPage extends StatelessWidget {
             loginBackgroundImage,
             width: 375.w,
             fit: BoxFit.cover,
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black.withOpacity(0.5),
+                Colors.black.withOpacity(0.9),
+              ],
+            ),
           ),
         ),
         Scaffold(
@@ -50,189 +62,136 @@ class MembershipLoginPage extends StatelessWidget {
             body: SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 18.w),
-                height: 812.h,
-                width: 375.w,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.14),
-                      Colors.black.withOpacity(0.8)
-                    ],
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 20.h),
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white.withOpacity(0.4),
+                child: Form(
+                  key: _controller.loginFormKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20.h),
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withOpacity(0.4),
+                        ),
+                        padding: EdgeInsets.all(5.w),
+                        child: Image.asset(
+                          AppConfig.metroCoffeeLogoAssetPath,
+                          width: 58.w,
+                        ),
                       ),
-                      padding: EdgeInsets.all(5.w),
-                      child: Image.asset(
-                        AppConfig.metroCoffeeLogoAssetPath,
-                        width: 58.w,
-                      ),
-                    ),
-                    SizedBox(height: 40.h),
-                    const WelcomeTextWidget(),
-                    SizedBox(height: 10.h),
-                    GetBuilder<MemberShipLoginController>(
+                      SizedBox(height: 40.h),
+                      const WelcomeTextWidget(),
+                      SizedBox(height: 10.h),
+                      GetBuilder<MemberShipLoginController>(
                         init: MemberShipLoginController(),
                         builder: (mc) {
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              FormFeildSkeleton(
-                                child: Center(
-                                  child: TextFormField(
-                                    controller: mc.membershipNumberController,
-                                    cursorColor: Colors.black87,
-                                    style: TextStyle(
-                                      fontFamily: poppinsregular,
-                                      color: Colors.black87,
-                                      fontSize: 13.sp,
-                                      height: 1.8,
-                                    ),
-                                    keyboardType: TextInputType.text,
-                                    textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(
-                                      suffixIcon: Icon(
-                                        FeatherIcons.user,
-                                        color: Color(0xff404d4d),
-                                        size: 18.sp,
-                                      ),
-                                      border: InputBorder.none,
-                                      hintText: 'Membership No.',
-                                      hintStyle: TextStyle(
-                                          fontFamily: poppinsregular,
-                                          color: Color(0xff404d4d)),
-                                    ),
-                                  ),
+                              CustomTextFormFeild(
+                                controller:
+                                    _controller.membershipNumberController,
+                                validator: _controller.validateMemberShip,
+                                hintText: "Membership no.",
+                                suffixIcon: Icon(
+                                  FeatherIcons.user,
+                                  size: 18.sp
                                 ),
                               ),
-                              FormFeildSkeleton(
-                                child: Center(
-                                  child: TextFormField(
-                                    controller: mc.passwordController,
-                                    cursorColor: Colors.black87,
-                                    style: TextStyle(
-                                      fontFamily: poppinsregular,
-                                      color: Colors.black87,
-                                      height: 1.8,
-                                      fontSize: 13.sp,
-                                    ),
-                                    keyboardType: TextInputType.visiblePassword,
-                                    textInputAction: TextInputAction.next,
-                                    obscureText: mc.eye ? false : true,
-                                    decoration: InputDecoration(
-                                      suffixIcon: GestureDetector(
-                                        onTap: () {
-                                          mc.eye = !mc.eye;
-                                        },
-                                        child: Icon(
-                                          mc.eye
-                                              ? FeatherIcons.eye
-                                              : FeatherIcons.eyeOff,
-                                          color: Color(0xff404d4d),
-                                          size: 18.sp,
-                                        ),
-                                      ),
-                                      border: InputBorder.none,
-                                      hintText: 'Password',
-                                      hintStyle: TextStyle(
-                                        fontFamily: poppinsregular,
-                                        color: Color(0xff404d4d),
-                                      ),
-                                    ),
-                                  ),
+                              Obx(
+                                () => _controller
+                                        .memberShipErrorMessage.isNotEmpty
+                                    ? CustomErrorWidget(
+                                        message: _controller
+                                            .memberShipErrorMessage.value,
+                                      )
+                                    : SizedBox(),
+                              ),
+                              CustomTextFormFeild(
+                                controller: _controller.passwordController,
+                                hintText: "Password",
+                                validator: _controller.validatePassword,
+                                suffixIcon: Icon(
+                                  _controller.eye
+                                      ? FeatherIcons.eye
+                                      : FeatherIcons.eyeOff,
+                                  color: Palette.darkGery,
+                                  size: 18.sp,
                                 ),
+                                obscureText: _controller.eye ? false : true,
+                                onSuffixIconTap: () {
+                                  _controller.eye = !_controller.eye;
+                                },
+                              ),
+                              Obx(
+                                () =>
+                                    _controller.passwordErrorMessage.isNotEmpty
+                                        ? CustomErrorWidget(
+                                            message: _controller
+                                                .passwordErrorMessage.value,
+                                          )
+                                        : SizedBox(),
                               ),
                             ],
                           );
-                        }),
-                    GestureDetector(
-                      onTap: () => Get.toNamed(PageName.forgotPasswordPage),
-                      child: Container(
-                        margin: EdgeInsets.only(top: 13.h, left: 10.w),
-                        child: Text(
-                          "Forgot Password ?",
-                          style: TextStyle(
-                              fontFamily: proximanovaregular,
-                              color: Colors.white70,
-                              fontSize: 14.sp),
+                        },
+                      ),
+                      SizedBox(height: 10.h),
+                      GestureDetector(
+                        onTap: () => Get.toNamed(PageName.forgotPasswordPage),
+                        child: Container(
+                          margin: EdgeInsets.only(top: 13.h, left: 10.w),
+                          child: Text(
+                            "Forgot Password ?",
+                            style: TextStyle(
+                                fontFamily: proximanovaregular,
+                                color: Colors.white70,
+                                fontSize: 14.sp),
+                          ),
                         ),
                       ),
-                    ),
-                    GetBuilder<MemberShipLoginController>(builder: (mc) {
-                      return Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 8.h),
-                          child: SizedBox(
-                            height: 20.h,
-                            child: Text(
-                              "${mc.errorMessage}",
-                              style: TextStyle(
-                                fontFamily: proximanovaregular,
-                                color: Colors.redAccent,
-                                fontSize: 14.sp,
-                              ),
+                      SizedBox(height: 10.h),
+                      Center(
+                        child: AuthBtn(
+                          centerBtnText: "Sign In",
+                          onpressed: _controller.performMembershipLogin,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Center(
+                        child: Text(
+                          "Don't have an account? ",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => _controller.navigateToRoute(
+                          route: PageName.signupPage,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Sign Up",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: proximanovaregular,
+                              decoration: TextDecoration.underline,
+                              fontSize: 16.sp,
+                              decorationColor: Colors.white,
+                              height: 1.7,
+                              decorationStyle: TextDecorationStyle.solid,
                             ),
                           ),
                         ),
-                      );
-                    },),
-                    Center(
-                      child: AuthBtn(
-                        centerBtnText: "Sign In",
-                        onpressed: () async {
-                          showCustomDialog();
-                          await _controller.performMembershipLogin();
-                          if (_controller.authState == AuthState.loggedIn) {
-                            Get.offAllNamed(PageName.homepage);
-                          } else {
-                            Get.back();
-                          }
-                        },
                       ),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Center(
-                      child: Text(
-                        "Don't have an account? ",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () => _controller.navigateToRoute(
-                        route: PageName.signupPage,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: proximanovaregular,
-                            decoration: TextDecoration.underline,
-                            fontSize: 16.sp,
-                            decorationColor: Colors.white,
-                            height: 1.7,
-                            decorationStyle: TextDecorationStyle.solid,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             )),

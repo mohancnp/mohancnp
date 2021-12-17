@@ -36,11 +36,11 @@ class RedirectionPage extends StatelessWidget {
                     color: Palette.textColor))),
             SizedBox(height: 50.h),
             CustomReusableBtn(
-                buttonText: "Proceed to Login",
-                width: 300.w,
-                height: 50.h,
-                onPressed: () => RedirectionController.to
-                    .navigateToAuthentication(PageName.loginpage))
+              buttonText: "Proceed to Login",
+              width: 300.w,
+              height: 50.h,
+              onPressed: () => Get.toNamed(PageName.loginpage),
+            )
           ],
         ),
       ),

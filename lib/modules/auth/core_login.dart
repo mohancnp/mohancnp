@@ -1,31 +1,40 @@
 import 'dart:ui';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
+import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/socials.dart';
 import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
 import 'package:metrocoffee/core/routing/names.dart';
-import "package:flutter_screenutil/flutter_screenutil.dart";
-import 'package:metrocoffee/core/config.dart';
-import 'custom/email/email_auth_controller.dart';
-import 'custom/membership/membership_login_controller.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
-  final emailController = Get.put(EmailAuthController());
-  final memberShipController = Get.put(MemberShipLoginController());
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Scaffold(
-            body: Image.asset(
-          loginBackgroundImage,
-          width: 375.w,
-          fit: BoxFit.cover,
-        )),
+          body: Image.asset(
+            loginBackgroundImage,
+            width: 375.w,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black.withOpacity(0.5),
+                Colors.black.withOpacity(0.9),
+              ],
+            ),
+          ),
+        ),
         Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -35,16 +44,6 @@ class LoginPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           body: Container(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
-            height: 812.h,
-            width: 375.w,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                  Colors.black.withOpacity(0.14),
-                  Colors.black.withOpacity(0.8)
-                ])),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,8 +72,7 @@ class LoginPage extends StatelessWidget {
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                     child: GestureDetector(
-                      onTap: () => memberShipController.navigateToRoute(
-                          route: PageName.membershiploginpage),
+                      onTap: () => Get.toNamed(PageName.membershiploginpage),
                       child: Container(
                         margin: EdgeInsets.only(top: 33.h),
                         width: 375.w,
@@ -120,8 +118,9 @@ class LoginPage extends StatelessWidget {
                         child: Text(
                           "or login with",
                           style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
-                              fontSize: 14.sp),
+                            color: Colors.white.withOpacity(0.8),
+                            fontSize: 14.sp,
+                          ),
                         ),
                       ),
                       Expanded(
@@ -186,9 +185,7 @@ class LoginPage extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
         child: GestureDetector(
-          onTap: () => emailController.navigateToRoute(
-            routeName: PageName.emailloginpage,
-          ),
+          onTap: () => Get.toNamed(PageName.emailloginpage),
           child: Container(
             margin: EdgeInsets.only(top: screenwidth * 0.0656),
             width: screenwidth,

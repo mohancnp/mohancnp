@@ -2,12 +2,16 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
+import 'package:metrocoffee/core/constants/placeholder_image.dart';
+import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/services/storage/db/dbconst.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/product/widgets/toppings_multiselect.dart';
@@ -106,21 +110,53 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                 children: [
                   Stack(
                     children: [
-                      Container(
-                        height: 373.h,
-                        width: 375.w,
-                        decoration: BoxDecoration(
+                      SizedBox(
+                        height: 372.h,
+                        child: ClipRRect(
                           borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(8.w),
-                              bottomRight: Radius.circular(8.w)),
-                          image: DecorationImage(
+                            bottomLeft: Radius.circular(8.w),
+                            bottomRight: Radius.circular(8.w),
+                          ),
+                          child: Image.network(
+                            "${AppConfig.baseUrl}/${pd.product.image}",
                             fit: BoxFit.cover,
-                            image: NetworkImage(
-                              "${AppConfig.baseUrl}/${pd.product.image}",
-                            ),
+                            width: 375.w,
+                            loadingBuilder: (context, widget, imageProgress) {
+                              if (imageProgress == null) {
+                                return widget;
+                              }
+                              return Center(
+                                child: SpinKitCubeGrid(
+                                  color: Palette.coffeeColor,
+                                ),
+                              );
+                            },
+                            errorBuilder: (context, object, stackTrace) {
+                              return Center(
+                                child: Image.asset(
+                                  assetImage,
+                                  width: 375.w,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ),
+                      // Container(
+                      //   height: 373.h,
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.only(
+                      //         bottomLeft: Radius.circular(8.w),
+                      //         bottomRight: Radius.circular(8.w)),
+                      //     image: DecorationImage(
+                      //       fit: BoxFit.cover,
+                      //       image: NetworkImage(
+                      //         "${AppConfig.baseUrl}/${pd.product.image}",
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       Positioned(
                         top: 48.h,
                         child: SizedBox(
@@ -142,7 +178,8 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {},
+                                onTap: () =>
+                                    Get.toNamed(PageName.productCartPage),
                                 child: Stack(
                                   children: [
                                     Padding(

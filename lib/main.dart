@@ -14,16 +14,17 @@ import 'core/routing/routes_handler.dart';
 void mainCommon() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.light,
-  ));
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+    ],
+  );
   runApp(MyApp());
 }
 
