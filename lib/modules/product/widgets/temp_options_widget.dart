@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/product/product_detail_page_controller.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class TempratureOptionWidget extends StatelessWidget {
   const TempratureOptionWidget({
@@ -25,7 +25,8 @@ class TempratureOptionWidget extends StatelessWidget {
                       itemBuilder: (context, index) {
                         var item = controller.productDetail.productTypes[index];
                         return GestureDetector(
-                          onTap: () => controller.handleProductTypeSelection(index),
+                          onTap: () =>
+                              controller.handleProductTypeSelection(index),
                           child: AnimatedContainer(
                             height: 40.h,
                             width: 160.w,
@@ -40,7 +41,7 @@ class TempratureOptionWidget extends StatelessWidget {
                                 child: Text(
                               "${item.name}",
                               style: TextStyle(
-                                  fontFamily: proximanovaregular,
+                                  fontFamily: CustomFont.proximaNovaRegular,
                                   fontSize: 17.w,
                                   color: item.selected
                                       ? Color(0xFFFEFEFE)

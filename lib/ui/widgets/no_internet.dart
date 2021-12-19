@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/util/internet.dart';
 
 class NoInternet extends StatefulWidget {

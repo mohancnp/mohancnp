@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class LoadingDialog extends StatelessWidget {
   const LoadingDialog({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class LoadingDialog extends StatelessWidget {
                     child: Text(
                       "Loading, Please wait..",
                       style: TextStyle(
-                          fontFamily: proximanovaregular,
+                          fontFamily: CustomFont.proximaNovaRegular,
                           color: Colors.black87,
                           fontSize: 16.5),
                     ),

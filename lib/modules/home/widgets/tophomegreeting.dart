@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TopHomeGreeting extends StatelessWidget {
   TopHomeGreeting({Key? key}) : super(key: key);
@@ -64,7 +64,7 @@ class TopHomeGreeting extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () =>
-                HomeController.to.navigateToRoute(PageName.productCartPage),
+                HomeController.to.navigateToPageName(PageName.productCartPage),
             child: Stack(
               children: [
                 Padding(

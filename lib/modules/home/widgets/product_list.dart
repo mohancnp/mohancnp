@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/models/product.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/modules/home/widgets/new_card.dart';
 import 'package:metrocoffee/ui/src/palette.dart';

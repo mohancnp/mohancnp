@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/validator.dart';
 
-class EmailSignUpController extends GetxController {
+class SignUpController extends GetxController {
   final emailEditingController = TextEditingController();
   final firstNameEditingController = TextEditingController();
   final lastNameEditingController = TextEditingController();
@@ -29,9 +29,9 @@ class EmailSignUpController extends GetxController {
     update();
   }
 
-  void navigateToRoute({required String routeName}) {
+  void navigateToPageName({required String PageNameName}) {
     if (redirectionController.userExists) {}
-    Get.toNamed(routeName);
+    Get.toNamed(PageNameName);
   }
 
   String? validatePassword(String? value) {
@@ -75,16 +75,11 @@ class EmailSignUpController extends GetxController {
     var message = emailValidtor(value: value);
     if (message != null) {
       emailErrorMessage.value = message;
-      return null;
+      return "";
     }
-    return message;
-  }
+    emailErrorMessage.value = "";
 
-  bool handlePasswordRegEx(String? value) {
-    if (value == null || value.isEmpty) {
-      return false;
-    }
-    return true;
+    return null;
   }
 
   @override

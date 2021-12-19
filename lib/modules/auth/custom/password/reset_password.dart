@@ -9,7 +9,7 @@ import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
-import 'package:metrocoffee/modules/auth/custom/widgets/input_feild_wrapper.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 import 'reset_password_controller.dart';
@@ -50,9 +50,7 @@ class ResetPasswordPage extends StatelessWidget {
                   SizedBox(height: 50.h),
                   IconButton(
                     padding: EdgeInsets.all(0),
-                    onPressed: () {
-                      Get.back();
-                    },
+                    onPressed: Get.back,
                     icon: Icon(
                       CupertinoIcons.back,
                       color: Colors.white,
@@ -84,7 +82,7 @@ class ResetPasswordPage extends StatelessWidget {
                   Text(
                     "Your new password should be different from the previous password",
                     style: TextStyle(
-                      fontFamily: proximanovaregular,
+                      fontFamily: CustomFont.proximaNovaRegular,
                       color: Colors.white,
                       fontSize: 12.sp,
                     ),

@@ -33,9 +33,9 @@ class SearchPageController extends GetxController {
     update();
   }
 
-  navigateToSearchPage(String routeName, bool enabled) {
+  navigateToSearchPage(String PageNameName, bool enabled) {
     if (!enabled) {
-      Get.toNamed(routeName);
+      Get.toNamed(PageNameName);
     }
   }
 

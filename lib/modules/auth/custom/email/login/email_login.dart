@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/auth/custom/email/login/email_login_controller.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/welcome_text.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class EmailLoginPage extends StatelessWidget {
@@ -19,42 +19,27 @@ class EmailLoginPage extends StatelessWidget {
   final controller = Get.put(EmailLoginController());
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(
-          loginBackgroundImage,
-          width: 375.w,
-          fit: BoxFit.cover,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.black.withOpacity(0.5),
-                Colors.black.withOpacity(0.9),
-              ],
-            ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          Image.asset(
+            loginBackgroundImage,
+            width: 375.w,
+            fit: BoxFit.cover,
           ),
-        ),
-        Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.black.withOpacity(0.14),
-            leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: Icon(
-                CupertinoIcons.back,
-                color: Colors.white,
-                size: 28.w,
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.5),
+                  Colors.black.withOpacity(0.9),
+                ],
               ),
             ),
           ),
-          backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
+          SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 18.w),
               child: Form(
@@ -63,20 +48,30 @@ class EmailLoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 56.h),
+                    IconButton(
+                      padding: EdgeInsets.all(0),
+                      onPressed: Get.back,
+                      icon: Icon(
+                        CupertinoIcons.back,
+                        color: Colors.white,
+                        size: 28.w,
+                      ),
+                    ),
+                    SizedBox(height: 28.h),
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.white.withOpacity(0.4),
                       ),
-                      padding: EdgeInsets.all(5.w),
+                      padding: EdgeInsets.all(4.w),
                       child: Image.asset(
                         AppConfig.metroCoffeeLogoAssetPath,
                         width: 58.w,
                       ),
                     ),
                     SizedBox(height: 40.h),
-                    const WelcomeTextWidget(),
+                    const WelcomeText(),
                     SizedBox(height: 10.h),
                     GetBuilder<EmailLoginController>(
                       init: EmailLoginController(),
@@ -132,7 +127,7 @@ class EmailLoginPage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () => controller.navigateToRoute(
-                        routeName: PageName.forgotPasswordPage,
+                        pageName: PageName.forgotPasswordPage,
                       ),
                       child: Container(
                         margin: EdgeInsets.only(
@@ -140,7 +135,7 @@ class EmailLoginPage extends StatelessWidget {
                         child: Text(
                           "Forgot Password ?",
                           style: TextStyle(
-                            fontFamily: proximanovaregular,
+                            fontFamily: CustomFont.proximaNovaRegular,
                             color: Colors.white70,
                             fontSize: 14.sp,
                           ),
@@ -166,7 +161,7 @@ class EmailLoginPage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () => controller.navigateToRoute(
-                        routeName: PageName.signupPage,
+                        pageName: PageName.signupPage,
                       ),
                       child: Center(
                         child: Text(
@@ -174,7 +169,7 @@ class EmailLoginPage extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontFamily: proximanovaregular,
+                            fontFamily: CustomFont.proximaNovaRegular,
                             decoration: TextDecoration.underline,
                             fontSize: 16.sp,
                             decorationColor: Colors.white,
@@ -189,8 +184,8 @@ class EmailLoginPage extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

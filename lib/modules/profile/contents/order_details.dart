@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/profile/contents/order_details_controller.dart';
 import 'package:metrocoffee/modules/profile/widgets/timeframeorderdetails.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/error_dialog.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
@@ -42,7 +42,6 @@ class ResetPasswordPageController extends GetxController {
 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      // print("password not validated");
       passwordErrorMessage.value = "password not valid";
       return "";
     }
@@ -51,7 +50,8 @@ class ResetPasswordPageController extends GetxController {
   }
 
   String? validateConfirmPassword(String? value) {
-    if (value == null || value.isEmpty) {
+    if (passwordConfirmEditingController.text !=
+        passwordEditingController.text) {
       confirmErrorMessage.value = "password doesn't match";
       return "";
     }

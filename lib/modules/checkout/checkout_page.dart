@@ -7,7 +7,7 @@ import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/widgets/single_order.dart';
 import 'package:metrocoffee/modules/maps/new/google_map_controller.dart';
@@ -37,8 +37,9 @@ class CheckoutPage extends StatelessWidget {
         buttonText: "Proceed to Pay",
         width: 320.w,
         height: 47.h,
-        onPressed: () => controller.navigateToRoute(
-            routeName: PageName.paymentspage, defaultRoute: PageName.loginpage),
+        onPressed: () => controller.navigateToPageName(
+            pageName: PageName.paymentspage,
+            defaultPageName: PageName.loginpage),
       ),
       appBar: AppBar(
         backgroundColor: Palette.pagebackgroundcolor,

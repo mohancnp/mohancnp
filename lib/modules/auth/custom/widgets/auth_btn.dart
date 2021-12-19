@@ -15,15 +15,15 @@ class AuthBtn extends StatelessWidget {
     return GestureDetector(
       onTap: onpressed,
       child: Container(
-        height: 46.h,
+        height: 48.h,
         decoration: BoxDecoration(
           color: Palette.deepOrange,
-          borderRadius: BorderRadius.all(Radius.circular(25)),
+          borderRadius: BorderRadius.all(Radius.circular(24.r)),
           boxShadow: [
             BoxShadow(
               color: Color(0x4DC3916A),
-              blurRadius: 30.r,
-              offset: Offset(0, 9.r),
+              blurRadius: 32.r,
+              offset: Offset(0, 8.r),
             )
           ],
         ),

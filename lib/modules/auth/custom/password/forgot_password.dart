@@ -6,11 +6,12 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/auth/custom/password/forgot_password_page_controller.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   ForgotPasswordPage({Key? key}) : super(key: key);
@@ -43,9 +44,7 @@ class ForgotPasswordPage extends StatelessWidget {
             backgroundColor: Colors.black.withOpacity(0.14),
             leading: IconButton(
               padding: EdgeInsets.all(0),
-              onPressed: () {
-                Get.back();
-              },
+              onPressed: Get.back,
               icon: Icon(
                 CupertinoIcons.back,
                 color: Colors.white,
@@ -88,7 +87,7 @@ class ForgotPasswordPage extends StatelessWidget {
                     Text(
                       "Enter the email address you used in the intial registration process.",
                       style: TextStyle(
-                        fontFamily: proximanovaregular,
+                        fontFamily: CustomFont.proximaNovaRegular,
                         color: Colors.white,
                         fontSize: 14.sp,
                       ),
@@ -135,14 +134,14 @@ class ForgotPasswordPage extends StatelessWidget {
                     //   child: Text(
                     //     "Remember Password ?",
                     //     style: TextStyle(
-                    //         fontFamily: proximanovaregular,
+                    //         fontFamily: CustomFont.proximaNovaRegular,
                     //         color: Colors.white70,
                     //         fontSize: 14.sp),
                     //   ),
                     // ),
                     // GestureDetector(
-                    //   onTap: () => controller.navigateToRoute(
-                    //     routeName: PageName.loginpage,
+                    //   onTap: () => controller.navigateToPageName(
+                    //     PageNameName: PageName.loginpage,
                     //   ),
                     //   child: Center(
                     //     child: Text(
@@ -150,7 +149,7 @@ class ForgotPasswordPage extends StatelessWidget {
                     //       style: TextStyle(
                     //         color: Colors.white,
                     //         fontWeight: FontWeight.bold,
-                    //         fontFamily: proximanovaregular,
+                    //         fontFamily: CustomFont.proximaNovaRegular,
                     //         decoration: TextDecoration.underline,
                     //         fontSize: 16.sp,
                     //         decorationColor: Colors.white,

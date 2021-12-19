@@ -10,7 +10,7 @@ String montserratmedium = 'MontserratMedium';
 String freightbold = 'Freightdispbold';
 String freightbook = 'Freightdispbook';
 String freightboldsc = 'Freightdispboldsc';
-String proximanovaregular = 'Proximanovareg';
+String proximaNovaRegular = 'Proximanovareg';
 String montserratbold = 'MontserratBold';
 String montserratsemibold = 'MontserratSemiBold';
 TextStyle getpoppins(TextStyle textStyle) {

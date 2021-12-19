@@ -95,11 +95,11 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
     }
   }
 
-  void navigateToPageDetail(String routeName, int id) {
-    Get.toNamed(routeName + "/$id");
+  void navigateToPageDetail(String PageNameName, int id) {
+    Get.toNamed(PageNameName + "/$id");
   }
 
-  void navigateToRoute(String routeName) {
-    Get.toNamed(routeName);
+  void navigateToPageName(String PageNameName) {
+    Get.toNamed(PageNameName);
   }
 }

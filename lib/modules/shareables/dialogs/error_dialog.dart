@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-showErrorDialog({String? errorMessage, String? errorTitle}) {
+void showErrorDialog({String? errorMessage, String? errorTitle}) {
   Get.defaultDialog(
     content: Center(
       child: Text(

@@ -238,7 +238,7 @@ class ProductDetailPageController extends GetxController
     update();
   }
 
-  void navigateTo({required String route}) {
-    Get.toNamed(route);
+  void navigateTo({required String PageName}) {
+    Get.toNamed(PageName);
   }
 }

@@ -1,26 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/auth_state.dart';
-import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/error_dialog.dart';
 
 class MemberShipLoginController extends GetxController {
-  TextEditingController _membershipNumberController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  var membershipNumberController = TextEditingController();
+  var passwordController = TextEditingController();
   bool _eye = false;
   AuthState _authState = AuthState.unverified;
   final loginFormKey = GlobalKey<FormState>();
   Rx<String> passwordErrorMessage = ''.obs;
   Rx<String> memberShipErrorMessage = ''.obs;
-
-  get membershipNumberController => this._membershipNumberController;
-
-  set membershipNumberController(value) =>
-      this._membershipNumberController = value;
-
-  get passwordController => this._passwordController;
-
-  set passwordController(value) => this._passwordController = value;
 
   get eye => this._eye;
 
@@ -50,8 +40,8 @@ class MemberShipLoginController extends GetxController {
     }
   }
 
-  void navigateToRoute({required String route}) {
-    Get.toNamed(route);
+  void navigateToPageName({required String pageName}) {
+    Get.toNamed(pageName);
   }
 
   String? validatePassword(String? value) {

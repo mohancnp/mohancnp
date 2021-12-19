@@ -16,7 +16,7 @@ class SingleTimeFrameReorders extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamedAndRemoveUntil(
-            context, "/OrderDetails", (route) => true);
+            context, "/OrderDetails", (PageName) => true);
       },
       child: Container(
         width: screenwidth,

@@ -104,7 +104,7 @@ class UserDataFeildWidget extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamedAndRemoveUntil(
-                      context, "/ChangePassword", (route) => true);
+                      context, "/ChangePassword", (PageName) => true);
                 },
                 child: Container(
                   margin: EdgeInsets.only(

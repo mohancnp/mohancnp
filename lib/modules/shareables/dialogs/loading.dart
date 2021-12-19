@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class LoadingPage extends StatelessWidget {
@@ -46,7 +47,7 @@ class LoadingPage extends StatelessWidget {
                       child: Text(
                         "Loading, Please wait..",
                         style: TextStyle(
-                            fontFamily: proximanovaregular,
+                            fontFamily: CustomFont.proximaNovaRegular,
                             color: Colors.black87,
                             fontSize: 16.5),
                       ),

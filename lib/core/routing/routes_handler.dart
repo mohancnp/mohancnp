@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/auth/core_login.dart';
 import 'package:metrocoffee/modules/auth/custom/email/login/email_login.dart';
-import 'package:metrocoffee/modules/auth/custom/email/signup/email_signup.dart';
+import 'package:metrocoffee/modules/auth/custom/email/signup/signup.dart';
 import 'package:metrocoffee/modules/auth/custom/password/forgot_password.dart';
 import 'package:metrocoffee/modules/auth/custom/password/reset_password.dart';
 import 'package:metrocoffee/modules/auth/custom/membership/membership_login.dart';
@@ -24,7 +24,7 @@ import 'package:metrocoffee/modules/profile/personal_data_page.dart';
 import 'package:metrocoffee/modules/shareables/change_password.dart';
 import 'package:metrocoffee/ui/widgets/no_internet.dart';
 
-class RouteHandler {
+class PageNameHandler {
   static List<GetPage> getPages() {
     return [
       GetPage(

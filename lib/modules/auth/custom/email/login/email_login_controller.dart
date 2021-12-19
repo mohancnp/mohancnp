@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/validator.dart';
 
@@ -30,7 +30,6 @@ class EmailLoginController extends GetxController {
 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      print("password not validated");
       passwordErrorMessage.value = "password not valid";
       return "";
     }
@@ -42,7 +41,9 @@ class EmailLoginController extends GetxController {
     var message = emailValidtor(value: value);
     if (message != null) {
       emailErrorMessage.value = message;
+      return "";
     }
+    emailErrorMessage.value = "";
     return null;
   }
 
@@ -50,8 +51,6 @@ class EmailLoginController extends GetxController {
     var validated = loginFormKey.currentState!.validate();
 
     if (validated) {
-      print("validated");
-      // print(validated);
       showCustomDialog(message: "Logging In");
       await Future.delayed(
         Duration(milliseconds: 2000),
@@ -63,7 +62,7 @@ class EmailLoginController extends GetxController {
     }
   }
 
-  void navigateToRoute({required String routeName}) {
-    Get.toNamed(routeName);
+  void navigateToRoute({required String pageName}) {
+    Get.toNamed(pageName);
   }
 }

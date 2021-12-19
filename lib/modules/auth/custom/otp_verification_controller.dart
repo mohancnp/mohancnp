@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class OtpVerificationController extends GetxController {
@@ -29,8 +29,8 @@ class OtpVerificationController extends GetxController {
     super.onClose();
   }
 
-  void navigateToRoute({required String routeName}) {
-    Get.toNamed(routeName);
+  void navigateToPageName({required String PageNameName}) {
+    Get.toNamed(PageNameName);
   }
 
   Future<void> verifyOTPandNavigate() async {
@@ -40,7 +40,7 @@ class OtpVerificationController extends GetxController {
         Duration(milliseconds: 2000),
       );
       Get.back();
-      navigateToRoute(routeName: PageName.resetPasswordPage);
+      navigateToPageName(PageNameName: PageName.resetPasswordPage);
     }
   }
 }

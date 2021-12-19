@@ -4,45 +4,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
-import 'package:metrocoffee/modules/auth/custom/email/signup/email_signup_controller.dart';
+import 'package:metrocoffee/modules/auth/custom/email/signup/signup_controller.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/welcome_text.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class EmailSignUpPage extends StatelessWidget {
   EmailSignUpPage({Key? key}) : super(key: key);
 
-  final emailSignupController = Get.put(EmailSignUpController());
+  final emailSignupController = Get.put(SignUpController());
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(
-          loginBackgroundImage,
-          width: 375.w,
-          fit: BoxFit.cover,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.black.withOpacity(0.5),
-                Colors.black.withOpacity(0.9),
-              ],
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      resizeToAvoidBottomInset: true,
+      body: Stack(
+        children: [
+          Image.asset(
+            loginBackgroundImage,
+            width: 375.w,
+            fit: BoxFit.cover,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.5),
+                  Colors.black.withOpacity(0.9),
+                ],
+              ),
             ),
           ),
-        ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          resizeToAvoidBottomInset: true,
-          body: SingleChildScrollView(
+          SingleChildScrollView(
             child: Form(
               key: emailSignupController.signUpFormKey,
               child: Container(
@@ -52,13 +52,13 @@ class EmailSignUpPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 50.h),
+                    SizedBox(height: 56.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
                           padding: EdgeInsets.all(0),
-                          onPressed: () => Get.back(),
+                          onPressed: Get.back,
                           icon: Icon(
                             CupertinoIcons.back,
                             color: Colors.white,
@@ -79,7 +79,7 @@ class EmailSignUpPage extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 20.h),
-                    const WelcomeTextWidget(),
+                    const WelcomeText(),
                     CustomTextFormFeild(
                       controller:
                           emailSignupController.firstNameEditingController,
@@ -139,7 +139,7 @@ class EmailSignUpPage extends StatelessWidget {
                             )
                           : SizedBox(),
                     ),
-                    GetBuilder<EmailSignUpController>(
+                    GetBuilder<SignUpController>(
                       builder: (controller) {
                         return CustomTextFormFeild(
                           controller:
@@ -169,7 +169,7 @@ class EmailSignUpPage extends StatelessWidget {
                                 )
                               : SizedBox(),
                     ),
-                    GetBuilder<EmailSignUpController>(
+                    GetBuilder<SignUpController>(
                       builder: (controller) {
                         return CustomTextFormFeild(
                           controller:
@@ -220,14 +220,14 @@ class EmailSignUpPage extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => Get.back(),
+                      onTap: Get.back,
                       child: Center(
                         child: Text(
                           "Login",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontFamily: proximanovaregular,
+                            fontFamily: CustomFont.proximaNovaRegular,
                             decoration: TextDecoration.underline,
                             fontSize: 16.sp,
                             decorationColor: Colors.white,
@@ -242,8 +242,8 @@ class EmailSignUpPage extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

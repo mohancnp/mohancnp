@@ -8,7 +8,7 @@ import 'package:metrocoffee/ui/app_name.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'core/locator.dart';
-import 'core/routing/names.dart';
+import 'core/routing/routes.dart';
 import 'core/routing/routes_handler.dart';
 
 void mainCommon() async {
@@ -64,8 +64,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        getPages: PageNameHandler.getPages(),
         initialRoute: PageName.splashscreenpage,
-        getPages: RouteHandler.getPages(),
       ),
     );
   }

@@ -7,48 +7,40 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/socials.dart';
 import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          body: Image.asset(
+    return Scaffold(
+      body: Stack(
+        children: [
+          Image.asset(
             loginBackgroundImage,
             width: 375.w,
             fit: BoxFit.cover,
           ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.black.withOpacity(0.5),
-                Colors.black.withOpacity(0.9),
-              ],
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.5),
+                  Colors.black.withOpacity(0.9),
+                ],
+              ),
             ),
           ),
-        ),
-        Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.black.withOpacity(0.14),
-            automaticallyImplyLeading: false,
-          ),
-          backgroundColor: Colors.transparent,
-          body: Container(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 40.h),
+                SizedBox(height: 148.h),
                 Container(
                   padding: EdgeInsets.all(5.w),
                   decoration: BoxDecoration(
@@ -67,40 +59,33 @@ class LoginPage extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline1,
                   ),
                 ),
-                SizedBox(height: 30.h),
-                ClipRRect(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                    child: GestureDetector(
-                      onTap: () => Get.toNamed(PageName.membershiploginpage),
-                      child: Container(
-                        margin: EdgeInsets.only(top: 33.h),
-                        width: 375.w,
-                        height: 49.h,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 2.w, color: Color(0xfff3f3f3)),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(23.r)),
-                            color: Colors.white),
-                        child: Center(
-                          child: Text(
-                            "Continue with Membership",
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.button,
-                          ),
-                        ),
+                GestureDetector(
+                  onTap: () => Get.toNamed(PageName.membershiploginpage),
+                  child: Container(
+                    margin: EdgeInsets.only(top: 33.h),
+                    width: 375.w,
+                    height: 49.h,
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(width: 2.w, color: Color(0xfff3f3f3)),
+                        borderRadius: BorderRadius.all(Radius.circular(23.r)),
+                        color: Colors.white),
+                    child: Center(
+                      child: Text(
+                        "Continue with Membership",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.button,
                       ),
                     ),
                   ),
                 ),
                 emailbox(context),
-                Container(
-                  width: 342.w,
-                  margin: EdgeInsets.only(
-                    top: 36.h,
-                    left: 16.w,
-                    right: 16.w,
+                SizedBox(
+                  height: 36.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -174,8 +159,8 @@ class LoginPage extends StatelessWidget {
               ],
             ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:get/get.dart";
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/validator.dart';
 
@@ -34,13 +34,16 @@ class ForgotPasswordController extends GetxController {
     }
   }
 
-  void navigateToRoute({required String routeName}) {}
+  void navigateToPageName({required String PageNameName}) {}
 
   String? validateEmail(String? value) {
     var message = emailValidtor(value: value);
     if (message != null) {
       errorMessage.value = message;
+      return "";
     }
+    errorMessage.value = "";
+
     return null;
   }
 }

@@ -17,5 +17,5 @@ class RedirectionController extends GetxController {
     return _userExists.value.exits;
   }
 
-  void navigateToAuthentication(String routeName) {}
+  void navigateToAuthentication(String PageNameName) {}
 }

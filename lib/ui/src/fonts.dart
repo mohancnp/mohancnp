@@ -6,9 +6,9 @@ class CustomFont{
   static const String freightDispBold="Freightdispbold";
   static const String poppinsLight="PoppinsLight";
   static const String freightdispbook="Freightdispbook";
-  static const String proximanovareg="Proximanovareg";
+  static const String proximaNovaRegular="Proximanovareg";
   static const String poppinsRegular="PoppinsRegular";
-  static const String freightdispboldsc="Freightdispboldsc";
+  static const String freightDispBoldSc="Freightdispboldsc";
   static const String montserratBold="MontserratBold";
   static const String montserratSemiBold="MontserratSemiBold";
 }

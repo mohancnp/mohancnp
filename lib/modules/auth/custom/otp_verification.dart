@@ -7,6 +7,7 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 import 'otp_verification_controller.dart';
@@ -41,7 +42,7 @@ class OtpVerificationPage extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.black.withOpacity(0.14),
             leading: IconButton(
-              onPressed: () => Get.back(),
+              onPressed: Get.back,
               icon: Icon(
                 CupertinoIcons.back,
                 color: Colors.white,
@@ -82,7 +83,7 @@ class OtpVerificationPage extends StatelessWidget {
                   Text(
                     "Enter the password reset code provided in the email to change password.",
                     style: TextStyle(
-                      fontFamily: proximanovaregular,
+                      fontFamily: CustomFont.proximaNovaRegular,
                       color: Colors.white,
                       fontSize: 14.sp,
                     ),
@@ -123,7 +124,7 @@ class OtpVerificationPage extends StatelessWidget {
                         child: Text(
                           "${controller.errorMessage}",
                           style: TextStyle(
-                            fontFamily: proximanovaregular,
+                            fontFamily: CustomFont.proximaNovaRegular,
                             color: Colors.redAccent,
                             fontSize: 14.sp,
                           ),
@@ -146,14 +147,14 @@ class OtpVerificationPage extends StatelessWidget {
                   //   child: Text(
                   //     "Remember Password?",
                   //     style: TextStyle(
-                  //         fontFamily: proximanovaregular,
+                  //         fontFamily: CustomFont.proximaNovaRegular,
                   //         color: Colors.white70,
                   //         fontSize: 14.sp),
                   //   ),
                   // ),
                   // GestureDetector(
-                  //   onTap: () => controller.navigateToRoute(
-                  //     routeName: PageName.loginpage,
+                  //   onTap: () => controller.navigateToPageName(
+                  //     PageNameName: PageName.loginpage,
                   //   ),
                   //   child: Center(
                   //     child: Text(
@@ -161,7 +162,7 @@ class OtpVerificationPage extends StatelessWidget {
                   //       style: TextStyle(
                   //         color: Colors.white,
                   //         fontWeight: FontWeight.bold,
-                  //         fontFamily: proximanovaregular,
+                  //         fontFamily: CustomFont.proximaNovaRegular,
                   //         decoration: TextDecoration.underline,
                   //         fontSize: 16.sp,
                   //         decorationColor: Colors.white,
