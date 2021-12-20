@@ -22,6 +22,7 @@ class ResetPasswordPageController extends GetxController {
   Future<void> changePassword() async {
     var validated = resetPassKey.currentState!.validate();
     if (validated) {
+      //logic will be changed for different api error.
       if (passwordConfirmEditingController.text ==
           passwordEditingController.text) {
         showCustomDialog(message: "Reseting Your Password");

@@ -29,9 +29,9 @@ class SignUpController extends GetxController {
     update();
   }
 
-  void navigateToPageName({required String PageNameName}) {
+  void navigateToPageName({required String PageName}) {
     if (redirectionController.userExists) {}
-    Get.toNamed(PageNameName);
+    Get.toNamed(PageName);
   }
 
   String? validatePassword(String? value) {
@@ -44,7 +44,7 @@ class SignUpController extends GetxController {
   }
 
   String? validateRePassword(String? value) {
-    if (value == null || value.isEmpty) {
+    if (rePasswordEditingController.text != passwordEditingController.text) {
       rePasswordErrorMessage.value = "password doesn't match";
       return "";
     }
