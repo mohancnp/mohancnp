@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class AuthBtn extends StatelessWidget {
@@ -31,7 +32,7 @@ class AuthBtn extends StatelessWidget {
           child: Text(
             "$centerBtnText",
             style: TextStyle(
-              fontFamily: poppinsregular,
+              fontFamily: CustomFont.poppinsRegular,
               color: Colors.white,
               fontSize: 16.sp,
             ),

@@ -64,8 +64,6 @@ class ProductCard extends StatelessWidget {
                       }
                     },
                     errorBuilder: (context, object, stackTrace) {
-                      // print(
-                      //     "${AppConfig.baseUrl}${AppConfig.productImagePath}${cartModel.imageUri}");
                       return Center(
                         child: Image.asset(
                           AppConfig.metroCoffeeLogoAssetPath,
@@ -83,17 +81,21 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         "${cartModel.name}",
-                        style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff404D4D),
-                            fontSize: 14.sp)),
+                        style: getpoppins(
+                          TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Palette.darkGery,
+                              fontSize: 14.sp),
+                        ),
                       ),
                       Text(
                         '${Currency.symbol} ${(cartModel.totalPrice * cartModel.qty).toStringAsPrecision(3)}',
-                        style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff550E1C),
-                            fontSize: 14.sp)),
+                        style: getpoppins(
+                          TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff550E1C),
+                              fontSize: 14.sp),
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -111,10 +113,13 @@ class ProductCard extends StatelessWidget {
                             margin: EdgeInsets.symmetric(horizontal: 6.w),
                             child: Text(
                               "${cartModel.qty}",
-                              style: getpoppins(TextStyle(
+                              style: getpoppins(
+                                TextStyle(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 14.sp,
-                                  color: Colors.black54)),
+                                  color: Colors.black54,
+                                ),
+                              ),
                             ),
                           ),
                           GestureDetector(
@@ -135,29 +140,34 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           GestureDetector(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (_) {
-                      return ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(18.r)),
-                          child: SimpleDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18.r)),
-                              ),
-                              children: []));
-                    });
-              },
-              child: GestureDetector(
-                onTap: () async => cartController.removeItemFromCart(
-                    cartModel.productId, index),
-                child: Icon(
-                  CupertinoIcons.xmark_circle,
-                  size: 18.sp,
-                  color: Colors.redAccent,
-                ),
-              ))
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (_) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(16.r)),
+                    child: SimpleDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16.r),
+                        ),
+                      ),
+                      children: [],
+                    ),
+                  );
+                },
+              );
+            },
+            child: GestureDetector(
+              onTap: () async =>
+                  cartController.removeItemFromCart(cartModel.productId, index),
+              child: Icon(
+                CupertinoIcons.xmark_circle,
+                size: 16.sp,
+                color: Colors.redAccent,
+              ),
+            ),
+          )
         ],
       ),
     );

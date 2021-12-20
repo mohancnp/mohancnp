@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/modules/home/widgets/category_tab_widget.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/on_empty_widget.dart';
 
@@ -23,7 +23,8 @@ class CategoriesTabs extends GetView<CategoriesController> {
           children: [
             Text(
               "Category",
-              style: TextStyle(fontSize: 15.sp, fontFamily: poppinssemibold),
+              style: TextStyle(
+                  fontSize: 15.sp, fontFamily: CustomFont.poppinsMedium),
             ),
             SizedBox(
               height: 17.h,

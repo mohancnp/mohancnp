@@ -12,6 +12,7 @@ import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/cart/widgets/product_card.dart';
 import 'package:metrocoffee/modules/shareables/userpreference.dart';
 import 'package:metrocoffee/modules/shareables/widgets/finalpricecalculationcard.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
@@ -106,7 +107,7 @@ class MyProductCart extends StatelessWidget {
             title: Text(
               "MY CART",
               style: TextStyle(
-                  fontFamily: poppinsmedium,
+                  fontFamily: CustomFont.poppinsMedium,
                   color: Color(0xff404D4D),
                   fontSize: screenwidth * 0.0389),
             ),

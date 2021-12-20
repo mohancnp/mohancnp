@@ -5,6 +5,7 @@ import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/core/config.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class CategoryTab extends StatelessWidget {
   final String name;
@@ -44,10 +45,12 @@ class CategoryTab extends StatelessWidget {
             Center(
               child: Text(
                 "$name",
-                style: getpoppins(TextStyle(
-                    color: pressed! ? Color(0xE5FFFFFF) : Color(0xFF344141),
-                    fontSize: 12.sp,
-                    fontFamily: poppinsregular)),
+                style: getpoppins(
+                  TextStyle(
+                      color: pressed! ? Color(0xE5FFFFFF) : Color(0xFF344141),
+                      fontSize: 12.sp,
+                      fontFamily: CustomFont.poppinsRegular),
+                ),
               ),
             ),
           ],

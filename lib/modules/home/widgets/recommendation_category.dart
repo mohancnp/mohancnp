@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class RecommendationCategory extends StatelessWidget {
   final String name;
@@ -36,10 +37,12 @@ class RecommendationCategory extends StatelessWidget {
               padding: EdgeInsets.only(right: 16.w, top: 8.h, bottom: 8.h),
               child: Text(
                 "$name",
-                style: getpoppins(TextStyle(
-                    color: pressed ? Color(0xE5FFFFFF) : Color(0xFF344141),
-                    fontSize: 12.sp,
-                    fontFamily: poppinsregular)),
+                style: getpoppins(
+                  TextStyle(
+                      color: pressed ? Color(0xE5FFFFFF) : Color(0xFF344141),
+                      fontSize: 12.sp,
+                      fontFamily: CustomFont.poppinsRegular),
+                ),
               ),
             ),
           ),

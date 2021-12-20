@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
@@ -91,9 +92,9 @@ class ProductCard extends StatelessWidget {
             "$name",
             maxLines: 2,
             style: getpoppins(TextStyle(
-              color: Color(0xFF404D4D),
+              color: Palette.darkGery,
               fontSize: 12.sp,
-              fontFamily: poppinsmedium,
+              fontFamily: CustomFont.poppinsMedium,
             )),
           ),
           SizedBox(height: 10.h),
@@ -103,10 +104,12 @@ class ProductCard extends StatelessWidget {
               children: [
                 Text(
                   "\$ $price",
-                  style: getpoppins(TextStyle(
-                      color: coffeecolor,
-                      fontSize: 20.sp,
-                      fontFamily: poppinsmedium)),
+                  style: getpoppins(
+                    TextStyle(
+                        color: coffeecolor,
+                        fontSize: 20.sp,
+                        fontFamily: CustomFont.poppinsMedium),
+                  ),
                 ),
                 GestureDetector(
                   onTap: () => null,

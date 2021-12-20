@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
+import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
@@ -74,7 +74,7 @@ class OtpVerificationPage extends StatelessWidget {
                   Text(
                     "Enter Code",
                     style: TextStyle(
-                      fontFamily: freightbold,
+                      fontFamily: CustomFont.freightDispBold,
                       color: Colors.white,
                       fontSize: 42.sp,
                     ),

@@ -5,6 +5,7 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/util/internet.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -125,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Text(
                     "Metro Coffee",
                     style: TextStyle(
-                      fontFamily: montserratmedium,
+                      fontFamily: CustomFont.montserratMedium,
                       color: Palette.darkGery,
                       fontSize: 24.sp,
                     ),

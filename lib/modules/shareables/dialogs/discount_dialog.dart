@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class DiscountDialog extends StatelessWidget {
@@ -29,18 +30,20 @@ class DiscountDialog extends StatelessWidget {
                       text: TextSpan(
                           style: TextStyle(
                               height: 1.6,
-                              fontFamily: montserratmedium,
+                              fontFamily: CustomFont.montserratBold,
                               color: Color(0xff2A3434),
                               fontSize: screenwidth * 0.04866),
                           children: [
                             TextSpan(text: "Thanks for being\n a "),
                             TextSpan(
-                                text: "Gold Member.\n",
-                                style: TextStyle(
-                                    height: 1.6,
-                                    fontFamily: montserratbold,
-                                    color: Palette.deepOrange,
-                                    fontSize: screenwidth * 0.04866)),
+                              text: "Gold Member.\n",
+                              style: TextStyle(
+                                height: 1.6,
+                                fontFamily: CustomFont.montserratBold,
+                                color: Palette.deepOrange,
+                                fontSize: screenwidth * 0.04866,
+                              ),
+                            ),
                             TextSpan(text: "Enjoy your 15%\ndiscount."),
                           ]),
                     ),
@@ -87,7 +90,7 @@ class DiscountDialog extends StatelessWidget {
                                     child: Text(
                                       "CONTINUE",
                                       style: TextStyle(
-                                          fontFamily: poppinsregular,
+                                          fontFamily: CustomFont.poppinsRegular,
                                           fontSize: screenwidth * 0.0328,
                                           color: Colors.white),
                                     ),

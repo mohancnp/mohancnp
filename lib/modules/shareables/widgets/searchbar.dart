@@ -5,6 +5,7 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class SearchBar extends StatelessWidget {
   final bool enabled;
@@ -34,7 +35,7 @@ class SearchBar extends StatelessWidget {
               controller: SearchPageController.to.searchBarController,
               onEditingComplete: () => SearchPageController.to.performSearch(),
               style: TextStyle(
-                fontFamily: poppinsregular,
+                fontFamily: CustomFont.poppinsRegular,
                 color: Colors.black87,
                 fontSize: 10.sp,
               ),
@@ -49,7 +50,7 @@ class SearchBar extends StatelessWidget {
                 ),
                 hintText: 'What will energize you today?',
                 hintStyle: TextStyle(
-                  fontFamily: poppinslight,
+                  fontFamily: CustomFont.poppinsLight,
                   color: Color(0xC2404D4D),
                   height: 1.8,
                   fontSize: 11.sp,

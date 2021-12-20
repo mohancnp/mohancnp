@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
             ),
             button: TextStyle(
               fontFamily: CustomFont.poppinsRegular,
-              fontSize: 15.sp,
+              fontSize: 16.sp,
               color: Colors.black,
             ),
             bodyText1:
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
             caption: TextStyle(
               fontFamily: CustomFont.poppinsLight,
               color: Color(0xF3F3F3D6),
-              fontSize: 11.5.sp,
+              fontSize: 12.sp,
             ),
           ),
         ),

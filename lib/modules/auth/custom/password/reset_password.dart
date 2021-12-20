@@ -5,19 +5,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
+import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-
 import 'reset_password_controller.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   ResetPasswordPage({Key? key}) : super(key: key);
 
-  final resetPasswordController = Get.put(ResetPasswordPageController());
+  final controller = Get.put(ResetPasswordPageController());
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -43,7 +42,7 @@ class ResetPasswordPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Form(
-              key: resetPasswordController.resetPassKey,
+              key: controller.resetPassKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -73,7 +72,7 @@ class ResetPasswordPage extends StatelessWidget {
                   Text(
                     "Reset Password",
                     style: TextStyle(
-                      fontFamily: freightbold,
+                      fontFamily: CustomFont.freightDispBold,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                       fontSize: 40.sp,
@@ -105,19 +104,16 @@ class ResetPasswordPage extends StatelessWidget {
                     );
                   }),
                   Obx(
-                    () =>
-                        resetPasswordController.passwordErrorMessage.isNotEmpty
-                            ? CustomErrorWidget(
-                                message: resetPasswordController
-                                    .passwordErrorMessage.value,
-                              )
-                            : SizedBox(),
+                    () => controller.passwordErrorMessage.isNotEmpty
+                        ? CustomErrorWidget(
+                            message: controller.passwordErrorMessage.value,
+                          )
+                        : SizedBox(),
                   ),
                   GetBuilder<ResetPasswordPageController>(
                       builder: (controller) {
                     return CustomTextFormFeild(
-                      controller: resetPasswordController
-                          .passwordConfirmEditingController,
+                      controller: controller.passwordConfirmEditingController,
                       hintText: "Confirm Password",
                       validator: controller.validateConfirmPassword,
                       suffixIcon: Icon(
@@ -132,10 +128,9 @@ class ResetPasswordPage extends StatelessWidget {
                     );
                   }),
                   Obx(
-                    () => resetPasswordController.confirmErrorMessage.isNotEmpty
+                    () => controller.confirmErrorMessage.isNotEmpty
                         ? CustomErrorWidget(
-                            message: resetPasswordController
-                                .confirmErrorMessage.value,
+                            message: controller.confirmErrorMessage.value,
                           )
                         : SizedBox(),
                   ),
@@ -145,7 +140,7 @@ class ResetPasswordPage extends StatelessWidget {
                   Center(
                     child: AuthBtn(
                       centerBtnText: "CHANGE PASSWORD",
-                      onpressed: resetPasswordController.changePassword,
+                      onpressed: controller.changePassword,
                     ),
                   ),
                 ],

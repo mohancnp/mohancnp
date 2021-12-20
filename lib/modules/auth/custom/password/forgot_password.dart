@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
-import 'package:metrocoffee/core/routing/routes.dart';
+import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/modules/auth/custom/password/forgot_password_page_controller.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
@@ -78,7 +76,7 @@ class ForgotPasswordPage extends StatelessWidget {
                     Text(
                       "Forgot Password?",
                       style: TextStyle(
-                        fontFamily: freightbold,
+                        fontFamily: CustomFont.freightDispBold,
                         color: Colors.white,
                         fontSize: 42.sp,
                       ),

@@ -6,6 +6,7 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'widgets/user_info_short_widget.dart';
 
@@ -24,7 +25,7 @@ class ProfilePage extends StatelessWidget {
         title: Text(
           "PROFILE",
           style: TextStyle(
-            fontFamily: poppinsmedium,
+            fontFamily: CustomFont.poppinsMedium,
             color: Palette.darkGery,
             fontSize: 16.w,
           ),

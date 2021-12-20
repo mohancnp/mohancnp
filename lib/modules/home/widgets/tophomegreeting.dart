@@ -8,6 +8,7 @@ import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class TopHomeGreeting extends StatelessWidget {
   TopHomeGreeting({Key? key}) : super(key: key);
@@ -46,9 +47,9 @@ class TopHomeGreeting extends StatelessWidget {
                             ? 'Good Afternoon,' + '$firstName'
                             : 'Good Evening,' + ' $firstName ',
                         style: TextStyle(
-                          fontFamily: montserratsemibold,
+                          fontFamily: CustomFont.montserratBold,
                           color: Colors.white,
-                          fontSize: 20.5.sp,
+                          fontSize: 20.sp,
                         ),
                       ),
                     );

@@ -8,6 +8,7 @@ import 'package:metrocoffee/modules/notifications/notification_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/modules/notifications/singlenotification.dart';
 import 'package:metrocoffee/modules/shareables/something_went_wrong_page.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class Notifications extends StatelessWidget {
@@ -24,10 +25,10 @@ class Notifications extends StatelessWidget {
         title: Text(
           "MY NOTIFICATIONS",
           style: TextStyle(
-              fontFamily: poppinsmedium,
-              color: Color(0xff404D4D),
-              //   fontSize: 16
-              fontSize: 16.sp),
+            fontFamily: CustomFont.poppinsMedium,
+            color: Palette.darkGery,
+            fontSize: 16.sp,
+          ),
         ),
       ),
       body: GetBuilder<NotificationController>(

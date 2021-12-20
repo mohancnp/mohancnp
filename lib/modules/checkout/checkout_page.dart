@@ -15,6 +15,7 @@ import 'package:metrocoffee/modules/maps/new/google_map_page.dart';
 import 'package:metrocoffee/modules/maps/new/widgets/map_widgets.dart';
 import 'package:metrocoffee/modules/shareables/userpreference.dart';
 import 'package:metrocoffee/modules/shareables/widgets/finalpricecalculationcard.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
 import 'package:time_picker_widget/time_picker_widget.dart';
@@ -61,7 +62,7 @@ class CheckoutPage extends StatelessWidget {
         title: Text(
           "ORDER SUMMARY",
           style: TextStyle(
-            fontFamily: poppinsmedium,
+            fontFamily: CustomFont.poppinsMedium,
             color: Palette.darkGery,
             fontSize: 16.sp,
           ),

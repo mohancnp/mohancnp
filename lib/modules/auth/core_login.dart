@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/socials.dart';
-import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
+import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -20,6 +20,7 @@ class LoginPage extends StatelessWidget {
           Image.asset(
             loginBackgroundImage,
             width: 375.w,
+            //TODO: remove width by checking
             fit: BoxFit.cover,
           ),
           Container(
@@ -37,12 +38,12 @@ class LoginPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              //TODO: try using stretch
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 148.h),
                 Container(
-                  padding: EdgeInsets.all(5.w),
+                  padding: EdgeInsets.all(4.w),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white.withOpacity(0.4),
@@ -52,8 +53,8 @@ class LoginPage extends StatelessWidget {
                     width: 54.w,
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 25.h),
+                Padding(
+                  padding: EdgeInsets.only(top: 24.h),
                   child: Text(
                     "Welcome to\nMetro Coffee",
                     style: Theme.of(context).textTheme.headline1,
@@ -62,18 +63,17 @@ class LoginPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () => Get.toNamed(PageName.membershiploginpage),
                   child: Container(
-                    margin: EdgeInsets.only(top: 33.h),
-                    width: 375.w,
-                    height: 49.h,
+                    margin: EdgeInsets.only(top: 32.h),
+                    //TODO: remove width
+                    height: 48.h,
                     decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 2.w, color: Color(0xfff3f3f3)),
-                        borderRadius: BorderRadius.all(Radius.circular(23.r)),
-                        color: Colors.white),
+                      border: Border.all(width: 2.w, color: Color(0xfff3f3f3)),
+                      borderRadius: BorderRadius.all(Radius.circular(24.r)),
+                      color: Colors.white,
+                    ),
                     child: Center(
                       child: Text(
                         "Continue with Membership",
-                        textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.button,
                       ),
                     ),
@@ -165,46 +165,39 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget emailbox(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-    return ClipRRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-        child: GestureDetector(
-          onTap: () => Get.toNamed(PageName.emailloginpage),
-          child: Container(
-            margin: EdgeInsets.only(top: screenwidth * 0.0656),
-            width: screenwidth,
-            height: screenwidth * 0.1192,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(23)),
-                color: Colors.black87),
-            child: Center(
-              child: Container(
-                width: screenwidth * 0.58,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      FeatherIcons.mail,
-                      color: Colors.white,
-                      size: screenwidth * 0.0486,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: screenwidth * 0.04136),
-                      child: Text(
-                        "Continue with Email",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: poppinsregular,
-                          fontSize: screenwidth * 0.0364,
-                          color: Colors.white54,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+    return GestureDetector(
+      onTap: () => Get.toNamed(PageName.emailloginpage),
+      child: Container(
+        margin: EdgeInsets.only(top: 24.h),
+        height: 44.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(24.r),
+          ),
+          color: Colors.black87,
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                FeatherIcons.mail,
+                color: Colors.white,
+                size: 16.w,
               ),
-            ),
+              Container(
+                margin: EdgeInsets.only(left: 16.w),
+                child: Text(
+                  "Continue with Email",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: CustomFont.poppinsRegular,
+                    fontSize: 12.w,
+                    color: Colors.white54,
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ),
