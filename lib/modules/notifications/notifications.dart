@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/modules/notifications/no_notifications_widget.dart';
 import 'package:metrocoffee/modules/notifications/notification_controller.dart';
