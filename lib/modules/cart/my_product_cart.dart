@@ -24,16 +24,17 @@ class MyProductCart extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<CartController>(
-        init: CartController(),
-        initState: (v) {
-          cartController.getAllCartProducts();
-        },
-        builder: (controller) {
-          return Scaffold(
-            backgroundColor: Palette.pagebackgroundcolor,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: Obx(() {
+      init: CartController(),
+      initState: (v) {
+        cartController.getAllCartProducts();
+      },
+      builder: (controller) {
+        return Scaffold(
+          backgroundColor: Palette.pagebackgroundcolor,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: Obx(
+            () {
               return cartController.cartCount.value > 0
                   ? CustomReusableBtn(
                       buttonText: "Proceed to Checkout",
@@ -141,7 +142,10 @@ class MyProductCart extends StatelessWidget {
                                   return Text(
                                     " ${controller.cartCount.value} items",
                                     style: getpoppins(
-                                        TextStyle(color: Color(0xCF344141))),
+                                      TextStyle(
+                                        color: Color(0xCF344141),
+                                      ),
+                                    ),
                                   );
                                 }),
                               ),

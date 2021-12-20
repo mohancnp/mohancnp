@@ -22,18 +22,19 @@ class ProductCard extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // print("${AppConfig.baseUrl}/$imageUri");
-    return Container(
-      width: 140.w,
-      margin: EdgeInsets.only(
-        left: 16.w,
-      ),
-      padding: EdgeInsets.only(
-        left: 10.w,
-        top: 10.h,
-        right: 10.w,
-      ),
-      decoration: BoxDecoration(
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 140.w,
+        margin: EdgeInsets.only(
+          left: 16.w,
+        ),
+        padding: EdgeInsets.only(
+          left: 10.w,
+          top: 10.h,
+          right: 10.w,
+        ),
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r),
           color: Colors.white,
           border: Border.all(width: 0, color: Colors.transparent),
@@ -44,16 +45,15 @@ class ProductCard extends StatelessWidget {
               color: Color(0x29000000),
               blurRadius: 16.r,
             )
-          ]),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4.r),
-            child: Material(
-              child: InkWell(
-                onTap: onPressed,
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4.r),
+              child: Material(
                 child: Image.network(
                   "${AppConfig.baseUrl}/$imageUri",
                   height: 116.w,
@@ -83,57 +83,63 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Text(
-            "$name",
-            maxLines: 2,
-            style: getpoppins(TextStyle(
-              color: Color(0xFF404D4D),
-              fontSize: 12.sp,
-              fontFamily: poppinsmedium,
-            )),
-          ),
-          SizedBox(height: 10.h),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "\$ $price",
-                  style: getpoppins(TextStyle(
-                      color: coffeecolor,
-                      fontSize: 20.sp,
-                      fontFamily: poppinsmedium)),
+            SizedBox(
+              height: 10.h,
+            ),
+            Text(
+              "$name",
+              maxLines: 2,
+              style: getpoppins(
+                TextStyle(
+                  color: Color(0xFF404D4D),
+                  fontSize: 12.sp,
+                  fontFamily: poppinsmedium,
                 ),
-                GestureDetector(
-                  onTap: () => null,
-                  child: Container(
-                    width: 28.r,
-                    height: 28.r,
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 16.w,
-                    ),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: coffeecolor,
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset(0, 3.h),
-                            color: Color(0x62722030),
-                            blurRadius: 10.r)
-                      ],
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "\$ $price",
+                    style: getpoppins(
+                      TextStyle(
+                        color: coffeecolor,
+                        fontSize: 20.sp,
+                        fontFamily: poppinsmedium,
+                      ),
                     ),
                   ),
-                )
-              ],
+                  GestureDetector(
+                    onTap: () => onPressed,
+                    child: Container(
+                      width: 28.r,
+                      height: 28.r,
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 16.w,
+                      ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: coffeecolor,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 3.h),
+                            color: Color(0x62722030),
+                            blurRadius: 10.r,
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

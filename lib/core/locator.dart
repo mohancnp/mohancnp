@@ -37,8 +37,9 @@ Future<void> setupLocator() async {
       locator.registerLazySingleton<RemoteSource>(() => RemoteSourceImpl());
       locator.registerLazySingleton<ProductService>(
           () => ProductServiceImpl(locator.get()));
-      locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
+      locator.registerSingleton<AuthService>(AuthServiceImpl(locator.get()));
       locator.registerLazySingleton<OrderService>(() => OrderServiceImpl());
+
       locator.registerLazySingleton<ProfileService>(() => ProfileServiceImpl());
       locator.registerLazySingleton<NotificationService>(
           () => NotificationServiceImpl());

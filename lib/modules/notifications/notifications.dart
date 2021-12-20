@@ -12,7 +12,7 @@ import 'package:metrocoffee/ui/src/palette.dart';
 
 class Notifications extends StatelessWidget {
   Notifications({Key? key}) : super(key: key);
-
+  final controller = Get.put(NotificationController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -18,19 +18,19 @@ InterceptorsWrapper getTokenInterceptor(Dio dio) {
 
 final loggingInterceptor = InterceptorsWrapper(
   onRequest: (options, handler) {
-    print('APIRequest: ${options.method} ${options.uri}');
+    // print('APIRequest on Request: ${options.method} ${options.uri}');
     // print(options.headers);
     // print(options.data);
     handler.next(options);
   },
   onResponse: (response, handler) {
-    print('APIRequest: ${response.statusCode}');
+    // print('APIRequest on Response: ${response.statusCode}');
     // print('API Request: ${response.data}');
     handler.next(response);
   },
   onError: (error, handler) {
-    print('APIRequest: ${error.response?.toString()}');
-    print('APIRequest: ${error.response?.data}');
+    // print('APIRequest Error: ${error.response?.toString()}');
+    // print('APIRequest Error: ${error.response?.data}');
     handler.next(error);
   },
 );

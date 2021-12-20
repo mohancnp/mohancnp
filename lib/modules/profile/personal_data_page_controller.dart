@@ -98,36 +98,36 @@ class PersonalDataPageController extends GetxController {
     user.email = emailcontroller.text;
     user.job = jobcontroller.text;
     user.gender = gender;
-
+//TODO: to be adjusted
     // print(user.toJson());
 
-    try {
-      var result = await _profileService.updateProfile(
-        profileData: user.toJson(),
-        imageData: imageData,
-      );
-      print(result['data']);
-      User updatedUser = User.fromJson(result["data"]);
-      namecontroller.text = updatedUser.name ?? " ";
-      emailcontroller.text = updatedUser.email ?? " ";
-      gender = updatedUser.gender;
-      jobcontroller.text = updatedUser.job ?? " ";
-      profileController.newUser = updatedUser;
-      Get.find<HomeController>().user = updatedUser;
+    // try {
+    //   var result = await _profileService.updateProfile(
+    //     profileData: user.toJson(),
+    //     imageData: imageData,
+    //   );
+    //   print(result['data']);
+    //   User updatedUser = User.fromJson(result["data"]);
+    //   namecontroller.text = updatedUser.name ?? " ";
+    //   emailcontroller.text = updatedUser.email ?? " ";
+    //   gender = updatedUser.gender;
+    //   jobcontroller.text = updatedUser.job ?? " ";
+    //   profileController.newUser = updatedUser;
+    //   Get.find<HomeController>().user = updatedUser;
 
-      if (result != null) {
-        Get.back();
-        showSnackBarWithMsg("Profile", "update sucessfull!");
-      }
-    } on AppException catch (e) {
-      Get.back();
-      showSnackBarWithMsg("profile", "update failed");
-      print(e);
-    } on Exception catch (e) {
-      Get.back();
-      showSnackBarWithMsg("profile", "update failed");
-      print("generic error: $e");
-    }
+    //   if (result != null) {
+    //     Get.back();
+    //     showSnackBarWithMsg("Profile", "update sucessfull!");
+    //   }
+    // } on AppException catch (e) {
+    //   Get.back();
+    //   showSnackBarWithMsg("profile", "update failed");
+    //   print(e);
+    // } on Exception catch (e) {
+    //   Get.back();
+    //   showSnackBarWithMsg("profile", "update failed");
+    //   print("generic error: $e");
+    // }
 
     //todo: add code to implement db update for user
   }

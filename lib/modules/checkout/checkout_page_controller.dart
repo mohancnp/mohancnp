@@ -18,13 +18,15 @@ class CheckoutPageController extends GetxController {
   var c = Get.find<RedirectionController>();
 
   void navigateToPageName({required String pageName, String? defaultPageName}) {
-    if (c.userExists) {
-      Get.toNamed(pageName);
-    } else {
-      if (defaultPageName != null) {
-        Get.toNamed(defaultPageName);
-      }
-    }
+    if (defaultPageName != null) Get.toNamed(defaultPageName);
+
+    //TODO: to be uncommented when login and signup are done
+    // if (c.userExists) {
+    //   Get.toNamed(pageName);
+    // } else {
+    //   if (defaultPageName != null) {
+    //   }
+    // }
   }
 
   @override

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/models/older/user_model.dart';
-import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/config.dart';
+import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/core/models/new_user.dart';
+import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'topup_reward_dialog.dart';
 
@@ -20,9 +20,9 @@ class UserInfoShort extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GetX<ProfilePageController>(
+        GetX<HomeController>(
           builder: (controller) {
-            User user = controller.newUser;
+            Customer user = controller.user;
             return Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,43 +34,40 @@ class UserInfoShort extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(32.r)),
                     border: Border.all(
                       color: Color(0xff5AB898),
-                      width: 2.5,
+                      width: 2,
                     ),
                   ),
-                  child: user.imageUri == null
-                      ? Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            controller.getImagePlacholder(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Palette.textColor,
-                            ),
-                          ),
-                        )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(32.r),
-                          child: Image.network(
-                            "${AppConfig.baseUrl}/${user.imageUri}",
-                            fit: BoxFit.cover,
-                            height: 64.r,
-                            width: 64.r,
-                            loadingBuilder: (context, widget, imageProgress) {
-                              if (imageProgress == null) {
-                                return widget;
-                              } else {
-                                return Center(
-                                  child: Text("Loading"),
-                                );
-                              }
-                            },
-                            errorBuilder: (a, b, c) =>
-                                Center(child: Text("Error")),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(32.r),
+                    child: Image.network(
+                      "${AppConfig.baseUrl}/${user.image}",
+                      fit: BoxFit.cover,
+                      height: 64.r,
+                      width: 64.r,
+                      loadingBuilder: (context, widget, imageProgress) {
+                        if (imageProgress == null) {
+                          return widget;
+                        } else {
+                          return Center(
+                            child: Text("Loading"),
+                          );
+                        }
+                      },
+                      errorBuilder: (a, b, c) => Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          user.firstName.substring(1, 2).toUpperCase(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Palette.textColor,
                           ),
                         ),
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   height: 76.h,
@@ -85,26 +82,28 @@ class UserInfoShort extends StatelessWidget {
                           TextStyle(
                             fontWeight: FontWeight.w300,
                             color: Palette.darkGery,
-                            fontSize: 11.5.sp,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ),
                       Text(
-                        user.name == null ? " " : "${user.name}",
+                        user.firstName,
                         style: getpoppins(
                           TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Palette.darkGery,
-                              fontSize: 14.5.sp),
+                            fontWeight: FontWeight.w500,
+                            color: Palette.darkGery,
+                            fontSize: 12.sp,
+                          ),
                         ),
                       ),
                       Text(
-                        user.email == null ? " " : "${user.email}",
+                        user.email,
                         style: getpoppins(
                           TextStyle(
-                              fontWeight: FontWeight.w300,
-                              color: Palette.darkGery,
-                              fontSize: 11.5.sp),
+                            fontWeight: FontWeight.w300,
+                            color: Palette.darkGery,
+                            fontSize: 12.sp,
+                          ),
                         ),
                       )
                     ],
@@ -148,27 +147,19 @@ class UserInfoShort extends StatelessWidget {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: Color(0xff5AB898),
-                          width: 2.5,
+                          width: 2,
                         )),
-                    child: Obx(
-                      () {
-                        final profileController =
-                            Get.find<ProfilePageController>();
-                        return Center(
-                          child: Text(
-                            profileController.newUser.points == null
-                                ? "0"
-                                : "${profileController.newUser.points}",
-                            style: getpoppins(
-                              TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Palette.darkGery,
-                                fontSize: 12.sp,
-                              ),
-                            ),
+                    child: Center(
+                      child: Text(
+                        "000",
+                        style: getpoppins(
+                          TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: Palette.darkGery,
+                            fontSize: 12.sp,
                           ),
-                        );
-                      },
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -176,13 +167,12 @@ class UserInfoShort extends StatelessWidget {
                   top: 0,
                   right: 0,
                   child: Container(
-                    height: 25.r,
-                    width: 25.r,
+                    height: 24.r,
+                    width: 24.r,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
-                      border:
-                          Border.all(color: Color(0xff5AB898), width: 2.5.w),
+                      border: Border.all(color: Color(0xff5AB898), width: 2.w),
                     ),
                     child: Center(
                       child: SvgPicture.asset(

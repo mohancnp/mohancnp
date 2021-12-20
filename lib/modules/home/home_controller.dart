@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/older/user_model.dart';
+import 'package:metrocoffee/core/models/new_user.dart';
 import 'package:metrocoffee/core/models/product.dart';
-import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
@@ -18,16 +18,14 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
   int currentpageindex = 0;
   bool internetConnected = false;
   ProductService _productService = locator.get<ProductService>();
-  // late CartService _cartService = locator<CartService>();
 
-  Rx<User> _user = User().obs;
-
-  set user(User newUser) {
+  Rx<Customer> _user = Customer.fromJson(defaultUser).obs;
+  set user(Customer newUser) {
     this._user.value = newUser;
     this._user.refresh();
   }
 
-  User get user => _user.value;
+  Customer get user => _user.value;
 
   void getUser() async {
     user = await Get.find<ProfilePageController>().getProfile();
@@ -80,7 +78,7 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
       list = CategoriesController.to.categoryList;
     }
     if (list.isNotEmpty) {
-      print("category list is available");
+      // print("category list is available");
       for (var i = 0; i < list.length; i++) {
         var element = list.elementAt(i);
         if (element.selected != null) {
@@ -90,7 +88,7 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
         }
       }
     } else {
-      print("empty category list");
+      // print("empty category list");
       change(null, status: RxStatus.error("No Products For Category"));
     }
   }

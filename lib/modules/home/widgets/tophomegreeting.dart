@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class TopHomeGreeting extends StatelessWidget {
   TopHomeGreeting({Key? key}) : super(key: key);
@@ -35,9 +35,7 @@ class TopHomeGreeting extends StatelessWidget {
                 GetX<HomeController>(
                   builder: (controller) {
                     var user = controller.user;
-                    var firstName = "...";
-                    firstName =
-                        user.name?.split(' ').elementAt(0) ?? "Caffeinator";
+                    var firstName = user.firstName;
                     return Container(
                       child: Text(
                         int.parse(DateFormat.H('en_US')
@@ -46,19 +44,21 @@ class TopHomeGreeting extends StatelessWidget {
                             ? 'Good Afternoon,' + '$firstName'
                             : 'Good Evening,' + ' $firstName ',
                         style: TextStyle(
-                          fontFamily: montserratsemibold,
+                          fontFamily: CustomFont.montserratSemiBold,
                           color: Colors.white,
-                          fontSize: 20.5.sp,
+                          fontSize: 20.sp,
                         ),
                       ),
                     );
                   },
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: 4.h),
-                    child: Text(
-                        "You can order drinks for collections or Delivery.",
-                        style: Theme.of(context).textTheme.caption)),
+                  margin: EdgeInsets.only(top: 4.h),
+                  child: Text(
+                    "You can order drinks for collections or Delivery.",
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                ),
               ],
             ),
           ),
@@ -89,19 +89,22 @@ class TopHomeGreeting extends StatelessWidget {
                               child: Text("$count",
                                   style: TextStyle(fontSize: 8.sp)),
                               decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(1, 1),
-                                      color: Colors.black12,
-                                    ),
-                                    BoxShadow(
-                                      offset: Offset(-1, -1),
-                                      color: Colors.black12,
-                                    )
-                                  ],
-                                  shape: BoxShape.circle),
-                              duration: Duration(milliseconds: 500),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(1, 1),
+                                    color: Colors.black12,
+                                  ),
+                                  BoxShadow(
+                                    offset: Offset(-1, -1),
+                                    color: Colors.black12,
+                                  )
+                                ],
+                                shape: BoxShape.circle,
+                              ),
+                              duration: Duration(
+                                milliseconds: 500,
+                              ),
                             )
                           : SizedBox(),
                     );

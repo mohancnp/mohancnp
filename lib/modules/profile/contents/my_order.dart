@@ -15,7 +15,8 @@ import '../../../core/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyOrderPage extends StatelessWidget {
-  const MyOrderPage({Key? key}) : super(key: key);
+   MyOrderPage({Key? key}) : super(key: key);
+  final controller = Get.put(OrderHistoryController());
 
   @override
   Widget build(BuildContext context) {

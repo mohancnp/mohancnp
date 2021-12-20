@@ -9,7 +9,7 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
-import 'package:metrocoffee/core/constants/placeholder_image.dart';
+import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/storage/db/dbconst.dart';
 import 'package:metrocoffee/core/theme.dart';
