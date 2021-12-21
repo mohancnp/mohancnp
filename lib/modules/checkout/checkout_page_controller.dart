@@ -12,7 +12,7 @@ class CheckoutPageController extends GetxController {
   Rx<String> selectedTimeFrame = "Enter Time".obs;
   final cartController = Get.find<CartController>();
   RemoteOrder remoteOrder = RemoteOrder.empty();
-  TimeOfDay _time = TimeOfDay.now().replacing(minute: 30);
+  final TimeOfDay _time = TimeOfDay.now().replacing(minute: 30);
   String timeFrom = "00:00", timeEnd = "00:00";
   UserOrderPreference userPreference = UserOrderPreference.pickup;
   var c = Get.find<RedirectionController>();
@@ -29,7 +29,6 @@ class CheckoutPageController extends GetxController {
 
   @override
   void onInit() {
-    print("oninit called");
     var userPref = Get.arguments;
     if (userPref != null) {
       userPreference = userPref;

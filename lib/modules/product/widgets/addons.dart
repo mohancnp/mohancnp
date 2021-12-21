@@ -4,12 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/product/product_detail_page_controller.dart';
 
-class AddonsWidget extends StatelessWidget {
-  const AddonsWidget({Key? key}) : super(key: key);
+class Addons extends StatelessWidget {
+  const Addons({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class AddonsWidget extends StatelessWidget {
       builder: (controller) {
         var addons = controller.productDetail.addons;
         return addons.isEmpty
-            ? SizedBox()
+            ? const SizedBox()
             : Container(
                 height: 140.h,
                 padding: EdgeInsets.only(left: 28.w),
@@ -26,9 +25,8 @@ class AddonsWidget extends StatelessWidget {
                   itemCount: addons.length,
                   clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
-                    // print("added");
                     int i = addons[index].id;
                     return GestureDetector(
                       onTap: () {
@@ -42,53 +40,52 @@ class AddonsWidget extends StatelessWidget {
                           children: [
                             Container(
                               padding: EdgeInsets.only(
-                                  left: 12.w, bottom: 4.h, right: 4.w),
+                                left: 12.w,
+                                bottom: 4.h,
+                                right: 4.w,
+                              ),
                               height: 87.h,
                               width: 100.w,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 border: Border.all(
                                     color: addons[index].selected
-                                        ? (Color(0xFF550E1C))
+                                        ? const Color(0xFF550E1C)
                                         : Colors.white,
                                     width: 2.0),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(9.r),
-                                ),
+                                borderRadius: BorderRadius.circular(9.r),
                                 boxShadow: [
                                   BoxShadow(
-                                      color: Colors.black12,
-                                      blurRadius: 20.r,
-                                      offset: Offset(0, 3.r))
+                                    color: Colors.black12,
+                                    blurRadius: 20.r,
+                                    offset: Offset(0, 3.r),
+                                  )
                                 ],
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    child: Text(
-                                      "${addons[index].name}",
-                                      style: getpoppins(
-                                        TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                          color: darkgrey,
-                                          fontSize: 12.sp,
-                                        ),
-                                      ),
+                                  Text(
+                                    addons[index].name,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w300,
+                                      color: darkgrey,
+                                       
+                                      fontSize: 12.sp,
                                     ),
                                   ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Container(
-                                        child: Text(
-                                          "${Currency.symbol} ${addons[index].price}",
-                                          style: getpoppins(TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: darkgrey,
-                                              fontSize: 13.sp)),
+                                      Text(
+                                        "${Currency.symbol} ${addons[index].price}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: darkgrey,
+                                           
+                                          fontSize: 13.sp,
                                         ),
                                       ),
                                       Icon(
@@ -97,7 +94,7 @@ class AddonsWidget extends StatelessWidget {
                                         size: 21.sp,
                                       )
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -123,7 +120,7 @@ class AddonsWidget extends StatelessWidget {
                                       },
                                     ),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ],
                         ),
                       ),

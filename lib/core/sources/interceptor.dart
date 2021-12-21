@@ -18,18 +18,22 @@ InterceptorsWrapper getTokenInterceptor(Dio dio) {
 
 final loggingInterceptor = InterceptorsWrapper(
   onRequest: (options, handler) {
+// ignore: avoid_print
     print('APIRequest: ${options.method} ${options.uri}');
     // print(options.headers);
     // print(options.data);
     handler.next(options);
   },
   onResponse: (response, handler) {
+    // ignore: avoid_print
     print('APIRequest: ${response.statusCode}');
     // print('API Request: ${response.data}');
     handler.next(response);
   },
   onError: (error, handler) {
+    // ignore: avoid_print
     print('APIRequest: ${error.response?.toString()}');
+    // ignore: avoid_print
     print('APIRequest: ${error.response?.data}');
     handler.next(error);
   },

@@ -13,7 +13,7 @@ import 'package:metrocoffee/ui/src/palette.dart';
         color: Palette.coffeeColor,
       ),
     ),
-    title: "${message ?? 'Processing'}",
+    title: message ?? 'Processing',
     barrierDismissible: false,
   );
 }

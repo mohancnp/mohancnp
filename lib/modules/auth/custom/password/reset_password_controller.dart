@@ -12,10 +12,10 @@ class ResetPasswordPageController extends GetxController {
   Rx<String> passwordErrorMessage = "".obs;
   Rx<String> confirmErrorMessage = "".obs;
 
-  get eye => this._eye;
+  get eye => _eye;
 
   set eye(value) {
-    this._eye = value;
+    _eye = value;
     update();
   }
 
@@ -26,7 +26,7 @@ class ResetPasswordPageController extends GetxController {
           passwordEditingController.text) {
         showCustomDialog(message: "Reseting Your Password");
         await Future.delayed(
-          Duration(milliseconds: 2000),
+          const Duration(milliseconds: 2000),
         );
         Get.back();
         Get.offAllNamed(PageName.loginpage);
@@ -35,8 +35,6 @@ class ResetPasswordPageController extends GetxController {
             errorMessage: "Set of Password Doesn't match,try again!!",
             errorTitle: "Error!!!");
       }
-    } else {
-      print("validation error");
     }
   }
 
@@ -57,15 +55,5 @@ class ResetPasswordPageController extends GetxController {
     }
     confirmErrorMessage.value = "";
     return null;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

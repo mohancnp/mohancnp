@@ -9,7 +9,7 @@ class CategoriesController extends GetxController
     with StateMixin<List<Category>> {
   static CategoriesController get to => Get.find();
   List<Category> _categoryList = <Category>[];
-  var _productService = locator.get<ProductService>();
+  final _productService = locator.get<ProductService>();
 
   List<Category> get categoryList {
     return _categoryList;
@@ -45,7 +45,7 @@ class CategoriesController extends GetxController
       _categoryList = l;
       setDefaultCategory();
       change(_categoryList, status: RxStatus.success());
-      if (l.length < 1) {
+      if (l.isEmpty) {
         change(l, status: RxStatus.empty());
       }
     }, (r) {

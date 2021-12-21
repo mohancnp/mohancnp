@@ -19,11 +19,10 @@ class CartController extends GetxController {
   Future removeItemFromCart(int id, int atIndex) async {
     var response = await cartService.removeProductWithId(id);
     response.fold((l) {
-      // var elem = cartProductList.elementAt(atIndex).name;
       cartProductList.removeAt(atIndex);
       cartCount.value -= 1;
       update();
-    }, (r) => print("${r.message}"));
+    }, (r) {});
   }
 
   Future increaseItemQty(CartInstance cartInstance, atIndex) async {
@@ -51,13 +50,10 @@ class CartController extends GetxController {
     }
   }
 
-  handleCartProductFailure(Failure r) {
-    print("reached in failure");
-  }
+  handleCartProductFailure(Failure r) {}
 
   handleCartProductSucess(List<CartInstance> l) {
-    print("reached in sucess");
-    if (l.length > 0) {
+    if (l.isNotEmpty) {
       cartProductList = l;
       cartCount.value = l.length;
       calculateTotal();
@@ -74,14 +70,14 @@ class CartController extends GetxController {
 
   Future getCartItemCount() async {
     var response = await cartService.getCount();
-    response.fold((l) => cartCount.value = l, (r) => print("${r.message}"));
+    response.fold((l) => cartCount.value = l, (r) {});
   }
 
   void calculateTotal() async {
     var total = 0.0;
-    cartProductList.forEach((element) {
+    for (var element in cartProductList) {
       total += element.totalPrice * element.qty;
-    });
+    }
     totalAmount.value = total;
   }
 }

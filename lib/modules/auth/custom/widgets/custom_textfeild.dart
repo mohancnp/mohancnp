@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/input_feild_wrapper.dart';
-import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class CustomTextFormFeild extends StatelessWidget {
@@ -33,7 +32,7 @@ class CustomTextFormFeild extends StatelessWidget {
         obscureText: obscureText,
         validator: validator,
         style: TextStyle(
-          fontFamily: CustomFont.poppinsRegular,
+           
           color: Colors.black87,
           fontSize: 13.sp,
           height: 1.8,
@@ -45,12 +44,12 @@ class CustomTextFormFeild extends StatelessWidget {
             onTap: onSuffixIconTap,
             child: suffixIcon,
           ),
-          contentPadding: EdgeInsets.all(4.0),
-          hintText: '$hintText',
+          contentPadding: const EdgeInsets.all(4.0),
+          hintText: hintText,
           border: InputBorder.none,
-          errorStyle: TextStyle(height: 0),
+          errorStyle: const TextStyle(height: 0),
           hintStyle: TextStyle(
-            fontFamily: CustomFont.poppinsRegular,
+             
             color: Palette.darkGery,
           ),
         ),

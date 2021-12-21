@@ -30,7 +30,7 @@ class OtpCodeBox extends StatelessWidget {
             maxLength: 1,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 24.sp),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               floatingLabelBehavior: FloatingLabelBehavior.never,

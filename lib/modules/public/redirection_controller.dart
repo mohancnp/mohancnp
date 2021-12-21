@@ -8,7 +8,7 @@ class UserExistence {
 class RedirectionController extends GetxController {
   static RedirectionController get to => Get.find();
 
-  Rx<UserExistence> _userExists = UserExistence(false).obs;
+  final Rx<UserExistence> _userExists = UserExistence(false).obs;
   set userExists(bool status) {
     _userExists.value.exits = status;
   }
@@ -17,5 +17,5 @@ class RedirectionController extends GetxController {
     return _userExists.value.exits;
   }
 
-  void navigateToAuthentication(String PageNameName) {}
+  void navigateToAuthentication(String pageName) {}
 }

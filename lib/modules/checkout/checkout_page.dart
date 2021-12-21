@@ -1,10 +1,8 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/company_detail.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
@@ -69,7 +67,7 @@ class CheckoutPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         reverse: true,
         clipBehavior: Clip.none,
         child: Container(
@@ -104,15 +102,15 @@ class CheckoutPage extends StatelessWidget {
                       (controller.userPreference == UserOrderPreference.pickup)
                           ? "Pickup Location"
                           : "Delivery Location",
-                      style: getpoppins(TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Palette.textColor,
-                        //       fontSize: 14.5
+                         
                         fontSize: 14.sp,
-                      )),
+                      ),
                     ),
                     controller.userPreference == UserOrderPreference.pickup
-                        ? SizedBox()
+                        ? const SizedBox()
                         : GestureDetector(
                             onTap: () {
                               Get.to(() => GoogleMapPage());
@@ -129,13 +127,15 @@ class CheckoutPage extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(left: 4.w),
-                                    child: Text("Add",
-                                        style: getpoppins(TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Palette.textColor,
-                                          //       fontSize: 14.5
-                                          fontSize: 12.sp,
-                                        ))),
+                                    child: Text(
+                                      "Add",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Palette.textColor,
+                                         
+                                        fontSize: 12.sp,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -186,7 +186,7 @@ class CheckoutPage extends StatelessWidget {
                                             Radius.circular(8.r),
                                           ),
                                           child: SimpleDialog(
-                                              contentPadding: EdgeInsets.all(0),
+                                              contentPadding: const EdgeInsets.all(0),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(18.r),
@@ -225,12 +225,12 @@ class CheckoutPage extends StatelessWidget {
                 padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
                 child: Text(
                   "Delivery Time",
-                  style: getpoppins(TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Palette.textColor,
-                    //       fontSize: 14.5
+                     
                     fontSize: 14.sp,
-                  )),
+                  ),
                 ),
               ),
               Obx(() {
@@ -296,11 +296,11 @@ class CheckoutPage extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(9)),
+                        borderRadius: const BorderRadius.all(Radius.circular(9)),
                         boxShadow: [
                           BoxShadow(
                               color: Colors.black.withOpacity(0.05),
-                              offset: Offset(0, 3),
+                              offset: const Offset(0, 3),
                               blurRadius: 10)
                         ]),
                     child: Padding(
@@ -315,7 +315,7 @@ class CheckoutPage extends StatelessWidget {
                                 controller.selectedTimeFrame.value,
                               ),
                               Icon(
-                                FeatherIcons.clock,
+                                Icons.watch,
                                 size: 16.w,
                               )
                             ],
@@ -352,11 +352,13 @@ class CheckoutPage extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "View Full Allergy statement",
-                    style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Palette.coffeeColor,
-                        fontSize: 13.sp,
-                        decoration: TextDecoration.underline)),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Palette.coffeeColor,
+                      fontSize: 13.sp,
+                      decoration: TextDecoration.underline,
+                       
+                    ),
                   ),
                 ),
               ),
@@ -400,29 +402,29 @@ showMessage(BuildContext context, String message) => showDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            Icon(
+            const Icon(
               Icons.warning,
               color: Colors.amber,
               size: 56,
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
                 message,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Color(0xFF231F20),
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             InkWell(
@@ -430,10 +432,10 @@ showMessage(BuildContext context, String message) => showDialog(
               child: Container(
                 alignment: Alignment.center,
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                decoration: const BoxDecoration(
                     border: Border(top: BorderSide(color: Color(0xFFE8ECF3)))),
-                child: Text(
+                child: const Text(
                   'Cerrar',
                   style: TextStyle(
                       color: Color(0xFF2058CA),

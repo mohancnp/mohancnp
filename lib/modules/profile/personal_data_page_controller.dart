@@ -18,7 +18,7 @@ class PersonalDataPageController extends GetxController {
   TextEditingController membershipcontroller = TextEditingController();
   TextEditingController newpasswordcontroller = TextEditingController();
   TextEditingController confirmpasswordcontroller = TextEditingController();
-  var _profileService = locator.get<ProfileService>();
+  final _profileService = locator.get<ProfileService>();
   bool obscurecurrentpassword = true;
   String? gender;
   bool changesmade = false;
@@ -79,15 +79,12 @@ class PersonalDataPageController extends GetxController {
     );
     if (image != null) {
       imageData = File(image.path);
-      print("Image not null");
-    } else {
-      print("null image data");
     }
   }
 
   updateUserInfoInDbAndServer() async {
     Get.defaultDialog(
-        content: SizedBox(
+        content: const SizedBox(
       height: 50,
       width: 50,
       child: Center(child: CircularProgressIndicator()),
@@ -99,14 +96,11 @@ class PersonalDataPageController extends GetxController {
     user.job = jobcontroller.text;
     user.gender = gender;
 
-    // print(user.toJson());
-
     try {
       var result = await _profileService.updateProfile(
         profileData: user.toJson(),
         imageData: imageData,
       );
-      print(result['data']);
       User updatedUser = User.fromJson(result["data"]);
       namecontroller.text = updatedUser.name ?? " ";
       emailcontroller.text = updatedUser.email ?? " ";
@@ -119,29 +113,27 @@ class PersonalDataPageController extends GetxController {
         Get.back();
         showSnackBarWithMsg("Profile", "update sucessfull!");
       }
-    } on AppException catch (e) {
+    } on AppException {
       Get.back();
       showSnackBarWithMsg("profile", "update failed");
-      print(e);
-    } on Exception catch (e) {
+    } on Exception {
       Get.back();
       showSnackBarWithMsg("profile", "update failed");
-      print("generic error: $e");
     }
 
     //todo: add code to implement db update for user
   }
 
   showSnackBarWithMsg(String title, String message) {
-    Get.snackbar("$title", "$message",
+    Get.snackbar(title, message,
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(milliseconds: 1500));
+        duration: const Duration(milliseconds: 1500));
   }
 
   changePassword() async {
     if (changesmade) {
       Get.defaultDialog(
-          content: SizedBox(
+          content: const SizedBox(
         height: 50,
         width: 50,
         child: Center(child: CircularProgressIndicator()),
@@ -157,13 +149,12 @@ class PersonalDataPageController extends GetxController {
           showSnackBarWithMsg("password", "update sucessfull!!");
           emptychangepasswordtextfields();
         }
-      } on AppException catch (e) {
+      } on AppException {
         Get.back();
         showSnackBarWithMsg("password", "update failed");
         emptychangepasswordtextfields();
-        print(e.message);
-      } on Exception catch (e) {
-        print("generic error: $e");
+      } on Exception {
+        // TODO: Handle Exception
       }
     }
   }

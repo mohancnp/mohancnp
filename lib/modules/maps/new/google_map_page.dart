@@ -11,11 +11,11 @@ import 'places_selection_page.dart';
 import 'widgets/map_widgets.dart';
 
 class GoogleMapPage extends StatelessWidget {
-  GoogleMapPage({Key? key, this.initialLat, this.initialLong})
-      : super(key: key);
   final double? initialLat, initialLong;
 
-  var TAG = "COMMENTS";
+  GoogleMapPage({Key? key, this.initialLat, this.initialLong})
+      : super(key: key);
+
   final controller = Get.find<CustomGoogleMapController>();
 
   @override
@@ -99,7 +99,7 @@ class GoogleMapPage extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Get.to(() => PlaceSelection());
+                            Get.to(() => const PlaceSelection());
                           },
                           child: Padding(
                             padding: EdgeInsets.only(
@@ -110,7 +110,7 @@ class GoogleMapPage extends StatelessWidget {
                               return SearchDestinationBox(
                                 textFeildEnabled: false,
                                 onPressed: () {
-                                  Get.to(() => PlaceSelection());
+                                  Get.to(() => const PlaceSelection());
                                 },
                                 hintText: cgmapController.currentLocation,
                               );

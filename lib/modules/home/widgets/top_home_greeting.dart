@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/constants/icons/carticons.dart';
+import 'package:metrocoffee/core/constants/icons/cart_icons.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
@@ -28,40 +27,35 @@ class TopHomeGreeting extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GetX<HomeController>(
-                  builder: (controller) {
-                    var user = controller.user;
-                    var firstName = "...";
-                    firstName =
-                        user.name?.split(' ').elementAt(0) ?? "Caffeinator";
-                    return Container(
-                      child: Text(
-                        int.parse(DateFormat.H('en_US')
-                                    .format(DateTime.now())) <
-                                16
-                            ? 'Good Afternoon,' + '$firstName'
-                            : 'Good Evening,' + ' $firstName ',
-                        style: TextStyle(
-                          fontFamily: CustomFont.montserratBold,
-                          color: Colors.white,
-                          fontSize: 20.sp,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                Container(
-                    margin: EdgeInsets.only(top: 4.h),
-                    child: Text(
-                        "You can order drinks for collections or Delivery.",
-                        style: Theme.of(context).textTheme.caption)),
-              ],
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GetX<HomeController>(
+                builder: (controller) {
+                  var user = controller.user;
+                  var firstName = "...";
+                  firstName =
+                      user.name?.split(' ').elementAt(0) ?? "Caffeinator";
+                  return Text(
+                    int.parse(DateFormat.H('en_US').format(DateTime.now())) <
+                            16
+                        ? 'Good Afternoon,' + firstName
+                        : 'Good Evening,' ' $firstName ',
+                    style: TextStyle(
+                      fontFamily: CustomFont.montserratBold,
+                      color: Colors.white,
+                      fontSize: 20.sp,
+                    ),
+                  );
+                },
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 4.h),
+                  child: Text(
+                      "You can order drinks for collections or Delivery.",
+                      style: Theme.of(context).textTheme.caption)),
+            ],
           ),
           GestureDetector(
             onTap: () =>
@@ -89,7 +83,7 @@ class TopHomeGreeting extends StatelessWidget {
                               alignment: Alignment.center,
                               child: Text("$count",
                                   style: TextStyle(fontSize: 8.sp)),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
@@ -102,9 +96,9 @@ class TopHomeGreeting extends StatelessWidget {
                                     )
                                   ],
                                   shape: BoxShape.circle),
-                              duration: Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 500),
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     );
                   },
                 ),

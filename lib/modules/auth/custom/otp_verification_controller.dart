@@ -23,24 +23,24 @@ class OtpVerificationController extends GetxController {
 
   @override
   void onClose() {
-    customFocusNodeList.forEach((element) {
+    for (var element in customFocusNodeList) {
       element.dispose();
-    });
+    }
     super.onClose();
   }
 
-  void navigateToPageName({required String PageNameName}) {
-    Get.toNamed(PageNameName);
+  void navigateToPageName({required String pageName}) {
+    Get.toNamed(pageName);
   }
 
   Future<void> verifyOTPandNavigate() async {
     if (verificationCode != null) {
       showCustomDialog(message: "Verifying Otp");
       await Future.delayed(
-        Duration(milliseconds: 2000),
+        const Duration(milliseconds: 2000),
       );
       Get.back();
-      navigateToPageName(PageNameName: PageName.resetPasswordPage);
+      navigateToPageName(pageName: PageName.resetPasswordPage);
     }
   }
 }

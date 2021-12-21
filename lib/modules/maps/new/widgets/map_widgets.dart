@@ -1,20 +1,13 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:google_place/google_place.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
-import 'package:metrocoffee/modules/maps/new/google_map_page.dart';
-import 'package:metrocoffee/modules/maps/new/widgets/places_controller.dart';
-import 'package:metrocoffee/modules/shareables/userpreference.dart';
 import 'package:metrocoffee/ui/src/custom_text_theme.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-import 'package:google_place/google_place.dart';
+
 import '../google_map_controller.dart';
-import '../places_selection_page.dart';
 
 class SetOnMapButton extends StatelessWidget {
   const SetOnMapButton({
@@ -26,7 +19,7 @@ class SetOnMapButton extends StatelessWidget {
     return Container(
       width: 320.w,
       height: 35.h,
-      margin: EdgeInsets.all(0),
+      margin: const EdgeInsets.all(0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
         color: Palette.grieshWhite,
@@ -59,7 +52,7 @@ class SetOnMapButton extends StatelessWidget {
               ),
             ],
           ),
-          prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
+          prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
         ),
       ),
     );
@@ -73,7 +66,6 @@ class AddressDetailWidget extends StatelessWidget {
   final void Function() onDelete;
   final int onItemSelected;
   final UserOrderPreference? uop;
-  // final Color selectedLocationBorderColor;
 
   const AddressDetailWidget({
     Key? key,
@@ -81,7 +73,6 @@ class AddressDetailWidget extends StatelessWidget {
     required this.subLocation,
     required this.onEdit,
     required this.onDelete,
-    // required this.selectedLocationBorderColor,
     required this.onItemSelected,
     this.uop,
   }) : super(key: key);
@@ -96,7 +87,7 @@ class AddressDetailWidget extends StatelessWidget {
         return AnimatedContainer(
           height: 72.h,
           width: 320.w,
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           padding: EdgeInsets.all(4.r),
           decoration: BoxDecoration(
               color: Colors.white,
@@ -139,12 +130,12 @@ class AddressDetailWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "$mainLocation",
+                        mainLocation,
                         style: Theme.of(context).textTheme.normalTextHeading,
                       ),
                       Expanded(
                         child: Text(
-                          "$subLocation",
+                          subLocation,
                           style: Theme.of(context).textTheme.normalText,
                         ),
                       ),
@@ -153,7 +144,7 @@ class AddressDetailWidget extends StatelessWidget {
                 ),
               ),
               (uop != null)
-                  ? SizedBox()
+                  ? const SizedBox()
                   : Padding(
                       padding: EdgeInsets.only(right: 8.r),
                       child: Column(
@@ -163,7 +154,7 @@ class AddressDetailWidget extends StatelessWidget {
                           GestureDetector(
                             onTap: onEdit,
                             child: Icon(
-                              FeatherIcons.edit,
+                              Icons.edit,
                               size: 20.h,
                               color: Palette.darkGrey1,
                             ),
@@ -236,14 +227,11 @@ class SearchDestinationBox extends StatelessWidget {
                   ),
                 ],
               ),
-              prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
-              suffixIcon: Icon(
+              prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+              suffixIcon: const Icon(
                 CupertinoIcons.search,
                 size: 13,
-              )
-              // suffixIcon: ,
-              // helperText: 'Address',
-              ),
+              )),
         ),
       ),
     );
@@ -284,14 +272,14 @@ class CurrentAddressBox extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Text(
-                    "${controller.currentLocation}",
+                    controller.currentLocation,
                     style: Theme.of(context).textTheme.normalText,
                   ),
                 );
               }),
             ],
           ),
-          prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
+          prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
         ),
       ),
     );

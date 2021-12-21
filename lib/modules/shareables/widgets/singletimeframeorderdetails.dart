@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 
 class SingleTimeFrameOrderDetails extends StatelessWidget {
   final int? index;
-  SingleTimeFrameOrderDetails({Key? key, @required this.index})
+  const SingleTimeFrameOrderDetails({Key? key, @required this.index})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
-    return Container(
+    return SizedBox(
       width: screenwidth,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -20,22 +19,25 @@ class SingleTimeFrameOrderDetails extends StatelessWidget {
             padding: EdgeInsets.symmetric(
               horizontal: screenwidth * 0.0535,
             ),
-            child: Row(children: [
-              Text(
-                getnotificationdaytitlefromindex(index),
-                style: getpoppins(TextStyle(
+            child: Row(
+              children: [
+                Text(
+                  getnotificationdaytitlefromindex(index),
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: Color(0xff344141),
-                    //        fontSize: 12.5
-                    fontSize: screenwidth * 0.03284)),
-              )
-            ]),
+                    color: const Color(0xff344141),
+                     
+                    fontSize: screenwidth * 0.03284,
+                  ),
+                )
+              ],
+            ),
           ),
           ListView.builder(
               itemCount: index == 0 ? 1 : 2,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return Container();
                 // return TimeFrameOrderDetails(index: index);

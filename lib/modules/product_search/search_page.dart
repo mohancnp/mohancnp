@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/theme.dart';
@@ -11,6 +10,7 @@ import 'package:metrocoffee/modules/home/widgets/new_card.dart';
 import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
+
 import '../shareables/widgets/searchbar.dart';
 
 class SearchPage extends StatelessWidget {
@@ -56,11 +56,12 @@ class SearchPage extends StatelessWidget {
                         child: Text(
                           "SEARCH",
                           textAlign: TextAlign.center,
-                          style: getpoppins(TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: Color(0xFFF5F5F5),
+                            color: const Color(0xFFF5F5F5),
                             fontSize: 16.sp,
-                          )),
+                             
+                          ),
                         ),
                       )
                     ],
@@ -69,7 +70,7 @@ class SearchPage extends StatelessWidget {
                 SizedBox(height: 26.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 28.w),
-                  child: SearchBar(
+                  child: const SearchBar(
                     enabled: true,
                   ),
                 ),
@@ -82,53 +83,49 @@ class SearchPage extends StatelessWidget {
               margin: EdgeInsets.only(left: 24.w, right: 16.w),
               padding: EdgeInsets.only(top: 16.h),
               child: GetBuilder<SearchPageController>(
-                  init: SearchPageController(),
-                  builder: (controller) {
-                    print(controller.searching);
-                    if (controller.errorMessage.isNotEmpty ||
-                        controller.ctp.products.isEmpty) {
-                      return UtilityInfoWidget(
-                          title: "title",
-                          content: "content",
-                          onPressed: () => null,
-                          svgImageUri: UtilityIcons.noResults,
-                          buttonText: "Perform Search");
-                      // return OnErrorWidget(message: controller.errorMessage);
-                    } else if (controller.searching) {
-                      return SizedBox(
-                        child: SpinKitRing(
-                          color: Palette.coffeeColor,
-                          size: 50.r,
-                        ),
-                      );
-                    }
-                    return GridView.builder(
-                      padding: EdgeInsets.zero,
-                      // primary: false,
-                      itemCount: controller.ctp.products.length,
-                      // shrinkWrap: true,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisSpacing: 10.w,
-                        mainAxisSpacing: 10,
-                        crossAxisCount: 2,
-                        childAspectRatio: 1 / 1.35,
-                      ),
-                      itemBuilder: (context, index) {
-                        var product = controller.ctp.products[index];
-                        print(product.productName);
-                        return ProductCard(
-                          imageUri: "${product.featuresImage}",
-                          name: "${product.productName}",
-                          id: product.id,
-                          onPressed: () => HomeController.to
-                              .navigateToPageDetail(
-                                  PageName.productdetailpage, product.id),
-                          price: product.productPrice,
-                        );
-                      },
+                init: SearchPageController(),
+                builder: (controller) {
+                  if (controller.errorMessage.isNotEmpty ||
+                      controller.ctp.products.isEmpty) {
+                    return UtilityInfoWidget(
+                      title: "title",
+                      content: "content",
+                      onPressed: () {},
+                      svgImageUri: UtilityIcons.noResults,
+                      buttonText: "Perform Search",
                     );
-                  }),
+                  } else if (controller.searching) {
+                    return SizedBox(
+                      child: SpinKitRing(
+                        color: Palette.coffeeColor,
+                        size: 50.r,
+                      ),
+                    );
+                  }
+                  return GridView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: controller.ctp.products.length,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisSpacing: 10.w,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      childAspectRatio: 1 / 1.35,
+                    ),
+                    itemBuilder: (context, index) {
+                      var product = controller.ctp.products[index];
+                      return ProductCard(
+                        imageUri: product.featuresImage,
+                        name: product.productName,
+                        id: product.id,
+                        onPressed: () => HomeController.to.navigateToPageDetail(
+                            PageName.productdetailpage, product.id),
+                        price: product.productPrice,
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
         ],

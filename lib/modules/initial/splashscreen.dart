@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
@@ -78,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         height: 812.h,
         width: 375.w,
         child: ScaleTransition(
@@ -87,35 +86,31 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FadeTransition(
-                      opacity: _fadeanimation,
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          bottom: 12.h,
-                          left: 4.w,
-                        ),
-                        child: Image.asset(
-                          "assets/images/steam.png",
-                          width: 40.w,
-                        ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FadeTransition(
+                    opacity: _fadeanimation,
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        bottom: 12.h,
+                        left: 4.w,
+                      ),
+                      child: Image.asset(
+                        "assets/images/steam.png",
+                        width: 40.w,
                       ),
                     ),
-                    ScaleTransition(
-                      scale: _imagescaleanimation,
-                      child: Container(
-                        child: Image.asset(
-                          "assets/images/coffee-cup@3x.png",
-                          width: 56.w,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  ScaleTransition(
+                    scale: _imagescaleanimation,
+                    child: Image.asset(
+                      "assets/images/coffee-cup@3x.png",
+                      width: 56.w,
+                    ),
+                  )
+                ],
               ),
               ScaleTransition(
                 scale: _textscaleanimation,
@@ -143,11 +138,11 @@ class _SplashScreenState extends State<SplashScreen>
   deployanimation() {
     _imagescaleanimationcontroller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 750),
+      duration: const Duration(milliseconds: 750),
     );
     _textscaleanimationcontroller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 750),
+      duration: const Duration(milliseconds: 750),
     );
     _fadeanimationcontroller = AnimationController(
       vsync: this,
@@ -155,7 +150,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
     _downscaleanimationcontroller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 750),
+      duration: const Duration(milliseconds: 750),
     );
     _downscaleanimation = Tween<double>(begin: 1.0, end: 0).animate(
         CurvedAnimation(
@@ -169,7 +164,7 @@ class _SplashScreenState extends State<SplashScreen>
             parent: _imagescaleanimationcontroller, curve: Curves.easeOut));
     _fadeanimation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
         parent: _fadeanimationcontroller, curve: Curves.easeInOut));
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       _imagescaleanimationcontroller.forward();
       _textscaleanimationcontroller.forward();
     });
@@ -189,8 +184,8 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   startTime() async {
-    var _duration = new Duration(seconds: 4);
-    return new Timer(_duration, navigationPage);
+    var _duration = const Duration(seconds: 4);
+    return Timer(_duration, navigationPage);
   }
 
   void navigationPage() {

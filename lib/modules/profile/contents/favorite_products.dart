@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:get/get.dart';
+
 import '../../../core/theme.dart';
 
 class FavoriteProductsPage extends StatefulWidget {
@@ -11,7 +12,6 @@ class FavoriteProductsPage extends StatefulWidget {
 }
 
 class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
-  // CategoryProduct cp;
   @override
   void initState() {
     super.initState();
@@ -22,10 +22,10 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color(0xffF3F5F5),
+      backgroundColor: const Color(0xffF3F5F5),
       body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
-        child: Container(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: SizedBox(
           width: screenwidth,
           height: screenheight,
           child: Column(
@@ -35,21 +35,19 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
               AppBar(
                 title: Text(
                   "MY FAVORITES",
-                  style: getpoppins(TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: darkgrey,
-                      //    fontSize: 16.5
-                      fontSize: screenwidth * 0.0401)),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    color: darkgrey,
+                     
+                    fontSize: screenwidth * 0.0401,
+                  ),
                 ),
                 centerTitle: true,
                 leading: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  onPressed: Get.back,
                   icon: Icon(
                     CupertinoIcons.back,
                     color: darkgrey,
-//                size: 28,
                     size: screenwidth * 0.0681,
                   ),
                 ),
@@ -58,7 +56,6 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
               ),
               Container(
                 margin: EdgeInsets.only(
-//                top:14,bottom: 24
                   left: screenwidth * 0.0535,
                   right: screenwidth * 0.0535,
                   bottom: 0,
@@ -66,26 +63,9 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
                 width: screenwidth,
                 height: 1,
                 decoration: BoxDecoration(
-                  color: Color(0xffA5A5A5).withOpacity(0.4),
+                  color: const Color(0xffA5A5A5).withOpacity(0.4),
                 ),
               ),
-              // Container(
-              //   width: screenwidth,
-              //   padding: EdgeInsets.symmetric(
-              //     horizontal: screenwidth * 0.0535,
-              //   ),
-              //   child: ListView.builder(
-              //       physics: NeverScrollableScrollPhysics(),
-              //       shrinkWrap: true,
-              //       itemCount: productList.length,
-              //       scrollDirection: Axis.vertical,
-              //       itemBuilder: (context, index) {
-              //         return FavoriteProductCard(
-              //           index: index,
-              //           product: productList.elementAt(index),
-              //         );
-              //       }),
-              // ),
             ],
           ),
         ),

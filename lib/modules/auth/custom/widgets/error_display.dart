@@ -14,7 +14,7 @@ class CustomErrorWidget extends StatelessWidget {
           children: [
             Text(
               message,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             Icon(
               Icons.error,

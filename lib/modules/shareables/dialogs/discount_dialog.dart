@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
@@ -14,7 +13,7 @@ class DiscountDialog extends StatelessWidget {
         child: Container(
       width: screenwidth * 0.7615,
       padding: EdgeInsets.only(left: screenwidth * 0.04866),
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: const BoxDecoration(color: Colors.white),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -31,10 +30,10 @@ class DiscountDialog extends StatelessWidget {
                           style: TextStyle(
                               height: 1.6,
                               fontFamily: CustomFont.montserratBold,
-                              color: Color(0xff2A3434),
+                              color: const Color(0xff2A3434),
                               fontSize: screenwidth * 0.04866),
                           children: [
-                            TextSpan(text: "Thanks for being\n a "),
+                            const TextSpan(text: "Thanks for being\n a "),
                             TextSpan(
                               text: "Gold Member.\n",
                               style: TextStyle(
@@ -44,7 +43,7 @@ class DiscountDialog extends StatelessWidget {
                                 fontSize: screenwidth * 0.04866,
                               ),
                             ),
-                            TextSpan(text: "Enjoy your 15%\ndiscount."),
+                            const TextSpan(text: "Enjoy your 15%\ndiscount."),
                           ]),
                     ),
                   ),
@@ -58,7 +57,7 @@ class DiscountDialog extends StatelessWidget {
                                 showDialog(
                                     context: context,
                                     builder: (_) {
-                                      return ClipRRect(
+                                      return const ClipRRect(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(18)),
                                           child: SimpleDialog(
@@ -77,23 +76,21 @@ class DiscountDialog extends StatelessWidget {
                                 width: screenwidth * 0.377,
                                 decoration: BoxDecoration(
                                     color: Palette.deepOrange,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(25)),
-                                    boxShadow: [
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(25)),
+                                    boxShadow: const [
                                       BoxShadow(
                                           color: Color(0xC3916A4D),
                                           offset: Offset(0, 9),
                                           blurRadius: 30)
                                     ]),
                                 child: Center(
-                                  child: Container(
-                                    child: Text(
-                                      "CONTINUE",
-                                      style: TextStyle(
-                                          fontFamily: CustomFont.poppinsRegular,
-                                          fontSize: screenwidth * 0.0328,
-                                          color: Colors.white),
-                                    ),
+                                  child: Text(
+                                    "CONTINUE",
+                                    style: TextStyle(
+                                         
+                                        fontSize: screenwidth * 0.0328,
+                                        color: Colors.white),
                                   ),
                                 ),
                               )),

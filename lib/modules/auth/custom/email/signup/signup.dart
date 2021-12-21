@@ -1,4 +1,3 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,7 +56,7 @@ class EmailSignUpPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          padding: EdgeInsets.all(0),
+                          padding: const EdgeInsets.all(0),
                           onPressed: Get.back,
                           icon: Icon(
                             CupertinoIcons.back,
@@ -85,7 +84,7 @@ class EmailSignUpPage extends StatelessWidget {
                       validator: controller.validateFirstName,
                       hintText: "First Name",
                       suffixIcon: Icon(
-                        FeatherIcons.user,
+                        Icons.person,
                         color: Palette.darkGery,
                         size: 18.sp,
                       ),
@@ -95,7 +94,7 @@ class EmailSignUpPage extends StatelessWidget {
                           ? CustomErrorWidget(
                               message: controller.firstNameErrorMessage.value,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ),
                     // SizedBox(height: 20.h),
                     CustomTextFormFeild(
@@ -103,7 +102,7 @@ class EmailSignUpPage extends StatelessWidget {
                       validator: controller.validateSecondName,
                       hintText: "Last Name",
                       suffixIcon: Icon(
-                        FeatherIcons.user,
+                        Icons.person,
                         color: Palette.darkGery,
                         size: 18.sp,
                       ),
@@ -113,14 +112,14 @@ class EmailSignUpPage extends StatelessWidget {
                           ? CustomErrorWidget(
                               message: controller.lastNameErrorMessage.value,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ),
                     CustomTextFormFeild(
                       controller: controller.emailEditingController,
                       hintText: "Email Address",
                       validator: controller.validateEmail,
                       suffixIcon: Icon(
-                        FeatherIcons.mail,
+                        Icons.mail,
                         color: Palette.darkGery,
                         size: 18.sp,
                       ),
@@ -130,7 +129,7 @@ class EmailSignUpPage extends StatelessWidget {
                           ? CustomErrorWidget(
                               message: controller.emailErrorMessage.value,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ),
                     GetBuilder<SignUpController>(
                       builder: (controller) {
@@ -140,8 +139,8 @@ class EmailSignUpPage extends StatelessWidget {
                           validator: controller.validatePassword,
                           suffixIcon: Icon(
                             controller.eye
-                                ? FeatherIcons.eye
-                                : FeatherIcons.eyeOff,
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: Palette.darkGery,
                             size: 18.sp,
                           ),
@@ -157,7 +156,7 @@ class EmailSignUpPage extends StatelessWidget {
                           ? CustomErrorWidget(
                               message: controller.passwordErrorMessage.value,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ),
                     GetBuilder<SignUpController>(
                       builder: (controller) {
@@ -167,8 +166,8 @@ class EmailSignUpPage extends StatelessWidget {
                           validator: controller.validateRePassword,
                           suffixIcon: Icon(
                             controller.eye
-                                ? FeatherIcons.eye
-                                : FeatherIcons.eyeOff,
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: Palette.darkGery,
                             size: 18.sp,
                           ),
@@ -184,7 +183,7 @@ class EmailSignUpPage extends StatelessWidget {
                           ? CustomErrorWidget(
                               message: controller.rePasswordErrorMessage.value,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ),
                     SizedBox(
                       height: 20.h,
@@ -198,7 +197,7 @@ class EmailSignUpPage extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    Center(
+                    const Center(
                       child: Text(
                         "Already have an account? ",
                         style: TextStyle(

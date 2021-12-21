@@ -1,4 +1,3 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,7 +49,7 @@ class EmailLoginPage extends StatelessWidget {
                   children: [
                     SizedBox(height: 56.h),
                     IconButton(
-                      padding: EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(0),
                       onPressed: Get.back,
                       icon: Icon(
                         CupertinoIcons.back,
@@ -85,7 +84,7 @@ class EmailLoginPage extends StatelessWidget {
                               validator: controller.validateEmail,
                               hintText: "Email Address",
                               suffixIcon: Icon(
-                                FeatherIcons.mail,
+                                Icons.mail,
                                 size: 18.sp,
                               ),
                             ),
@@ -95,7 +94,7 @@ class EmailLoginPage extends StatelessWidget {
                                       message:
                                           controller.emailErrorMessage.value,
                                     )
-                                  : SizedBox(),
+                                  : const SizedBox(),
                             ),
                             CustomTextFormFeild(
                               controller: controller.passwordEditingController,
@@ -103,8 +102,8 @@ class EmailLoginPage extends StatelessWidget {
                               validator: controller.validatePassword,
                               suffixIcon: Icon(
                                 controller.eye
-                                    ? FeatherIcons.eye
-                                    : FeatherIcons.eyeOff,
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
                                 color: Palette.darkGery,
                                 size: 18.sp,
                               ),
@@ -119,7 +118,7 @@ class EmailLoginPage extends StatelessWidget {
                                       message:
                                           controller.passwordErrorMessage.value,
                                     )
-                                  : SizedBox(),
+                                  : const SizedBox(),
                             ),
                           ],
                         );
@@ -151,7 +150,7 @@ class EmailLoginPage extends StatelessWidget {
                     SizedBox(
                       height: 20.h,
                     ),
-                    Center(
+                    const Center(
                       child: Text(
                         "Don't have an account? ",
                         style: TextStyle(

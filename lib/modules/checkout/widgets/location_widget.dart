@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class LocationWidget extends StatelessWidget {
@@ -26,12 +25,12 @@ class LocationWidget extends StatelessWidget {
             child:
                 Icon(Icons.location_on, color: Palette.coffeeColor, size: 15.w),
             decoration: BoxDecoration(
-                color: Color(0xFFE8E8E8),
-                borderRadius: BorderRadius.all(Radius.circular(9)),
+                color: const Color(0xFFE8E8E8),
+                borderRadius: const BorderRadius.all(Radius.circular(9)),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.black.withOpacity(0.05),
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                       blurRadius: 10)
                 ]),
           ),
@@ -43,30 +42,30 @@ class LocationWidget extends StatelessWidget {
               children: [
                 Text(
                   "2 Saint Street. st",
-                  style: getpoppins(TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Palette.textColor,
-                    //       fontSize: 14.5
+                     
                     fontSize: 14.sp,
-                  )),
+                  ),
                 ),
                 Text(
                   "Park In, United Kingdom",
-                  style: getpoppins(TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: Palette.textColor,
-                    //       fontSize: 14.5
+                     
                     fontSize: 10.sp,
-                  )),
+                  ),
                 ),
                 Text(
                   "+99 56581464",
-                  style: getpoppins(TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: Palette.textColor,
-                    //       fontSize: 14.5
+                     
                     fontSize: 10.sp,
-                  )),
+                  ),
                 ),
               ],
             ),
@@ -74,14 +73,15 @@ class LocationWidget extends StatelessWidget {
         ],
       ),
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(9)),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                offset: Offset(0, 3),
-                blurRadius: 10)
-          ]),
+        color: Colors.white,
+        borderRadius: const BorderRadius.all(Radius.circular(9)),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              offset: const Offset(0, 3),
+              blurRadius: 10)
+        ],
+      ),
     );
   }
 }

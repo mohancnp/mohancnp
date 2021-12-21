@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
@@ -42,7 +41,7 @@ class ProductCard extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               offset: Offset(0, 3.h),
-              color: Color(0x29000000),
+              color: const Color(0x29000000),
               blurRadius: 16.r,
             )
           ]),
@@ -89,13 +88,13 @@ class ProductCard extends StatelessWidget {
             height: 10.h,
           ),
           Text(
-            "$name",
+            name,
             maxLines: 2,
-            style: getpoppins(TextStyle(
+            style: TextStyle(
               color: Palette.darkGery,
               fontSize: 12.sp,
               fontFamily: CustomFont.poppinsMedium,
-            )),
+            ),
           ),
           SizedBox(height: 10.h),
           Expanded(
@@ -104,15 +103,14 @@ class ProductCard extends StatelessWidget {
               children: [
                 Text(
                   "\$ $price",
-                  style: getpoppins(
-                    TextStyle(
-                        color: coffeecolor,
-                        fontSize: 20.sp,
-                        fontFamily: CustomFont.poppinsMedium),
+                  style: TextStyle(
+                    color: coffeecolor,
+                    fontSize: 20.sp,
+                    fontFamily: CustomFont.poppinsMedium,
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => null,
+                  onTap: () {},
                   child: Container(
                     width: 28.r,
                     height: 28.r,
@@ -127,7 +125,7 @@ class ProductCard extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                             offset: Offset(0, 3.h),
-                            color: Color(0x62722030),
+                            color: const Color(0x62722030),
                             blurRadius: 10.r)
                       ],
                     ),

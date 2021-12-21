@@ -5,20 +5,20 @@ part 'cart_instance.g.dart';
 
 @JsonSerializable()
 class CartInstance {
-  @JsonKey(name: ProductCartFeild.totalPrice)
+  @JsonKey(name: ProductCartField.totalPrice)
   double totalPrice;
-  @JsonKey(name: ProductCartFeild.productId)
+  @JsonKey(name: ProductCartField.productId)
   int productId;
   String name;
   int qty;
-  @JsonKey(name: ProductCartFeild.selectedVariants)
+  @JsonKey(name: ProductCartField.selectedVariants)
   Variant selectedVariants;
-  @JsonKey(name: ProductCartFeild.selectedProductType)
+  @JsonKey(name: ProductCartField.selectedProductType)
   ProductType selectedProductType;
-  @JsonKey(name: ProductCartFeild.toppingsList)
+  @JsonKey(name: ProductCartField.toppingsList)
   List<Topping> toppingsList;
   List<Addon> addons;
-  @JsonKey(name: ProductCartFeild.imageUri)
+  @JsonKey(name: ProductCartField.imageUri)
   String imageUri;
   CartInstance({
     required this.productId,

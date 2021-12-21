@@ -5,18 +5,18 @@ void showErrorDialog({String? errorMessage, String? errorTitle}) {
   Get.defaultDialog(
     content: Center(
       child: Text(
-        "${errorMessage ?? ' '}",
-        style: TextStyle(
+        errorMessage ?? ' ',
+        style: const TextStyle(
           fontWeight: FontWeight.w500,
         ),
       textAlign: TextAlign.center,
       ),
     ),
   
-    titleStyle: TextStyle(
+    titleStyle: const TextStyle(
       fontWeight: FontWeight.bold,
     ),
-    title: "${errorTitle ?? 'Error!'}",
+    title: errorTitle ?? 'Error!',
     barrierDismissible: true,
   );
 }

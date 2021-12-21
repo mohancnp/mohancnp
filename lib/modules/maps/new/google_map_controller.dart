@@ -1,13 +1,13 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/google.dart';
 import 'package:metrocoffee/core/models/older/map_location_model.dart';
-import 'package:geocoding/geocoding.dart' as geo;
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class CustomGoogleMapController extends GetxController {
@@ -16,9 +16,9 @@ class CustomGoogleMapController extends GetxController {
   static CustomGoogleMapController get to => Get.find();
   late Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   final gController = Completer<GoogleMapController>();
-  Rx<int> _selectedAddressIndex = 0.obs;
+  final Rx<int> _selectedAddressIndex = 0.obs;
   late Location location;
-  Rx<String> _currentLocation = "Search Your Destination".obs;
+  final Rx<String> _currentLocation = "Search Your Destination".obs;
   List<MapLocation> selectedLocations = <MapLocation>[];
   bool circleFlag = false;
   RxList<AddressModel> userAddresses = <AddressModel>[
@@ -68,33 +68,28 @@ class CustomGoogleMapController extends GetxController {
     late LocationData _locationData;
     late bool _serviceEnabled;
     late PermissionStatus _permissionGranted;
-    var location = new Location();
+    var location = Location();
 
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        print('permission is denied');
-      }
     }
     _permissionGranted = await location.hasPermission();
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        print('permission is denied');
-      }
     }
     _locationData = await location.getLocation();
     return _locationData;
   }
 
   setMarker() {
-    BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
-            '${Google.customMarkerIcon}')
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(devicePixelRatio: 2.5),
+            Google.customMarkerIcon)
         .then((onValue) {
       pinLocationIcon = onValue;
       var marker = Marker(
-        markerId: MarkerId(Google.markerId),
+        markerId: const MarkerId(Google.markerId),
         icon: pinLocationIcon == null
             ? BitmapDescriptor.defaultMarker
             : pinLocationIcon!,
@@ -105,28 +100,28 @@ class CustomGoogleMapController extends GetxController {
         infoWindow: const InfoWindow(
             title: 'Metro Coffee Office', snippet: "United Kingdom"),
       );
-      if (markers.length < 1) {
-        markers.addAll({MarkerId(Google.markerId): marker});
+      if (markers.isEmpty) {
+        markers.addAll({const MarkerId(Google.markerId): marker});
         update();
       }
     });
   }
 
   updateMarker(Marker marker) {
-    markers.update(MarkerId(Google.markerId), (value) => marker,
+    markers.update(const MarkerId(Google.markerId), (value) => marker,
         ifAbsent: () => marker);
     update();
   }
 
   doOnCameraIdle() async {
     circleFlag = true;
-    var marker = markers[MarkerId(Google.markerId)];
+    var marker = markers[const MarkerId(Google.markerId)];
     var newMarker = Marker(
       draggable: false,
       icon: pinLocationIcon == null
           ? BitmapDescriptor.defaultMarker
           : pinLocationIcon!,
-      markerId: MarkerId(Google.markerId),
+      markerId: const MarkerId(Google.markerId),
       position: LatLng(marker!.position.latitude, marker.position.longitude),
       infoWindow: const InfoWindow(
         title: 'Metro Coffee  ',
@@ -146,7 +141,7 @@ class CustomGoogleMapController extends GetxController {
       icon: pinLocationIcon == null
           ? BitmapDescriptor.defaultMarker
           : pinLocationIcon!,
-      markerId: MarkerId(Google.markerId),
+      markerId: const MarkerId(Google.markerId),
       position: LatLng(data.target.latitude, data.target.longitude),
       infoWindow: const InfoWindow(
         title: 'Metro Coffee ',
@@ -156,7 +151,7 @@ class CustomGoogleMapController extends GetxController {
   }
 
   addOrUpdateLocation() async {
-    var marker = markers[MarkerId(Google.markerId)];
+    var marker = markers[const MarkerId(Google.markerId)];
     var maplocation = MapLocation(
       marker?.position.latitude ?? CompanyDetail.lat,
       marker?.position.longitude ?? CompanyDetail.long,
@@ -177,15 +172,16 @@ class CustomGoogleMapController extends GetxController {
   }
 
   Set<Circle> getCircles() {
-    final circleSet = Set<Circle>.of([]);
+    final circleSet = <Circle>{};
     if (circleFlag) {
       circleSet.add(Circle(
-        circleId: CircleId("currentLocation"),
+        circleId: const CircleId("currentLocation"),
         radius: 5,
         // visible: cgmapController.moving ? false : true,
         center: LatLng(
-            markers[MarkerId(Google.markerId)]?.position.latitude ?? CompanyDetail.lat,
-            markers[MarkerId(Google.markerId)]?.position.longitude ??
+            markers[const MarkerId(Google.markerId)]?.position.latitude ??
+                CompanyDetail.lat,
+            markers[const MarkerId(Google.markerId)]?.position.longitude ??
                 CompanyDetail.long),
         fillColor: Palette.coffeeColor.withOpacity(0.8),
       ));

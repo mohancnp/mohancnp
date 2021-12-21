@@ -22,16 +22,16 @@ class SignUpController extends GetxController {
   Rx<String> rePasswordErrorMessage = "".obs;
 
   bool _eye = false;
-  get eye => this._eye;
+  get eye => _eye;
 
   set eye(value) {
-    this._eye = value;
+    _eye = value;
     update();
   }
 
-  void navigateToPageName({required String PageNameName}) {
+  void navigateToPageName({required String pageName}) {
     if (redirectionController.userExists) {}
-    Get.toNamed(PageNameName);
+    Get.toNamed(pageName);
   }
 
   String? validatePassword(String? value) {
@@ -82,23 +82,12 @@ class SignUpController extends GetxController {
     return null;
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   void resigterUser() async {
     var validated = signUpFormKey.currentState!.validate();
     if (validated) {
-      print("validated");
       showCustomDialog(message: "Logging In");
       await Future.delayed(
-        Duration(milliseconds: 2000),
+        const Duration(milliseconds: 2000),
       );
       Get.back();
       Get.offAllNamed(PageName.homepage);

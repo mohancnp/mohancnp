@@ -9,7 +9,7 @@ import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/on_empty_widget.dart';
 
 class CategoriesTabs extends GetView<CategoriesController> {
-  CategoriesTabs({Key? key}) : super(key: key);
+  const CategoriesTabs({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class CategoriesTabs extends GetView<CategoriesController> {
                           );
                         });
                   }
-                  return Text("No Categories");
+                  return const Text("No Categories");
                 },
                 onLoading: SizedBox(
                   child: SpinKitRing(
@@ -57,7 +57,7 @@ class CategoriesTabs extends GetView<CategoriesController> {
                     size: 20.r,
                   ),
                 ),
-                onEmpty: EmptyDataWidget(message: "Empty Categories"),
+                onEmpty: const EmptyDataWidget(message: "Empty Categories"),
                 onError: (error) => Text("$error"),
               ),
             )

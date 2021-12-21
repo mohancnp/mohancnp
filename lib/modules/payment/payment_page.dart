@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/payment/payment_page_controller.dart';
 import 'package:metrocoffee/modules/payment/widgets/credit_card_box.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+
 import 'widgets/payment_options.dart';
 
 class PaymentPage extends StatelessWidget {
@@ -18,21 +18,25 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color(0xffF3F5F5),
+      backgroundColor: const Color(0xffF3F5F5),
       bottomNavigationBar: Material(
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Obx(() {
-              return Text(
-                "${Currency.symbol} ${cartController.totalAmount.toStringAsPrecision(3)}",
-                style: getpoppins(TextStyle(
+            Obx(
+              () {
+                return Text(
+                  "${Currency.symbol} ${cartController.totalAmount.toStringAsPrecision(3)}",
+                  style: TextStyle(
                     color: Palette.textColor,
+                     
                     fontSize: 26.sp,
-                    fontWeight: FontWeight.w500)),
-              );
-            }),
+                    fontWeight: FontWeight.w500,
+                  ),
+                );
+              },
+            ),
             Container(
               height: 57.h,
               width: 150.w,
@@ -42,22 +46,25 @@ class PaymentPage extends StatelessWidget {
                 color: Palette.coffeeColor,
               ),
               child: TextButton(
-                  onPressed: paymentController.confirmPaymentAndPlaceOrder,
-                  child: Text(
-                    "Confirm Payment",
-                    style: getpoppins(TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w300)),
-                  )),
+                onPressed: paymentController.confirmPaymentAndPlaceOrder,
+                child: Text(
+                  "Confirm Payment",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.sp,
+                     
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
       ),
       body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Container(
-          padding: EdgeInsets.only(bottom: 75),
+          padding: const EdgeInsets.only(bottom: 75),
           width: 375.w,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -73,24 +80,22 @@ class PaymentPage extends StatelessWidget {
                   },
                   icon: Icon(
                     CupertinoIcons.back,
-//                        size: 28,
                     size: 28.w,
                     color: Palette.darkGery,
                   ),
                 ),
-                title: Container(
-                  child: Text(
-                    "PAYMENT",
-                    style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Palette.darkGery,
-                        //      fontSize: 17
-                        fontSize: 17.sp)),
+                title: Text(
+                  "PAYMENT",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Palette.darkGery,
+                     
+                    fontSize: 17.sp,
                   ),
                 ),
               ),
               CreditCardBox(),
-              PaymentOptions(),
+              const PaymentOptions(),
               Container(
                 width: screenwidth,
                 padding: EdgeInsets.symmetric(
@@ -103,42 +108,41 @@ class PaymentPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(
-                          //        left: 11
-                          left: screenwidth * 0.02676),
+                      margin: EdgeInsets.only(left: screenwidth * 0.02676),
                       child: Text(
                         "Send receipt to your email",
-                        style: getpoppins(TextStyle(
-                            color: Color(0xff404D4D),
-                            //   fontSize: 13.5,
-                            fontSize: screenwidth * 0.0328,
-                            fontWeight: FontWeight.w400)),
+                        style: TextStyle(
+                          color: const Color(0xff404D4D),
+                          fontSize: screenwidth * 0.0328,
+                           
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        // setemailreceiptswitch();
-                      },
+                      onTap: () {},
                       child: AnimatedContainer(
                         padding: EdgeInsets.symmetric(
-//                  horizontal: 3
                             horizontal: screenwidth * 0.00729),
-//              height: 27,width: 52,
                         height: screenwidth * 0.0656,
                         width: screenwidth * 0.126,
-                        duration: Duration(milliseconds: 175),
+                        duration: const Duration(milliseconds: 175),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
-                            color: Palette.coffeeColor,
-                            border: Border.all(
-                                color: Palette.darkGery, width: 1.2)),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(40),
+                          ),
+                          color: Palette.coffeeColor,
+                          border: Border.all(
+                            color: Palette.darkGery,
+                            width: 1.2,
+                          ),
+                        ),
                         alignment: Alignment.centerLeft,
                         child: AnimatedContainer(
-                          duration: Duration(milliseconds: 175),
-//                  height: 20,width: 20,
+                          duration: const Duration(milliseconds: 175),
                           height: screenwidth * 0.0486,
                           width: screenwidth * 0.0486,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white,
                           ),
@@ -148,7 +152,6 @@ class PaymentPage extends StatelessWidget {
                   ],
                 ),
               ),
-              // receiptemailswitchrow(context),
             ],
           ),
         ),

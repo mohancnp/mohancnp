@@ -12,21 +12,16 @@ class MemberShipLoginController extends GetxController {
   Rx<String> passwordErrorMessage = ''.obs;
   Rx<String> memberShipErrorMessage = ''.obs;
 
-  get visiblilty => this._visiblilty;
+  get visiblilty => _visiblilty;
 
   set visiblilty(value) {
-    this._visiblilty = value;
+    _visiblilty = value;
     update();
   }
 
-  get authState => this._authState;
+  get authState => _authState;
 
-  set authState(value) => this._authState = value;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  set authState(value) => _authState = value;
 
   Future performMembershipLogin() async {
     var validated = loginFormKey.currentState!.validate();
@@ -35,8 +30,6 @@ class MemberShipLoginController extends GetxController {
         errorMessage: "Looks like the membership doesn't exists",
         errorTitle: "Login Error!!!",
       );
-    } else {
-      print("not validated");
     }
   }
 
@@ -46,7 +39,6 @@ class MemberShipLoginController extends GetxController {
 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      print("password not validated");
       passwordErrorMessage.value = "password not valid";
       return "";
     }

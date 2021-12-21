@@ -10,12 +10,12 @@ import 'package:metrocoffee/ui/widgets/on_error_widget.dart';
 import 'widgets/product_list.dart';
 
 class ProductsPage extends GetView<HomeController> {
-  ProductsPage({Key? key}) : super(key: key);
+  const ProductsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: AlwaysScrollableScrollPhysics(),
+      physics: const AlwaysScrollableScrollPhysics(),
       child: controller.obx(
         (categoryProduct) {
           if (categoryProduct != null) {
@@ -32,11 +32,11 @@ class ProductsPage extends GetView<HomeController> {
                   ),
                 ),
                 categoryProduct.mostPopularProducts.isEmpty
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Padding(
                         padding: EdgeInsets.only(
                             left: 28.w, top: 24.h, bottom: 16.h),
-                        child: Text(
+                        child: const Text(
                           "Most Popular",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -49,11 +49,11 @@ class ProductsPage extends GetView<HomeController> {
               ],
             );
           }
-          return EmptyDataWidget(
+          return const EmptyDataWidget(
             message: AppMessage.notFound,
           );
         },
-        onEmpty: EmptyDataWidget(
+        onEmpty: const EmptyDataWidget(
           message: AppMessage.notFound,
         ),
         onError: (error) {

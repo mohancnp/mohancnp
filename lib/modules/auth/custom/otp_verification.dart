@@ -4,7 +4,6 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
@@ -93,36 +92,22 @@ class OtpVerificationPage extends StatelessWidget {
                   OtpTextField(
                     numberOfFields: 4,
                     fieldWidth: 64.w,
-                    textStyle: TextStyle(color: Colors.white),
+                    textStyle: const TextStyle(color: Colors.white),
                     borderColor: Palette.darkGery,
-                    //set to true to show as box or false to show as dash
                     showFieldAsBox: true,
                     focusedBorderColor: Palette.deepOrange,
-                    //runs when a code is typed in
-                    onCodeChanged: (String code) {
-                      //handle validation or checks here
-                    },
-                    //runs when every textfield is filled
+                    onCodeChanged: (String code) {},
                     onSubmit: (String verificationCode) {
                       controller.verificationCode = verificationCode;
-                    }, // end onSubmit
+                    },
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: List.generate(
-                  //     controller.textEditingControllerList.length,
-                  //     (index) => OtpCodeBox(
-                  //       index: index,
-                  //     ),
-                  //   ),
-                  // ),
                   Center(
                     child: Padding(
                       padding: EdgeInsets.only(top: 8.h),
                       child: SizedBox(
                         height: 20.h,
                         child: Text(
-                          "${controller.errorMessage}",
+                          controller.errorMessage,
                           style: TextStyle(
                             fontFamily: CustomFont.proximaNovaRegular,
                             color: Colors.redAccent,
@@ -141,37 +126,6 @@ class OtpVerificationPage extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  // Container(
-                  //   margin: EdgeInsets.only(top: 13.h, left: 10.w),
-                  //   alignment: Alignment.center,
-                  //   child: Text(
-                  //     "Remember Password?",
-                  //     style: TextStyle(
-                  //         fontFamily: CustomFont.proximaNovaRegular,
-                  //         color: Colors.white70,
-                  //         fontSize: 14.sp),
-                  //   ),
-                  // ),
-                  // GestureDetector(
-                  //   onTap: () => controller.navigateToPageName(
-                  //     PageNameName: PageName.loginpage,
-                  //   ),
-                  //   child: Center(
-                  //     child: Text(
-                  //       "Login",
-                  //       style: TextStyle(
-                  //         color: Colors.white,
-                  //         fontWeight: FontWeight.bold,
-                  //         fontFamily: CustomFont.proximaNovaRegular,
-                  //         decoration: TextDecoration.underline,
-                  //         fontSize: 16.sp,
-                  //         decorationColor: Colors.white,
-                  //         height: 1.7,
-                  //         decorationStyle: TextDecorationStyle.solid,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

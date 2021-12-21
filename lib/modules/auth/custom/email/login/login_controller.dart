@@ -12,20 +12,10 @@ class LoginController extends GetxController {
   Rx<String> emailErrorMessage = ''.obs;
 
   bool _eye = false;
-  get eye => this._eye;
+  get eye => _eye;
   set eye(value) {
-    this._eye = value;
+    _eye = value;
     update();
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   String? validatePassword(String? value) {
@@ -53,12 +43,10 @@ class LoginController extends GetxController {
     if (validated) {
       showCustomDialog(message: "Logging In");
       await Future.delayed(
-        Duration(milliseconds: 2000),
+        const Duration(milliseconds: 2000),
       );
       Get.back();
       Get.offAllNamed(PageName.homepage);
-    } else {
-      print("not validated");
     }
   }
 

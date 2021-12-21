@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
@@ -11,7 +10,7 @@ class UserPreference extends StatelessWidget {
   final String secondText;
   final String question;
 
-  UserPreference(
+  const UserPreference(
       {Key? key,
       required this.question,
       required this.onPressedFirst,
@@ -55,12 +54,12 @@ class UserPreference extends StatelessWidget {
               Center(
                 child: SizedBox(
                   child: Text(
-                    "$question",
+                    question,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       height: 1.4,
                       fontFamily: CustomFont.montserratSemiBold,
-                      color: Color(0xff2A3434),
+                      color: const Color(0xff2A3434),
                       fontSize: 17.sp,
                     ),
                   ),
@@ -79,7 +78,7 @@ class UserPreference extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(16.r)),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0xffC3916A).withOpacity(0.2),
+                        color: const Color(0xffC3916A).withOpacity(0.2),
                         blurRadius: 30.r,
                         offset: Offset(0, 9.h),
                       )
@@ -87,13 +86,13 @@ class UserPreference extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      "$firstText",
+                      firstText,
                       textAlign: TextAlign.center,
-                      style: getpoppins(
-                        TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white,
-                            fontSize: 13.5.sp),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Colors.white,
+                         
+                        fontSize: 13.5.sp,
                       ),
                     ),
                   ),
@@ -114,7 +113,7 @@ class UserPreference extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(16.r)),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0xffC3916A).withOpacity(0.2),
+                        color: const Color(0xffC3916A).withOpacity(0.2),
                         blurRadius: 30.r,
                         offset: Offset(0, 9.h),
                       )
@@ -122,14 +121,13 @@ class UserPreference extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      "$secondText",
+                      secondText,
                       textAlign: TextAlign.center,
-                      style: getpoppins(
-                        TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Palette.coffeeColor,
-                          fontSize: 13.5.sp,
-                        ),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Palette.coffeeColor,
+                         
+                        fontSize: 13.5.sp,
                       ),
                     ),
                   ),

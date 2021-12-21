@@ -1,5 +1,3 @@
-import 'dart:ui';
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:get/get.dart';
@@ -7,10 +5,9 @@ import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/icons/socials.dart';
 import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
-import 'package:metrocoffee/ui/src/fonts.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +64,7 @@ class LoginPage extends StatelessWidget {
                     //TODO: remove width
                     height: 48.h,
                     decoration: BoxDecoration(
-                      border: Border.all(width: 2.w, color: Color(0xfff3f3f3)),
+                      border: Border.all(width: 2.w, color: const Color(0xfff3f3f3)),
                       borderRadius: BorderRadius.all(Radius.circular(24.r)),
                       color: Colors.white,
                     ),
@@ -126,7 +123,7 @@ class LoginPage extends StatelessWidget {
                         width: 52.w,
                         height: 52.w,
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.white,
                         ),
@@ -143,7 +140,7 @@ class LoginPage extends StatelessWidget {
                         width: 52.w,
                         height: 52.w,
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.white,
                         ),
@@ -181,7 +178,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                FeatherIcons.mail,
+                Icons.mail,
                 color: Colors.white,
                 size: 16.w,
               ),
@@ -191,7 +188,7 @@ class LoginPage extends StatelessWidget {
                   "Continue with Email",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontFamily: CustomFont.poppinsRegular,
+                     
                     fontSize: 12.w,
                     color: Colors.white54,
                   ),

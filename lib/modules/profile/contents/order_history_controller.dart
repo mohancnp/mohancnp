@@ -3,8 +3,8 @@ import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/models/older/order_model.dart';
 
 class OrderHistoryController extends GetxController {
-  DataState _dataState = DataState.NA;
-  RxList<dynamic> _orderHistoryList = <dynamic>[].obs;
+  DataState _dataState = DataState.na;
+  final RxList<dynamic> _orderHistoryList = <dynamic>[].obs;
 
   set dataState(d) {
     _dataState = d;

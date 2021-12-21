@@ -1,9 +1,6 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
@@ -32,12 +29,13 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         child: GetBuilder<ProfilePageController>(
           init: ProfilePageController(),
           initState: (v) {
-            if (profileController.newUser.name == null)
+            if (profileController.newUser.name == null) {
               profileController.getProfile();
+            }
           },
           builder: (controller) {
             return Container(
@@ -58,7 +56,7 @@ class ProfilePage extends StatelessWidget {
                       bottom: 20.h,
                     ),
                     decoration: BoxDecoration(
-                      color: Color(0xffFBFBFB),
+                      color: const Color(0xffFBFBFB),
                       borderRadius: BorderRadius.all(Radius.circular(9.r)),
                       boxShadow: [
                         BoxShadow(
@@ -68,7 +66,7 @@ class ProfilePage extends StatelessWidget {
                         )
                       ],
                     ),
-                    child: UserInfoShort(),
+                    child: const UserInfoShort(),
                   ),
                   Container(
                     margin: EdgeInsets.only(
@@ -78,7 +76,7 @@ class ProfilePage extends StatelessWidget {
                     width: 375.w,
                     height: 1,
                     decoration: BoxDecoration(
-                      color: Color(0xffA5A5A5).withOpacity(0.4),
+                      color: const Color(0xffA5A5A5).withOpacity(0.4),
                     ),
                   ),
                   GestureDetector(
@@ -109,7 +107,7 @@ class ProfilePage extends StatelessWidget {
                           Row(
                             children: [
                               Icon(
-                                FeatherIcons.user,
+                                Icons.person,
                                 color: Palette.darkGery,
                                 size: 18.sp,
                               ),
@@ -119,11 +117,12 @@ class ProfilePage extends StatelessWidget {
                                 ),
                                 child: Text(
                                   "Personal Data",
-                                  style: getpoppins(TextStyle(
+                                  style: TextStyle(
                                     color: Palette.darkGery,
                                     fontSize: 13.5,
+                                     
                                     fontWeight: FontWeight.w400,
-                                  )),
+                                  ),
                                 ),
                               )
                             ],
@@ -165,8 +164,8 @@ class ProfilePage extends StatelessWidget {
                           Row(
                             children: [
                               Icon(
-                                FeatherIcons.heart,
-                                color: Color(0xff404D4D),
+                                Icons.favorite,
+                                color: const Color(0xff404D4D),
                                 size: 18.sp,
                               ),
                               Container(
@@ -175,12 +174,11 @@ class ProfilePage extends StatelessWidget {
                                 ),
                                 child: Text(
                                   "My Favorites",
-                                  style: getpoppins(
-                                    TextStyle(
-                                      color: Color(0xff404D4D),
-                                      fontSize: 13.5.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                  style: TextStyle(
+                                    color: const Color(0xff404D4D),
+                                    fontSize: 13.5.sp,
+                                     
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
                               )
@@ -227,7 +225,7 @@ class ProfilePage extends StatelessWidget {
                               Row(
                                 children: [
                                   Icon(
-                                    FeatherIcons.logOut,
+                                    Icons.power,
                                     color: Palette.darkGery,
                                     size: 18.r,
                                   ),
@@ -237,13 +235,14 @@ class ProfilePage extends StatelessWidget {
                                     ),
                                     child: Text(
                                       "Log Out",
-                                      style: getpoppins(TextStyle(
+                                      style: TextStyle(
                                         color: Palette.darkGery,
                                         fontSize: 13.5.sp,
+                                         
                                         fontWeight: FontWeight.w400,
-                                      )),
+                                      ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                               Icon(
