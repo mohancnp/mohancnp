@@ -4,7 +4,7 @@ import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/validator.dart';
 
-class EmailLoginController extends GetxController {
+class LoginController extends GetxController {
   final emailEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
   final loginFormKey = GlobalKey<FormState>();

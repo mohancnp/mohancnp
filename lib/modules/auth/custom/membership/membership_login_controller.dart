@@ -6,16 +6,16 @@ import 'package:metrocoffee/modules/shareables/dialogs/error_dialog.dart';
 class MemberShipLoginController extends GetxController {
   var membershipNumberController = TextEditingController();
   var passwordController = TextEditingController();
-  bool _eye = false;
+  bool _visiblilty = false;
   AuthState _authState = AuthState.unverified;
   final loginFormKey = GlobalKey<FormState>();
   Rx<String> passwordErrorMessage = ''.obs;
   Rx<String> memberShipErrorMessage = ''.obs;
 
-  get eye => this._eye;
+  get visiblilty => this._visiblilty;
 
-  set eye(value) {
-    this._eye = value;
+  set visiblilty(value) {
+    this._visiblilty = value;
     update();
   }
 

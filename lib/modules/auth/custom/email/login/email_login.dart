@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/placeholder_image.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
-import 'package:metrocoffee/modules/auth/custom/email/login/email_login_controller.dart';
+import 'package:metrocoffee/modules/auth/custom/email/login/login_controller.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
@@ -16,7 +16,7 @@ import 'package:metrocoffee/ui/src/palette.dart';
 
 class EmailLoginPage extends StatelessWidget {
   EmailLoginPage({Key? key}) : super(key: key);
-  final controller = Get.put(EmailLoginController());
+  final controller = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +73,8 @@ class EmailLoginPage extends StatelessWidget {
                     SizedBox(height: 40.h),
                     const WelcomeText(),
                     SizedBox(height: 10.h),
-                    GetBuilder<EmailLoginController>(
-                      init: EmailLoginController(),
+                    GetBuilder<LoginController>(
+                      init: LoginController(),
                       builder: (controller) {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.start,

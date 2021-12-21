@@ -100,15 +100,15 @@ class MembershipLoginPage extends StatelessWidget {
                             hintText: "Password",
                             validator: _controller.validatePassword,
                             suffixIcon: Icon(
-                              _controller.eye
+                              _controller.visiblilty
                                   ? FeatherIcons.eye
                                   : FeatherIcons.eyeOff,
                               color: Palette.darkGery,
                               size: 18.sp,
                             ),
-                            obscureText: _controller.eye ? false : true,
+                            obscureText: _controller.visiblilty ? false : true,
                             onSuffixIconTap: () {
-                              _controller.eye = !_controller.eye;
+                              _controller.visiblilty = !_controller.visiblilty;
                             },
                           ),
                           Obx(
