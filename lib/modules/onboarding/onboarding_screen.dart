@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-// import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/constants/icons/onboardingimages.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/constants/icons/onboarding_images.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/core/theme.dart';
 
 class OnBoardingScreen extends StatefulWidget {
-  OnBoardingScreen({
+  const OnBoardingScreen({
     Key? key,
   }) : super(key: key);
 
@@ -33,7 +31,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
   late final Animation<double> _animation =
       Tween(begin: beginValue, end: endValue).animate(_controller);
 
-  // bool dataInitialized = false;
   @override
   void initState() {
     super.initState();
@@ -44,12 +41,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
     tmpStorage.initialise().whenComplete(() {
       tmpStorage.writeBool(TempStorageKeys.firstTimeUser, true);
     });
-    // initializeData();
   }
-
-  // Future initializeData() async {
-  //   dataInitialized = await Get.find<BaseController>().initializeData();
-  // }
 
   @override
   void dispose() {
@@ -60,8 +52,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    // Size size = MediaQuery.of(context).size;
     _controller.forward();
 
     return Material(
@@ -77,17 +67,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                 intoPage = index;
                 setTextForPage(index);
               },
-              children: [
+              children: const [
                 SlidableWidget(
-                  backgroundImage: "${OnBoardingImages.on3}",
+                  backgroundImage: OnBoardingImages.on3,
                   index: 0,
                 ),
                 SlidableWidget(
-                  backgroundImage: "${OnBoardingImages.on1}",
+                  backgroundImage: OnBoardingImages.on1,
                   index: 1,
                 ),
                 SlidableWidget(
-                  backgroundImage: "${OnBoardingImages.on2}",
+                  backgroundImage: OnBoardingImages.on2,
                   index: 2,
                 )
               ],
@@ -105,11 +95,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                 FadeTransition(
                   opacity: _animation,
                   child: Text(
-                    "$title",
-                    style: getpoppins(TextStyle(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w600,
-                        color: coffeecolor)),
+                    title,
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w600,
+                      color: coffeecolor,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -120,11 +111,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                   child: SizedBox(
                     width: 343.w,
                     child: Text(
-                      '''$body''',
-                      style: getpoppins(TextStyle(
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.normal,
-                          color: coffeecolor.withOpacity(0.77))),
+                      body,
+                      style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.normal,
+                        color: coffeecolor.withOpacity(0.8),
+                      ),
                     ),
                   ),
                 ),
@@ -135,18 +127,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                           width: 248.w,
                           height: 47.h,
                           decoration: BoxDecoration(
-                              color: coffeecolor,
-                              borderRadius: BorderRadius.circular(10)),
+                            color: coffeecolor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: MaterialButton(
-                              onPressed: _onPressed,
-                              // style: ButtonStyle(),
-                              child: Text(
-                                "Get Started",
-                                style: getpoppins(TextStyle(
-                                    fontSize: 15.sp,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400)),
-                              )),
+                            onPressed: _onPressed,
+                            child: Text(
+                              "Get Started",
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
                         ),
                       )
                     : Row(
@@ -156,9 +150,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                             onTap: _onPressed,
                             child: Text(
                               "Skip",
-                              style: getpoppins(TextStyle(
-                                  color: coffeecolor.withOpacity(0.77),
-                                  decoration: TextDecoration.underline)),
+                              style: TextStyle(
+                                color: coffeecolor.withOpacity(0.8),
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
                           ),
                           GestureDetector(
@@ -169,14 +164,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                                       : intoPage == 1
                                           ? 2
                                           : 0,
-                                  duration: Duration(milliseconds: 500),
+                                  duration: const Duration(milliseconds: 500),
                                   curve: Curves.easeIn);
                             },
                             child: Container(
                                 width: 49.w,
                                 height: 49.w,
                                 margin: EdgeInsets.only(right: 16.w),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_forward_ios_sharp,
                                   color: Colors.white,
                                 ),
@@ -184,7 +179,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                          color: Color(0x38722030),
+                                          color: const Color(0x38722030),
                                           offset: Offset(0, 3.r),
                                           blurRadius: 6.r)
                                     ],
@@ -244,7 +239,7 @@ class SlidableWidget extends StatelessWidget {
       width: 375.w,
       color: coffeecolor,
       child: Image.asset(
-        "$backgroundImage",
+        backgroundImage,
         fit: BoxFit.cover,
       ),
     );

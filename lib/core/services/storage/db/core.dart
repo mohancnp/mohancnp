@@ -13,11 +13,9 @@ class DbStorage {
       try {
         db = await openDatabase(path, version: 1,
             onCreate: (Database db, int version) async {
-          await db.execute(sqlQuery.userTable);
-          await db.execute(sqlQuery.cartTable);
+          await db.execute(SqlQuery.cartTable);
         });
-      } on Exception catch (e) {
-        print(e.toString());
+      } on Exception {
         throw (AppException(message: "somthing went wrong"));
       }
     }
@@ -34,7 +32,7 @@ class DbStorage {
         return path;
       }
     } catch (_) {
-      print("Directory doesn't exists");
+      // TODO: handle exception
     }
   }
 }

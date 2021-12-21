@@ -7,7 +7,7 @@ import 'package:metrocoffee/core/services/product_service/product_service.dart';
 
 class SearchPageController extends GetxController {
   TextEditingController searchBarController = TextEditingController();
-  var _productService = locator.get<ProductService>();
+  final _productService = locator.get<ProductService>();
   static SearchPageController get to => Get.find();
   String errorMessage = "";
   bool searching = false;
@@ -33,19 +33,9 @@ class SearchPageController extends GetxController {
     update();
   }
 
-  navigateToSearchPage(String routeName, bool enabled) {
+  navigateToSearchPage(String pageName, bool enabled) {
     if (!enabled) {
-      Get.toNamed(routeName);
+      Get.toNamed(pageName);
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

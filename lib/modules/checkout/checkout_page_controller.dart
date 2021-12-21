@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/older/order_model.dart';
-import 'package:metrocoffee/core/routing/names.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
 
@@ -13,24 +12,23 @@ class CheckoutPageController extends GetxController {
   Rx<String> selectedTimeFrame = "Enter Time".obs;
   final cartController = Get.find<CartController>();
   RemoteOrder remoteOrder = RemoteOrder.empty();
-  TimeOfDay _time = TimeOfDay.now().replacing(minute: 30);
+  final TimeOfDay _time = TimeOfDay.now().replacing(minute: 30);
   String timeFrom = "00:00", timeEnd = "00:00";
   UserOrderPreference userPreference = UserOrderPreference.pickup;
   var c = Get.find<RedirectionController>();
 
-  void navigateToRoute({required String routeName, String? defaultRoute}) {
+  void navigateToPageName({required String pageName, String? defaultPageName}) {
     if (c.userExists) {
-      Get.toNamed(routeName);
+      Get.toNamed(pageName);
     } else {
-      if (defaultRoute != null) {
-        Get.toNamed(PageName.loginpage);
+      if (defaultPageName != null) {
+        Get.toNamed(defaultPageName);
       }
     }
   }
 
   @override
   void onInit() {
-    print("oninit called");
     var userPref = Get.arguments;
     if (userPref != null) {
       userPreference = userPref;

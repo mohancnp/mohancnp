@@ -3,7 +3,7 @@ class Table {
   static const String cart = "product_cart";
 }
 
-class UserFeild {
+class UserField {
   static const String userId = "id";
   static const String name = "name";
   static const String email = "email";
@@ -16,7 +16,7 @@ class UserFeild {
   static const String points = "points";
 }
 
-class ProductCartFeild {
+class ProductCartField {
   static const String id = "id";
   static const String name = "name";
   static const String productId = "product_id";
@@ -29,21 +29,17 @@ class ProductCartFeild {
   static const String imageUri = "image_uri";
 }
 
-class sqlQuery {
-  static const String userTable = '''CREATE TABLE ${Table.user} (
-             ${UserFeild.userId} INTEGER PRIMARY KEY AUTOINCREMENT,
-             ${UserFeild.name} TEXT,${UserFeild.points} REAL,${UserFeild.email} TEXT,${UserFeild.membershipNo} TEXT, ${UserFeild.job} TEXT,
-             ${UserFeild.gender} TEXT, ${UserFeild.status} TEXT, ${UserFeild.phone} TEXT, ${UserFeild.profilePic} TEXT)''';
+class SqlQuery {
   static const String cartTable = '''CREATE TABLE ${Table.cart} (
-             ${ProductCartFeild.id} INTEGER PRIMARY KEY AUTOINCREMENT,
-             ${ProductCartFeild.productId} INTEGER,
-             ${ProductCartFeild.selectedProductType} TEXT,
-             ${ProductCartFeild.selectedVariants} TEXT,
-             ${ProductCartFeild.totalPrice} REAL,
-             ${ProductCartFeild.addons} TEXT,
-             ${ProductCartFeild.toppingsList} TEXT,
-             ${ProductCartFeild.imageUri} TEXT,
-             ${ProductCartFeild.qty} INTEGER,
-             ${ProductCartFeild.name} TEXT)''';
+             ${ProductCartField.id} INTEGER PRIMARY KEY AUTOINCREMENT,
+             ${ProductCartField.productId} INTEGER,
+             ${ProductCartField.selectedProductType} TEXT,
+             ${ProductCartField.selectedVariants} TEXT,
+             ${ProductCartField.totalPrice} REAL,
+             ${ProductCartField.addons} TEXT,
+             ${ProductCartField.toppingsList} TEXT,
+             ${ProductCartField.imageUri} TEXT,
+             ${ProductCartField.qty} INTEGER,
+             ${ProductCartField.name} TEXT)''';
   static const String countRows = '''SELECT COUNT(*) FROM ${Table.cart}''';
 }

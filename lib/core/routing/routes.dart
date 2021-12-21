@@ -23,4 +23,7 @@ class PageName {
   static const searchPage = "/SearchPage";
   static const signupPage = "/SignUp";
   static const forgotPasswordPage = "/ForgotPasswordPage";
+  static const otpVerificationPage = "/OtpVerificationPage";
+  static const resetPasswordPage = "/ResetPasswordPage";
+
 }

@@ -26,11 +26,9 @@ class ProductServiceImpl extends ProductService {
         });
       }
       return Left(_actualList);
-    } on ServerException catch (e) {
-      print("code: ${e.code} msg: ${e.message}");
+    } on ServerException {
       return Right(failureData);
     } catch (e) {
-      print(e);
       return Right(failureData);
     }
   }
@@ -49,7 +47,6 @@ class ProductServiceImpl extends ProductService {
       failureData.message = e.message;
       return Right(failureData);
     } catch (e) {
-      print(e);
       return Right(failureData);
     }
   }
@@ -67,11 +64,9 @@ class ProductServiceImpl extends ProductService {
       results.addons[0].selected = true;
       return Left(results);
     } on ServerException catch (e) {
-      print("code: ${e.code} msg: ${e.message}");
       failureData.message = e.message;
       return Right(failureData);
     } catch (e) {
-      print(e);
       return Right(failureData);
     }
   }
@@ -86,11 +81,9 @@ class ProductServiceImpl extends ProductService {
       var results = FilterProduct.fromJson(data);
       return Left(results);
     } on ServerException catch (e) {
-      print("code: ${e.code} msg: ${e.message}");
       failureData.message = e.message;
       return Right(failureData);
     } catch (e) {
-      print(e);
       return Right(failureData);
     }
   }

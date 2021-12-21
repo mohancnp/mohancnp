@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 
 class SearchBar extends StatelessWidget {
   final bool enabled;
-  const SearchBar({Key? key, this.enabled: false}) : super(key: key);
+  const SearchBar({Key? key, this.enabled = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +14,11 @@ class SearchBar extends StatelessWidget {
         height: 36.h,
         width: 375.w,
         decoration: BoxDecoration(
-            color: Color(0xffFFEEF1),
+            color: const Color(0xffFFEEF1),
             borderRadius: BorderRadius.all(Radius.circular(15.r)),
             boxShadow: [
               BoxShadow(
-                color: Color(0x24550E1C),
+                color: const Color(0x24550E1C),
                 offset: Offset(0, 3.h),
                 blurRadius: 15.r,
               )
@@ -34,7 +32,7 @@ class SearchBar extends StatelessWidget {
               controller: SearchPageController.to.searchBarController,
               onEditingComplete: () => SearchPageController.to.performSearch(),
               style: TextStyle(
-                fontFamily: poppinsregular,
+                 
                 color: Colors.black87,
                 fontSize: 10.sp,
               ),
@@ -43,14 +41,14 @@ class SearchBar extends StatelessWidget {
                 // contentPadding:
                 //     EdgeInsets.only(right: 8.w, top: 0, left: 0, bottom: 0),
                 prefixIcon: Icon(
-                  Ionicons.search,
+                  Icons.search,
                   color: Colors.black26,
                   size: 13.r,
                 ),
                 hintText: 'What will energize you today?',
                 hintStyle: TextStyle(
-                  fontFamily: poppinslight,
-                  color: Color(0xC2404D4D),
+                  fontFamily: CustomFont.poppinsLight,
+                  color: const Color(0xC2404D4D),
                   height: 1.8,
                   fontSize: 11.sp,
                 ),

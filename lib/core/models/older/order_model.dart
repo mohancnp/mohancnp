@@ -22,10 +22,10 @@ class UserOrder {
     // Map<String, dynamic> addons;
 
     var a = {
-      "product_variant_id": this.productVariantId,
-      "qty": this.qty,
-      "order_product_options": this.orderProductOptions,
-      "order_product_addons": this.orderProductAddons,
+      "product_variant_id": productVariantId,
+      "qty": qty,
+      "order_product_options": orderProductOptions,
+      "order_product_addons": orderProductAddons,
     };
     return a;
   }
@@ -46,13 +46,13 @@ class RemoteOrder {
 
   Map<String, dynamic> toJson() {
     List<Map<String, dynamic>> listOfOrderProduct = [];
-    this.orderProducts?.forEach((element) {
+    orderProducts?.forEach((element) {
       listOfOrderProduct.add(element.toJson());
     });
     var remoteOrder = {
-      "address_id": this.adressId,
-      "delivery_time_from": this.deliveryTimeFrom,
-      "delivery_time_end": this.deliveryTimeEnd,
+      "address_id": adressId,
+      "delivery_time_from": deliveryTimeFrom,
+      "delivery_time_end": deliveryTimeEnd,
       "order_products": listOfOrderProduct,
     };
     return remoteOrder;
@@ -145,9 +145,9 @@ class OrderDetail {
     }
     List<dynamic> opds = map['order_products'];
     List<OrderProduct> usl = [];
-    opds.forEach((element) {
+    for (var element in opds) {
       usl.add(OrderProduct.fromJson(element));
-    });
+    }
 
     return OrderDetail(
       id: map['id'],

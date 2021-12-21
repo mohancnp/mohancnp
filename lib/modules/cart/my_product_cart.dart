@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
-import 'package:metrocoffee/core/routing/names.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/cart/widgets/product_card.dart';
 import 'package:metrocoffee/modules/shareables/userpreference.dart';
 import 'package:metrocoffee/modules/shareables/widgets/finalpricecalculationcard.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
@@ -24,16 +24,17 @@ class MyProductCart extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<CartController>(
-        init: CartController(),
-        initState: (v) {
-          cartController.getAllCartProducts();
-        },
-        builder: (controller) {
-          return Scaffold(
-            backgroundColor: Palette.pagebackgroundcolor,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: Obx(() {
+      init: CartController(),
+      initState: (v) {
+        cartController.getAllCartProducts();
+      },
+      builder: (controller) {
+        return Scaffold(
+          backgroundColor: Palette.pagebackgroundcolor,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: Obx(
+            () {
               return cartController.cartCount.value > 0
                   ? CustomReusableBtn(
                       buttonText: "Proceed to Checkout",
@@ -47,7 +48,7 @@ class MyProductCart extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8.r)),
                                 child: SimpleDialog(
-                                    contentPadding: EdgeInsets.all(0),
+                                    contentPadding: const EdgeInsets.all(0),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(18.r),
@@ -81,11 +82,11 @@ class MyProductCart extends StatelessWidget {
                             });
                       },
                     )
-                  : SizedBox();
+                  : const SizedBox();
             },
           ),
           appBar: AppBar(
-            backgroundColor: Color(0xFFF3F5F5),
+            backgroundColor: const Color(0xFFF3F5F5),
             elevation: 0,
             centerTitle: true,
             leading: GestureDetector(
@@ -106,8 +107,8 @@ class MyProductCart extends StatelessWidget {
             title: Text(
               "MY CART",
               style: TextStyle(
-                  fontFamily: poppinsmedium,
-                  color: Color(0xff404D4D),
+                  fontFamily: CustomFont.poppinsMedium,
+                  color: const Color(0xff404D4D),
                   fontSize: screenwidth * 0.0389),
             ),
           ),
@@ -124,7 +125,7 @@ class MyProductCart extends StatelessWidget {
               : Stack(
                   children: [
                     SingleChildScrollView(
-                      physics: AlwaysScrollableScrollPhysics(),
+                      physics: const AlwaysScrollableScrollPhysics(),
                       child: Column(
                         children: [
                           SizedBox(
@@ -140,8 +141,10 @@ class MyProductCart extends StatelessWidget {
                                 child: Obx(() {
                                   return Text(
                                     " ${controller.cartCount.value} items",
-                                    style: getpoppins(
-                                        TextStyle(color: Color(0xCF344141))),
+                                    style: const TextStyle(
+                                      color: Color(0xCF344141),
+                                       
+                                    ),
                                   );
                                 }),
                               ),
@@ -166,7 +169,7 @@ class MyProductCart extends StatelessWidget {
                                           cartModel: cartData, index: index);
                                     },
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ),
                           Container(
                             height: 2.w,

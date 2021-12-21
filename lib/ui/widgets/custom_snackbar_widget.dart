@@ -6,5 +6,5 @@ showCustomSnackBarMessage({required String title, required String message}) {
   Get.snackbar(title, message,
       colorText:Palette.textColor,
       backgroundColor: Colors.white,
-       duration: Duration(milliseconds: 1500));
+       duration: const Duration(milliseconds: 1500));
 }

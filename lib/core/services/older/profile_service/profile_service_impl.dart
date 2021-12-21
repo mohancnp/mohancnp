@@ -17,8 +17,7 @@ class ProfileServiceImpl extends ProfileService {
     try {
       var profile = await remoteSource.get('/api/profile');
       return profile;
-    } on ServerException catch (e) {
-      print("${e.code}: ${e.message}");
+    } on ServerException {
       throw AppException();
     }
   }
@@ -37,12 +36,11 @@ class ProfileServiceImpl extends ProfileService {
         "new_password_confirmation": passwordConfirmation
       };
 
-      var passwordStatus = await remoteSource
-          .post('/api/profile/change-password', body: data);
-      // print(passwordStatus);
+      var passwordStatus =
+          await remoteSource.post('/api/profile/change-password', body: data);
+
       return passwordStatus;
-    } on ServerException catch (e) {
-      print("${e.code}: ${e.message}");
+    } on ServerException {
       throw AppException();
     }
   }
@@ -75,8 +73,7 @@ class ProfileServiceImpl extends ProfileService {
         return afterUpdate;
       }
       return {'data': afterUpdate};
-    } on ServerException catch (e) {
-      print("${e.code}: ${e.message}");
+    } on ServerException {
       throw AppException();
     }
 
@@ -89,11 +86,11 @@ class ProfileServiceImpl extends ProfileService {
 
     try {
       var data = await db.query(Table.cart,
-          columns: [UserFeild.userId, UserFeild.name],
-          where: '${UserFeild.userId}= ?',
-          whereArgs: [user[UserFeild.userId]]);
-      var count;
-      if (data.length > 0) {
+          columns: [UserField.userId, UserField.name],
+          where: '${UserField.userId}= ?',
+          whereArgs: [user[UserField.userId]]);
+      Object count;
+      if (data.isNotEmpty) {
         //update
         count = db.update(Table.cart, user);
       } else {
@@ -101,8 +98,7 @@ class ProfileServiceImpl extends ProfileService {
         count = await db.insert(Table.cart, user);
       }
       return count;
-    } on Exception catch (e) {
-      print("add/update user error $e");
+    } on Exception {
       throw (AppException());
     }
   }

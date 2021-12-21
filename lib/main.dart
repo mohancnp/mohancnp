@@ -8,30 +8,33 @@ import 'package:metrocoffee/ui/app_name.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'core/locator.dart';
-import 'core/routing/names.dart';
+import 'core/routing/routes.dart';
 import 'core/routing/routes_handler.dart';
 
 void mainCommon() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.light,
-  ));
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
-  runApp(MyApp());
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+    ],
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812),
+      designSize: const Size(375, 812),
       builder: () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         initialBinding: ControllerBinding(),
@@ -48,23 +51,26 @@ class MyApp extends StatelessWidget {
               fontFamily: CustomFont.freightDispBold,
             ),
             button: TextStyle(
-              fontFamily: CustomFont.poppinsRegular,
-              fontSize: 15.sp,
+              fontSize: 16.sp,
               color: Colors.black,
             ),
-            bodyText1:
-                TextStyle(fontSize: 12.sp, fontWeight: FontWeight.normal),
-            bodyText2:
-                TextStyle(fontSize: 12.sp, fontWeight: FontWeight.normal),
+            bodyText1: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.normal,
+            ),
+            bodyText2: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.normal,
+            ),
             caption: TextStyle(
               fontFamily: CustomFont.poppinsLight,
-              color: Color(0xF3F3F3D6),
-              fontSize: 11.5.sp,
+              color: const Color(0xF3F3F3D6),
+              fontSize: 12.sp,
             ),
           ),
         ),
+        getPages: PageNameHandler.getPages(),
         initialRoute: PageName.splashscreenpage,
-        getPages: RouteHandler.getPages(),
       ),
     );
   }

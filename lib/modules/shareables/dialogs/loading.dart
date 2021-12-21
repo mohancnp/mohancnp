@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class LoadingPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class LoadingPage extends StatelessWidget {
     double screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Palette.pagebackgroundcolor,
-      body: Container(
+      body: SizedBox(
         width: screenwidth,
         height: screenheight,
         child: Column(
@@ -27,13 +27,13 @@ class LoadingPage extends StatelessWidget {
                   vertical: screenwidth * 0.03041),
               decoration: BoxDecoration(
                 color: Palette.pagebackgroundcolor,
-                borderRadius: BorderRadius.all(Radius.circular(9)),
+                borderRadius: const BorderRadius.all(Radius.circular(9)),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                      margin: EdgeInsets.only(top: 18),
+                      margin: const EdgeInsets.only(top: 18),
                       height: 38,
                       width: 38,
                       color: Colors.transparent,
@@ -42,11 +42,11 @@ class LoadingPage extends StatelessWidget {
                       )),
                   Center(
                     child: Container(
-                      margin: EdgeInsets.only(top: 24, bottom: 10),
-                      child: Text(
+                      margin: const EdgeInsets.only(top: 24, bottom: 10),
+                      child: const Text(
                         "Loading, Please wait..",
                         style: TextStyle(
-                            fontFamily: proximanovaregular,
+                            fontFamily: CustomFont.proximaNovaRegular,
                             color: Colors.black87,
                             fontSize: 16.5),
                       ),

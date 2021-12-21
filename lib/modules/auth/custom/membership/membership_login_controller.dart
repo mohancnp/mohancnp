@@ -1,93 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/auth_state.dart';
-import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
-import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
-import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/older/user_model.dart';
-import 'package:metrocoffee/core/services/older/auth_service/auth_service.dart';
-import 'package:metrocoffee/core/services/storage/db/user_table.dart';
-import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
-import 'package:metrocoffee/modules/public/redirection_controller.dart';
+import 'package:metrocoffee/modules/shareables/dialogs/error_dialog.dart';
 
 class MemberShipLoginController extends GetxController {
-  TextEditingController _membershipNumberController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  bool _showpassword = false;
-  String _errorMessage = "";
-
-  bool _eye = false;
+  var membershipNumberController = TextEditingController();
+  var passwordController = TextEditingController();
+  bool _visiblilty = false;
   AuthState _authState = AuthState.unverified;
+  final loginFormKey = GlobalKey<FormState>();
+  Rx<String> passwordErrorMessage = ''.obs;
+  Rx<String> memberShipErrorMessage = ''.obs;
 
-  get errorMessage => this._errorMessage;
+  get visiblilty => _visiblilty;
 
-  set errorMessage(value) {
-    this._errorMessage = value;
+  set visiblilty(value) {
+    _visiblilty = value;
     update();
   }
 
-  get membershipNumberController => this._membershipNumberController;
+  get authState => _authState;
 
-  set membershipNumberController(value) =>
-      this._membershipNumberController = value;
-
-  get passwordController => this._passwordController;
-
-  set passwordController(value) => this._passwordController = value;
-
-  get showpassword => this._showpassword;
-
-  set showpassword(value) => this._showpassword = value;
-
-  get eye => this._eye;
-
-  set eye(value) {
-    this._eye = value;
-    update();
-  }
-
-  get authState => this._authState;
-
-  set authState(value) => this._authState = value;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-/*perform membershp login and stores the token in shared pref and user detail in to the  local database*/
+  set authState(value) => _authState = value;
 
   Future performMembershipLogin() async {
-    if (_membershipNumberController.text.isNotEmpty ||
-        _passwordController.text.isNotEmpty) {
-      try {
-        var response = await locator.get<AuthService>().performMemberShipLogin(
-            _membershipNumberController.text, _passwordController.text);
-        var token = response["token"];
-        var user = response["user"];
-        locator<TempStorage>().writeString(TempStorageKeys.authToken, token);
-        User newUser = User.fromJson(user);
-        await locator.get<UserTableHandler>().addUser(newUser);
-        _membershipNumberController.text = "";
-        _passwordController.text = "";
-        errorMessage = "";
-        _authState = AuthState.loggedIn;
-        Get.find<RedirectionController>().userExists = true;
-      } on AppException catch (e) {
-        _authState = AuthState.error;
-        print(e.message);
-        errorMessage = e.message;
-      } on ServerException catch (e) {
-        _authState = AuthState.error;
-        print(e.message);
-        errorMessage = e.message;
-      }
-    } else {
-      errorMessage = "please fill the form";
-      // print("empty membership number or password");
+    var validated = loginFormKey.currentState!.validate();
+    if (validated) {
+      showErrorDialog(
+        errorMessage: "Looks like the membership doesn't exists",
+        errorTitle: "Login Error!!!",
+      );
     }
   }
 
-  void navigateToRoute({required String route}) {
-    Get.toNamed(route);
+  void navigateToPageName({required String pageName}) {
+    Get.toNamed(pageName);
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      passwordErrorMessage.value = "password not valid";
+      return "";
+    }
+    passwordErrorMessage.value = "";
+    return null;
+  }
+
+  String? validateMemberShip(String? value) {
+    if (value == null || value.isEmpty) {
+      // print("membershp id not validated");
+      memberShipErrorMessage.value = "membership id  not valid";
+      return "";
+    }
+    memberShipErrorMessage.value = "";
+    return null;
   }
 }

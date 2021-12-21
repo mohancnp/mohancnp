@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/models/older/user_model.dart';
 
 class ProfilePageController extends GetxController {
-  Rx<User> _newUser = User().obs;
+  final Rx<User> _newUser = User().obs;
 
   Future getProfile() async {
     //TODO: implement get user profile data
@@ -19,7 +19,7 @@ class ProfilePageController extends GetxController {
 
   String getImagePlacholder() {
     //code can be reused later
-    var user = this.newUser;
+    var user = newUser;
     String imagePlaceHolder = "NA";
     if (user.imageUri == null && user.name != null) {
       imagePlaceHolder = "";

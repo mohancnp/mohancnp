@@ -24,16 +24,16 @@ class TempStorage {
   void writeString(String key, String value) async {
     try {
       _prefs.setString(key, value);
-    } on Exception catch (e) {
-      print("Exception adding String to shared pref : $e");
+    } on Exception {
+      // TODO: handle Exception
     }
   }
 
   void writeBool(String key, bool value) {
     try {
       _prefs.setBool(key, value);
-    } on Exception catch (e) {
-      print("Exception adding Bool to shared pref. : $e");
+    } on Exception {
+      // TODO: handle Exception
     }
   }
 

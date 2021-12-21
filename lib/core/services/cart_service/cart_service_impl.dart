@@ -13,37 +13,36 @@ class CartServiceImpl extends CartService {
 
   @override
   Future<Either<int, Failure>> addProductToCart(
-      Map<String, dynamic> product) async {
-    // print(product);
-    product[ProductCartFeild.selectedProductType] =
-        jsonEncode(product[ProductCartFeild.selectedProductType]);
-    product[ProductCartFeild.selectedVariants] =
-        jsonEncode(product[ProductCartFeild.selectedVariants]);
-    product[ProductCartFeild.toppingsList] =
-        jsonEncode(product[ProductCartFeild.toppingsList]);
-    product[ProductCartFeild.addons] =
-        jsonEncode(product[ProductCartFeild.addons]);
-    // print(product);
+      Map<String, dynamic> cartItem) async {
+    //
+    cartItem[ProductCartField.selectedProductType] =
+        jsonEncode(cartItem[ProductCartField.selectedProductType]);
+    cartItem[ProductCartField.selectedVariants] =
+        jsonEncode(cartItem[ProductCartField.selectedVariants]);
+    cartItem[ProductCartField.toppingsList] =
+        jsonEncode(cartItem[ProductCartField.toppingsList]);
+    cartItem[ProductCartField.addons] =
+        jsonEncode(cartItem[ProductCartField.addons]);
+    //
     try {
       var data = await db.query(Table.cart,
           columns: [
-            ProductCartFeild.id,
-            ProductCartFeild.productId,
+            ProductCartField.id,
+            ProductCartField.productId,
           ],
-          where: '${ProductCartFeild.productId} = ?',
-          whereArgs: [product[ProductCartFeild.productId]]);
+          where: '${ProductCartField.productId} = ?',
+          whereArgs: [cartItem[ProductCartField.productId]]);
       var count = 0;
-      if (data.length > 0) {
-        count = await db.update(Table.cart, product,
-            where: "${ProductCartFeild.productId} = ?",
-            whereArgs: [product[ProductCartFeild.productId]]);
+      if (data.isNotEmpty) {
+        count = await db.update(Table.cart, cartItem,
+            where: "${ProductCartField.productId} = ?",
+            whereArgs: [cartItem[ProductCartField.productId]]);
       } else {
         //insert
-        count = await db.insert(Table.cart, product);
+        count = await db.insert(Table.cart, cartItem);
       }
       return Left(count);
-    } on Exception catch (e) {
-      print("add update cart error $e");
+    } on Exception {
       return Right(
           Failure(tag: "Add Cart:", message: "failure adding to cart"));
     }
@@ -55,30 +54,29 @@ class CartServiceImpl extends CartService {
     try {
       var list = await db.rawQuery("SELECT * from ${Table.cart}");
       late Map<String, dynamic> newMap = {};
-      list.forEach((element) {
-        newMap[ProductCartFeild.selectedProductType] =
-            jsonDecode(element[ProductCartFeild.selectedProductType] as String);
-        newMap[ProductCartFeild.selectedVariants] =
-            jsonDecode(element[ProductCartFeild.selectedVariants] as String);
-        newMap[ProductCartFeild.toppingsList] =
-            jsonDecode(element[ProductCartFeild.toppingsList] as String);
-        newMap[ProductCartFeild.addons] =
-            jsonDecode(element[ProductCartFeild.addons] as String);
-        newMap[ProductCartFeild.productId] =
-            element[ProductCartFeild.productId];
-        newMap[ProductCartFeild.totalPrice] =
-            element[ProductCartFeild.totalPrice];
-        newMap[ProductCartFeild.imageUri] = element[ProductCartFeild.imageUri];
-        newMap[ProductCartFeild.qty] = element[ProductCartFeild.qty];
-        newMap[ProductCartFeild.name] = element[ProductCartFeild.name];
+      for (var element in list) {
+        newMap[ProductCartField.selectedProductType] =
+            jsonDecode(element[ProductCartField.selectedProductType] as String);
+        newMap[ProductCartField.selectedVariants] =
+            jsonDecode(element[ProductCartField.selectedVariants] as String);
+        newMap[ProductCartField.toppingsList] =
+            jsonDecode(element[ProductCartField.toppingsList] as String);
+        newMap[ProductCartField.addons] =
+            jsonDecode(element[ProductCartField.addons] as String);
+        newMap[ProductCartField.productId] =
+            element[ProductCartField.productId];
+        newMap[ProductCartField.totalPrice] =
+            element[ProductCartField.totalPrice];
+        newMap[ProductCartField.imageUri] = element[ProductCartField.imageUri];
+        newMap[ProductCartField.qty] = element[ProductCartField.qty];
+        newMap[ProductCartField.name] = element[ProductCartField.name];
 
         var data = CartInstance.fromJson(newMap);
         itemList.add(data);
         newMap.clear();
-      });
+      }
       return Left(itemList);
     } catch (e) {
-      print("Error loading the cart products from the database $e");
       return Right(
           Failure(tag: "Get Cart Item:", message: "error fetching cart Item"));
     }
@@ -88,11 +86,10 @@ class CartServiceImpl extends CartService {
   Future<Either<int, Failure>> removeProductWithId(int id) async {
     try {
       var count = await db.delete(Table.cart,
-          where: '${ProductCartFeild.productId} = ?', whereArgs: [id]);
-      print(count);
+          where: '${ProductCartField.productId} = ?', whereArgs: [id]);
+
       return Left(count);
     } catch (e) {
-      print("Error $e");
       return Right(
           Failure(tag: "Removing Cart Item", message: "error removing"));
     }
@@ -103,8 +100,7 @@ class CartServiceImpl extends CartService {
     try {
       var count = await db.delete(Table.cart);
       return Left(count);
-    } on Exception catch (e) {
-      print("Error $e");
+    } on Exception {
       return Right(Failure(
           tag: "Clear Cart:", message: "Error clearing item from Cart"));
     }
@@ -113,10 +109,9 @@ class CartServiceImpl extends CartService {
   @override
   Future<Either<int, Failure>> getCount() async {
     try {
-      var count = await db.rawQuery(sqlQuery.countRows);
+      var count = await db.rawQuery(SqlQuery.countRows);
       return Left(Sqflite.firstIntValue(count) ?? 0);
     } catch (e) {
-      print("$e");
       return Right(Failure(tag: "", message: "Error couting rows"));
     }
   }

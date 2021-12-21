@@ -36,18 +36,18 @@ class User {
 //name phone email compulsory
   Map<String, dynamic> toJson() {
     var user = {
-      "name": this.name,
-      "email": this.email,
-      "gender": this.gender,
-      "job": this.job,
+      "name": name,
+      "email": email,
+      "gender": gender,
+      "job": job,
       
     };
 
     // if (this.imageData != null) {     
     //   user["profile_pic"] = this.imageData;
     // }
-    if (this.phone != null) {
-      user["phone"] = this.phone;
+    if (phone != null) {
+      user["phone"] = phone;
     }
     return user;
   }
