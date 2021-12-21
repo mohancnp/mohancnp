@@ -11,12 +11,8 @@ ServerException getServerException(DioError e) {
         message: responseMsg.toString(),
       );
     case DioErrorType.other:
-      print("reched 2");
-
       return ServerException(code: 400, message: AppMessage.dioDefaultMessage);
     default:
-      print("reched 3");
-
       return ServerException(code: 404, message: AppMessage.notFound);
   }
 }

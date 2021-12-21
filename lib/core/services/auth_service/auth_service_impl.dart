@@ -15,21 +15,23 @@ class AuthServiceImpl extends AuthService {
     try {
       var response =
           await _remoteSource.post("/api/auth/customer/register", body: data);
-      if (response.containsKey("access_token")) {
-        var newUser = SignupResponse.fromJson(response);
-        return Left(newUser);
-      } else if (response.containsKey("errors")) {
+      if (response.containsKey("error")) {
         var newError = SignupError.fromJson(response);
-        return Right(
-            Failure(tag: "Signup Error:", message: newError.toString()));
-      } else {
-        return Right(Failure(tag: "Signup Error:", message: "Generic Error"));
+        print(newError.toString());
+        return Right(Failure(
+            tag: "Signup Error",
+            message: "Validation Failed, Please try different credentials"));
       }
+      var newUser = SignupResponse.fromJson(response);
+      return Left(newUser);
     } on ServerException catch (e) {
-      // print("custom error: ${e.message}");
-      return Right(Failure(tag: "Signup Error:", message: "${e.message}"));
+      if (e.code == 400 || e.code == 401 || e.code == 422) {
+        return Right(
+            Failure(tag: "Signup Error:", message: "Server Validation Failed!!"));
+      }
+      return Right(Failure(
+          tag: "Signup Error:", message: "Server Failed to Recognize!!"));
     } catch (e) {
-      // print("custom error 1: $e");
       return Right(Failure(tag: "Signup Error:", message: "Generice Error"));
     }
   }
@@ -40,17 +42,21 @@ class AuthServiceImpl extends AuthService {
     try {
       var response =
           await _remoteSource.post("/api/auth/customer/login", body: data);
-      if (response.containsKey("access_token")) {
-        var newUser = SignupResponse.fromJson(response);
-        return Left(newUser);
-      } else if (response.containsKey("error")) {
-        return Right(Failure(tag: "Signup Error:", message: response['error']));
-      } else {
-        return Right(Failure(tag: "Signup Error:", message: "Generic Error"));
+      if (response.containsKey("error")) {
+        print(response);
+        return Right(
+            Failure(tag: "Login Error:", message: "Validation failed!"));
       }
+      var newUser = SignupResponse.fromJson(response);
+      return Left(newUser);
     } on ServerException catch (e) {
-      // print("custom error: ${e.message}");
-      return Right(Failure(tag: "Signup Error:", message: "${e.message}"));
+      print(e.code);
+      if (e.code == 400 || e.code == 401 || e.code == 422) {
+        return Right(
+            Failure(tag: "Login Error:", message: "Validation Failed!!"));
+      }
+      return Right(Failure(
+          tag: "Login Error:", message: "Server Failed to Recognize!!"));
     } catch (e) {
       // print("custom error 1: $e");
       return Right(Failure(tag: "Signup Error:", message: "Generic Error"));

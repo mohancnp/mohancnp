@@ -19,9 +19,6 @@ class NewUser {
     required this.password,
     required this.passwordConfirmation,
   });
-  factory NewUser.fromJson(Map<String, dynamic> json) =>
-      _$NewUserFromJson(json);
-
   Map<String, dynamic> toJson() => _$NewUserToJson(this);
 }
 
@@ -42,8 +39,6 @@ class SignupResponse {
   });
   factory SignupResponse.fromJson(Map<String, dynamic> json) =>
       _$SignupResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$SignupResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -89,21 +84,19 @@ class Customer {
   });
   factory Customer.fromJson(Map<String, dynamic> json) =>
       _$CustomerFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CustomerToJson(this);
 }
 
 @JsonSerializable()
 class SignupError {
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: true)
   List<String> email;
-  @JsonKey(includeIfNull: false)
+  @JsonKey(includeIfNull: true)
   List<String> password;
-  @JsonKey(name: "password_confirmation", includeIfNull: false)
+  @JsonKey(name: "password_confirmation", includeIfNull: true)
   List<String> passwordConfirmation;
-  @JsonKey(name: "first_name", includeIfNull: false)
+  @JsonKey(name: "first_name", includeIfNull: true)
   List<String> firstName;
-  @JsonKey(name: "last_name", includeIfNull: false)
+  @JsonKey(name: "last_name", includeIfNull: true)
   List<String> lastName;
   SignupError({
     required this.email,

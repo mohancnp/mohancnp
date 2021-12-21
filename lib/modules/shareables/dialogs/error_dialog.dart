@@ -27,7 +27,7 @@ void showErrorDialog({String? errorMessage, String? errorTitle}) {
         padding: EdgeInsets.all(4.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.r),
-          color: Palette.coffeeColor,
+          color: Palette.pagebackgroundcolor,
         ),
         child: Text("Cancel"),
       ),
