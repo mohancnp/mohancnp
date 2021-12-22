@@ -1,16 +1,24 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
+import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
+import 'package:metrocoffee/modules/auth/custom/otp_verification_controller.dart';
+import 'package:metrocoffee/modules/auth/custom/password/forgot_password_page_controller.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/error_dialog.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class ResetPasswordPageController extends GetxController {
   final passwordEditingController = TextEditingController();
   final passwordConfirmEditingController = TextEditingController();
+  final forgotPasswordController = Get.find<ForgotPasswordController>();
+  final otpController = Get.find<OtpVerificationController>();
+
   final resetPassKey = GlobalKey<FormState>();
   bool _eye = false;
   Rx<String> passwordErrorMessage = "".obs;
   Rx<String> confirmErrorMessage = "".obs;
+  final _authService = locator.get<AuthService>();
 
   get eye => this._eye;
 
@@ -26,11 +34,23 @@ class ResetPasswordPageController extends GetxController {
       if (passwordConfirmEditingController.text ==
           passwordEditingController.text) {
         showCustomDialog(message: "Reseting Your Password");
-        await Future.delayed(
-          Duration(milliseconds: 2000),
-        );
-        Get.back();
-        Get.offAllNamed(PageName.loginpage);
+        final data = {
+          "email": forgotPasswordController.emailEditingController.text,
+          "password": passwordEditingController.text,
+          "confirm_password": passwordConfirmEditingController.text,
+          "pincode": otpController.verificationCode,
+        };
+        final response = await _authService.resetPassword(data);
+        response.fold((l) {
+          Get.back();
+          Get.offAllNamed(PageName.loginpage);
+        }, (r) {
+          Get.back();
+          showErrorDialog(
+            errorMessage: r.message,
+            errorTitle: r.tag,
+          );
+        });
       } else {
         showErrorDialog(
             errorMessage: "Set of Password Doesn't match,try again!!",

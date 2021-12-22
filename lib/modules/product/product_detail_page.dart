@@ -11,7 +11,6 @@ import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/carticons.dart';
 import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
-import 'package:metrocoffee/core/services/storage/db/dbconst.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/product/widgets/toppings_multiselect.dart';

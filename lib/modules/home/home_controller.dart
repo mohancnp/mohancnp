@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/placeholder.dart';
@@ -63,14 +62,15 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
 
   @override
   void onInit() {
-    print("on init home");
-    getCategoryData();
+    //get user profile data here
+    // Get.put(HomeController()).user = signup.customer;
 
+    getCategoryData();
     super.onInit();
   }
 
   void getCategoryData() async {
-    print("getting category data loading");
+    // print("getting category data loading");
     change(null, status: RxStatus.loading());
     var list = CategoriesController.to.categoryList;
     if (list.isEmpty) {

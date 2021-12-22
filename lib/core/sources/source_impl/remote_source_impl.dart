@@ -35,6 +35,7 @@ class RemoteSourceImpl implements RemoteSource {
     Map<String, dynamic>? queryParams,
   }) async {
     try {
+      // print("data to be sent $body");
       final response = await _dio.post(
         url,
         queryParameters: queryParams,
@@ -43,9 +44,10 @@ class RemoteSourceImpl implements RemoteSource {
 
       if (response.data is Map<String, dynamic>) {
         if (response.statusCode != null) {
-          var data = (response.statusCode == 400)||(response.statusCode == 401)
-              ? {'error': response.data}
-              : response.data as Map<String, dynamic>;
+          var data =
+              (response.statusCode == 400) || (response.statusCode == 401)
+                  ? {'error': response.data}
+                  : response.data as Map<String, dynamic>;
           return data;
         }
       }

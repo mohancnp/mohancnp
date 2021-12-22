@@ -104,12 +104,14 @@ class CheckoutPage extends StatelessWidget {
                       (controller.userPreference == UserOrderPreference.pickup)
                           ? "Pickup Location"
                           : "Delivery Location",
-                      style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Palette.textColor,
-                        //       fontSize: 14.5
-                        fontSize: 14.sp,
-                      )),
+                      style: getpoppins(
+                        TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Palette.textColor,
+                          //       fontSize: 14.5
+                          fontSize: 14.sp,
+                        ),
+                      ),
                     ),
                     controller.userPreference == UserOrderPreference.pickup
                         ? SizedBox()
@@ -129,13 +131,17 @@ class CheckoutPage extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(left: 4.w),
-                                    child: Text("Add",
-                                        style: getpoppins(TextStyle(
+                                    child: Text(
+                                      "Add",
+                                      style: getpoppins(
+                                        TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Palette.textColor,
                                           //       fontSize: 14.5
                                           fontSize: 12.sp,
-                                        ))),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -195,16 +201,14 @@ class CheckoutPage extends StatelessWidget {
                                           children: [
                                             UserPreference(
                                               question:
-                                                  "Really Want to Remove Address?",
+                                                  " Want to Remove Address?",
                                               onPressedFirst: () {
                                                 controller.userAddresses
                                                     .removeAt(index);
                                                 Get.back();
                                               },
                                               firstText: "SURE",
-                                              onPressedSecond: () {
-                                                Get.back();
-                                              },
+                                              onPressedSecond: Get.back,
                                               secondText: "CANCEL",
                                             ),
                                           ],
@@ -306,14 +310,16 @@ class CheckoutPage extends StatelessWidget {
                         horizontal: 28.w,
                       ),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(9)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                offset: Offset(0, 3),
-                                blurRadius: 10)
-                          ]),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(9)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.05),
+                            offset: Offset(0, 3),
+                            blurRadius: 10,
+                          )
+                        ],
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -382,9 +388,8 @@ class CheckoutPage extends StatelessWidget {
     );
   }
 
-  calculateMinutesWithRemainder(int remainder, currentTime) {
-    var newValue = (15 - remainder) + currentTime.minute;
-
+  int calculateMinutesWithRemainder(int remainder, currentTime) {
+    int newValue = (15 - remainder) + currentTime.minute as int;
     if (remainder != 0) {
       if (newValue == 60) {
         return 00;
@@ -393,7 +398,7 @@ class CheckoutPage extends StatelessWidget {
     return newValue;
   }
 
-  calculateHoursWithRemainder(int remainder, TimeOfDay currentTime) {
+  int calculateHoursWithRemainder(int remainder, TimeOfDay currentTime) {
     if (remainder != 0) {
       var newValue = (15 - remainder) + currentTime.minute;
       if (newValue == 60) {

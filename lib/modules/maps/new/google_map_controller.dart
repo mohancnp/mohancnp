@@ -6,7 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/google.dart';
-import 'package:metrocoffee/core/models/older/map_location_model.dart';
+import 'package:metrocoffee/core/models/map_location.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:metrocoffee/ui/src/palette.dart';
 
@@ -21,15 +21,7 @@ class CustomGoogleMapController extends GetxController {
   Rx<String> _currentLocation = "Search Your Destination".obs;
   List<MapLocation> selectedLocations = <MapLocation>[];
   bool circleFlag = false;
-  RxList<AddressModel> userAddresses = <AddressModel>[
-    // AddressModel(
-    //     title: "Gants Hill Station",
-    //     subtitle: "Crabrook Rd Shop is inside the station",
-    //     mapLocation: MapLocation(
-    //       51.5767841909041,
-    //       0.0671225322487236,
-    //     ))
-  ].obs;
+  RxList<AddressModel> userAddresses = <AddressModel>[].obs;
 
   Future<List<String>> getSelectedLocationName(MapLocation mapLocation) async {
     List<geo.Placemark> pm =
@@ -133,8 +125,8 @@ class CustomGoogleMapController extends GetxController {
       ),
     );
     updateMarker(newMarker);
-    var addressList = await getSelectedLocationName(
-        MapLocation(newMarker.position.latitude, newMarker.position.longitude));
+    var addressList = await getSelectedLocationName(MapLocation(
+        lat: newMarker.position.latitude, long: newMarker.position.longitude));
     currentLocation = "${addressList[0]}  ${addressList[1]}";
   }
 
@@ -158,8 +150,8 @@ class CustomGoogleMapController extends GetxController {
   addOrUpdateLocation() async {
     var marker = markers[MarkerId(Google.markerId)];
     var maplocation = MapLocation(
-      marker?.position.latitude ?? CompanyDetail.lat,
-      marker?.position.longitude ?? CompanyDetail.long,
+      lat: marker?.position.latitude ?? CompanyDetail.lat,
+      long: marker?.position.longitude ?? CompanyDetail.long,
     );
     var addressList = await getSelectedLocationName(maplocation);
     currentLocation = "${addressList[0]}  ${addressList[1]}";
@@ -184,7 +176,8 @@ class CustomGoogleMapController extends GetxController {
         radius: 5,
         // visible: cgmapController.moving ? false : true,
         center: LatLng(
-            markers[MarkerId(Google.markerId)]?.position.latitude ?? CompanyDetail.lat,
+            markers[MarkerId(Google.markerId)]?.position.latitude ??
+                CompanyDetail.lat,
             markers[MarkerId(Google.markerId)]?.position.longitude ??
                 CompanyDetail.long),
         fillColor: Palette.coffeeColor.withOpacity(0.8),

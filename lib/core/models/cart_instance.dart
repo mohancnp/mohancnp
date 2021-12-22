@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
+
 import 'package:metrocoffee/core/models/product_detail.dart';
 import 'package:metrocoffee/core/services/storage/db/dbconst.dart';
+
 part 'cart_instance.g.dart';
 
 @JsonSerializable()
@@ -35,4 +37,9 @@ class CartInstance {
       _$CartInstanceFromJson(json);
 
   Map<String, dynamic> toJson() => _$CartInstanceToJson(this);
+
+  @override
+  String toString() {
+    return 'CartInstance(totalPrice: $totalPrice, productId: $productId, name: $name, qty: $qty, selectedVariants: $selectedVariants, selectedProductType: $selectedProductType, toppingsList: $toppingsList, addons: $addons, imageUri: $imageUri)';
+  }
 }

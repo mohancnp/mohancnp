@@ -39,6 +39,7 @@ class CartServiceImpl extends CartService {
             whereArgs: [product[ProductCartFeild.productId]]);
       } else {
         //insert
+        print(product);
         count = await db.insert(Table.cart, product);
       }
       return Left(count);

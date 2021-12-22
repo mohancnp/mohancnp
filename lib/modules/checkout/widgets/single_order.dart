@@ -11,6 +11,7 @@ class SingleOrder extends StatelessWidget {
   final CartInstance cartModel;
   @override
   Widget build(BuildContext context) {
+    print(cartModel.selectedVariants);
     return Container(
       height: 100.h,
       margin: EdgeInsets.only(left: 28.w, right: 28.w),
@@ -130,7 +131,7 @@ class SingleOrder extends StatelessWidget {
                       SizedBox(
                         height: 40.h,
                         child: ListView.builder(
-                          itemCount: cartModel.toppingsList.length,
+                          itemCount: cartModel.addons.length,
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {

@@ -8,5 +8,8 @@ abstract class AuthService {
       Map<String, dynamic> data);
   Future<void> refreshToken();
   Future<void> logout();
-  Future<void> sendEmailForPasswordReset();
+  Future<Either<String, Failure>> sendEmailForPasswordReset(
+      Map<String, dynamic> data);
+  Future<Either<String, Failure>> verifyOtp(Map<String, dynamic> data);
+  Future<Either<String, Failure>> resetPassword(Map<String, dynamic> data);
 }

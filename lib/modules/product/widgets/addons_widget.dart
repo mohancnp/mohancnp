@@ -43,7 +43,7 @@ class AddonsWidget extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.only(
                                   left: 12.w, bottom: 4.h, right: 4.w),
-                              height: 87.h,
+                              height: 88.h,
                               width: 100.w,
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -53,13 +53,13 @@ class AddonsWidget extends StatelessWidget {
                                         : Colors.white,
                                     width: 2.0),
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(9.r),
+                                  Radius.circular(8.r),
                                 ),
                                 boxShadow: [
                                   BoxShadow(
                                       color: Colors.black12,
                                       blurRadius: 20.r,
-                                      offset: Offset(0, 3.r))
+                                      offset: Offset(0, 4.r))
                                 ],
                               ),
                               child: Column(

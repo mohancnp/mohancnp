@@ -13,26 +13,31 @@ import 'widgets/payment_options.dart';
 class PaymentPage extends StatelessWidget {
   PaymentPage({Key? key}) : super(key: key);
   final cartController = Get.find<CartController>();
-  final paymentController = Get.find<PaymentPageController>();
+  final paymentController = Get.put(PaymentPageController());
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color(0xffF3F5F5),
+      backgroundColor: Palette.pagebackgroundcolor,
       bottomNavigationBar: Material(
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Obx(() {
-              return Text(
-                "${Currency.symbol} ${cartController.totalAmount.toStringAsPrecision(3)}",
-                style: getpoppins(TextStyle(
-                    color: Palette.textColor,
-                    fontSize: 26.sp,
-                    fontWeight: FontWeight.w500)),
-              );
-            }),
+            Obx(
+              () {
+                return Text(
+                  "${Currency.symbol} ${cartController.totalAmount.toStringAsPrecision(3)}",
+                  style: getpoppins(
+                    TextStyle(
+                      color: Palette.textColor,
+                      fontSize: 26.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                );
+              },
+            ),
             Container(
               height: 57.h,
               width: 150.w,
@@ -42,14 +47,18 @@ class PaymentPage extends StatelessWidget {
                 color: Palette.coffeeColor,
               ),
               child: TextButton(
-                  onPressed: paymentController.confirmPaymentAndPlaceOrder,
-                  child: Text(
-                    "Confirm Payment",
-                    style: getpoppins(TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w300)),
-                  )),
+                onPressed: paymentController.confirmPaymentAndPlaceOrder,
+                child: Text(
+                  "Confirm Payment",
+                  style: getpoppins(
+                    TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -68,9 +77,7 @@ class PaymentPage extends StatelessWidget {
                 elevation: 0,
                 centerTitle: true,
                 leading: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
+                  onPressed: Get.back,
                   icon: Icon(
                     CupertinoIcons.back,
 //                        size: 28,
@@ -81,11 +88,14 @@ class PaymentPage extends StatelessWidget {
                 title: Container(
                   child: Text(
                     "PAYMENT",
-                    style: getpoppins(TextStyle(
+                    style: getpoppins(
+                      TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Palette.darkGery,
                         //      fontSize: 17
-                        fontSize: 17.sp)),
+                        fontSize: 17.sp,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -108,11 +118,14 @@ class PaymentPage extends StatelessWidget {
                           left: screenwidth * 0.02676),
                       child: Text(
                         "Send receipt to your email",
-                        style: getpoppins(TextStyle(
+                        style: getpoppins(
+                          TextStyle(
                             color: Color(0xff404D4D),
                             //   fontSize: 13.5,
                             fontSize: screenwidth * 0.0328,
-                            fontWeight: FontWeight.w400)),
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
                       ),
                     ),
                     GestureDetector(
@@ -128,7 +141,11 @@ class PaymentPage extends StatelessWidget {
                         width: screenwidth * 0.126,
                         duration: Duration(milliseconds: 175),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                40,
+                              ),
+                            ),
                             color: Palette.coffeeColor,
                             border: Border.all(
                                 color: Palette.darkGery, width: 1.2)),

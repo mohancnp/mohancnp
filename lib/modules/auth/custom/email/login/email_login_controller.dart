@@ -65,7 +65,6 @@ class EmailLoginController extends GetxController {
   void handleLoginResponse(Either<SignupResponse, Failure> data) {
     data.fold((signup) {
       _tempStorage.writeString(TempStorageKeys.authToken, signup.accessToken);
-      Get.find<HomeController>().user = signup.customer;
       Get.back();
       Get.offAllNamed(PageName.homepage);
     }, (failure) {

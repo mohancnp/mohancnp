@@ -26,8 +26,8 @@ class AuthServiceImpl extends AuthService {
       return Left(newUser);
     } on ServerException catch (e) {
       if (e.code == 400 || e.code == 401 || e.code == 422) {
-        return Right(
-            Failure(tag: "Signup Error:", message: "Server Validation Failed!!"));
+        return Right(Failure(
+            tag: "Signup Error:", message: "Server Validation Failed!!"));
       }
       return Right(Failure(
           tag: "Signup Error:", message: "Server Failed to Recognize!!"));
@@ -76,8 +76,58 @@ class AuthServiceImpl extends AuthService {
   }
 
   @override
-  Future<void> sendEmailForPasswordReset() async {
-    var response = _remoteSource.post("/api/auth/customer/forgotpassword");
-    print(response);
+  Future<Either<String, Failure>> sendEmailForPasswordReset(
+      Map<String, dynamic> data) async {
+    try {
+      var response =
+          await _remoteSource.post("/api/auth/forgotpassword", body: data);
+      if (response.containsKey("message")) {
+        return Left(response["message"]);
+      }
+      return Left("Please check your email for the code");
+    } on ServerException catch (error) {
+      print(error.message);
+      return Right(Failure(
+          tag: "Error sending mail", message: "${error.code} server error"));
+    } catch (error) {
+      return Right(Failure(tag: "Failure!!", message: "Generic Error"));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> verifyOtp(Map<String, dynamic> data) async {
+    try {
+      var response =
+          await _remoteSource.post("/api/auth/varify_pincode", body: data);
+      if (response.containsKey("message")) {
+        return Left(response["message"]);
+      }
+      return Left("Please check your email for the code");
+    } on ServerException catch (error) {
+      print(error.message);
+      return Right(Failure(
+          tag: "Error Verfication", message: "${error.code} Invalid Pincode"));
+    } catch (error) {
+      return Right(Failure(tag: "Failure!!", message: "Generic Error"));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> resetPassword(
+      Map<String, dynamic> data) async {
+    try {
+      var response =
+          await _remoteSource.post("/api/auth/newpassword", body: data);
+      if (response.containsKey("message")) {
+        return Left(response["message"]);
+      }
+      return Left("Please check your email for the code");
+    } on ServerException catch (error) {
+      print(error.message);
+      return Right(Failure(
+          tag: "Error Verfication", message: "${error.code} Invalid Pincode"));
+    } catch (error) {
+      return Right(Failure(tag: "Failure!!", message: "Generic Error"));
+    }
   }
 }
