@@ -113,7 +113,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => onPressed,
+                    onTap: onPressed,
                     child: Container(
                       width: 28.r,
                       height: 28.r,

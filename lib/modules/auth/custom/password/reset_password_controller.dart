@@ -79,14 +79,4 @@ class ResetPasswordPageController extends GetxController {
     confirmErrorMessage.value = "";
     return null;
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }
