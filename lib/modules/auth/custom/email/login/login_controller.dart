@@ -46,18 +46,16 @@ class LoginController extends GetxController {
     return null;
   }
 
-  void performEmailLogin() async {
-    var validated = loginFormKey.currentState!.validate();
+  Future<void> performEmailLogin() async {
+    final validated = loginFormKey.currentState!.validate();
     if (validated) {
       showCustomDialog(message: "Logging In");
-      var data = {
+      final data = {
         "email": emailEditingController.text,
         "password": passwordEditingController.text,
       };
-      var serverResponse = await _authService.loginUserWithEmail(data);
+      final serverResponse = await _authService.loginUserWithEmail(data);
       handleLoginResponse(serverResponse);
-    } else {
-      print("not validated");
     }
   }
 
@@ -72,7 +70,6 @@ class LoginController extends GetxController {
     });
   }
 
-//TODO: shall we go for make it specific named routing function?
   void navigateToRoute({required String pageName}) {
     Get.toNamed(pageName);
   }

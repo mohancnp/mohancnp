@@ -16,12 +16,12 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
 
   int currentpageindex = 0;
   bool internetConnected = false;
-  ProductService _productService = locator.get<ProductService>();
+  final ProductService _productService = locator.get<ProductService>();
 
-  Rx<Customer> _user = Customer.fromJson(defaultUser).obs;
+  final Rx<Customer> _user = Customer.fromJson(defaultUser).obs;
   set user(Customer newUser) {
-    this._user.value = newUser;
-    this._user.refresh();
+    _user.value = newUser;
+    _user.refresh();
   }
 
   Customer get user => _user.value;
@@ -60,15 +60,11 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
 
   @override
   void onInit() {
-    //get user profile data here
-    // Get.put(HomeController()).user = signup.customer;
-
     getCategoryData();
     super.onInit();
   }
 
   void getCategoryData() async {
-    // print("getting category data loading");
     change(null, status: RxStatus.loading());
     var list = CategoriesController.to.categoryList;
     if (list.isEmpty) {
@@ -76,7 +72,6 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
       list = CategoriesController.to.categoryList;
     }
     if (list.isNotEmpty) {
-      // print("category list is available");
       for (var i = 0; i < list.length; i++) {
         var element = list.elementAt(i);
         if (element.selected != null) {
@@ -86,7 +81,6 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
         }
       }
     } else {
-      // print("empty category list");
       change(null, status: RxStatus.error("No Products For Category"));
     }
   }

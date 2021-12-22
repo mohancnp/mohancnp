@@ -30,32 +30,24 @@ class ResetPasswordPageController extends GetxController {
   Future<void> changePassword() async {
     var validated = resetPassKey.currentState!.validate();
     if (validated) {
-      //logic will be changed for different api error.
-      if (passwordConfirmEditingController.text ==
-          passwordEditingController.text) {
-        showCustomDialog(message: "Reseting Your Password");
-        final data = {
-          "email": forgotPasswordController.emailEditingController.text,
-          "password": passwordEditingController.text,
-          "confirm_password": passwordConfirmEditingController.text,
-          "pincode": otpController.verificationCode,
-        };
-        final response = await _authService.resetPassword(data);
-        response.fold((l) {
-          Get.back();
-          Get.offAllNamed(PageName.loginpage);
-        }, (r) {
-          Get.back();
-          showErrorDialog(
-            errorMessage: r.message,
-            errorTitle: r.tag,
-          );
-        });
-      } else {
+      showCustomDialog(message: "Reseting Your Password");
+      final data = {
+        "email": forgotPasswordController.emailEditingController.text,
+        "password": passwordEditingController.text,
+        "confirm_password": passwordConfirmEditingController.text,
+        "pincode": otpController.verificationCode,
+      };
+      final response = await _authService.resetPassword(data);
+      response.fold((l) {
+        Get.back();
+        Get.offAllNamed(PageName.loginpage);
+      }, (r) {
+        Get.back();
         showErrorDialog(
-            errorMessage: "Set of Password Doesn't match,try again!!",
-            errorTitle: "Error!!!");
-      }
+          errorMessage: r.message,
+          errorTitle: r.tag,
+        );
+      });
     }
   }
 

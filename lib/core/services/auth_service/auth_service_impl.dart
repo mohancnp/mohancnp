@@ -50,6 +50,7 @@ class AuthServiceImpl extends AuthService {
       var newUser = SignupResponse.fromJson(response);
       return Left(newUser);
     } on ServerException catch (e) {
+      // ignore: avoid_print
       print(e.code);
       if (e.code == 400 || e.code == 401 || e.code == 422) {
         return Right(
@@ -58,20 +59,21 @@ class AuthServiceImpl extends AuthService {
       return Right(Failure(
           tag: "Login Error:", message: "Server Failed to Recognize!!"));
     } catch (e) {
-      // print("custom error 1: $e");
       return Right(Failure(tag: "Signup Error:", message: "Generic Error"));
     }
   }
 
   @override
   Future<void> refreshToken() async {
-    var response = _remoteSource.post("/api/auth/customer/refresh");
+    var response = await _remoteSource.post("/api/auth/customer/refresh");
+    // ignore: avoid_print
     print(response);
   }
 
   @override
   Future<void> logout() async {
-    var response = _remoteSource.post("/api/auth/customer/logout");
+    var response = await _remoteSource.post("/api/auth/customer/logout");
+    // ignore: avoid_print
     print(response);
   }
 
@@ -84,8 +86,9 @@ class AuthServiceImpl extends AuthService {
       if (response.containsKey("message")) {
         return Left(response["message"]);
       }
-      return Left("Please check your email for the code");
+      return const Left("Please check your email for the code");
     } on ServerException catch (error) {
+      // ignore: avoid_print
       print(error.message);
       return Right(Failure(
           tag: "Error sending mail", message: "${error.code} server error"));
@@ -102,8 +105,9 @@ class AuthServiceImpl extends AuthService {
       if (response.containsKey("message")) {
         return Left(response["message"]);
       }
-      return Left("Please check your email for the code");
+      return const Left("Please check your email for the code");
     } on ServerException catch (error) {
+      // ignore: avoid_print
       print(error.message);
       return Right(Failure(
           tag: "Error Verfication", message: "${error.code} Invalid Pincode"));
@@ -121,8 +125,9 @@ class AuthServiceImpl extends AuthService {
       if (response.containsKey("message")) {
         return Left(response["message"]);
       }
-      return Left("Please check your email for the code");
+      return const Left("Please check your email for the code");
     } on ServerException catch (error) {
+      // ignore: avoid_print
       print(error.message);
       return Right(Failure(
           tag: "Error Verfication", message: "${error.code} Invalid Pincode"));

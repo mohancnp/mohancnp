@@ -11,24 +11,14 @@ class ForgotPasswordController extends GetxController {
   Rx<String> errorMessage = "".obs;
   final emailEditingController = TextEditingController();
   final sendCodeForm = GlobalKey<FormState>();
-  var _authService = locator.get<AuthService>();
-  @override
-  void onInit() {
-    print("called");
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  final _authService = locator.get<AuthService>();
 
   Future<void> sendOtpInEmail() async {
     var validated = sendCodeForm.currentState!.validate();
     if (validated) {
       showCustomDialog(message: "Sending Email");
-      var data = {"email": emailEditingController.text};
-      var response = await _authService.sendEmailForPasswordReset(data);
+      final data = {"email": emailEditingController.text};
+      final response = await _authService.sendEmailForPasswordReset(data);
       response.fold((l) {
         Get.back();
         Get.toNamed(PageName.otpVerificationPage);
@@ -36,8 +26,6 @@ class ForgotPasswordController extends GetxController {
         Get.back();
         showErrorDialog(errorTitle: r.tag, errorMessage: r.message);
       });
-    } else {
-      print("not validated");
     }
   }
 

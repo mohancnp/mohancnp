@@ -14,8 +14,8 @@ class OtpVerificationController extends GetxController {
   final _authService = locator.get<AuthService>();
   String? verificationCode;
 
-  void navigateToPageName({required String PageName}) {
-    Get.toNamed(PageName);
+  void navigateToPageName({required String pageName}) {
+    Get.toNamed(pageName);
   }
 
   Future<void> verifyOTPandNavigate() async {
@@ -28,7 +28,7 @@ class OtpVerificationController extends GetxController {
       final response = await _authService.verifyOtp(data);
       response.fold((l) {
         Get.back();
-        navigateToPageName(PageName: PageName.resetPasswordPage);
+        navigateToPageName(pageName: PageName.resetPasswordPage);
       }, (r) {
         Get.back();
         showErrorDialog(errorTitle: r.tag, errorMessage: r.message);

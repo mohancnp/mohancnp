@@ -39,11 +39,6 @@ class SignUpController extends GetxController {
     update();
   }
 
-  void navigateToPageName({required String PageName}) {
-    // if (redirectionController.userExists) {}
-    // Get.toNamed(PageName);
-  }
-
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       passwordErrorMessage.value = "Password can't be empty";
@@ -54,7 +49,6 @@ class SignUpController extends GetxController {
   }
 
   String? validateRePassword(String? value) {
-    print("here");
     if (rePasswordEditingController.text != passwordEditingController.text) {
       rePasswordErrorMessage.value = "password doesn't match";
       return "";
@@ -93,18 +87,18 @@ class SignUpController extends GetxController {
     return null;
   }
 
-  void resigterUser() async {
+  Future<void> resigterUser() async {
     var validated = signUpFormKey.currentState!.validate();
     if (validated) {
       showCustomDialog(message: "Logging In");
-      var newUser = NewUser(
+      final newUser = NewUser(
         firstName: firstNameEditingController.text,
         lastName: lastNameEditingController.text,
         email: emailEditingController.text,
         password: passwordEditingController.text,
         passwordConfirmation: rePasswordEditingController.text,
       );
-      var data = await _authService.createUser(newUser.toJson());
+      final data = await _authService.createUser(newUser.toJson());
       handleRegistrationResponse(data);
     }
   }

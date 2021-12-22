@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,7 +6,6 @@ import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/older/user_model.dart';
 import 'package:metrocoffee/core/services/older/profile_service/profile_service.dart';
-import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'profile_page_controller.dart';
 
 class PersonalDataPageController extends GetxController {
@@ -36,7 +34,6 @@ class PersonalDataPageController extends GetxController {
 
   set imageData(imd) {
     _imageData = imd;
-    // update();
   }
 
   get imageData {
@@ -95,38 +92,7 @@ class PersonalDataPageController extends GetxController {
     user.email = emailcontroller.text;
     user.job = jobcontroller.text;
     user.gender = gender;
-//TODO: to be adjusted
-    // print(user.toJson());
-
-    // try {
-    //   var result = await _profileService.updateProfile(
-    //     profileData: user.toJson(),
-    //     imageData: imageData,
-    //   );
-    //   print(result['data']);
-    //   User updatedUser = User.fromJson(result["data"]);
-    //   namecontroller.text = updatedUser.name ?? " ";
-    //   emailcontroller.text = updatedUser.email ?? " ";
-    //   gender = updatedUser.gender;
-    //   jobcontroller.text = updatedUser.job ?? " ";
-    //   profileController.newUser = updatedUser;
-    //   Get.find<HomeController>().user = updatedUser;
-
-    //   if (result != null) {
-    //     Get.back();
-    //     showSnackBarWithMsg("Profile", "update sucessfull!");
-    //   }
-    // } on AppException catch (e) {
-    //   Get.back();
-    //   showSnackBarWithMsg("profile", "update failed");
-    //   print(e);
-    // } on Exception catch (e) {
-    //   Get.back();
-    //   showSnackBarWithMsg("profile", "update failed");
-    //   print("generic error: $e");
-    // }
-
-    //todo: add code to implement db update for user
+    
   }
 
   showSnackBarWithMsg(String title, String message) {
