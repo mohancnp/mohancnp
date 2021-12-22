@@ -1,31 +1,59 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/enums/order_state.dart';
+import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/older/order_model.dart';
+import 'package:metrocoffee/core/models/map_location.dart';
+import 'package:metrocoffee/core/models/order.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/older/order_service/order_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/checkout_page_controller.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
+import 'package:metrocoffee/modules/maps/new/google_map_controller.dart';
 import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
 class PaymentPageController extends GetxController {
-  RemoteOrder remoteOrder = RemoteOrder.empty();
-  OrderState _orderState = OrderState.initial;
   final cartController = Get.find<CartController>();
   final checkoutConroller = Get.find<CheckoutPageController>();
+  final mapConroller = Get.find<CustomGoogleMapController>();
+
   final _orderService = locator.get<OrderService>();
+
   bool reordering = false;
 
-  Future confirmPaymentAndPlaceOrder() async {}
+  Future confirmPaymentAndPlaceOrder() async {
+    String time = checkoutConroller.selectedTimeFrame.value;
+    Address selectedLocation;
+    if (mapConroller.userAddresses.isNotEmpty) {
+      var location =
+          mapConroller.userAddresses[mapConroller.selectedAddressIndex];
+      selectedLocation = Address(
+          title: location.title,
+          subtitle: location.subtitle,
+          mapLocation: location.mapLocation);
+    } else {
+      selectedLocation = Address(
+        title: CompanyDetail.address,
+        subtitle: CompanyDetail.subAddress,
+        mapLocation: MapLocation(
+          lat: CompanyDetail.lat,
+          long: CompanyDetail.long,
+        ),
+      );
+    }
 
-  Future placeOrder() async {}
-
-  set orderState(OrderState os) {
-    _orderState = os;
-    update();
+    var newOrder = Order(
+      orderItems: cartController.cartProductList,
+      selectedAddress: selectedLocation,
+      totalAmount: cartController.totalAmount.value,
+      selectedTime: time,
+    );
+    var orderSample = newOrder.toJson();
+    // ignore: avoid_print
+    print(jsonEncode(orderSample));
   }
 
   reorderWithId({required int orderId, int? addressId}) async {

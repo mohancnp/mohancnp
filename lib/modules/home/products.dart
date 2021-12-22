@@ -61,7 +61,7 @@ class ProductsPage extends GetView<HomeController> {
             message: error ?? AppMessage.somethingWentWrong,
           );
         },
-        onLoading: SizedBox(
+        onLoading: Center(
           child: SpinKitRing(
             color: Palette.coffeeColor,
             size: 20.r,

@@ -11,8 +11,8 @@ import 'package:metrocoffee/core/services/storage/db/user_table.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
-import 'services/older/auth_service/auth_service.dart';
-import 'services/older/auth_service/auth_service_impl.dart';
+import 'services/auth_service/auth_service.dart';
+import 'services/auth_service/auth_service_impl.dart';
 import 'services/cart_service/cart_service_impl.dart';
 import 'services/older/profile_service/profile_service_impl.dart';
 import 'sources/remote_source.dart';
@@ -37,8 +37,9 @@ Future<void> setupLocator() async {
       locator.registerLazySingleton<RemoteSource>(() => RemoteSourceImpl());
       locator.registerLazySingleton<ProductService>(
           () => ProductServiceImpl(locator.get()));
-      locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
+      locator.registerSingleton<AuthService>(AuthServiceImpl(locator.get()));
       locator.registerLazySingleton<OrderService>(() => OrderServiceImpl());
+
       locator.registerLazySingleton<ProfileService>(() => ProfileServiceImpl());
       locator.registerLazySingleton<NotificationService>(
           () => NotificationServiceImpl());

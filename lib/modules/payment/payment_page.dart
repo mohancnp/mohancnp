@@ -13,12 +13,12 @@ import 'widgets/payment_options.dart';
 class PaymentPage extends StatelessWidget {
   PaymentPage({Key? key}) : super(key: key);
   final cartController = Get.find<CartController>();
-  final paymentController = Get.find<PaymentPageController>();
+  final paymentController = Get.put(PaymentPageController());
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color(0xffF3F5F5),
+      backgroundColor: Palette.pagebackgroundcolor,
       bottomNavigationBar: Material(
         color: Colors.white,
         child: Row(
@@ -75,9 +75,7 @@ class PaymentPage extends StatelessWidget {
                 elevation: 0,
                 centerTitle: true,
                 leading: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
+                  onPressed: Get.back,
                   icon: Icon(
                     CupertinoIcons.back,
                     size: 28.w,
@@ -112,7 +110,7 @@ class PaymentPage extends StatelessWidget {
                       child: Text(
                         "Send receipt to your email",
                         style: TextStyle(
-                          color: const Color(0xff404D4D),
+                          color: Palette.pagebackgroundcolor,
                           fontSize: screenwidth * 0.0328,
                            
                           fontWeight: FontWeight.w400,

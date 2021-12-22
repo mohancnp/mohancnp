@@ -88,6 +88,7 @@ class ProductDetailPageController extends GetxController
   double getToppingsAmount() {
     var total = 0.0;
     var toppings = productDetail.toppings;
+    selectedToppingsObject.clear();
     if (toppingStringList != null) {
       for (int i = 0; i < toppingStringList!.length; i++) {
         for (int j = 0; j < toppings.length; j++) {
@@ -95,6 +96,7 @@ class ProductDetailPageController extends GetxController
           var newName = "${topping.name}   ${Currency.symbol}${topping.price}";
           if (newName == toppingStringList![i]) {
             total += toppings[j].price;
+            selectedToppingsObject.add(topping);
             break;
           }
         }
@@ -104,12 +106,12 @@ class ProductDetailPageController extends GetxController
   }
 
   double getAddonsAmount() {
-    selectedAddons.clear();
+    // selectedAddons.clear();
     var addons = productDetail.addons;
     var total = 0.0;
     for (var i = 0; i < addons.length; i++) {
       if (addons[i].selected) {
-        selectedAddons.add(addons[i]);
+        // selectedAddons.add(addons[i]);
         total += addons[i].price;
       }
     }
@@ -215,6 +217,9 @@ class ProductDetailPageController extends GetxController
       addons: selectedAddons,
       imageUri: productDetail.product.image,
     );
+    print(newInstance.toppingsList);
+    print(newInstance.addons);
+
     var response = await cartService.addProductToCart(newInstance.toJson());
 
     response.fold(

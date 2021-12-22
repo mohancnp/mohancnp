@@ -14,7 +14,8 @@ import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
 import '../../../core/theme.dart';
 
 class MyOrderPage extends StatelessWidget {
-  const MyOrderPage({Key? key}) : super(key: key);
+   MyOrderPage({Key? key}) : super(key: key);
+  final controller = Get.put(OrderHistoryController());
 
   @override
   Widget build(BuildContext context) {

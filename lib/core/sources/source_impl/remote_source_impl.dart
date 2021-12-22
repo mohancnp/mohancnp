@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import '../../config.dart';
 import '../../exceptions/dio_exceptions.dart';
@@ -35,15 +34,22 @@ class RemoteSourceImpl implements RemoteSource {
     dynamic body = const {},
     Map<String, dynamic>? queryParams,
   }) async {
-
     try {
+      // print("data to be sent $body");
       final response = await _dio.post(
         url,
         queryParameters: queryParams,
         data: body,
       );
+
       if (response.data is Map<String, dynamic>) {
-        return response.data as Map<String, dynamic>;
+        if (response.statusCode != null) {
+          var data =
+              (response.statusCode == 400) || (response.statusCode == 401)
+                  ? {'error': response.data}
+                  : response.data as Map<String, dynamic>;
+          return data;
+        }
       }
       return {'data': response.data};
     } on DioError catch (e) {

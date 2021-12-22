@@ -3,7 +3,7 @@ import "package:flutter_screenutil/flutter_screenutil.dart";
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/icons/socials.dart';
-import 'package:metrocoffee/core/constants/placeholder_image.dart';
+import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 
 class LoginPage extends StatelessWidget {

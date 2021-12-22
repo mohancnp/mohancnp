@@ -1,10 +1,10 @@
 import 'dart:async';
-
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/older/user_model.dart';
+import 'package:metrocoffee/core/models/new_user.dart';
 import 'package:metrocoffee/core/models/product.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
@@ -18,14 +18,13 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
   bool internetConnected = false;
   final ProductService _productService = locator.get<ProductService>();
 
-  final Rx<User> _user = User().obs;
-
-  set user(User newUser) {
+  final Rx<Customer> _user = Customer.fromJson(defaultUser).obs;
+  set user(Customer newUser) {
     _user.value = newUser;
     _user.refresh();
   }
 
-  User get user => _user.value;
+  Customer get user => _user.value;
 
   void getUser() async {
     user = await Get.find<ProfilePageController>().getProfile();
@@ -62,7 +61,6 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
   @override
   void onInit() {
     getCategoryData();
-
     super.onInit();
   }
 

@@ -34,16 +34,13 @@ class TopHomeGreeting extends StatelessWidget {
               GetX<HomeController>(
                 builder: (controller) {
                   var user = controller.user;
-                  var firstName = "...";
-                  firstName =
-                      user.name?.split(' ').elementAt(0) ?? "Caffeinator";
+                  var firstName = user.firstName;
                   return Text(
-                    int.parse(DateFormat.H('en_US').format(DateTime.now())) <
-                            16
+                    int.parse(DateFormat.H('en_US').format(DateTime.now())) < 16
                         ? 'Good Afternoon,' + firstName
-                        : 'Good Evening,' ' $firstName ',
+                        : 'Good Evening,' + firstName,
                     style: TextStyle(
-                      fontFamily: CustomFont.montserratBold,
+                      fontFamily: CustomFont.montserratSemiBold,
                       color: Colors.white,
                       fontSize: 20.sp,
                     ),
@@ -51,10 +48,12 @@ class TopHomeGreeting extends StatelessWidget {
                 },
               ),
               Container(
-                  margin: EdgeInsets.only(top: 4.h),
-                  child: Text(
-                      "You can order drinks for collections or Delivery.",
-                      style: Theme.of(context).textTheme.caption)),
+                margin: EdgeInsets.only(top: 4.h),
+                child: Text(
+                  "You can order drinks for collections or Delivery.",
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ),
             ],
           ),
           GestureDetector(
