@@ -8,7 +8,7 @@ showCustomSnackBarMessage({required String title, required String message}) {
     message,
     colorText: Palette.textColor,
     backgroundColor: Colors.white,
-    duration: Duration(milliseconds: 500),
+    duration: const Duration(milliseconds: 500),
     isDismissible: true,
   );
 }

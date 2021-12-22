@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/models/older/order_model.dart';
-import 'package:metrocoffee/modules/profile/widgets/timeframeorders.dart';
+import 'package:metrocoffee/modules/profile/widgets/time_frame_orders.dart';
 
 class SingleTimeFrameReorders extends StatelessWidget {
   final int? index;
@@ -16,9 +15,9 @@ class SingleTimeFrameReorders extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamedAndRemoveUntil(
-            context, "/OrderDetails", (PageName) => true);
+            context, "/OrderDetails", (_) => true);
       },
-      child: Container(
+      child: SizedBox(
         width: screenwidth,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -32,11 +31,12 @@ class SingleTimeFrameReorders extends StatelessWidget {
               child: Row(children: [
                 Text(
                   getnotificationdaytitlefromindex(index),
-                  style: getpoppins(TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff344141),
-                      //        fontSize: 12.5
-                      fontSize: screenwidth * 0.03284)),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xff344141),
+                     
+                    fontSize: screenwidth * 0.03284,
+                  ),
                 )
               ]),
             ),
@@ -44,7 +44,7 @@ class SingleTimeFrameReorders extends StatelessWidget {
                 itemCount: index == 0 ? 1 : 2,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return TimeFrameOrders(index: index, orderData: orderData);
                 })

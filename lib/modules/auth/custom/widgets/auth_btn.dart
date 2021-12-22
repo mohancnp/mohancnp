@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class AuthBtn extends StatelessWidget {
@@ -21,7 +20,7 @@ class AuthBtn extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(24.r)),
           boxShadow: [
             BoxShadow(
-              color: Color(0x4DC3916A),
+              color: const Color(0x4DC3916A),
               blurRadius: 32.r,
               offset: Offset(0, 8.r),
             )
@@ -29,9 +28,9 @@ class AuthBtn extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "$centerBtnText",
+            centerBtnText,
             style: TextStyle(
-              fontFamily: poppinsregular,
+               
               color: Colors.white,
               fontSize: 16.sp,
             ),

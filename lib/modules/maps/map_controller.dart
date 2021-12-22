@@ -24,7 +24,6 @@ class MapController extends GetxController {
   double latitude = 51.5767841909041;
   double longitued = 0.0671225322487236;
 
-  // RxList<Address> addresses = <Address>[].obs;
   addNewLocationFromMap() {}
 
   addNewDeliveryLocation(CustomLocation customLocation) {
@@ -37,52 +36,24 @@ class MapController extends GetxController {
     deliveryLocationList.refresh();
   }
 
-  Future getAllAddresses() async {
-    // var response = await addressService.getAddresses();
-    // if (response != null) {
-    //   List<dynamic> addresses = response['data']['data'];
-    //   addresses.forEach((element) {
-    //     this.addresses.add(Address.fromJson(element));
-    //   });
-    //   this.addresses.refresh();
-    // }
-  }
+  Future getAllAddresses() async {}
 
-  Future addNewAddressToserver(CustomLocation location) async {
-    // uiState.value = UIState.processing;
-
-    // var dataToAdd = {
-    //   "addr_1": "${location.mainLocation}",
-    //   "addr_2": "${location.subLocation}",
-    //   "map": "not available yet",
-    //   "lat": location.lat,
-    //   "lang": location.long,
-    //   "phone": "9878678908",
-    //   "instruction": "no instrcutions"
-    // };
-    // bool status = await addressService.addAddress(dataToAdd);
-    // if (status) {
-    //   print("address added");
-    //   uiState.value = UIState.completed;
-    // } else {
-    //   uiState.value = UIState.error;
-    // }
-  }
+  Future addNewAddressToserver(CustomLocation location) async {}
 
   CustomLocation getHomeLocation() {
-    return this.home.value;
+    return home.value;
   }
 
   CustomLocation getWorkLocation() {
-    return this.work.value;
+    return work.value;
   }
 
   CustomLocation getCurrentLocation() {
-    return this.current.value;
+    return current.value;
   }
 
   CustomLocation getDeliveryLocation() {
-    return this.delivery.value;
+    return delivery.value;
   }
 
   Future<LocationData> getCurrentUserLocation(location) async {
@@ -93,23 +64,12 @@ class MapController extends GetxController {
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        print('permission is denied');
-      }
     }
     _permissionGranted = await location.hasPermission();
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        print('permission is denied');
-      }
     }
-    // location.onLocationChanged.listen((LocationData currentLocation) {
-    //   // setState(() {
-    //   _locationData = currentLocation;
-    //   // });
-    // });
-    // location.enableBackgroundMode(enable: true);
+
     _locationData = await location.getLocation();
     return _locationData;
   }

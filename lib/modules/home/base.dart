@@ -25,17 +25,19 @@ class Base extends StatelessWidget {
   final cartController = Get.put(CartController());
 
   List privatePages = [
-    Home(),
+    const Home(),
     Notifications(),
     MyOrderPage(),
     ProfilePage(),
   ];
   List publicPages = [
-    Home(),
-    RedirectionPage(),
-    RedirectionPage(),
-    RedirectionPage(),
+    const Home(),
+    const RedirectionPage(),
+    const RedirectionPage(),
+    const RedirectionPage(),
   ];
+
+  Base({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +46,11 @@ class Base extends StatelessWidget {
       builder: (basecontroller) {
         var status = basecontroller.userVerificationStatus;
         return (status == UserVerficationStatus.unverified)
-            ? LoadingPage()
+            ? const LoadingPage()
             : Scaffold(
                 body: getPages(status, basecontroller.currentIndex),
                 bottomNavigationBar: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     boxShadow: [
                       BoxShadow(
                           offset: Offset(0, -6),
@@ -150,7 +152,8 @@ class Base extends StatelessWidget {
   getPages(UserVerficationStatus st, int index) {
     if (st == UserVerficationStatus.unknown) {
       return publicPages[index];
-    } else
+    } else {
       return privatePages[index];
+    }
   }
 }

@@ -1,11 +1,9 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
+import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/modules/auth/custom/password/forgot_password_page_controller.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
@@ -42,7 +40,7 @@ class ForgotPasswordPage extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.black.withOpacity(0.14),
             leading: IconButton(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               onPressed: Get.back,
               icon: Icon(
                 CupertinoIcons.back,
@@ -77,7 +75,7 @@ class ForgotPasswordPage extends StatelessWidget {
                     Text(
                       "Forgot Password?",
                       style: TextStyle(
-                        fontFamily: freightbold,
+                        fontFamily: CustomFont.freightDispBold,
                         color: Colors.white,
                         fontSize: 42.sp,
                       ),
@@ -102,7 +100,7 @@ class ForgotPasswordPage extends StatelessWidget {
                           validator: controller.validateEmail,
                           hintText: "Email Address",
                           suffixIcon: Icon(
-                            FeatherIcons.mail,
+                            Icons.mail,
                             size: 18.sp,
                           ),
                         ),
@@ -111,7 +109,7 @@ class ForgotPasswordPage extends StatelessWidget {
                               ? CustomErrorWidget(
                                   message: controller.errorMessage.value,
                                 )
-                              : SizedBox(),
+                              : const SizedBox(),
                         ),
                         SizedBox(
                           height: 20.h,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 
 class CustomReusableBtn extends StatelessWidget {
   final String buttonText;
@@ -24,12 +23,13 @@ class CustomReusableBtn extends StatelessWidget {
         width: width,
         alignment: Alignment.center,
         child: Text(
-          "$buttonText",
-          style: getpoppins(TextStyle(
+          buttonText,
+          style: TextStyle(
             fontSize: 15.sp,
+             
             fontWeight: FontWeight.w400,
             color: Colors.white,
-          )),
+          ),
         ),
         decoration: BoxDecoration(
           color: Palette.coffeeColor,

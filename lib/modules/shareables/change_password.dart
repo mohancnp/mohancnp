@@ -1,8 +1,6 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page_controller.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/modules/shareables/widgets/change_password_feild.dart';
@@ -32,7 +30,7 @@ class ChangePasswordPage extends StatelessWidget {
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: !personaldatacontroller
                   .passwordchangedsuccesfully
-              ? SizedBox(
+              ? const SizedBox(
                   height: 0,
                 )
               : GestureDetector(
@@ -40,7 +38,7 @@ class ChangePasswordPage extends StatelessWidget {
                   child: AnimatedContainer(
                     height: 42.h,
                     width: 295.w,
-                    duration: Duration(milliseconds: 250),
+                    duration: const Duration(milliseconds: 250),
                     decoration: BoxDecoration(
                       color: Colors.greenAccent,
                       borderRadius: BorderRadius.all(Radius.circular(24.r)),
@@ -52,7 +50,7 @@ class ChangePasswordPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          FeatherIcons.check,
+                          Icons.check,
                           color: Colors.white,
                           size: 24.r,
                         ),
@@ -61,11 +59,12 @@ class ChangePasswordPage extends StatelessWidget {
                           child: Center(
                             child: Text(
                               "Password changes successfully",
-                              style: getpoppins(TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Colors.white,
                                 fontSize: 14.5.sp,
-                              )),
+                                 
+                              ),
                             ),
                           ),
                         )
@@ -73,10 +72,10 @@ class ChangePasswordPage extends StatelessWidget {
                     ),
                   ),
                 ),
-          backgroundColor: Color(0xffF3F5F5),
+          backgroundColor: const Color(0xffF3F5F5),
           body: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            child: Container(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: SizedBox(
               width: 375.w,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -85,11 +84,11 @@ class ChangePasswordPage extends StatelessWidget {
                   AppBar(
                     title: Text(
                       "NEW PASSWORD",
-                      style: getpoppins(TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: darkgrey,
                         fontSize: 16.5,
-                      )),
+                      ),
                     ),
                     centerTitle: true,
                     leading: IconButton(
@@ -143,7 +142,7 @@ class ChangePasswordPage extends StatelessWidget {
 
                                       return Container(
                                         alignment: Alignment.center,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
                                         child: Text(
@@ -169,13 +168,13 @@ class ChangePasswordPage extends StatelessWidget {
                                           if (imageProgress == null) {
                                             return widget;
                                           } else {
-                                            return Center(
+                                            return const Center(
                                               child: Text("Loading"),
                                             );
                                           }
                                         },
                                         errorBuilder: (a, b, c) =>
-                                            Center(child: Text("Error")),
+                                            const Center(child: Text("Error")),
                                       ),
                                     ),
                             ),
@@ -192,7 +191,7 @@ class ChangePasswordPage extends StatelessWidget {
                     width: 375.w,
                     height: 1.h,
                     decoration: BoxDecoration(
-                      color: Color(0xffA5A5A5).withOpacity(0.4),
+                      color: const Color(0xffA5A5A5).withOpacity(0.4),
                     ),
                   ),
                   Container(
@@ -204,15 +203,13 @@ class ChangePasswordPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          child: Text(
-                            "Create new password",
-                            style: getpoppins(TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 22.5.sp,
-                                color: darkgrey)),
-                          ),
-                        )
+                        Text(
+                          "Create new password",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 22.5.sp,
+                              color: darkgrey),
+                        ),
                       ],
                     ),
                   ),
@@ -232,22 +229,21 @@ class ChangePasswordPage extends StatelessWidget {
                           ),
                           child: Text(
                             "Your new password must be different\nfrom previous used passwords.",
-                            style: getpoppins(
-                              TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12.5.sp,
-                                color: darkgrey.withOpacity(0.66),
-                              ),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12.5.sp,
+                              color: darkgrey.withOpacity(0.66),
+                               
                             ),
                           ),
                         )
                       ],
                     ),
                   ),
-                  ChangePasswordFeild(),
+                  const ChangePasswordFeild(),
                   Text(
-                    "${personalDataPageController.errorMessage ?? ''}",
-                    style: TextStyle(color: Colors.red, fontSize: 12),
+                    personalDataPageController.errorMessage ?? '',
+                    style: const TextStyle(color: Colors.red, fontSize: 12),
                   ),
                   GestureDetector(
                     onTap: personalDataPageController.changePassword,
@@ -264,20 +260,21 @@ class ChangePasswordPage extends StatelessWidget {
                         color: coffeecolor,
                         boxShadow: [
                           BoxShadow(
-                            color: Color(0xffC3916A4D).withOpacity(0.38),
+                            color: const Color(0xc3916a4d).withOpacity(0.38),
                             blurRadius: 30.r,
                             offset: Offset(0, 9.h),
                           )
                         ],
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "Change Password",
-                          style: getpoppins(TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.w300,
                             color: Colors.white,
                             fontSize: 14.5,
-                          )),
+                             
+                          ),
                         ),
                       ),
                     ),

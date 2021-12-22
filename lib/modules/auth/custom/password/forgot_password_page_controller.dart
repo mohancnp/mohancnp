@@ -25,7 +25,6 @@ class ForgotPasswordController extends GetxController {
 
   Future<void> sendOtpInEmail() async {
     var validated = sendCodeForm.currentState!.validate();
-    // print(validated);
     if (validated) {
       showCustomDialog(message: "Sending Email");
       var data = {"email": emailEditingController.text};
@@ -42,7 +41,7 @@ class ForgotPasswordController extends GetxController {
     }
   }
 
-  void navigateToPageName({required String PageNameName}) {}
+  void navigateToPageName({required String pageName}) {}
 
   String? validateEmail(String? value) {
     var message = emailValidtor(value: value);

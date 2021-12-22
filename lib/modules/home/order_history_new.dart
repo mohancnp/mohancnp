@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/core/theme.dart';
 
@@ -13,24 +12,25 @@ class OrderHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFF3F5F5),
-        leading: Icon(
+        backgroundColor: const Color(0xFFF3F5F5),
+        leading: const Icon(
           CupertinoIcons.back,
           color: Colors.black,
         ),
         elevation: 0,
-        title: Center(
+        title: const Center(
           child: Text(
             "ORDER HISTORY",
-            style: getpoppins(TextStyle(
+            style: TextStyle(
               color: Color(0xFF404D4D),
               fontWeight: FontWeight.w500,
-            )),
+               
+            ),
           ),
         ),
       ),
       body: Container(
-        color: Color(0xFFF3F5F5),
+        color: const Color(0xFFF3F5F5),
         width: 375.w,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -38,11 +38,11 @@ class OrderHistory extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 28.w, bottom: 23.h),
-              child: Text("Today"),
+              child: const Text("Today"),
             ),
-            SIngleOrderWidget(),
-            SIngleOrderWidget(),
-            SIngleOrderWidget(),
+            const SIngleOrderWidget(),
+            const SIngleOrderWidget(),
+            const SIngleOrderWidget(),
           ],
         ),
       ),
@@ -63,14 +63,16 @@ class SIngleOrderWidget extends StatelessWidget {
       width: 320.w,
       margin: EdgeInsets.only(bottom: 10.h, left: 28.w, right: 28.w),
       decoration: BoxDecoration(
-          color: Color(0xffFBFBFB),
-          borderRadius: BorderRadius.all(Radius.circular(9)),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                offset: Offset(0, 3),
-                blurRadius: 10)
-          ]),
+        color: const Color(0xffFBFBFB),
+        borderRadius: const BorderRadius.all(Radius.circular(9)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            offset: const Offset(0, 3),
+            blurRadius: 10,
+          ),
+        ],
+      ),
       child: Row(
         mainAxisAlignment:
             tablet ? MainAxisAlignment.spaceAround : MainAxisAlignment.start,
@@ -87,60 +89,55 @@ class SIngleOrderWidget extends StatelessWidget {
                     height: 72.w,
                     width: 73.h,
                     child: Image.asset(
-                      "$assetImage",
+                      assetImage,
                     ),
                   ),
                 ),
               ),
               Container(
-                //  height: 76,
-                margin: EdgeInsets.only(
-                    //        left: 18
-                    left: 14.w),
+                margin: EdgeInsets.only(left: 14.w),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      child: Text(
-                        "3 items",
-                        style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff404D4D),
-                          //       fontSize: 14.5
-                          fontSize: 14.sp,
-                        )),
+                    Text(
+                      "3 items",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xff404D4D),
+                         
+                        fontSize: 14.sp,
                       ),
                     ),
                     Text(
                       "Date: 2021/4/5 12:45 AM",
-                      style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xff404D4D),
-                          //         fontSize: 11.5
-                          fontSize: 11.sp)),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: const Color(0xff404D4D),
+                         
+                        fontSize: 11.sp,
+                      ),
                     ),
-                    Container(
-                        child: Text(
+                    Text(
                       "Order ID: #57",
-                      style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xff404D4D),
-                          //         fontSize: 11.5
-                          fontSize: 11.sp)),
-                    ))
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: const Color(0xff404D4D),
+                        fontSize: 11.sp,
+                      ),
+                    ),
                   ],
                 ),
               )
             ],
           ),
           Container(
-            //                  height: 31,width: 2,
-            height: 31.h, width: 2,
+            height: 31.h,
+            width: 2,
             margin: EdgeInsets.only(
               left: 17.w,
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0x26A5A5A5),
             ),
           ),
@@ -157,11 +154,12 @@ class SIngleOrderWidget extends StatelessWidget {
                     padding: EdgeInsets.only(left: 11.w),
                     child: Text(
                       "\$ 3.00",
-                      style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff550E1C),
-                          //      fontSize: 16
-                          fontSize: 16.sp)),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xff550E1C),
+                         
+                        fontSize: 16.sp,
+                      ),
                     ),
                   ),
                   Container(
@@ -176,26 +174,28 @@ class SIngleOrderWidget extends StatelessWidget {
                       margin: EdgeInsets.only(top: 8.h),
                       child: Text(
                         "Re Order",
-                        style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff550E1C),
-                            fontSize: 10.h)),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xff550E1C),
+                           
+                          fontSize: 10.h,
+                        ),
                       ),
                       decoration: BoxDecoration(
-                          border: Border.all(
-                            color: coffeecolor,
-                            width: 1.w,
-                          ),
-                          borderRadius: BorderRadius.circular(4.r)),
+                        border: Border.all(
+                          color: coffeecolor,
+                          width: 1.w,
+                        ),
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
                     ),
                   )
                 ],
               ),
               Icon(
-                CupertinoIcons.forward,
-                //     size: 20,
+                Icons.forward,
                 size: 20.w,
-                color: Color(0xff404D4D),
+                color: const Color(0xff404D4D),
               )
             ],
           )

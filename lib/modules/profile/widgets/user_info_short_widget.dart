@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/models/older/user_model.dart';
+import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/models/new_user.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'topup_reward_dialog.dart';
 
@@ -33,7 +36,7 @@ class UserInfoShort extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(32.r)),
                     border: Border.all(
-                      color: Color(0xff5AB898),
+                      color: const Color(0xff5AB898),
                       width: 2,
                     ),
                   ),
@@ -48,14 +51,14 @@ class UserInfoShort extends StatelessWidget {
                         if (imageProgress == null) {
                           return widget;
                         } else {
-                          return Center(
+                          return const Center(
                             child: Text("Loading"),
                           );
                         }
                       },
                       errorBuilder: (a, b, c) => Container(
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         child: Text(
@@ -78,32 +81,28 @@ class UserInfoShort extends StatelessWidget {
                     children: [
                       Text(
                         "Welcome",
-                        style: getpoppins(
-                          TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: Palette.darkGery,
-                            fontSize: 12.sp,
-                          ),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          color: Palette.darkGery,
+                          fontSize: 11.5.sp,
+                           
                         ),
                       ),
                       Text(
                         user.firstName,
-                        style: getpoppins(
-                          TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Palette.darkGery,
-                            fontSize: 12.sp,
-                          ),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Palette.darkGery,
+                           
+                          fontSize: 14.5.sp,
                         ),
                       ),
                       Text(
-                        user.email,
-                        style: getpoppins(
-                          TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: Palette.darkGery,
-                            fontSize: 12.sp,
-                          ),
+                        user.email ,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          color: Palette.darkGery,
+                          fontSize: 11.5.sp,
                         ),
                       )
                     ],
@@ -118,7 +117,7 @@ class UserInfoShort extends StatelessWidget {
             showDialog(
               context: context,
               builder: (_) {
-                return ClipRRect(
+                return const ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(18)),
                   child: SimpleDialog(
                     shape: RoundedRectangleBorder(
@@ -152,13 +151,13 @@ class UserInfoShort extends StatelessWidget {
                     child: Center(
                       child: Text(
                         "000",
-                        style: getpoppins(
+                        style: 
                           TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Palette.darkGery,
                             fontSize: 12.sp,
+                            fontFamily: CustomFont.poppinsRegular
                           ),
-                        ),
                       ),
                     ),
                   ),
@@ -172,7 +171,8 @@ class UserInfoShort extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
-                      border: Border.all(color: Color(0xff5AB898), width: 2.w),
+                      border: Border.all(
+                          color: const Color(0xff5AB898), width: 2.w),
                     ),
                     child: Center(
                       child: SvgPicture.asset(

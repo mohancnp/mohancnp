@@ -1,1 +1,1 @@
-enum DataState { NA, loading, error, loaded }
+enum DataState { na, loading, error, loaded }

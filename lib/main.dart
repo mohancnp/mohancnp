@@ -15,7 +15,7 @@ void mainCommon() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
+    const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
     ),
@@ -25,14 +25,16 @@ void mainCommon() async {
       DeviceOrientation.portraitUp,
     ],
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812),
+      designSize: const Size(375, 812),
       builder: () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         initialBinding: ControllerBinding(),
@@ -49,18 +51,21 @@ class MyApp extends StatelessWidget {
               fontFamily: CustomFont.freightDispBold,
             ),
             button: TextStyle(
-              fontFamily: CustomFont.poppinsRegular,
-              fontSize: 15.sp,
+              fontSize: 16.sp,
               color: Colors.black,
             ),
-            bodyText1:
-                TextStyle(fontSize: 12.sp, fontWeight: FontWeight.normal),
-            bodyText2:
-                TextStyle(fontSize: 12.sp, fontWeight: FontWeight.normal),
+            bodyText1: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.normal,
+            ),
+            bodyText2: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.normal,
+            ),
             caption: TextStyle(
               fontFamily: CustomFont.poppinsLight,
-              color: Color(0xF3F3F3D6),
-              fontSize: 11.5.sp,
+              color: const Color(0xF3F3F3D6),
+              fontSize: 12.sp,
             ),
           ),
         ),

@@ -1,9 +1,7 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page_controller.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/core/config.dart';
@@ -25,9 +23,9 @@ class PersonalDataPage extends StatelessWidget {
         init: PersonalDataPageController(),
         builder: (personaldatacontroller) {
           return Scaffold(
-            backgroundColor: Color(0xffF3F5F5),
+            backgroundColor: const Color(0xffF3F5F5),
             body: SingleChildScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Container(
                   padding: EdgeInsets.only(
                     bottom: 22.h,
@@ -40,11 +38,11 @@ class PersonalDataPage extends StatelessWidget {
                       AppBar(
                         title: Text(
                           "PERSONAL DATA",
-                          style: getpoppins(TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.w400,
                             color: darkgrey,
                             fontSize: 16.5.sp,
-                          )),
+                          ),
                         ),
                         centerTitle: true,
                         leading: IconButton(
@@ -63,18 +61,6 @@ class PersonalDataPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // personalDataPageController.imageData == null
-                          //     ? SizedBox()
-                          //     : Container(
-                          //         color: Colors.red,
-                          //         width: 76.w,
-                          //         height: 76.w,
-                          //         child: Image.file(
-                          //           personalDataPageController.imageData,
-                          //           fit:BoxFit.cover,
-                          //           // height: 76.h,
-                          //         ),
-                          //       ),
                           Stack(
                             children: [
                               Container(
@@ -108,7 +94,7 @@ class PersonalDataPage extends StatelessWidget {
                                             if (imageChunkEvent == null) {
                                               return widget;
                                             } else {
-                                              return Center(
+                                              return const Center(
                                                 child: Text("Loading.."),
                                               );
                                             }
@@ -123,7 +109,7 @@ class PersonalDataPage extends StatelessWidget {
 
                                         return Container(
                                           alignment: Alignment.center,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Text(
@@ -150,7 +136,7 @@ class PersonalDataPage extends StatelessWidget {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Icon(
-                                      FeatherIcons.edit2,
+                                      Icons.edit,
                                       size: 14.r,
                                       color: Colors.white,
                                     ),
@@ -171,7 +157,7 @@ class PersonalDataPage extends StatelessWidget {
                         width: 375.w,
                         height: 1,
                         decoration: BoxDecoration(
-                          color: Color(0xffA5A5A5).withOpacity(0.4),
+                          color: const Color(0xffA5A5A5).withOpacity(0.4),
                         ),
                       ),
                       UserDataFeildWidget(),
@@ -182,7 +168,7 @@ class PersonalDataPage extends StatelessWidget {
                         width: 130.w,
                         height: 50.h,
                         child: MaterialButton(
-                          child: Text(
+                          child: const Text(
                             "UPDATE",
                             style: TextStyle(color: Colors.white),
                           ),

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/profile/contents/order_details_controller.dart';
 
 import '../../../core/theme.dart';
@@ -15,10 +14,8 @@ class CancelOrderDialog extends StatelessWidget {
     double screenwidth = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.symmetric(
-//          horizontal: 12.5,vertical:12.5
-          horizontal: screenwidth * 0.03041,
-          vertical: screenwidth * 0.03041),
-      decoration: BoxDecoration(
+          horizontal: screenwidth * 0.03041, vertical: screenwidth * 0.03041),
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(9)),
       ),
@@ -30,15 +27,14 @@ class CancelOrderDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-//                height: 82, width: 82,
-                height: screenwidth * 0.199, width: screenwidth * 0.199,
-                decoration: BoxDecoration(
+                height: screenwidth * 0.199,
+                width: screenwidth * 0.199,
+                decoration: const BoxDecoration(
                     color: Color(0xffEBEBEB), shape: BoxShape.circle),
                 child: Center(
                     child: Icon(
                   CupertinoIcons.delete,
                   color: coffeecolor,
-//                  size: 39,
                   size: screenwidth * 0.09489,
                 )),
               ),
@@ -46,79 +42,78 @@ class CancelOrderDialog extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-//                top: 16,bottom: 29
-                top: screenwidth * 0.0389,
-                bottom: screenwidth * 0.07055),
+                top: screenwidth * 0.0389, bottom: screenwidth * 0.07055),
             child: Text(
               "Are you sure you want to\ncancel your order?",
               textAlign: TextAlign.center,
-              style: getpoppins(TextStyle(
-//                      fontSize: 13.5,
-                  fontSize: screenwidth * 0.0328,
-                  color: darkgrey,
-                  fontWeight: FontWeight.w400)),
+              style: TextStyle(
+                 
+                fontSize: screenwidth * 0.0328,
+                color: darkgrey,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
           GestureDetector(
             onTap: () =>
                 Get.find<OrderDetailsController>().cancelOrderWithId(orderId),
             child: Container(
-//            width: 185,height: 36,
-              width: screenwidth * 0.450, height: screenwidth * 0.0875,
+              width: screenwidth * 0.450,
+              height: screenwidth * 0.0875,
               decoration: BoxDecoration(
-                  color: coffeecolor,
-                  borderRadius: BorderRadius.all(Radius.circular(17)),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color(0xffC3916A).withOpacity(0.2),
-                        blurRadius: 30,
-                        offset: Offset(0, 9))
-                  ]),
+                color: coffeecolor,
+                borderRadius: const BorderRadius.all(Radius.circular(17)),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xffC3916A).withOpacity(0.2),
+                    blurRadius: 30,
+                    offset: const Offset(0, 9),
+                  ),
+                ],
+              ),
               child: Center(
                 child: Text(
                   "Cancel Order",
                   textAlign: TextAlign.center,
-                  style: getpoppins(TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Colors.white,
-                      //      fontSize: 13.5
-                      fontSize: screenwidth * 0.0328)),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white,
+                     
+                    fontSize: screenwidth * 0.0328,
+                  ),
                 ),
               ),
             ),
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: Get.back,
             child: Container(
-              margin: EdgeInsets.only(
-//                top: 16
-                  top: screenwidth * 0.0389),
-//            width: 185,height: 36,
-              width: screenwidth * 0.450, height: screenwidth * 0.0875,
+              margin: EdgeInsets.only(top: screenwidth * 0.0389),
+              width: screenwidth * 0.450,
+              height: screenwidth * 0.0875,
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
                     color: coffeecolor,
                     width: 1.2,
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(17)),
+                  borderRadius: const BorderRadius.all(Radius.circular(17)),
                   boxShadow: [
                     BoxShadow(
-                        color: Color(0xffC3916A).withOpacity(0.2),
+                        color: const Color(0xffC3916A).withOpacity(0.2),
                         blurRadius: 30,
-                        offset: Offset(0, 9))
+                        offset: const Offset(0, 9))
                   ]),
               child: Center(
                 child: Text(
                   "Keep Order",
                   textAlign: TextAlign.center,
-                  style: getpoppins(TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: coffeecolor,
-                      //      fontSize: 13.5
-                      fontSize: screenwidth * 0.0328)),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                    color: coffeecolor,
+                    fontSize: screenwidth * 0.0328,
+                     
+                  ),
                 ),
               ),
             ),

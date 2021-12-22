@@ -1,31 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+
 import 'custom_button.dart';
 
 class UtilityInfoWidget extends StatelessWidget {
   final String title, content, buttonText, svgImageUri;
   final void Function() onPressed;
-  const UtilityInfoWidget(
-      {Key? key,
-      required this.title,
-      required this.content,
-      required this.onPressed,
-      required this.svgImageUri,
-      required this.buttonText})
-      : super(key: key);
+  const UtilityInfoWidget({
+    Key? key,
+    required this.title,
+    required this.content,
+    required this.onPressed,
+    required this.svgImageUri,
+    required this.buttonText,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Palette.pagebackgroundcolor,
-      // appBar: AppBar(
-      //   backgroundColor: Palette.pagebackgroundcolor,
-      //   elevation: 0.sp,
-      //   automaticallyImplyLeading: false,
-      // ),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -41,17 +36,23 @@ class UtilityInfoWidget extends StatelessWidget {
             ),
             Column(
               children: [
-                Text("$title",
-                    style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20.sp,
-                        color: Palette.textColor))),
-                Text("$content",
-                    textAlign: TextAlign.center,
-                    style: getpoppins(TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15.sp,
-                        color: Palette.textColor))),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20.sp,
+                    color: Palette.textColor,
+                  ),
+                ),
+                Text(
+                  content,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15.sp,
+                    color: Palette.textColor,
+                  ),
+                ),
               ],
             ),
             Padding(
@@ -59,7 +60,7 @@ class UtilityInfoWidget extends StatelessWidget {
               child: CustomReusableBtn(
                 height: 47.h,
                 width: 233.w,
-                buttonText: "$buttonText",
+                buttonText: buttonText,
                 onPressed: onPressed,
               ),
             ),

@@ -4,14 +4,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class LoadingWidget extends StatelessWidget {
-  final backgroundColor;
+  final Color backgroundColor;
   const LoadingWidget({Key? key, this.backgroundColor = Colors.white})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color:Palette.pagebackgroundcolor,
+      color: Palette.pagebackgroundcolor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -24,7 +24,7 @@ class LoadingWidget extends StatelessWidget {
               child: SpinKitFadingCircle(
                 color: Palette.coffeeColor,
               )),
-          Text("Please Wait...")
+          const Text("Please Wait...")
         ],
       ),
     );

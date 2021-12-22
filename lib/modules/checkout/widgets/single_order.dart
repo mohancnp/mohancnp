@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
@@ -17,11 +16,11 @@ class SingleOrder extends StatelessWidget {
       margin: EdgeInsets.only(left: 28.w, right: 28.w),
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(9)),
+          borderRadius: const BorderRadius.all(Radius.circular(9)),
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(0.05),
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
                 blurRadius: 10)
           ]),
       child: Row(
@@ -39,10 +38,11 @@ class SingleOrder extends StatelessWidget {
                 loadingBuilder: (context, widget, imageChunkEvent) {
                   if (imageChunkEvent == null) {
                     return widget;
-                  } else
+                  } else {
                     return CircularProgressIndicator(
                       color: Palette.coffeeColor,
                     );
+                  }
                 },
                 errorBuilder: (context, object, stackTrace) {
                   return Center(
@@ -65,20 +65,20 @@ class SingleOrder extends StatelessWidget {
               children: [
                 Text(
                   "${cartModel.name} ",
-                  style: getpoppins(TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Palette.textColor,
                     fontSize: 14.sp,
-                  )),
+                     
+                  ),
                 ),
                 Text(
                   "${Currency.symbol} ${cartModel.totalPrice.toStringAsPrecision(3)}",
-                  style: getpoppins(
-                    TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff550E1C),
-                      fontSize: 16.sp,
-                    ),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xff550E1C),
+                    fontSize: 16.sp,
+                     
                   ),
                 ),
                 Expanded(
@@ -89,22 +89,20 @@ class SingleOrder extends StatelessWidget {
                     children: [
                       Text(
                         "Size",
-                        style: getpoppins(
-                          TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: Palette.coffeeColor,
-                            fontSize: 11.sp,
-                          ),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          color: Palette.coffeeColor,
+                          fontSize: 11.sp,
+                           
                         ),
                       ),
                       Text(
                         " ${cartModel.selectedVariants.size} ",
-                        style: getpoppins(
-                          TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: Palette.coffeeColor,
-                            fontSize: 11.sp,
-                          ),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          color: Palette.coffeeColor,
+                           
+                          fontSize: 11.sp,
                         ),
                       ),
                       SizedBox(
@@ -117,12 +115,11 @@ class SingleOrder extends StatelessWidget {
                             var cm = cartModel.toppingsList[index];
                             return Text(
                               "| ${cm.name}",
-                              style: getpoppins(
-                                TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.coffeeColor,
-                                  fontSize: 11.sp,
-                                ),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                 
+                                color: Palette.coffeeColor,
+                                fontSize: 11.sp,
                               ),
                             );
                           },
@@ -138,12 +135,11 @@ class SingleOrder extends StatelessWidget {
                             var cm = cartModel.addons[index];
                             return Text(
                               "| ${cm.name}",
-                              style: getpoppins(
-                                TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  color: Palette.coffeeColor,
-                                  fontSize: 11.sp,
-                                ),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                color: Palette.coffeeColor,
+                                 
+                                fontSize: 11.sp,
                               ),
                             );
                           },

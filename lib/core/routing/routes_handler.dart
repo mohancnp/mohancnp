@@ -12,11 +12,11 @@ import 'package:metrocoffee/modules/checkout/checkout_page.dart';
 import 'package:metrocoffee/modules/home/base.dart';
 import 'package:metrocoffee/modules/initial/splashscreen.dart';
 import 'package:metrocoffee/modules/maps/map.dart';
-import 'package:metrocoffee/modules/onboarding/onboardingscreen.dart';
+import 'package:metrocoffee/modules/onboarding/onboarding_screen.dart';
 import 'package:metrocoffee/modules/payment/order_succesful_page.dart';
 import 'package:metrocoffee/modules/payment/payment_page.dart';
 import 'package:metrocoffee/modules/product/product_detail_page.dart';
-import 'package:metrocoffee/modules/product_search/searchpage.dart';
+import 'package:metrocoffee/modules/product_search/search_page.dart';
 import 'package:metrocoffee/modules/profile/contents/favorite_products.dart';
 import 'package:metrocoffee/modules/profile/contents/my_order.dart';
 import 'package:metrocoffee/modules/profile/contents/order_details.dart';
@@ -29,15 +29,15 @@ class PageNameHandler {
     return [
       GetPage(
         name: PageName.splashscreenpage,
-        page: () => SplashScreen(),
+        page: () => const SplashScreen(),
       ),
       GetPage(
         name: PageName.onboardingpage,
-        page: () => OnBoardingScreen(),
+        page: () => const OnBoardingScreen(),
       ),
       GetPage(
         name: PageName.loginpage,
-        page: () => LoginPage(),
+        page: () => const LoginPage(),
       ),
       GetPage(
         name: PageName.homepage,
@@ -61,11 +61,11 @@ class PageNameHandler {
       ),
       GetPage(
         name: PageName.favouritesproductpage,
-        page: () => FavoriteProductsPage(),
+        page: () => const FavoriteProductsPage(),
       ),
       GetPage(
         name: PageName.orderdetailspage,
-        page: () => OrderDetails(),
+        page: () => const OrderDetails(),
       ),
       GetPage(
         name: PageName.checkoutpage,
@@ -77,11 +77,11 @@ class PageNameHandler {
       ),
       GetPage(
         name: PageName.ordersucessfullpage,
-        page: () => OrderSuccesfulPage(),
+        page: () => const OrderSuccesfulPage(),
       ),
       GetPage(
         name: PageName.googlemappage,
-        page: () => GoogleMapScreen(),
+        page: () => const GoogleMapScreen(),
       ),
       GetPage(
         name: PageName.productdetailpage + '/:id',
@@ -93,11 +93,11 @@ class PageNameHandler {
       ),
       GetPage(
         name: PageName.searchPage,
-        page: () => SearchPage(),
+        page: () => const SearchPage(),
       ),
       GetPage(
         name: PageName.nointernetpage,
-        page: () => NoInternet(),
+        page: () => const NoInternet(),
       ),
       GetPage(
         name: PageName.signupPage,

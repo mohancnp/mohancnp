@@ -1,10 +1,9 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
+import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/auth/custom/membership/membership_login_controller.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
@@ -51,7 +50,7 @@ class MembershipLoginPage extends StatelessWidget {
                 children: [
                   SizedBox(height: 56.h),
                   IconButton(
-                    padding: EdgeInsets.all(0),
+                    padding: const EdgeInsets.all(0),
                     onPressed: Get.back,
                     icon: Icon(
                       CupertinoIcons.back,
@@ -85,7 +84,7 @@ class MembershipLoginPage extends StatelessWidget {
                             controller: _controller.membershipNumberController,
                             validator: _controller.validateMemberShip,
                             hintText: "Membership no.",
-                            suffixIcon: Icon(FeatherIcons.user, size: 18.sp),
+                            suffixIcon: Icon(Icons.person, size: 18.sp),
                           ),
                           Obx(
                             () => _controller.memberShipErrorMessage.isNotEmpty
@@ -93,22 +92,22 @@ class MembershipLoginPage extends StatelessWidget {
                                     message: _controller
                                         .memberShipErrorMessage.value,
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ),
                           CustomTextFormFeild(
                             controller: _controller.passwordController,
                             hintText: "Password",
                             validator: _controller.validatePassword,
                             suffixIcon: Icon(
-                              _controller.eye
-                                  ? FeatherIcons.eye
-                                  : FeatherIcons.eyeOff,
+                              _controller.visiblilty
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                               color: Palette.darkGery,
                               size: 18.sp,
                             ),
-                            obscureText: _controller.eye ? false : true,
+                            obscureText: _controller.visiblilty ? false : true,
                             onSuffixIconTap: () {
-                              _controller.eye = !_controller.eye;
+                              _controller.visiblilty = !_controller.visiblilty;
                             },
                           ),
                           Obx(
@@ -117,7 +116,7 @@ class MembershipLoginPage extends StatelessWidget {
                                     message:
                                         _controller.passwordErrorMessage.value,
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ),
                         ],
                       );
@@ -147,7 +146,7 @@ class MembershipLoginPage extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  Center(
+                  const Center(
                     child: Text(
                       "Don't have an account? ",
                       style: TextStyle(

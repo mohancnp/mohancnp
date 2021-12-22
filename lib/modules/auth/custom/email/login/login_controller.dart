@@ -7,12 +7,11 @@ import 'package:metrocoffee/core/models/new_user.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
-import 'package:metrocoffee/modules/home/home_controller.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/error_dialog.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/validator.dart';
 
-class EmailLoginController extends GetxController {
+class LoginController extends GetxController {
   final emailEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
   final loginFormKey = GlobalKey<FormState>();
@@ -22,9 +21,9 @@ class EmailLoginController extends GetxController {
   final _tempStorage = locator<TempStorage>();
 
   bool _eye = false;
-  get eye => this._eye;
+  get eye => _eye;
   set eye(value) {
-    this._eye = value;
+    _eye = value;
     update();
   }
 

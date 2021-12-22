@@ -20,7 +20,7 @@ class PaymentPageController extends GetxController {
   final checkoutConroller = Get.find<CheckoutPageController>();
   final mapConroller = Get.find<CustomGoogleMapController>();
 
-  var _orderService = locator.get<OrderService>();
+  final _orderService = locator.get<OrderService>();
 
   bool reordering = false;
 
@@ -52,6 +52,7 @@ class PaymentPageController extends GetxController {
       selectedTime: time,
     );
     var orderSample = newOrder.toJson();
+    // ignore: avoid_print
     print(jsonEncode(orderSample));
   }
 
@@ -67,18 +68,16 @@ class PaymentPageController extends GetxController {
         showCustomSnackBarMessage(
             title: "Re Ordering", message: "sucessfully done!!");
         reordering = false;
-        Future.delayed(Duration(seconds: 1)).then((value) {
+        Future.delayed(const Duration(seconds: 1)).then((value) {
           Get.find<BaseController>().setindex(0);
           Get.offAllNamed(PageName.homepage);
         });
       }
-      // print(reorderStatus);
-    } on AppException catch (e) {
+    } on AppException {
       reordering = false;
       Get.back();
       showCustomSnackBarMessage(
           title: "Re Ordering", message: "failed try again!!");
-      // print(e.message);
     }
   }
 }

@@ -18,7 +18,7 @@ class PersonalDataPageController extends GetxController {
   TextEditingController membershipcontroller = TextEditingController();
   TextEditingController newpasswordcontroller = TextEditingController();
   TextEditingController confirmpasswordcontroller = TextEditingController();
-  var _profileService = locator.get<ProfileService>();
+  final _profileService = locator.get<ProfileService>();
   bool obscurecurrentpassword = true;
   String? gender;
   bool changesmade = false;
@@ -79,15 +79,12 @@ class PersonalDataPageController extends GetxController {
     );
     if (image != null) {
       imageData = File(image.path);
-      print("Image not null");
-    } else {
-      print("null image data");
     }
   }
 
   updateUserInfoInDbAndServer() async {
     Get.defaultDialog(
-        content: SizedBox(
+        content: const SizedBox(
       height: 50,
       width: 50,
       child: Center(child: CircularProgressIndicator()),
@@ -133,15 +130,15 @@ class PersonalDataPageController extends GetxController {
   }
 
   showSnackBarWithMsg(String title, String message) {
-    Get.snackbar("$title", "$message",
+    Get.snackbar(title, message,
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(milliseconds: 1500));
+        duration: const Duration(milliseconds: 1500));
   }
 
   changePassword() async {
     if (changesmade) {
       Get.defaultDialog(
-          content: SizedBox(
+          content: const SizedBox(
         height: 50,
         width: 50,
         child: Center(child: CircularProgressIndicator()),
@@ -157,13 +154,12 @@ class PersonalDataPageController extends GetxController {
           showSnackBarWithMsg("password", "update sucessfull!!");
           emptychangepasswordtextfields();
         }
-      } on AppException catch (e) {
+      } on AppException {
         Get.back();
         showSnackBarWithMsg("password", "update failed");
         emptychangepasswordtextfields();
-        print(e.message);
-      } on Exception catch (e) {
-        print("generic error: $e");
+      } on Exception {
+        // TODO: Handle Exception
       }
     }
   }

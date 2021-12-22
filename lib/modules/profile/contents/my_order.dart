@@ -1,18 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/models/older/order_model.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/profile/contents/order_history_controller.dart';
-import 'package:metrocoffee/modules/profile/widgets/timeframeorders.dart';
+import 'package:metrocoffee/modules/profile/widgets/time_frame_orders.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
+
 import '../../../core/theme.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyOrderPage extends StatelessWidget {
    MyOrderPage({Key? key}) : super(key: key);
@@ -29,8 +28,8 @@ class MyOrderPage extends StatelessWidget {
         },
         builder: (controller) {
           return SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            child: Container(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: SizedBox(
               width: 375.w,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -39,12 +38,11 @@ class MyOrderPage extends StatelessWidget {
                   AppBar(
                     title: Text(
                       "MY ORDER",
-                      style: getpoppins(
-                        TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: darkgrey,
-                          fontSize: 16.sp,
-                        ),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: darkgrey,
+                         
+                        fontSize: 16.sp,
                       ),
                     ),
                     centerTitle: true,
@@ -60,7 +58,7 @@ class MyOrderPage extends StatelessWidget {
                     width: 375.w,
                     height: 1,
                     decoration: BoxDecoration(
-                      color: Color(0xffA5A5A5).withOpacity(0.4),
+                      color: const Color(0xffA5A5A5).withOpacity(0.4),
                     ),
                   ),
                   Container(
@@ -79,7 +77,7 @@ class MyOrderPage extends StatelessWidget {
                             ],
                           )
                         : (controller.dataState == DataState.error)
-                            ? SizedBox(
+                            ? const SizedBox(
                                 child: Center(
                                   child: Text('Error retrieving your order'),
                                 ),
@@ -106,31 +104,33 @@ class MyOrderPage extends StatelessWidget {
                                   }
 
                                   return ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
+                                    physics: const NeverScrollableScrollPhysics(),
                                     itemCount: myOrderList.length,
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       var newData = myOrderList[index];
                                       if (newData == 0) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(
+                                        return const Padding(
+                                          padding: EdgeInsets.only(
                                               top: 8.0, bottom: 8.0),
                                           child: Text("Today"),
                                         );
                                       }
                                       if (newData == 1) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(
+                                        return const Padding(
+                                          padding: EdgeInsets.only(
                                               top: 8.0, bottom: 8.0),
                                           child: Text("This Month"),
                                         );
                                       }
                                       if (newData is OrderHistory) {
                                         return TimeFrameOrders(
-                                            index: index, orderData: newData);
+                                          index: index,
+                                          orderData: newData,
+                                        );
                                       }
-                                      return SizedBox();
+                                      return const SizedBox();
                                     },
                                   );
                                 },

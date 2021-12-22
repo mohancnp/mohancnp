@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/modules/shareables/widgets/add_card_dialog.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/modules/shareables/widgets/add_card_dialog.dart';
 
 import '../creditcardscontroller.dart';
 
@@ -24,14 +23,12 @@ class CreditCardBox extends StatelessWidget {
             margin: EdgeInsets.only(
                 left: screenwidth * 0.05352,
                 right: screenwidth * 0.05352,
-//            top: 28,bottom: 14
                 top: screenwidth * 0.0681,
                 bottom: screenwidth * 0.0340),
             padding: EdgeInsets.symmetric(
-//                horizontal: 17, vertical: 15.5
                 horizontal: screenwidth * 0.0413,
                 vertical: screenwidth * 0.0377),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
@@ -41,28 +38,24 @@ class CreditCardBox extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      child: Text(
-                        "Credit Card",
-                        style: getpoppins(TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black87,
-                            //      fontSize: 14.5
-                            fontSize: screenwidth * 0.0352)),
+                    Text(
+                      "Credit Card",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black87,
+                         
+                        fontSize: screenwidth * 0.0352,
                       ),
                     ),
                     Icon(
                       CupertinoIcons.chevron_up,
                       color: Colors.grey[750],
-//                      size: 21,
                       size: screenwidth * 0.051,
                     )
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-//                      top: 14.5
-                      top: screenwidth * 0.0352),
+                  margin: EdgeInsets.only(top: screenwidth * 0.0352),
                   width: screenwidth,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,36 +63,35 @@ class CreditCardBox extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           creditcardscontroller
-                              .setcurrentcreditcardoption("visa");
+                              .setCurrentCreditCardOption("visa");
                         },
                         child: AnimatedContainer(
                           padding: EdgeInsets.symmetric(
-//                    horizontal: 9.5, vertical: 4
-                              horizontal: screenwidth * 0.0231,
-                              vertical: screenwidth * 0.0097),
-                          duration: Duration(milliseconds: 250),
-                          //         height: 40,width: 77,
+                            horizontal: screenwidth * 0.0231,
+                            vertical: screenwidth * 0.0097,
+                          ),
+                          duration: const Duration(milliseconds: 250),
                           height: screenwidth * 0.0973,
                           width: screenwidth * 0.187,
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(6)),
-                              border: Border.all(
-                                  color: creditcardscontroller
-                                              .currentcreditcardoption ==
-                                          "visa"
-                                      ? coffeecolor
-                                      : Color(0x70707061),
-                                  width: creditcardscontroller
-                                              .currentcreditcardoption ==
-                                          "visa"
-                                      ? 1.7
-                                      : 1)),
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.all(Radius.circular(6)),
+                            border: Border.all(
+                              color: creditcardscontroller
+                                          .currentcreditcardoption ==
+                                      "visa"
+                                  ? coffeecolor
+                                  : const Color(0x70707061),
+                              width: creditcardscontroller
+                                          .currentcreditcardoption ==
+                                      "visa"
+                                  ? 1.7
+                                  : 1,
+                            ),
+                          ),
                           child: Center(
                             child: Image.asset(
                               "assets/images/paymentimages/favpng_visa-debit-card-credit-card-logo-mastercard@3x.png",
-//                  width: 53,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -108,27 +100,25 @@ class CreditCardBox extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           creditcardscontroller
-                              .setcurrentcreditcardoption("mastercard");
+                              .setCurrentCreditCardOption("mastercard");
                         },
                         child: AnimatedContainer(
                           padding: EdgeInsets.symmetric(
-//                    horizontal: 9.5, vertical: 4
                               horizontal: screenwidth * 0.0231,
                               vertical: screenwidth * 0.0097),
-                          duration: Duration(milliseconds: 250),
-                          //             height: 40,width: 77,
+                          duration: const Duration(milliseconds: 250),
                           height: screenwidth * 0.0973,
                           width: screenwidth * 0.187,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(6)),
+                                  const BorderRadius.all(Radius.circular(6)),
                               border: Border.all(
                                   color: creditcardscontroller
                                               .currentcreditcardoption ==
                                           "mastercard"
                                       ? coffeecolor
-                                      : Color(0x70707061),
+                                      : const Color(0x70707061),
                                   width: creditcardscontroller
                                               .currentcreditcardoption ==
                                           "mastercard"
@@ -137,7 +127,6 @@ class CreditCardBox extends StatelessWidget {
                           child: Center(
                             child: Image.asset(
                               "assets/images/productimages/mastercard.png",
-//                  width: 53,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -146,27 +135,25 @@ class CreditCardBox extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           creditcardscontroller
-                              .setcurrentcreditcardoption("paypal");
+                              .setCurrentCreditCardOption("paypal");
                         },
                         child: AnimatedContainer(
                           padding: EdgeInsets.symmetric(
-//                    horizontal: 9.5, vertical: 4
                               horizontal: screenwidth * 0.0231,
                               vertical: screenwidth * 0.0170),
-                          duration: Duration(milliseconds: 250),
-//                height: 40,width: 77,
+                          duration: const Duration(milliseconds: 250),
                           height: screenwidth * 0.0973,
                           width: screenwidth * 0.187,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(6)),
+                                  const BorderRadius.all(Radius.circular(6)),
                               border: Border.all(
                                   color: creditcardscontroller
                                               .currentcreditcardoption ==
                                           "paypal"
                                       ? coffeecolor
-                                      : Color(0x70707061),
+                                      : const Color(0x70707061),
                                   width: creditcardscontroller
                                               .currentcreditcardoption ==
                                           "paypal"
@@ -175,7 +162,6 @@ class CreditCardBox extends StatelessWidget {
                           child: Center(
                             child: Image.asset(
                               "assets/images/paymentimages/paypal@3x.png",
-//                  width: 53,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -185,9 +171,7 @@ class CreditCardBox extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-//                      top: 27
-                      top: screenwidth * 0.0656),
+                  margin: EdgeInsets.only(top: screenwidth * 0.0656),
                   child: Image.asset(
                     "assets/images/paymentimages/creditcardpic.png",
                     width: screenwidth,
@@ -196,38 +180,33 @@ class CreditCardBox extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     showDialog(
-                        context: context,
-                        builder: (_) {
-                          return ClipRRect(
+                      context: context,
+                      builder: (_) {
+                        return ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(18)),
+                          child: SimpleDialog(
+                            shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(18)),
-                              child: SimpleDialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18)),
-                                  ),
-                                  children: [
-                                    //      AddCardDialog()
-                                    //   OrderSuccesfulDialog()
-                                    //  CancelOrderDialog()
-                                    AddCardDialog()
-                                  ]));
-                        });
+                            ),
+                            children: [AddCardDialog()],
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: Container(
-                    margin: EdgeInsets.only(
-//                      top: 14
-                        top: screenwidth * 0.0340),
+                    margin: EdgeInsets.only(top: screenwidth * 0.0340),
                     child: Text(
                       "add new card",
                       textAlign: TextAlign.center,
-                      style: getpoppins(TextStyle(
-                          fontWeight: FontWeight.w400,
-                          letterSpacing: 0.6,
-                          color: Color(0xff054B83),
-                          //      fontSize: 17
-//                        fontSize: 14.5
-                          fontSize: screenwidth * 0.0352)),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.6,
+                        color: const Color(0xff054B83),
+                         
+                        fontSize: screenwidth * 0.0352,
+                      ),
                     ),
                   ),
                 ),

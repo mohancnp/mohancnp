@@ -13,9 +13,8 @@ class InternetConnectionHelper {
         if (response2.isNotEmpty) {
           _status = true;
         }
-      } on SocketException catch (err) {
+      } on SocketException {
         _status = false;
-        print(err);
       }
     }
     return _status;

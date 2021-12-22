@@ -20,10 +20,10 @@ class ResetPasswordPageController extends GetxController {
   Rx<String> confirmErrorMessage = "".obs;
   final _authService = locator.get<AuthService>();
 
-  get eye => this._eye;
+  get eye => _eye;
 
   set eye(value) {
-    this._eye = value;
+    _eye = value;
     update();
   }
 
@@ -56,8 +56,6 @@ class ResetPasswordPageController extends GetxController {
             errorMessage: "Set of Password Doesn't match,try again!!",
             errorTitle: "Error!!!");
       }
-    } else {
-      print("validation error");
     }
   }
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 
 class FinalProductCalculationCard extends StatelessWidget {
@@ -21,10 +20,10 @@ class FinalProductCalculationCard extends StatelessWidget {
           BoxShadow(
             color: Colors.black12,
             blurRadius: 10.r,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           )
         ],
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(9),
         ),
       ),
@@ -35,27 +34,21 @@ class FinalProductCalculationCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                child: Text(
-                  "Discount",
-                  style: getpoppins(
-                    TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Color(0xff404D4D),
-                        fontSize: 12.sp),
-                  ),
+              Text(
+                "Discount",
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                   
+                  color: const Color(0xff404D4D),
+                  fontSize: 12.sp,
                 ),
               ),
-              Container(
-                child: Text(
-                  "${Currency.symbol} 0",
-                  style: getpoppins(
-                    TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Color(0xff404D4D),
-                      fontSize: 12.sp,
-                    ),
-                  ),
+              Text(
+                "${Currency.symbol} 0",
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                  color: const Color(0xff404D4D),
+                  fontSize: 12.sp,
                 ),
               ),
             ],
@@ -63,25 +56,23 @@ class FinalProductCalculationCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                child: Text(
-                  "Delivery Fee",
-                  style: getpoppins(
-                    TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Color(0xff404D4D),
-                        fontSize: 12.sp),
-                  ),
+              Text(
+                "Delivery Fee",
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                   
+                  color: const Color(0xff404D4D),
+                  fontSize: 12.sp,
                 ),
               ),
               SizedBox(
                 child: Text(
                   "${Currency.symbol} 0.0",
-                  style: getpoppins(
-                    TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Color(0xff404D4D),
-                        fontSize: 12.sp),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                     
+                    color: const Color(0xff404D4D),
+                    fontSize: 12.sp,
                   ),
                 ),
               ),
@@ -89,20 +80,17 @@ class FinalProductCalculationCard extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(top: 5),
+              margin: const EdgeInsets.only(top: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    child: Text(
-                      "Total",
-                      style: getpoppins(
-                        TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff404D4D),
-                          fontSize: 16.sp,
-                        ),
-                      ),
+                  Text(
+                    "Total",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                       
+                      color: const Color(0xff404D4D),
+                      fontSize: 16.sp,
                     ),
                   ),
                   Obx(
@@ -110,12 +98,11 @@ class FinalProductCalculationCard extends StatelessWidget {
                       return SizedBox(
                         child: Text(
                           "${Currency.symbol} ${controller.totalAmount.toStringAsPrecision(3)}",
-                          style: getpoppins(
-                            TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff404D4D),
-                              fontSize: 16.sp,
-                            ),
+                          style: TextStyle(
+                             
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xff404D4D),
+                            fontSize: 16.sp,
                           ),
                         ),
                       );

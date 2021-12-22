@@ -32,7 +32,6 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
 
   void getDataForCategoryId({required int id}) async {
     var categoryProduct = await _productService.getProductForCategory(id: id);
-    print("getting products data");
     unfoldData(categoryProduct);
   }
 
@@ -51,7 +50,6 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
   Future checkInternet() async {
     bool ready = await InternetConnectionHelper.isConnectionReady();
     return ready;
-    // getProducts();
   }
 
   Future<bool> getPublicProductsOfType(String type) async {
@@ -93,11 +91,11 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
     }
   }
 
-  void navigateToPageDetail(String PageNameName, int id) {
-    Get.toNamed(PageNameName + "/$id");
+  void navigateToPageDetail(String pageNmae, int id) {
+    Get.toNamed(pageNmae + "/$id");
   }
 
-  void navigateToPageName(String PageNameName) {
-    Get.toNamed(PageNameName);
+  void navigateToPageName(String pageName) {
+    Get.toNamed(pageName);
   }
 }

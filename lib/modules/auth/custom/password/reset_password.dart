@@ -1,23 +1,20 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
-import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
+import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-
 import 'reset_password_controller.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   ResetPasswordPage({Key? key}) : super(key: key);
 
-  final resetPasswordController = Get.put(ResetPasswordPageController());
+  final controller = Get.put(ResetPasswordPageController());
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -43,13 +40,13 @@ class ResetPasswordPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Form(
-              key: resetPasswordController.resetPassKey,
+              key: controller.resetPassKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 50.h),
                   IconButton(
-                    padding: EdgeInsets.all(0),
+                    padding: const EdgeInsets.all(0),
                     onPressed: Get.back,
                     icon: Icon(
                       CupertinoIcons.back,
@@ -73,7 +70,7 @@ class ResetPasswordPage extends StatelessWidget {
                   Text(
                     "Reset Password",
                     style: TextStyle(
-                      fontFamily: freightbold,
+                      fontFamily: CustomFont.freightDispBold,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                       fontSize: 40.sp,
@@ -94,7 +91,9 @@ class ResetPasswordPage extends StatelessWidget {
                       hintText: "Password",
                       validator: controller.validatePassword,
                       suffixIcon: Icon(
-                        controller.eye ? FeatherIcons.eye : FeatherIcons.eyeOff,
+                        controller.eye
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                         color: Palette.darkGery,
                         size: 18.sp,
                       ),
@@ -105,23 +104,22 @@ class ResetPasswordPage extends StatelessWidget {
                     );
                   }),
                   Obx(
-                    () =>
-                        resetPasswordController.passwordErrorMessage.isNotEmpty
-                            ? CustomErrorWidget(
-                                message: resetPasswordController
-                                    .passwordErrorMessage.value,
-                              )
-                            : SizedBox(),
+                    () => controller.passwordErrorMessage.isNotEmpty
+                        ? CustomErrorWidget(
+                            message: controller.passwordErrorMessage.value,
+                          )
+                        : const SizedBox(),
                   ),
                   GetBuilder<ResetPasswordPageController>(
                       builder: (controller) {
                     return CustomTextFormFeild(
-                      controller: resetPasswordController
-                          .passwordConfirmEditingController,
+                      controller: controller.passwordConfirmEditingController,
                       hintText: "Confirm Password",
                       validator: controller.validateConfirmPassword,
                       suffixIcon: Icon(
-                        controller.eye ? FeatherIcons.eye : FeatherIcons.eyeOff,
+                        controller.eye
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                         color: Palette.darkGery,
                         size: 18.sp,
                       ),
@@ -132,12 +130,11 @@ class ResetPasswordPage extends StatelessWidget {
                     );
                   }),
                   Obx(
-                    () => resetPasswordController.confirmErrorMessage.isNotEmpty
+                    () => controller.confirmErrorMessage.isNotEmpty
                         ? CustomErrorWidget(
-                            message: resetPasswordController
-                                .confirmErrorMessage.value,
+                            message: controller.confirmErrorMessage.value,
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   ),
                   SizedBox(
                     height: 20.h,
@@ -145,7 +142,7 @@ class ResetPasswordPage extends StatelessWidget {
                   Center(
                     child: AuthBtn(
                       centerBtnText: "CHANGE PASSWORD",
-                      onpressed: resetPasswordController.changePassword,
+                      onpressed: controller.changePassword,
                     ),
                   ),
                 ],

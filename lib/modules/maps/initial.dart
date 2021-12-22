@@ -11,9 +11,9 @@ class InitialMap extends StatelessWidget {
       child: Center(
         child: MaterialButton(
           onPressed: () {
-            Get.to(() => GoogleMapScreen());
+            Get.to(() => const GoogleMapScreen());
           },
-          child: Text("Goto Map"),
+          child: const Text("Goto Map"),
         ),
       ),
     );

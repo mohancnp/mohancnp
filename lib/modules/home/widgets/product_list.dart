@@ -21,7 +21,7 @@ class ProductList extends StatelessWidget {
           itemCount: products.length,
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
             var product = products[index];
             return ProductCard(

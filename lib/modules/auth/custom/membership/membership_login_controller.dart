@@ -6,27 +6,22 @@ import 'package:metrocoffee/modules/shareables/dialogs/error_dialog.dart';
 class MemberShipLoginController extends GetxController {
   var membershipNumberController = TextEditingController();
   var passwordController = TextEditingController();
-  bool _eye = false;
+  bool _visiblilty = false;
   AuthState _authState = AuthState.unverified;
   final loginFormKey = GlobalKey<FormState>();
   Rx<String> passwordErrorMessage = ''.obs;
   Rx<String> memberShipErrorMessage = ''.obs;
 
-  get eye => this._eye;
+  get visiblilty => _visiblilty;
 
-  set eye(value) {
-    this._eye = value;
+  set visiblilty(value) {
+    _visiblilty = value;
     update();
   }
 
-  get authState => this._authState;
+  get authState => _authState;
 
-  set authState(value) => this._authState = value;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  set authState(value) => _authState = value;
 
   Future performMembershipLogin() async {
     var validated = loginFormKey.currentState!.validate();
@@ -35,8 +30,6 @@ class MemberShipLoginController extends GetxController {
         errorMessage: "Looks like the membership doesn't exists",
         errorTitle: "Login Error!!!",
       );
-    } else {
-      print("not validated");
     }
   }
 
@@ -46,7 +39,6 @@ class MemberShipLoginController extends GetxController {
 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      print("password not validated");
       passwordErrorMessage.value = "password not valid";
       return "";
     }

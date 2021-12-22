@@ -1,10 +1,9 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
+import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/modules/auth/custom/email/signup/signup_controller.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
@@ -16,7 +15,7 @@ import 'package:metrocoffee/ui/src/palette.dart';
 class EmailSignUpPage extends StatelessWidget {
   EmailSignUpPage({Key? key}) : super(key: key);
 
-  final emailSignupController = Get.put(SignUpController());
+  final controller = Get.put(SignUpController());
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class EmailSignUpPage extends StatelessWidget {
           ),
           SingleChildScrollView(
             child: Form(
-              key: emailSignupController.signUpFormKey,
+              key: controller.signUpFormKey,
               child: Container(
                 height: 900.h,
                 padding: EdgeInsets.symmetric(horizontal: 18.w),
@@ -57,7 +56,7 @@ class EmailSignUpPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          padding: EdgeInsets.all(0),
+                          padding: const EdgeInsets.all(0),
                           onPressed: Get.back,
                           icon: Icon(
                             CupertinoIcons.back,
@@ -81,75 +80,67 @@ class EmailSignUpPage extends StatelessWidget {
                     SizedBox(height: 20.h),
                     const WelcomeText(),
                     CustomTextFormFeild(
-                      controller:
-                          emailSignupController.firstNameEditingController,
-                      validator: emailSignupController.validateFirstName,
+                      controller: controller.firstNameEditingController,
+                      validator: controller.validateFirstName,
                       hintText: "First Name",
                       suffixIcon: Icon(
-                        FeatherIcons.user,
+                        Icons.person,
                         color: Palette.darkGery,
                         size: 18.sp,
                       ),
                     ),
                     Obx(
-                      () =>
-                          emailSignupController.firstNameErrorMessage.isNotEmpty
-                              ? CustomErrorWidget(
-                                  message: emailSignupController
-                                      .firstNameErrorMessage.value,
-                                )
-                              : SizedBox(),
+                      () => controller.firstNameErrorMessage.isNotEmpty
+                          ? CustomErrorWidget(
+                              message: controller.firstNameErrorMessage.value,
+                            )
+                          : const SizedBox(),
                     ),
                     // SizedBox(height: 20.h),
                     CustomTextFormFeild(
-                      controller:
-                          emailSignupController.lastNameEditingController,
-                      validator: emailSignupController.validateSecondName,
+                      controller: controller.lastNameEditingController,
+                      validator: controller.validateSecondName,
                       hintText: "Last Name",
                       suffixIcon: Icon(
-                        FeatherIcons.user,
+                        Icons.person,
                         color: Palette.darkGery,
                         size: 18.sp,
                       ),
                     ),
                     Obx(
-                      () =>
-                          emailSignupController.lastNameErrorMessage.isNotEmpty
-                              ? CustomErrorWidget(
-                                  message: emailSignupController
-                                      .lastNameErrorMessage.value,
-                                )
-                              : SizedBox(),
+                      () => controller.lastNameErrorMessage.isNotEmpty
+                          ? CustomErrorWidget(
+                              message: controller.lastNameErrorMessage.value,
+                            )
+                          : const SizedBox(),
                     ),
                     CustomTextFormFeild(
-                      controller: emailSignupController.emailEditingController,
+                      controller: controller.emailEditingController,
                       hintText: "Email Address",
-                      validator: emailSignupController.validateEmail,
+                      validator: controller.validateEmail,
                       suffixIcon: Icon(
-                        FeatherIcons.mail,
+                        Icons.mail,
                         color: Palette.darkGery,
                         size: 18.sp,
                       ),
                     ),
                     Obx(
-                      () => emailSignupController.emailErrorMessage.isNotEmpty
+                      () => controller.emailErrorMessage.isNotEmpty
                           ? CustomErrorWidget(
-                              message:
-                                  emailSignupController.emailErrorMessage.value,
+                              message: controller.emailErrorMessage.value,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ),
                     GetBuilder<SignUpController>(
                       builder: (controller) {
                         return CustomTextFormFeild(
-                          controller:
-                              emailSignupController.passwordEditingController,
+                          controller: controller.passwordEditingController,
                           hintText: "Password",
                           validator: controller.validatePassword,
                           suffixIcon: Icon(
                             controller.eye
-                                ? FeatherIcons.eye
-                                : FeatherIcons.eyeOff,
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: Palette.darkGery,
                             size: 18.sp,
                           ),
@@ -161,25 +152,22 @@ class EmailSignUpPage extends StatelessWidget {
                       },
                     ),
                     Obx(
-                      () =>
-                          emailSignupController.passwordErrorMessage.isNotEmpty
-                              ? CustomErrorWidget(
-                                  message: emailSignupController
-                                      .passwordErrorMessage.value,
-                                )
-                              : SizedBox(),
+                      () => controller.passwordErrorMessage.isNotEmpty
+                          ? CustomErrorWidget(
+                              message: controller.passwordErrorMessage.value,
+                            )
+                          : const SizedBox(),
                     ),
                     GetBuilder<SignUpController>(
                       builder: (controller) {
                         return CustomTextFormFeild(
-                          controller:
-                              emailSignupController.rePasswordEditingController,
+                          controller: controller.rePasswordEditingController,
                           hintText: "Re-Password",
                           validator: controller.validateRePassword,
                           suffixIcon: Icon(
                             controller.eye
-                                ? FeatherIcons.eye
-                                : FeatherIcons.eyeOff,
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: Palette.darkGery,
                             size: 18.sp,
                           ),
@@ -191,13 +179,11 @@ class EmailSignUpPage extends StatelessWidget {
                       },
                     ),
                     Obx(
-                      () => emailSignupController
-                              .rePasswordErrorMessage.isNotEmpty
+                      () => controller.rePasswordErrorMessage.isNotEmpty
                           ? CustomErrorWidget(
-                              message: emailSignupController
-                                  .rePasswordErrorMessage.value,
+                              message: controller.rePasswordErrorMessage.value,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ),
                     SizedBox(
                       height: 20.h,
@@ -205,13 +191,13 @@ class EmailSignUpPage extends StatelessWidget {
                     Center(
                       child: AuthBtn(
                         centerBtnText: "REGISTER",
-                        onpressed: emailSignupController.resigterUser,
+                        onpressed: controller.resigterUser,
                       ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
-                    Center(
+                    const Center(
                       child: Text(
                         "Already have an account? ",
                         style: TextStyle(

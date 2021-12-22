@@ -1,12 +1,11 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/login_singup_back_image.dart';
+import 'package:metrocoffee/core/constants/placeholder.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
-import 'package:metrocoffee/modules/auth/custom/email/login/email_login_controller.dart';
+import 'package:metrocoffee/modules/auth/custom/email/login/login_controller.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/auth_btn.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/custom_textfeild.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
@@ -16,7 +15,7 @@ import 'package:metrocoffee/ui/src/palette.dart';
 
 class EmailLoginPage extends StatelessWidget {
   EmailLoginPage({Key? key}) : super(key: key);
-  final controller = Get.put(EmailLoginController());
+  final controller = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +49,7 @@ class EmailLoginPage extends StatelessWidget {
                   children: [
                     SizedBox(height: 56.h),
                     IconButton(
-                      padding: EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(0),
                       onPressed: Get.back,
                       icon: Icon(
                         CupertinoIcons.back,
@@ -73,8 +72,8 @@ class EmailLoginPage extends StatelessWidget {
                     SizedBox(height: 40.h),
                     const WelcomeText(),
                     SizedBox(height: 10.h),
-                    GetBuilder<EmailLoginController>(
-                      init: EmailLoginController(),
+                    GetBuilder<LoginController>(
+                      init: LoginController(),
                       builder: (controller) {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -85,7 +84,7 @@ class EmailLoginPage extends StatelessWidget {
                               validator: controller.validateEmail,
                               hintText: "Email Address",
                               suffixIcon: Icon(
-                                FeatherIcons.mail,
+                                Icons.mail,
                                 size: 18.sp,
                               ),
                             ),
@@ -95,7 +94,7 @@ class EmailLoginPage extends StatelessWidget {
                                       message:
                                           controller.emailErrorMessage.value,
                                     )
-                                  : SizedBox(),
+                                  : const SizedBox(),
                             ),
                             CustomTextFormFeild(
                               controller: controller.passwordEditingController,
@@ -103,8 +102,8 @@ class EmailLoginPage extends StatelessWidget {
                               validator: controller.validatePassword,
                               suffixIcon: Icon(
                                 controller.eye
-                                    ? FeatherIcons.eye
-                                    : FeatherIcons.eyeOff,
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
                                 color: Palette.darkGery,
                                 size: 18.sp,
                               ),
@@ -119,7 +118,7 @@ class EmailLoginPage extends StatelessWidget {
                                       message:
                                           controller.passwordErrorMessage.value,
                                     )
-                                  : SizedBox(),
+                                  : const SizedBox(),
                             ),
                           ],
                         );
@@ -151,7 +150,7 @@ class EmailLoginPage extends StatelessWidget {
                     SizedBox(
                       height: 20.h,
                     ),
-                    Center(
+                    const Center(
                       child: Text(
                         "Don't have an account? ",
                         style: TextStyle(

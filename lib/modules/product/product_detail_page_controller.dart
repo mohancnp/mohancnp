@@ -13,7 +13,7 @@ import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 class ProductDetailPageController extends GetxController
     with StateMixin<ProductDetail> {
   static ProductDetailPageController get to => Get.find();
-  var _productService = locator.get<ProductService>();
+  final _productService = locator.get<ProductService>();
   var cartService = locator.get<CartService>();
   late Variant selectedVariant;
   late ProductType selectedproductType =
@@ -23,7 +23,7 @@ class ProductDetailPageController extends GetxController
 
   var params;
   RxList<String> selectedToppings = <String>[].obs;
-  Rx<ProductDetail> _productDetail = ProductDetail(
+  final Rx<ProductDetail> _productDetail = ProductDetail(
     product: Product(
       id: 0,
       name: "",
@@ -131,7 +131,6 @@ class ProductDetailPageController extends GetxController
   }
 
   void handleFailure(Failure f) {
-    print("handling failure");
     change(null, status: RxStatus.error(f.message));
   }
 
@@ -228,13 +227,12 @@ class ProductDetailPageController extends GetxController
 
     var countResponse = await cartService.getCount();
     var cartController = Get.find<CartController>();
-    countResponse.fold((l) => cartController.cartCount.value = l,
-        (r) => print("failure getting count"));
+    countResponse.fold((l) => cartController.cartCount.value = l, (r) {});
   }
 
   void handleCartProductFailure(Failure r) {
     Get.back();
-    showCustomSnackBarMessage(title: "Cart", message: "${r.message}");
+    showCustomSnackBarMessage(title: "Cart", message: r.message);
   }
 
   void handleCartProductSucess(int count) {
@@ -243,7 +241,7 @@ class ProductDetailPageController extends GetxController
     update();
   }
 
-  void navigateTo({required String PageName}) {
-    Get.toNamed(PageName);
+  void navigateTo({required String pageName}) {
+    Get.toNamed(pageName);
   }
 }

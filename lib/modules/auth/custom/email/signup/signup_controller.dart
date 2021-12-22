@@ -32,16 +32,16 @@ class SignUpController extends GetxController {
   Rx<String> rePasswordErrorMessage = "".obs;
 
   bool _eye = false;
-  get eye => this._eye;
+  get eye => _eye;
 
   set eye(value) {
-    this._eye = value;
+    _eye = value;
     update();
   }
 
   void navigateToPageName({required String PageName}) {
-    if (redirectionController.userExists) {}
-    Get.toNamed(PageName);
+    // if (redirectionController.userExists) {}
+    // Get.toNamed(PageName);
   }
 
   String? validatePassword(String? value) {
@@ -91,16 +91,6 @@ class SignUpController extends GetxController {
     emailErrorMessage.value = "";
 
     return null;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   void resigterUser() async {

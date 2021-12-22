@@ -9,7 +9,7 @@ class BaseController extends GetxController {
   int _currentindex = 0;
   UserVerficationStatus _userVerficationStatus =
       UserVerficationStatus.unverified;
-    var _redirectionController = Get.find<RedirectionController>();
+    final _redirectionController = Get.find<RedirectionController>();
 
   UserVerficationStatus get userVerificationStatus => _userVerficationStatus;
 
@@ -39,10 +39,11 @@ class BaseController extends GetxController {
   }
 
   Future determineUserType() async {
-    if (_redirectionController.userExists)
+    if (_redirectionController.userExists) {
       updateUserVerificationStatus(UserVerficationStatus.verified);
-    else
+    } else {
       updateUserVerificationStatus(UserVerficationStatus.unknown);
+    }
   }
 
   Future<void> initializeData() async {

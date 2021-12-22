@@ -7,21 +7,17 @@ import 'package:sqflite/sqlite_api.dart';
 
 class UserTableHandler {
   Future addUser(User client) async {
-    // print("add user method called");
     Database db = locator<DbStorage>().db;
     try {
-      int affectedRows = await db.rawInsert('''INSERT INTO ${Table.user}(
-          ${UserFeild.name},${UserFeild.phone},
-          ${UserFeild.points},${UserFeild.status},${UserFeild.membershipNo},
-          ${UserFeild.email},${UserFeild.job},${UserFeild.gender},${UserFeild.profilePic})
+      await db.rawInsert('''INSERT INTO ${Table.user}(
+          ${UserField.name},${UserField.phone},
+          ${UserField.points},${UserField.status},${UserField.membershipNo},
+          ${UserField.email},${UserField.job},${UserField.gender},${UserField.profilePic})
           VALUES(
           "${client.name}","${client.phone}",
           "${client.points}","${client.status}","${client.membershipNo}",
           "${client.email}","${client.job}","${client.gender}","${client.imageUri}")''');
-
-      print("$affectedRows item added to user table");
-    } on Exception catch (e) {
-      print("Error Creating DB $e");
+    } on Exception {
       throw (AppException(
         message: "Something's wrong with you!",
       ));
@@ -31,11 +27,10 @@ class UserTableHandler {
   Future getUser() async {
     Database db = locator<DbStorage>().db;
     try {
-      var affectedRows = await db.query("${Table.user}");
-      print("$affectedRows item from user table");
+      var affectedRows = await db.query(Table.user);
+
       return affectedRows.last;
-    } on Exception catch (e) {
-      print("Error Creating DB $e");
+    } on Exception {
       throw (AppException(
         message: "Something's wrong with you!",
       ));
@@ -45,10 +40,8 @@ class UserTableHandler {
   Future removeUser() async {
     Database db = locator<DbStorage>().db;
     try {
-      int affectedRows = await db.delete(Table.user);
-      print("$affectedRows item deleted from user table");
-    } on Exception catch (e) {
-      print("Error Creating DB $e");
+      await db.delete(Table.user);
+    } on Exception {
       throw (AppException(
         message: "Something's wrong with you!",
       ));

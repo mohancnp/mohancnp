@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/constants/fontconstants.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class ProductCard extends StatelessWidget {
@@ -42,7 +42,7 @@ class ProductCard extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               offset: Offset(0, 3.h),
-              color: Color(0x29000000),
+              color: const Color(0x29000000),
               blurRadius: 16.r,
             )
           ],
@@ -87,14 +87,12 @@ class ProductCard extends StatelessWidget {
               height: 10.h,
             ),
             Text(
-              "$name",
+              name,
               maxLines: 2,
-              style: getpoppins(
-                TextStyle(
-                  color: Color(0xFF404D4D),
-                  fontSize: 12.sp,
-                  fontFamily: poppinsmedium,
-                ),
+              style: TextStyle(
+                color: Palette.darkGery,
+                fontSize: 12.sp,
+                fontFamily: CustomFont.poppinsMedium,
               ),
             ),
             SizedBox(height: 10.h),
@@ -104,37 +102,33 @@ class ProductCard extends StatelessWidget {
                 children: [
                   Text(
                     "\$ $price",
-                    style: getpoppins(
-                      TextStyle(
-                        color: coffeecolor,
-                        fontSize: 20.sp,
-                        fontFamily: poppinsmedium,
-                      ),
+                    style: TextStyle(
+                      color: coffeecolor,
+                      fontSize: 20.sp,
+                      fontFamily: CustomFont.poppinsMedium,
                     ),
                   ),
                   GestureDetector(
-                    onTap: onPressed,
-                    child: Container(
-                      width: 28.r,
-                      height: 28.r,
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 16.w,
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: coffeecolor,
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 3.h),
-                            color: Color(0x62722030),
-                            blurRadius: 10.r,
-                          )
-                        ],
-                      ),
-                    ),
-                  )
+                      onTap: onPressed,
+                      child: Container(
+                        width: 28.r,
+                        height: 28.r,
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 16.w,
+                        ),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: coffeecolor,
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(0, 3.h),
+                                color: const Color(0x62722030),
+                                blurRadius: 10.r)
+                          ],
+                        ),
+                      )),
                 ],
               ),
             ),

@@ -4,7 +4,7 @@ import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/util/internet.dart';
 
 class NoInternet extends StatefulWidget {
-  NoInternet({Key? key}) : super(key: key);
+  const NoInternet({Key? key}) : super(key: key);
 
   @override
   _NoInternetState createState() => _NoInternetState();
@@ -31,12 +31,13 @@ class _NoInternetState extends State<NoInternet> {
             MaterialButton(
               onPressed: () async {
                 var ready = await InternetConnectionHelper.isConnectionReady();
-                if (ready)
+                if (ready) {
                   Get.offAllNamed(PageName.splashscreenpage);
-                else
+                } else {
                   setState(() => noInernetMsg = "Internet Problem,Try again");
+                }
               },
-              child: Center(child: Text("tap to refresh")),
+              child: const Center(child: Text("tap to refresh")),
             )
           ],
         ),

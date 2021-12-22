@@ -8,18 +8,19 @@ void showErrorDialog({String? errorMessage, String? errorTitle}) {
   Get.defaultDialog(
     content: Center(
       child: Text(
-        "${errorMessage ?? ' '}",
-        style: TextStyle(
+        errorMessage ?? ' ',
+        style: const TextStyle(
           fontWeight: FontWeight.w500,
           color: Colors.red,
         ),
         textAlign: TextAlign.center,
       ),
     ),
-    titleStyle: TextStyle(
+
+    titleStyle: const TextStyle(
       fontWeight: FontWeight.bold,
     ),
-    title: "${errorTitle ?? 'Error!'}",
+    title: errorTitle ?? 'Error!',
     barrierDismissible: true,
     cancel: GestureDetector(
       onTap: Get.back,
@@ -29,7 +30,7 @@ void showErrorDialog({String? errorMessage, String? errorTitle}) {
           borderRadius: BorderRadius.circular(4.r),
           color: Palette.pagebackgroundcolor,
         ),
-        child: Text("Cancel"),
+        child: const Text("Cancel"),
       ),
     ),
     // onCancel: ()=>print('called'),

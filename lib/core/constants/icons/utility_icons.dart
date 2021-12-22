@@ -1,8 +1,8 @@
 class UtilityIcons {
-  static final emptyCart = "assets/images/utility/EmptyState.svg";
-  static final somethingWrong = "assets/images/utility/Error.svg";
-  static final illustrations = "assets/images/utility/EmptyState.svg";
-  static final noDocuments = "assets/images/utility/NoDocuments.svg";
-  static final noLocation = "assets/images/utility/NoGPS.svg";
-  static final noResults = "assets/images/utility/noresults.svg";
+  static const emptyCart = "assets/images/utility/EmptyState.svg";
+  static const somethingWrong = "assets/images/utility/Error.svg";
+  static const illustrations = "assets/images/utility/EmptyState.svg";
+  static const noDocuments = "assets/images/utility/NoDocuments.svg";
+  static const noLocation = "assets/images/utility/NoGPS.svg";
+  static const noResults = "assets/images/utility/noresults.svg";
 }
