@@ -9,7 +9,7 @@ BaseOptions options = BaseOptions(
 
 class AppConfig {
   static String appTitle = "Metro Coffee";
-  static String baseUrl = "https://pioneersoftech.com/cp_metrocoffee";
+  static String baseUrl = "https://metro-new-api.clickandpress.com";
   static String metroCoffeeLogoAssetPath =
       "assets/images/metro_coffee_logo.png";
 }

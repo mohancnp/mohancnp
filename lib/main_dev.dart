@@ -2,6 +2,6 @@ import 'package:metrocoffee/core/config.dart';
 import 'main.dart';
 
 void main() {
-  AppConfig.baseUrl = "https://pioneersoftech.com/cp_metrocoffee_api";
+  AppConfig.baseUrl = "https://metro-new-api.clickandpress.com";
   mainCommon();
 }
