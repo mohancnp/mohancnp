@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/core/models/older/user_model.dart';
-import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/config.dart';
-import 'package:metrocoffee/core/models/new_user.dart';
-import 'package:metrocoffee/modules/home/home_controller.dart';
+import 'package:metrocoffee/core/models/user_profile.dart';
+import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+
 import 'topup_reward_dialog.dart';
 
 class UserInfoShort extends StatelessWidget {
@@ -23,9 +21,9 @@ class UserInfoShort extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GetX<HomeController>(
+        GetX<ProfilePageController>(
           builder: (controller) {
-            Customer user = controller.user;
+            UserProfile user = controller.newUser;
             return Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,7 +60,7 @@ class UserInfoShort extends StatelessWidget {
                           shape: BoxShape.circle,
                         ),
                         child: Text(
-                          user.firstName.substring(1, 2).toUpperCase(),
+                          controller.getImagePlacholder(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Palette.textColor,
@@ -85,24 +83,22 @@ class UserInfoShort extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                           color: Palette.darkGery,
                           fontSize: 11.5.sp,
-                           
                         ),
                       ),
                       Text(
-                        user.firstName,
+                        "${user.firstName} ${user.lastName} ",
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Palette.darkGery,
-                           
                           fontSize: 14.5.sp,
                         ),
                       ),
                       Text(
-                        user.email ,
+                        user.email,
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Palette.darkGery,
-                          fontSize: 11.5.sp,
+                          fontSize: 12.sp,
                         ),
                       )
                     ],
@@ -151,13 +147,11 @@ class UserInfoShort extends StatelessWidget {
                     child: Center(
                       child: Text(
                         "000",
-                        style: 
-                          TextStyle(
+                        style: TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Palette.darkGery,
                             fontSize: 12.sp,
-                            fontFamily: CustomFont.poppinsRegular
-                          ),
+                            fontFamily: CustomFont.poppinsRegular),
                       ),
                     ),
                   ),

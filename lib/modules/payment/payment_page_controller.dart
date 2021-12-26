@@ -7,6 +7,7 @@ import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/map_location.dart';
 import 'package:metrocoffee/core/models/order.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
+import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/older/order_service/order_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/checkout_page_controller.dart';
@@ -54,6 +55,9 @@ class PaymentPageController extends GetxController {
     var orderSample = newOrder.toJson();
     // ignore: avoid_print
     print(jsonEncode(orderSample));
+    await locator<CartService>().clearCart();
+    cartController.cartProductList.clear();
+    Get.offAllNamed(PageName.homepage);
   }
 
   reorderWithId({required int orderId, int? addressId}) async {

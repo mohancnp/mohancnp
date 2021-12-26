@@ -7,6 +7,9 @@ import 'package:metrocoffee/core/models/new_user.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
+import 'package:metrocoffee/modules/home/base_controller.dart';
+import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/error_dialog.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/validator.dart';
@@ -19,7 +22,7 @@ class LoginController extends GetxController {
   Rx<String> emailErrorMessage = ''.obs;
   final _authService = locator<AuthService>();
   final _tempStorage = locator<TempStorage>();
-
+  final redirectionController = Get.find<RedirectionController>();
   bool _eye = false;
   get eye => _eye;
   set eye(value) {
@@ -55,19 +58,28 @@ class LoginController extends GetxController {
         "password": passwordEditingController.text,
       };
       final serverResponse = await _authService.loginUserWithEmail(data);
-      handleLoginResponse(serverResponse);
+      await handleLoginResponse(serverResponse);
     }
   }
 
-  void handleLoginResponse(Either<SignupResponse, Failure> data) {
+  Future<void> handleLoginResponse(Either<SignupResponse, Failure> data) async {
     data.fold((signup) {
       _tempStorage.writeString(TempStorageKeys.authToken, signup.accessToken);
       Get.back();
-      Get.offAllNamed(PageName.homepage);
+      redirectionController.userExists = true;
+      if (redirectionController.fromPaymentPage) {
+        BaseController.to
+            .updateUserVerificationStatus(UserVerficationStatus.verified);
+        Get.offNamedUntil(
+            PageName.checkoutpage, ModalRoute.withName(PageName.checkoutpage));
+      } else {
+        Get.offAllNamed(PageName.homepage);
+      }
     }, (failure) {
       Get.back();
       showErrorDialog(errorTitle: failure.tag, errorMessage: failure.message);
     });
+    await Get.find<ProfilePageController>().getProfile();
   }
 
   void navigateToRoute({required String pageName}) {

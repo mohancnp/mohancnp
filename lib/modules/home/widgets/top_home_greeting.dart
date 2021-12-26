@@ -7,6 +7,7 @@ import 'package:metrocoffee/core/constants/icons/cart_icons.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
+import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 
 class TopHomeGreeting extends StatelessWidget {
@@ -31,9 +32,9 @@ class TopHomeGreeting extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GetX<HomeController>(
+              GetX<ProfilePageController>(
                 builder: (controller) {
-                  var user = controller.user;
+                  var user = controller.newUser;
                   var firstName = user.firstName;
                   return Text(
                     int.parse(DateFormat.H('en_US').format(DateTime.now())) < 16

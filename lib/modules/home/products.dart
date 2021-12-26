@@ -57,15 +57,24 @@ class ProductsPage extends GetView<HomeController> {
           message: AppMessage.notFound,
         ),
         onError: (error) {
-          return OnErrorWidget(
-            message: error ?? AppMessage.somethingWentWrong,
+          return Center(
+            child: OnErrorWidget(
+              message: error ?? AppMessage.somethingWentWrong,
+              onPressed: (){
+                controller.getCategoryData();
+              },
+            ),
           );
         },
-        onLoading: Center(
-          child: SpinKitRing(
-            color: Palette.coffeeColor,
-            size: 20.r,
-          ),
+        onLoading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height:50.h),
+            SpinKitRing(
+              color: Palette.coffeeColor,
+              size: 20.r,
+            ),
+          ],
         ),
       ),
     );

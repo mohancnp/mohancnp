@@ -26,13 +26,16 @@ class OtpVerificationController extends GetxController {
         "pincode": verificationCode,
       };
       final response = await _authService.verifyOtp(data);
-      response.fold((l) {
-        Get.back();
-        navigateToPageName(pageName: PageName.resetPasswordPage);
-      }, (r) {
-        Get.back();
-        showErrorDialog(errorTitle: r.tag, errorMessage: r.message);
-      });
+      response.fold(
+        (l) {
+          Get.back();
+          navigateToPageName(pageName: PageName.resetPasswordPage);
+        },
+        (r) {
+          Get.back();
+          showErrorDialog(errorTitle: r.tag, errorMessage: r.message);
+        },
+      );
     }
   }
 }

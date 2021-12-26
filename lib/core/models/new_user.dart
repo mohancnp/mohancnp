@@ -65,7 +65,6 @@ class Customer {
   String updatedAt;
   @JsonKey(name: "updated_by")
   int updatedBy;
-  int status;
   Customer({
     required this.id,
     required this.firstName,
@@ -80,7 +79,6 @@ class Customer {
     required this.createdBy,
     required this.updatedAt,
     required this.updatedBy,
-    required this.status,
   });
   factory Customer.fromJson(Map<String, dynamic> json) =>
       _$CustomerFromJson(json);

@@ -426,7 +426,7 @@ showMessage(BuildContext context, String message) => showDialog(
                 height: 12,
               ),
               InkWell(
-                onTap: () => Navigator.of(context).pop(),
+                onTap: Get.back,
                 child: Container(
                   alignment: Alignment.center,
                   width: double.infinity,

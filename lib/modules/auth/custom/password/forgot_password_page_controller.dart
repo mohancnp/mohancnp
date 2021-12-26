@@ -29,7 +29,6 @@ class ForgotPasswordController extends GetxController {
     }
   }
 
-  void navigateToPageName({required String pageName}) {}
 
   String? validateEmail(String? value) {
     var message = emailValidtor(value: value);

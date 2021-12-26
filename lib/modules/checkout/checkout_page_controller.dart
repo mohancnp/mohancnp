@@ -16,6 +16,7 @@ class CheckoutPageController extends GetxController {
       Get.toNamed(pageName);
     } else {
       if (defaultPageName != null) {
+        c.fromPaymentPage = true;
         Get.toNamed(defaultPageName);
       }
     }

@@ -5,6 +5,7 @@ import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
 import 'package:metrocoffee/modules/auth/custom/otp_verification_controller.dart';
 import 'package:metrocoffee/modules/auth/custom/password/forgot_password_page_controller.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/error_dialog.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 
@@ -40,7 +41,12 @@ class ResetPasswordPageController extends GetxController {
       final response = await _authService.resetPassword(data);
       response.fold((l) {
         Get.back();
-        Get.offAllNamed(PageName.loginpage);
+        if (RedirectionController.to.editFromProfile) {
+          showErrorDialog(
+              errorTitle: "Sucess!!", errorMessage: "updated password");
+        } else {
+          Get.offAllNamed(PageName.loginpage);
+        }
       }, (r) {
         Get.back();
         showErrorDialog(
