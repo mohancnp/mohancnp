@@ -25,5 +25,5 @@ class PageName {
   static const forgotPasswordPage = "/ForgotPasswordPage";
   static const otpVerificationPage = "/OtpVerificationPage";
   static const resetPasswordPage = "/ResetPasswordPage";
-
+  static const orderReceiptPage = "/OrderReceiptPage";
 }

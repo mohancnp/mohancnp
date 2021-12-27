@@ -13,6 +13,7 @@ import 'package:metrocoffee/modules/home/base.dart';
 import 'package:metrocoffee/modules/initial/splashscreen.dart';
 import 'package:metrocoffee/modules/maps/map.dart';
 import 'package:metrocoffee/modules/onboarding/onboarding_screen.dart';
+import 'package:metrocoffee/modules/payment/order_receipt.dart';
 import 'package:metrocoffee/modules/payment/order_succesful_page.dart';
 import 'package:metrocoffee/modules/payment/payment_page.dart';
 import 'package:metrocoffee/modules/product/product_detail_page.dart';
@@ -118,6 +119,10 @@ class PageNameHandler {
       GetPage(
         name: PageName.resetPasswordPage,
         page: () => ResetPasswordPage(),
+      ),
+      GetPage(
+        name: PageName.orderReceiptPage,
+        page: () => OrderReceiptPage(),
       ),
     ];
   }

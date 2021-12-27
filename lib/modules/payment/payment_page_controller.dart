@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/order_state.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
@@ -19,13 +21,26 @@ class PaymentPageController extends GetxController {
   final _orderService = locator.get<OrderService>();
   bool reordering = false;
 
-  Future confirmPaymentAndPlaceOrder() async {}
+  Future confirmPaymentAndPlaceOrder() async {
+
+
+    var newOrder = Order(
+      orderItems: cartController.cartProductList,
+      selectedAddress: selectedLocation,
+      totalAmount: cartController.totalAmount.value,
+      selectedTime: time,
+    );
+    var orderSample = newOrder.toJson();
+    // ignore: avoid_print
+    print(jsonEncode(orderSample));
+    // cartController.cartProductList.clear();
+    if (cartController.cartProductList.isNotEmpty) {
+      Get.offAllNamed(PageName.orderReceiptPage);
+    }
+  }
 
   Future placeOrder() async {}
 
-  set orderState(OrderState os) {
-    _orderState = os;
-    update();
   }
 
   reorderWithId({required int orderId, int? addressId}) async {
