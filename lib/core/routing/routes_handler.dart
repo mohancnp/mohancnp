@@ -58,7 +58,7 @@ class PageNameHandler {
       ),
       GetPage(
         name: PageName.myorderspage,
-        page: () => const MyOrderPage(),
+        page: () => MyOrderPage(),
       ),
       GetPage(
         name: PageName.favouritesproductpage,

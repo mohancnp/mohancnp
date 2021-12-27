@@ -8,7 +8,7 @@ import 'package:metrocoffee/core/services/storage/db/core.dart';
 import 'package:metrocoffee/core/services/storage/db/dbconst.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
 
-/* to be modifed with new auth api later, unused now*/
+/*TODO: to be modifed with new auth api later, used to not destroy the flow for now*/
 
 class ProfileServiceImpl extends ProfileService {
   @override

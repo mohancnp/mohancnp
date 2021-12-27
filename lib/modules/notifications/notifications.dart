@@ -11,8 +11,8 @@ import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class Notifications extends StatelessWidget {
-  const Notifications({Key? key}) : super(key: key);
-
+  Notifications({Key? key}) : super(key: key);
+  final controller = Get.put(NotificationController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

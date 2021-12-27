@@ -38,17 +38,18 @@ class _SplashScreenState extends State<SplashScreen>
       (ready) {
         if (ready) {
           final tempStorage = TempStorage();
-          var authToken, firsTimeUser;
+          String? authToken;
+          bool? firsTimeUser;
           tempStorage.initialise().then(
             (value) {
               firsTimeUser =
                   tempStorage.readBool(TempStorageKeys.firstTimeUser);
               authToken = tempStorage.readString(TempStorageKeys.authToken);
-
+              // print("AuthToken: $authToken");
+              // print("first Time: $firsTimeUser");
               if (firsTimeUser != null) {
                 if (authToken != null) {
                   Get.find<RedirectionController>().userExists = true;
-
                   _loginstat = 1;
                 }
               } else {

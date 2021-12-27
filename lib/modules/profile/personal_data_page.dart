@@ -11,175 +11,168 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PersonalDataPage extends StatelessWidget {
   PersonalDataPage({Key? key}) : super(key: key);
-  final PersonalDataPageController personalDataPageController =
-      Get.put(PersonalDataPageController());
+  final personalDataPageController = Get.put(PersonalDataPageController());
+  final profilePageController = Get.find<ProfilePageController>();
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PersonalDataPageController>(
-        initState: (v) {
-          personalDataPageController.initializeFeilds();
-        },
-        init: PersonalDataPageController(),
-        builder: (personaldatacontroller) {
-          return Scaffold(
-            backgroundColor: const Color(0xffF3F5F5),
-            body: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Container(
-                  padding: EdgeInsets.only(
-                    bottom: 22.h,
-                  ),
-                  width: 375.w,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AppBar(
-                        title: Text(
-                          "PERSONAL DATA",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: darkgrey,
-                            fontSize: 16.5.sp,
-                          ),
-                        ),
-                        centerTitle: true,
-                        leading: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            CupertinoIcons.back,
-                            color: darkgrey,
-                            size: 28.sp,
-                          ),
-                        ),
-                        backgroundColor: Colors.transparent,
-                        elevation: 0,
+      initState: (v) {
+        personalDataPageController.initializeFeilds();
+      },
+      init: PersonalDataPageController(),
+      builder: (personaldatacontroller) {
+        return Scaffold(
+          backgroundColor: const Color(0xffF3F5F5),
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Container(
+              padding: EdgeInsets.only(
+                bottom: 20.h,
+              ),
+              width: 375.w,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AppBar(
+                    title: Text(
+                      "PERSONAL DATA",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: darkgrey,
+                        fontSize: 16.sp,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                    centerTitle: true,
+                    leading: IconButton(
+                      onPressed: Get.back,
+                      icon: Icon(
+                        CupertinoIcons.back,
+                        color: darkgrey,
+                        size: 28.sp,
+                      ),
+                    ),
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Stack(
                         children: [
-                          Stack(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(
-                                  left: 20.w,
-                                  right: 20.w,
-                                ),
-                                padding: EdgeInsets.all(
-                                  14.r,
-                                ),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black.withOpacity(0.05),
-                                          blurRadius: 10.r,
-                                          offset: Offset(0, 3.r))
-                                    ]),
-                                child: personalDataPageController.imageUri !=
-                                        null
-                                    ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                          38.w,
-                                        ),
-                                        child: Image.network(
-                                          "${AppConfig.baseUrl}${personaldatacontroller.imageUri!}",
-                                          width: 76.w,
-                                          loadingBuilder: (context, widget,
-                                              imageChunkEvent) {
-                                            if (imageChunkEvent == null) {
-                                              return widget;
-                                            } else {
-                                              return const Center(
-                                                child: Text("Loading.."),
-                                              );
-                                            }
-                                          },
-                                          fit: BoxFit.fill,
-                                        ),
-                                      )
-                                    : Obx(() {
-                                        var newUser =
-                                            Get.find<ProfilePageController>()
-                                                .getImagePlacholder();
-
-                                        return Container(
-                                          alignment: Alignment.center,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Text(
-                                            newUser,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Palette.textColor,
-                                            ),
-                                          ),
-                                        );
-                                      }),
+                          Container(
+                              margin: EdgeInsets.only(
+                                left: 20.w,
+                                right: 20.w,
                               ),
-                              Positioned(
-                                left: 86.w,
-                                top: 10.h,
-                                child: GestureDetector(
-                                  onTap: () =>
-                                      personalDataPageController.getUserImage(),
-                                  child: Container(
-                                    height: 20.w,
-                                    width: 20.w,
-                                    decoration: BoxDecoration(
-                                      color: Palette.coffeeColor,
+                              padding: EdgeInsets.all(
+                                16.r,
+                              ),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.05),
+                                    blurRadius: 10.r,
+                                    offset: Offset(0, 4.r),
+                                  )
+                                ],
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                  36.w,
+                                ),
+                                child: Image.network(
+                                  "${AppConfig.baseUrl}/${profilePageController.newUser.image}",
+                                  width: 76.w,
+                                  loadingBuilder:
+                                      (context, widget, imageProgress) {
+                                    if (imageProgress == null) {
+                                      return widget;
+                                    } else {
+                                      return const Center(
+                                        child: Text("Loading..."),
+                                      );
+                                    }
+                                  },
+                                  errorBuilder: (a, b, c) => Container(
+                                    alignment: Alignment.center,
+                                    width: 60.r,
+                                    height: 60.r,
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
-                                    child: Icon(
-                                      Icons.edit,
-                                      size: 14.r,
-                                      color: Colors.white,
+                                    child: Text(
+                                      Get.find<ProfilePageController>()
+                                          .getImagePlacholder(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Palette.textColor,
+                                        fontSize: 16.sp,
+                                      ),
                                     ),
                                   ),
+                                  fit: BoxFit.fill,
+                                ),
+                              )),
+                          Positioned(
+                            left: 80.w,
+                            bottom: 10.h,
+                            child: GestureDetector(
+                              onTap: personalDataPageController.getUserImage,
+                              child: Container(
+                                height: 20.w,
+                                width: 20.w,
+                                decoration: BoxDecoration(
+                                  color: Palette.coffeeColor,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.edit,
+                                  size: 16.r,
+                                  color: Colors.white,
                                 ),
                               ),
-                            ],
-                          )
-                        ],
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          left: 20.w,
-                          right: 20.w,
-                          top: 14.w,
-                          bottom: 24.h,
-                        ),
-                        width: 375.w,
-                        height: 1,
-                        decoration: BoxDecoration(
-                          color: const Color(0xffA5A5A5).withOpacity(0.4),
-                        ),
-                      ),
-                      UserDataFeildWidget(),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: coffeecolor),
-                        width: 130.w,
-                        height: 50.h,
-                        child: MaterialButton(
-                          child: const Text(
-                            "UPDATE",
-                            style: TextStyle(color: Colors.white),
+                            ),
                           ),
-                          onPressed: personaldatacontroller
-                              .updateUserInfoInDbAndServer,
-                        ),
+                        ],
                       )
                     ],
                   ),
-                )),
-          );
-        });
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: 20.w, right: 20.w, top: 14.w, bottom: 24.h),
+                    width: 375.w,
+                    height: 1,
+                    decoration: BoxDecoration(
+                      color: const Color(0xffA5A5A5).withOpacity(0.4),
+                    ),
+                  ),
+                  UserDataFeildWidget(),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Palette.coffeeColor,
+                    ),
+                    width: 130.w,
+                    height: 50.h,
+                    child: MaterialButton(
+                      child: const Text(
+                        "UPDATE",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed:
+                          personaldatacontroller.updateUserInfoInDbAndServer,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

@@ -12,28 +12,29 @@ class ProductList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: Container(
-      height: 248.h,
-      width: double.infinity,
-      padding: EdgeInsets.only(left: 13.w),
-      color: Palette.pagebackgroundcolor,
-      child: ListView.builder(
-        itemCount: products.length,
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          var product = products[index];
-          return ProductCard(
-            imageUri: product.featuresImage,
-            name: product.productName,
-            id: product.id,
-            price: product.productPrice,
-            onPressed: () => HomeController.to
-                .navigateToPageDetail(PageName.productdetailpage, product.id),
-          );
-        },
+      child: Container(
+        height: 248.h,
+        width: double.infinity,
+        padding: EdgeInsets.only(left: 12.w),
+        color: Palette.pagebackgroundcolor,
+        child: ListView.builder(
+          itemCount: products.length,
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (context, index) {
+            var product = products[index];
+            return ProductCard(
+              imageUri: product.featuresImage,
+              name: product.productName,
+              id: product.id,
+              price: product.productPrice,
+              onPressed: () => HomeController.to
+                  .navigateToPageDetail(PageName.productdetailpage, product.id),
+            );
+          },
+        ),
       ),
-    ));
+    );
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserDataFeildWidget extends StatelessWidget {
   UserDataFeildWidget({Key? key}) : super(key: key);
@@ -10,13 +12,10 @@ class UserDataFeildWidget extends StatelessWidget {
   final controller = Get.find<PersonalDataPageController>();
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-
     return Container(
-      width: screenwidth,
-      padding: EdgeInsets.only(
-        left: screenwidth * 0.0535,
-        right: screenwidth * 0.0535,
+      width: 375.w,
+      padding: EdgeInsets.symmetric(
+        horizontal: 20.w,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -26,13 +25,14 @@ class UserDataFeildWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(left: screenwidth * 0.0097),
+                margin: EdgeInsets.only(
+                  left: 4.w,
+                ),
                 child: Text(
                   "Your Name",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                     
-                    fontSize: screenwidth * 0.0304,
+                    fontSize: 12.w,
                     color: Palette.darkGery.withOpacity(0.95),
                   ),
                 ),
@@ -41,24 +41,27 @@ class UserDataFeildWidget extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-                top: screenwidth * 0.0182, bottom: screenwidth * 0.0486),
-            padding: EdgeInsets.symmetric(horizontal: screenwidth * 0.03406),
-            width: screenwidth,
+              top: 8.w,
+              bottom: 16.h,
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 4.w),
+            width: 375.w,
             decoration: BoxDecoration(
-                color: const Color(0xffF9F9F9),
-                borderRadius: const BorderRadius.all(Radius.circular(9)),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(0.03),
-                      blurRadius: 10,
-                      offset: const Offset(0, 3))
-                ]),
+              color: const Color(0xffF9F9F9),
+              borderRadius: BorderRadius.all(Radius.circular(8.r)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.03),
+                  blurRadius: 10.r,
+                  offset: const Offset(0, 4),
+                )
+              ],
+            ),
             child: TextField(
               keyboardType: TextInputType.name,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                 
-                fontSize: screenwidth * 0.0328,
+                fontSize: 12.w,
                 color: const Color(
                   0xff1A1C1C,
                 ),
@@ -66,45 +69,40 @@ class UserDataFeildWidget extends StatelessWidget {
               cursorColor: const Color(0xff1A1C1C),
               controller: controller.namecontroller,
               decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(
-                    fontWeight: FontWeight.w400,
-                     
-                    fontSize: screenwidth * 0.0328,
-                    color: const Color(0xff1A1C1C).withOpacity(0.78),
-                  ),
-                  hintText: "Robert Fox"),
+                border: InputBorder.none,
+                hintStyle: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.w,
+                  color: const Color(0xff1A1C1C).withOpacity(0.78),
+                ),
+                hintText: "Robert Fox",
+              ),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                margin: EdgeInsets.only(left: screenwidth * 0.0097),
+                margin: EdgeInsets.only(left: 4.w),
                 child: Text(
                   "Current password",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                     
-                    fontSize: screenwidth * 0.0304,
+                    fontSize: 12.w,
                     color: Palette.darkGery.withOpacity(0.95),
                   ),
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "/ChangePassword", (_) => true);
-                },
+                onTap: () => Get.toNamed(PageName.forgotPasswordPage),
                 child: Container(
-                  margin: EdgeInsets.only(left: screenwidth * 0.0097),
+                  margin: EdgeInsets.only(left: 4.w),
                   child: Text(
                     "Change Password",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       decoration: TextDecoration.underline,
-                       
-                      fontSize: screenwidth * 0.0304,
+                      fontSize: 12.w,
                       color: Palette.coffeeColor,
                     ),
                   ),
@@ -112,32 +110,38 @@ class UserDataFeildWidget extends StatelessWidget {
               )
             ],
           ),
-          Container(
-            margin: EdgeInsets.only(
-                top: screenwidth * 0.0182, bottom: screenwidth * 0.0486),
-            padding: EdgeInsets.only(left: screenwidth * 0.03406),
-            width: screenwidth,
-            decoration: BoxDecoration(
+          GestureDetector(
+            onTap: () => Get.toNamed(PageName.forgotPasswordPage),
+            child: Container(
+              margin: EdgeInsets.only(
+                top: 8.h,
+                bottom: 18.h,
+              ),
+              padding: EdgeInsets.only(left: 12.w),
+              width: 375.w,
+              decoration: BoxDecoration(
                 color: const Color(0xffF9F9F9),
                 borderRadius: const BorderRadius.all(Radius.circular(9)),
                 boxShadow: [
                   BoxShadow(
-                      color: Colors.black.withOpacity(0.03),
-                      blurRadius: 10,
-                      offset: const Offset(0, 3))
-                ]),
-            child: TextField(
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                 
-                fontSize: screenwidth * 0.0328,
-                color: const Color(0xff1A1C1C),
+                    color: Colors.black.withOpacity(0.03),
+                    blurRadius: 10,
+                    offset: const Offset(0, 3),
+                  )
+                ],
               ),
-              cursorColor: const Color(0xff1A1C1C),
-              obscureText: controller.obscurecurrentpassword,
-              controller: controller.currentpasswordcontroller,
-              decoration: InputDecoration(
+              child: TextField(
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.w,
+                  color: const Color(0xff1A1C1C),
+                ),
+                cursorColor: const Color(0xff1A1C1C),
+                obscureText: controller.obscurecurrentpassword,
+                controller: controller.currentpasswordcontroller,
+                decoration: InputDecoration(
                   border: InputBorder.none,
+                  enabled: false,
                   suffixIcon: GestureDetector(
                     onTap: () {
                       controller.setcurrentpasswordview();
@@ -147,30 +151,30 @@ class UserDataFeildWidget extends StatelessWidget {
                           ? Icons.visibility
                           : Icons.visibility_off,
                       color: const Color(0xff1A1C1C).withOpacity(0.85),
-                      size: screenwidth * 0.0450,
+                      size: 16.w,
                     ),
                   ),
                   hintStyle: TextStyle(
                     fontWeight: FontWeight.w400,
-                     
-                    fontSize: screenwidth * 0.0328,
+                    fontSize: 12.w,
                     color: const Color(0xff1A1C1C).withOpacity(0.78),
                   ),
-                  hintText: "Type a strong password"),
+                  hintText: "Type a strong password",
+                ),
+              ),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(left: screenwidth * 0.0097),
+                margin: EdgeInsets.only(left: 4.w),
                 child: Text(
                   "Email",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: screenwidth * 0.0304,
+                    fontSize: 12.w,
                     color: Palette.darkGery.withOpacity(0.95),
-                     
                   ),
                 ),
               )
@@ -178,22 +182,26 @@ class UserDataFeildWidget extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-                top: screenwidth * 0.0182, bottom: screenwidth * 0.0486),
-            padding: EdgeInsets.symmetric(horizontal: screenwidth * 0.03406),
-            width: screenwidth,
+              top: 8.h,
+              bottom: 18.h,
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            width: 375.w,
             decoration: BoxDecoration(
-                color: const Color(0xffF9F9F9),
-                borderRadius: const BorderRadius.all(Radius.circular(9)),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(0.03),
-                      blurRadius: 10,
-                      offset: const Offset(0, 3))
-                ]),
+              color: const Color(0xffF9F9F9),
+              borderRadius: const BorderRadius.all(Radius.circular(9)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.03),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                )
+              ],
+            ),
             child: TextField(
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                fontSize: screenwidth * 0.0328,
+                fontSize: 12.w,
                 color: const Color(0xff1A1C1C),
               ),
               cursorColor: const Color(0xff1A1C1C),
@@ -203,8 +211,7 @@ class UserDataFeildWidget extends StatelessWidget {
                 border: InputBorder.none,
                 hintStyle: TextStyle(
                   fontWeight: FontWeight.w400,
-                   
-                  fontSize: screenwidth * 0.0328,
+                  fontSize: 12.w,
                   color: const Color(0xff1A1C1C).withOpacity(0.78),
                 ),
                 hintText: "robertfox@gmail.com",
@@ -215,13 +222,12 @@ class UserDataFeildWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(left: screenwidth * 0.0097),
+                margin: EdgeInsets.only(left: 4.w),
                 child: Text(
                   "Your Job",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                     
-                    fontSize: screenwidth * 0.0304,
+                    fontSize: 12.w,
                     color: Palette.darkGery.withOpacity(0.95),
                   ),
                 ),
@@ -230,9 +236,11 @@ class UserDataFeildWidget extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-                top: screenwidth * 0.0182, bottom: screenwidth * 0.0486),
-            padding: EdgeInsets.symmetric(horizontal: screenwidth * 0.03406),
-            width: screenwidth,
+              top: 8.h,
+              bottom: 18.h,
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            width: 375.w,
             decoration: BoxDecoration(
                 color: const Color(0xffF9F9F9),
                 borderRadius: const BorderRadius.all(Radius.circular(9)),
@@ -245,8 +253,7 @@ class UserDataFeildWidget extends StatelessWidget {
             child: TextField(
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                 
-                fontSize: screenwidth * 0.0328,
+                fontSize: 12.w,
                 color: const Color(0xff1A1C1C),
               ),
               cursorColor: const Color(0xff1A1C1C),
@@ -256,24 +263,22 @@ class UserDataFeildWidget extends StatelessWidget {
                   border: InputBorder.none,
                   hintStyle: TextStyle(
                     fontWeight: FontWeight.w400,
-                     
-                    fontSize: screenwidth * 0.0328,
+                    fontSize: 12.w,
                     color: const Color(0xff1A1C1C).withOpacity(0.78),
                   ),
-                  hintText: "Graphic Designer"),
+                  hintText: "Graphic Designer",),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(left: screenwidth * 0.0097),
+                margin: EdgeInsets.only(left: 4.w),
                 child: Text(
                   "Membership",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: screenwidth * 0.0304,
-                     
+                    fontSize: 12.w,
                     color: Palette.darkGery.withOpacity(0.95),
                   ),
                 ),
@@ -282,11 +287,11 @@ class UserDataFeildWidget extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-              top: screenwidth * 0.0182,
-              bottom: screenwidth * 0.0486,
+              top: 8.h,
+              bottom: 18.h,
             ),
-            padding: EdgeInsets.symmetric(horizontal: screenwidth * 0.03406),
-            width: screenwidth,
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            width: 375.w,
             decoration: BoxDecoration(
                 color: const Color(0xffF9F9F9),
                 borderRadius: const BorderRadius.all(Radius.circular(9)),
@@ -300,7 +305,7 @@ class UserDataFeildWidget extends StatelessWidget {
               enabled: false,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                fontSize: screenwidth * 0.0328,
+                fontSize: 12.w,
                 color: const Color(0xff1A1C1C),
               ),
               cursorColor: const Color(0xff1A1C1C),
@@ -310,7 +315,7 @@ class UserDataFeildWidget extends StatelessWidget {
                 border: InputBorder.none,
                 hintStyle: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: screenwidth * 0.0328,
+                  fontSize: 12.w,
                   color: const Color(0xff1A1C1C).withOpacity(0.78),
                 ),
                 hintText: "Gold Member",
@@ -321,23 +326,21 @@ class UserDataFeildWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(left: screenwidth * 0.0097),
+                margin: EdgeInsets.only(left: 4.w),
                 child: Text(
                   "Gender",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: screenwidth * 0.0304,
+                    fontSize: 12.w,
                     color: Palette.darkGery.withOpacity(0.95),
-                     
                   ),
                 ),
               )
             ],
           ),
           Container(
-            width: screenwidth,
-            margin: EdgeInsets.only(
-                top: screenwidth * 0.0182, bottom: screenwidth * 0.0486),
+            width: 375.w,
+            margin: EdgeInsets.only(top: 8.h, bottom: 18.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -346,20 +349,20 @@ class UserDataFeildWidget extends StatelessWidget {
                     controller.setgender('male');
                   },
                   child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: screenwidth * 0.0304),
-                    width: screenwidth * 0.367,
-                    height: screenwidth * 0.0924,
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    width: 140.w,
+                    height: 34.h,
                     decoration: BoxDecoration(
-                        color: const Color(0xffF9F9F9),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(9)),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.03),
-                              blurRadius: 10,
-                              offset: const Offset(0, 3))
-                        ]),
+                      color: const Color(0xffF9F9F9),
+                      borderRadius: const BorderRadius.all(Radius.circular(9)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.03),
+                          blurRadius: 10,
+                          offset: const Offset(0, 3),
+                        )
+                      ],
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -370,18 +373,17 @@ class UserDataFeildWidget extends StatelessWidget {
                               : CupertinoIcons.circle,
                           color: controller.gender == 'male'
                               ? const Color(0xff1A1C1C)
-                              : Colors.grey[600],
-                          size: screenwidth * 0.04866,
+                              : Colors.grey,
+                          size: 18.w,
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: screenwidth * 0.0218),
+                          margin: EdgeInsets.only(left: 8.w),
                           child: Text(
                             "Male",
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: screenwidth * 0.0304,
+                              fontSize: 12.w,
                               color: const Color(0xff1A1C1C),
-                               
                             ),
                           ),
                         )
@@ -394,20 +396,20 @@ class UserDataFeildWidget extends StatelessWidget {
                     controller.setgender('female');
                   },
                   child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: screenwidth * 0.0304),
-                    width: screenwidth * 0.367,
-                    height: screenwidth * 0.0924,
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    width: 140.w,
+                    height: 34.h,
                     decoration: BoxDecoration(
-                        color: const Color(0xffF9F9F9),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(9)),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.03),
-                              blurRadius: 10,
-                              offset: const Offset(0, 3))
-                        ]),
+                      color: const Color(0xffF9F9F9),
+                      borderRadius: const BorderRadius.all(Radius.circular(9)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.03),
+                          blurRadius: 10.r,
+                          offset: const Offset(0, 4),
+                        )
+                      ],
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -418,16 +420,18 @@ class UserDataFeildWidget extends StatelessWidget {
                               : CupertinoIcons.circle,
                           color: controller.gender == 'female'
                               ? const Color(0xff1A1C1C)
-                              : Colors.grey[600],
-                          size: screenwidth * 0.04866,
+                              : Colors.grey,
+                          size: 18.w,
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: screenwidth * 0.0218),
+                          margin: EdgeInsets.only(
+                            left: 8.w,
+                          ),
                           child: Text(
                             "Female",
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: screenwidth * 0.0304,
+                              fontSize: 12.w,
                               color: const Color(0xff1A1C1C),
                             ),
                           ),

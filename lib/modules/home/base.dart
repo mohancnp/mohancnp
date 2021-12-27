@@ -26,8 +26,8 @@ class Base extends StatelessWidget {
 
   List privatePages = [
     const Home(),
-    const Notifications(),
-    const MyOrderPage(),
+    Notifications(),
+    MyOrderPage(),
     ProfilePage(),
   ];
   List publicPages = [

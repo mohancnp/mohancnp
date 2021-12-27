@@ -135,7 +135,7 @@ class ChangePasswordPage extends StatelessWidget {
                                         blurRadius: 10.r,
                                         offset: Offset(0, 3.r))
                                   ]),
-                              child: user.imageUri == null
+                              child: user.image.isEmpty
                                   ? Obx(() {
                                       var newUser =
                                           controller.getImagePlacholder();
@@ -159,7 +159,7 @@ class ChangePasswordPage extends StatelessWidget {
                                         32.r,
                                       ),
                                       child: Image.network(
-                                        "${AppConfig.baseUrl}${user.imageUri}",
+                                        "${AppConfig.baseUrl}${user.image}",
                                         fit: BoxFit.cover,
                                         height: 64.r,
                                         width: 64.r,

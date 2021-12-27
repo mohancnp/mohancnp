@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
@@ -32,11 +33,6 @@ class ProfilePage extends StatelessWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         child: GetBuilder<ProfilePageController>(
           init: ProfilePageController(),
-          initState: (v) {
-            if (profileController.newUser.name == null) {
-              profileController.getProfile();
-            }
-          },
           builder: (controller) {
             return Container(
               width: 375.w,
@@ -61,7 +57,7 @@ class ProfilePage extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.05),
-                          offset: Offset(0, 3.r),
+                          offset: Offset(0, 4.r),
                           blurRadius: 10.r,
                         )
                       ],
@@ -80,9 +76,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      //TODO: ADD navigation to personal data page
-                    },
+                    onTap: () => Get.toNamed(PageName.personaldatapage),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         vertical: 14.h,
@@ -120,7 +114,6 @@ class ProfilePage extends StatelessWidget {
                                   style: TextStyle(
                                     color: Palette.darkGery,
                                     fontSize: 13.5,
-                                     
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -149,15 +142,18 @@ class ProfilePage extends StatelessWidget {
                         horizontal: 12.w,
                       ),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                blurRadius: 10.r,
-                                offset: Offset(0, 3.r))
-                          ],
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.r))),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.05),
+                            blurRadius: 10.r,
+                            offset: Offset(0, 3.r),
+                          )
+                        ],
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.r),
+                        ),
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -165,7 +161,7 @@ class ProfilePage extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.favorite,
-                                color: const Color(0xff404D4D),
+                                color: Palette.pagebackgroundcolor,
                                 size: 18.sp,
                               ),
                               Container(
@@ -175,9 +171,8 @@ class ProfilePage extends StatelessWidget {
                                 child: Text(
                                   "My Favorites",
                                   style: TextStyle(
-                                    color: const Color(0xff404D4D),
-                                    fontSize: 13.5.sp,
-                                     
+                                    color: Palette.pagebackgroundcolor,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -227,18 +222,17 @@ class ProfilePage extends StatelessWidget {
                                   Icon(
                                     Icons.power,
                                     color: Palette.darkGery,
-                                    size: 18.r,
+                                    size: 16.r,
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(
-                                      left: 11.w,
+                                      left: 12.w,
                                     ),
                                     child: Text(
                                       "Log Out",
                                       style: TextStyle(
                                         color: Palette.darkGery,
                                         fontSize: 13.5.sp,
-                                         
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -249,7 +243,7 @@ class ProfilePage extends StatelessWidget {
                                 CupertinoIcons.forward,
                                 color: Palette.darkGery,
                                 size: 20.w,
-                              )
+                              ),
                             ],
                           ),
                         ),

@@ -7,6 +7,7 @@ import 'package:metrocoffee/core/constants/icons/cart_icons.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/home_controller.dart';
+import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 
 class TopHomeGreeting extends StatelessWidget {
@@ -31,19 +32,16 @@ class TopHomeGreeting extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GetX<HomeController>(
+              GetX<ProfilePageController>(
                 builder: (controller) {
-                  var user = controller.user;
-                  var firstName = "...";
-                  firstName =
-                      user.name?.split(' ').elementAt(0) ?? "Caffeinator";
+                  var user = controller.newUser;
+                  var firstName = user.firstName;
                   return Text(
-                    int.parse(DateFormat.H('en_US').format(DateTime.now())) <
-                            16
+                    int.parse(DateFormat.H('en_US').format(DateTime.now())) < 16
                         ? 'Good Afternoon,' + firstName
-                        : 'Good Evening,' ' $firstName ',
+                        : 'Good Evening,' + firstName,
                     style: TextStyle(
-                      fontFamily: CustomFont.montserratBold,
+                      fontFamily: CustomFont.montserratSemiBold,
                       color: Colors.white,
                       fontSize: 20.sp,
                     ),
@@ -51,10 +49,12 @@ class TopHomeGreeting extends StatelessWidget {
                 },
               ),
               Container(
-                  margin: EdgeInsets.only(top: 4.h),
-                  child: Text(
-                      "You can order drinks for collections or Delivery.",
-                      style: Theme.of(context).textTheme.caption)),
+                margin: EdgeInsets.only(top: 4.h),
+                child: Text(
+                  "You can order drinks for collections or Delivery.",
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ),
             ],
           ),
           GestureDetector(

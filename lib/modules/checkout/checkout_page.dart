@@ -35,10 +35,11 @@ class CheckoutPage extends StatelessWidget {
       floatingActionButton: CustomReusableBtn(
         buttonText: "Proceed to Pay",
         width: 320.w,
-        height: 47.h,
+        height: 48.h,
         onPressed: () => controller.navigateToPageName(
-            pageName: PageName.paymentspage,
-            defaultPageName: PageName.loginpage),
+          pageName: PageName.paymentspage,
+          defaultPageName: PageName.loginpage,
+        ),
       ),
       appBar: AppBar(
         backgroundColor: Palette.pagebackgroundcolor,
@@ -105,7 +106,6 @@ class CheckoutPage extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Palette.textColor,
-                         
                         fontSize: 14.sp,
                       ),
                     ),
@@ -132,7 +132,6 @@ class CheckoutPage extends StatelessWidget {
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Palette.textColor,
-                                         
                                         fontSize: 12.sp,
                                       ),
                                     ),
@@ -161,7 +160,7 @@ class CheckoutPage extends StatelessWidget {
                   : GetX<CustomGoogleMapController>(
                       // init: CustomGoogleMapController(),
                       builder: (controller) {
-                      return ListView.builder(
+                        return ListView.builder(
                           itemCount: controller.userAddresses.length,
                           shrinkWrap: true,
                           primary: false,
@@ -185,42 +184,39 @@ class CheckoutPage extends StatelessWidget {
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(8.r),
                                           ),
-                                          child: SimpleDialog(
-                                              contentPadding: const EdgeInsets.all(0),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(18.r),
-                                                ),
-                                              ),
-                                              children: [
-                                                UserPreference(
-                                                  question:
-                                                      "Really Want to Remove Address?",
-                                                  onPressedFirst: () {
-                                                    controller.userAddresses
-                                                        .removeAt(index);
-                                                    Get.back();
-                                                  },
-                                                  firstText: "SURE",
-                                                  onPressedSecond: () {
-                                                    Get.back();
-                                                  },
-                                                  secondText: "CANCEL",
-                                                ),
-                                              ]),
+                                          child: SimpleDialog(children: [
+                                            UserPreference(
+                                              question:
+                                                  "Really Want to Remove Address?",
+                                              onPressedFirst: () {
+                                                controller.userAddresses
+                                                    .removeAt(index);
+                                                Get.back();
+                                              },
+                                              firstText: "SURE",
+                                              onPressedSecond: () {
+                                                Get.back();
+                                              },
+                                              secondText: "CANCEL",
+                                            ),
+                                          ]),
                                         );
                                       });
                                 },
                                 onEdit: () {
-                                  Get.to(() => GoogleMapPage(
-                                        initialLat: admodel.mapLocation.lat,
-                                        initialLong: admodel.mapLocation.long,
-                                      ));
+                                  Get.to(
+                                    () => GoogleMapPage(
+                                      initialLat: admodel.mapLocation.lat,
+                                      initialLong: admodel.mapLocation.long,
+                                    ),
+                                  );
                                 },
                               ),
                             );
-                          });
-                    }),
+                          },
+                        );
+                      },
+                    ),
               Padding(
                 padding: EdgeInsets.only(left: 28.w, top: 24.h, bottom: 16.h),
                 child: Text(
@@ -228,125 +224,129 @@ class CheckoutPage extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Palette.textColor,
-                     
                     fontSize: 14.sp,
                   ),
                 ),
               ),
-              Obx(() {
-                return GestureDetector(
-                  onTap: () {
-                    //TODO: logic to refactor
-                    TimeOfDay _currentTime = TimeOfDay.now();
-                    var remainder = _currentTime.minute % 15;
-                    showCustomTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay(
-                          hour: calculateHoursWithRemainder(
-                              remainder, _currentTime),
-                          minute: calculateMinutesWithRemainder(
-                              remainder, _currentTime),
-                        ),
-                        onFailValidation: (context) {
-                          showMessage(context, "Shift Unavailbale");
-                          // print("unavailable");
-                        },
-                        selectableTimePredicate: (time) =>
-                            (time!.hour >= _currentTime.hour) &&
-                            (time.minute % 15 == 0)).then((time) {
-                      if (time != null) {
-                        if (time.hour > _currentTime.hour) {
-                          controller.selectedTimeFrame.value =
-                              "${time.hour}:${time.minute}";
-                        } else {
-                          if ((time.minute - _currentTime.minute) >= 15) {
-                            controller.selectedTimeFrame.value =
-                                "${time.hour}:${time.minute}";
-                          } else {
-                            if (_currentTime.minute + 15 > 59) {
+              Obx(
+                () {
+                  return GestureDetector(
+                    onTap: () {
+                      //TODO: logic to refactor
+                      TimeOfDay _currentTime = TimeOfDay.now();
+                      var remainder = _currentTime.minute % 15;
+                      showCustomTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay(
+                            hour: calculateHoursWithRemainder(
+                                remainder, _currentTime),
+                            minute: calculateMinutesWithRemainder(
+                                remainder, _currentTime),
+                          ),
+                          onFailValidation: (context) {
+                            showMessage(context, "Shift Unavailbale");
+                            // print("unavailable");
+                          },
+                          selectableTimePredicate: (time) =>
+                              (time!.hour >= _currentTime.hour) &&
+                              (time.minute % 15 == 0)).then(
+                        (time) {
+                          if (time != null) {
+                            if (time.hour > _currentTime.hour) {
                               controller.selectedTimeFrame.value =
-                                  "${_currentTime.hour + 1}:${_currentTime.minute + 15 - 59}";
+                                  "${time.hour}:${time.minute}";
+                            } else {
+                              if ((time.minute - _currentTime.minute) >= 15) {
+                                controller.selectedTimeFrame.value =
+                                    "${time.hour}:${time.minute}";
+                              } else {
+                                if (_currentTime.minute + 15 > 59) {
+                                  controller.selectedTimeFrame.value =
+                                      "${_currentTime.hour + 1}:${_currentTime.minute + 15 - 59}";
+                                }
+                                controller.selectedTimeFrame.value =
+                                    "${_currentTime.hour}:${_currentTime.minute + 15}";
+                              }
                             }
-                            controller.selectedTimeFrame.value =
-                                "${_currentTime.hour}:${_currentTime.minute + 15}";
                           }
-                        }
-                      }
-                      // print(time.format(context));
-                    });
-                    // Navigator.of(context).push(
-                    //   showPicker(
-                    //       value: _time,
-                    //       onChangeDateTime: (value) {},
-                    //       borderRadius: 9,
-                    //       okText: "SET TIME",
-                    //       accentColor: Palette.coffeeColor,
-                    //       onChange: (v) {
-                    //         controller.selectedTimeFrame.value =
-                    //             "${v.hour}:${v.minute}";
-                    //         // print("${v.hour}:${v.minute}");
-                    //       }),
-                    // );
-                  },
-                  child: Container(
-                    height: 64.h,
-                    // padding: EdgeInsets.symmetric(horizontal: 22.w),
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 28.w,
-                    ),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.all(Radius.circular(9)),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              offset: const Offset(0, 3),
-                              blurRadius: 10)
-                        ]),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                controller.selectedTimeFrame.value,
-                              ),
-                              Icon(
-                                Icons.watch,
-                                size: 16.w,
-                              )
-                            ],
-                          ),
-                          Divider(
-                            color: Palette.darkGery.withOpacity(0.15),
-                            thickness: 1.5,
-                          ),
-                          // Expanded(
-                          //   child: ListView.builder(
-                          //       itemCount: controller.timeValues.length,
-                          //       // clipBehavior: Clip.none,
-                          //       scrollDirection: Axis.horizontal,
-                          //       itemBuilder: (context, index) {
-                          //         return TimerWidget(
-                          //             index: index,
-                          //             onPressed: () {
-                          //               controller.selectedTimeIndex.value =
-                          //                   index;
-                          //               controller.selectedTimeFrame.value =
-                          //                   controller.timeValues[controller
-                          //                       .selectedTimeIndex.value];
-                          //             });
-                          //       }),
-                          // )
-                        ],
+                          // print(time.format(context));
+                        },
+                      );
+                      // Navigator.of(context).push(
+                      //   showPicker(
+                      //       value: _time,
+                      //       onChangeDateTime: (value) {},
+                      //       borderRadius: 9,
+                      //       okText: "SET TIME",
+                      //       accentColor: Palette.coffeeColor,
+                      //       onChange: (v) {
+                      //         controller.selectedTimeFrame.value =
+                      //             "${v.hour}:${v.minute}";
+                      //         // print("${v.hour}:${v.minute}");
+                      //       }),
+                      // );
+                    },
+                    child: Container(
+                      height: 64.h,
+                      // padding: EdgeInsets.symmetric(horizontal: 22.w),
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 28.w,
+                      ),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(9)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.05),
+                                offset: const Offset(0, 3),
+                                blurRadius: 10)
+                          ]),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  controller.selectedTimeFrame.value,
+                                ),
+                                Icon(
+                                  Icons.watch,
+                                  size: 16.w,
+                                )
+                              ],
+                            ),
+                            Divider(
+                              color: Palette.darkGery.withOpacity(0.15),
+                              thickness: 1.5,
+                            ),
+                            // Expanded(
+                            //   child: ListView.builder(
+                            //       itemCount: controller.timeValues.length,
+                            //       // clipBehavior: Clip.none,
+                            //       scrollDirection: Axis.horizontal,
+                            //       itemBuilder: (context, index) {
+                            //         return TimerWidget(
+                            //             index: index,
+                            //             onPressed: () {
+                            //               controller.selectedTimeIndex.value =
+                            //                   index;
+                            //               controller.selectedTimeFrame.value =
+                            //                   controller.timeValues[controller
+                            //                       .selectedTimeIndex.value];
+                            //             });
+                            //       }),
+                            // )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                },
+              ),
               Padding(
                 padding: EdgeInsets.only(top: 24.h),
                 child: Center(
@@ -357,7 +357,6 @@ class CheckoutPage extends StatelessWidget {
                       color: Palette.coffeeColor,
                       fontSize: 13.sp,
                       decoration: TextDecoration.underline,
-                       
                     ),
                   ),
                 ),
@@ -372,9 +371,8 @@ class CheckoutPage extends StatelessWidget {
     );
   }
 
-  calculateMinutesWithRemainder(int remainder, currentTime) {
-    var newValue = (15 - remainder) + currentTime.minute;
-
+  int calculateMinutesWithRemainder(int remainder, currentTime) {
+    int newValue = (15 - remainder) + currentTime.minute as int;
     if (remainder != 0) {
       if (newValue == 60) {
         return 00;
@@ -383,7 +381,7 @@ class CheckoutPage extends StatelessWidget {
     return newValue;
   }
 
-  calculateHoursWithRemainder(int remainder, TimeOfDay currentTime) {
+  int calculateHoursWithRemainder(int remainder, TimeOfDay currentTime) {
     if (remainder != 0) {
       var newValue = (15 - remainder) + currentTime.minute;
       if (newValue == 60) {
@@ -395,56 +393,58 @@ class CheckoutPage extends StatelessWidget {
 }
 
 showMessage(BuildContext context, String message) => showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        contentPadding: EdgeInsets.zero,
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 16,
-            ),
-            const Icon(
-              Icons.warning,
-              color: Colors.amber,
-              size: 56,
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Text(
-                message,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    color: Color(0xFF231F20),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                height: 16,
               ),
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            InkWell(
-              onTap: () => Navigator.of(context).pop(),
-              child: Container(
-                alignment: Alignment.center,
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                decoration: const BoxDecoration(
-                    border: Border(top: BorderSide(color: Color(0xFFE8ECF3)))),
-                child: const Text(
-                  'Cerrar',
-                  style: TextStyle(
-                      color: Color(0xFF2058CA),
-                      fontSize: 18,
+              const Icon(
+                Icons.warning,
+                color: Colors.amber,
+                size: 56,
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: Color(0xFF231F20),
+                      fontSize: 20,
                       fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
-          ],
-        ),
-      );
-    });
+              const SizedBox(
+                height: 12,
+              ),
+              InkWell(
+                onTap: Get.back,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: const BoxDecoration(
+                      border:
+                          Border(top: BorderSide(color: Color(0xFFE8ECF3)))),
+                  child: const Text(
+                    'Cerrar',
+                    style: TextStyle(
+                        color: Color(0xFF231F20),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );

@@ -7,14 +7,5 @@ class ControllerBinding extends Bindings {
   void dependencies() {
     Get.put(RedirectionController());
     Get.put(ProfilePageController());
-    // Get.put(CartController());
-    // Get.put(NotificationController());
-    // // Get.put(PersonalDataPageController());
-    // Get.put(CheckoutPageController());
-    // // Get.put(PaymentPageController());
-    // Get.put(OrderHistoryController());
-    // Get.put(OrderDetailsController());
-    // Get.put(CustomGoogleMapController());
-    // Get.lazyPut(() => MemberShipLoginController());
-  }
+   }
 }
