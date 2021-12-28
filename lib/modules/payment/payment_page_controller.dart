@@ -44,7 +44,6 @@ class PaymentPageController extends GetxController {
       selectedTime: time,
     );
     // var orderSample = newOrder.toJson();
-    cartController.cartProductList.clear();
     if (cartController.cartProductList.isNotEmpty) {
       Get.offAllNamed(PageName.orderReceiptPage);
     }

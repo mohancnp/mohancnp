@@ -8,6 +8,7 @@ import 'package:metrocoffee/core/models/new_user.dart';
 import 'package:metrocoffee/core/models/product.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
+import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/util/internet.dart';
 
 class HomeController extends GetxController with StateMixin<CategoryProduct> {
@@ -23,8 +24,6 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
     _user.refresh();
   }
 
-
-
   void getDataForCategoryId({required int id}) async {
     var categoryProduct = await _productService.getProductForCategory(id: id);
     unfoldData(categoryProduct);
@@ -38,17 +37,9 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
     });
   }
 
-  Future initializeAllData() async {}
-
-  Future initializePublicData() async {}
-
-  Future checkInternet() async {
+  Future<bool> checkInternet() async {
     bool ready = await InternetConnectionHelper.isConnectionReady();
     return ready;
-  }
-
-  Future<bool> getPublicProductsOfType(String type) async {
-    return false;
   }
 
   void getRightList() {}

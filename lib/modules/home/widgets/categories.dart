@@ -24,7 +24,9 @@ class CategoriesTabs extends GetView<CategoriesController> {
             Text(
               "Category",
               style: TextStyle(
-                  fontSize: 15.sp, fontFamily: CustomFont.poppinsMedium),
+                fontSize: 15.sp,
+                fontFamily: CustomFont.poppinsMedium,
+              ),
             ),
             SizedBox(
               height: 17.h,
@@ -52,7 +54,7 @@ class CategoriesTabs extends GetView<CategoriesController> {
                   return const Text("No Categories");
                 },
                 onLoading: SizedBox(
-                  child: SpinKitRing(
+                  child: SpinKitWave(
                     color: Palette.coffeeColor,
                     size: 20.r,
                   ),

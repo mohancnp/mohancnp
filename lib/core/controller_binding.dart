@@ -7,5 +7,5 @@ class ControllerBinding extends Bindings {
   void dependencies() {
     Get.put(RedirectionController());
     Get.put(ProfilePageController());
-   }
+  }
 }

@@ -25,14 +25,16 @@ class ProductsPage extends GetView<HomeController> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const SizedBox(height: 32),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: ProductList(
-                    products: categoryProduct.products,
-                  ),
-                ),
+                categoryProduct.products.isEmpty
+                    ? const EmptyDataWidget(message: "Not Available")
+                    : Padding(
+                        padding: EdgeInsets.only(top: 8.h),
+                        child: ProductList(
+                          products: categoryProduct.products,
+                        ),
+                      ),
                 categoryProduct.mostPopularProducts.isEmpty
-                    ? const SizedBox()
+                    ? const EmptyDataWidget(message: "Not Available")
                     : Padding(
                         padding: EdgeInsets.only(
                             left: 28.w, top: 24.h, bottom: 16.h),
@@ -43,8 +45,11 @@ class ProductsPage extends GetView<HomeController> {
                               color: Color(0xFF344141)),
                         ),
                       ),
-                ProductList(
-                  products: categoryProduct.mostPopularProducts,
+                Padding(
+                  padding: EdgeInsets.only(bottom: 16.h),
+                  child: ProductList(
+                    products: categoryProduct.mostPopularProducts,
+                  ),
                 ),
               ],
             );
@@ -60,7 +65,7 @@ class ProductsPage extends GetView<HomeController> {
           return Center(
             child: OnErrorWidget(
               message: error ?? AppMessage.somethingWentWrong,
-              onPressed: (){
+              onPressed: () {
                 controller.getCategoryData();
               },
             ),
@@ -69,10 +74,12 @@ class ProductsPage extends GetView<HomeController> {
         onLoading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height:50.h),
-            SpinKitRing(
-              color: Palette.coffeeColor,
-              size: 20.r,
+            SizedBox(height: 50.h),
+            Center(
+              child: SpinKitDualRing(
+                color: Palette.coffeeColor,
+                size: 50.r,
+              ),
             ),
           ],
         ),
