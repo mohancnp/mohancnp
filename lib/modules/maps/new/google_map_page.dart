@@ -12,8 +12,14 @@ import 'widgets/map_widgets.dart';
 
 class GoogleMapPage extends StatelessWidget {
   final double? initialLat, initialLong;
-
-  GoogleMapPage({Key? key, this.initialLat, this.initialLong})
+  final int? idToUpdate;
+  final int? indexToUpdate;
+  GoogleMapPage(
+      {Key? key,
+      this.initialLat,
+      this.initialLong,
+      this.idToUpdate,
+      this.indexToUpdate})
       : super(key: key);
 
   final controller = Get.find<CustomGoogleMapController>();
@@ -120,7 +126,8 @@ class GoogleMapPage extends StatelessWidget {
                         CustomReusableBtn(
                           height: 48.h,
                           width: 320.w,
-                          onPressed: controller.addOrUpdateLocation,
+                          onPressed: () => controller.addOrUpdateLocation(
+                              idToUpdate: idToUpdate, index: indexToUpdate),
                           buttonText: 'SET LOCATION',
                         ),
                       ],

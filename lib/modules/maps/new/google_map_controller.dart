@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:get/get.dart';
@@ -7,9 +6,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/constants/google.dart';
+import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/map_location.dart';
-import 'package:geocoding/geocoding.dart' as geo;
+import 'package:metrocoffee/core/models/shipping_address.dart';
+import 'package:metrocoffee/core/services/checkout_service/checkout_service.dart';
+import 'package:metrocoffee/modules/checkout/checkout_page_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
+import 'package:metrocoffee/util/debug_printer.dart';
 
 class CustomGoogleMapController extends GetxController {
   double? initLat, initLong;
@@ -22,7 +26,8 @@ class CustomGoogleMapController extends GetxController {
   final Rx<String> _currentLocation = "Search Your Destination".obs;
   List<MapLocation> selectedLocations = <MapLocation>[];
   bool circleFlag = false;
-  RxList<AddressModel> userAddresses = <AddressModel>[].obs;
+  final _checkoutService = locator<CheckoutService>();
+  final _checkoutPageController = Get.find<CheckoutPageController>();
 
   Future<List<String>> getSelectedLocationName(MapLocation mapLocation) async {
     List<geo.Placemark> pm =
@@ -117,7 +122,7 @@ class CustomGoogleMapController extends GetxController {
       markerId: const MarkerId(Google.markerId),
       position: LatLng(marker!.position.latitude, marker.position.longitude),
       infoWindow: const InfoWindow(
-        title: 'Metro Coffee  ',
+        title: 'Metro Coffee ',
       ),
     );
     updateMarker(newMarker);
@@ -143,24 +148,60 @@ class CustomGoogleMapController extends GetxController {
     updateMarker(marker);
   }
 
-  addOrUpdateLocation() async {
-    var marker = markers[const MarkerId(Google.markerId)];
-    var maplocation = MapLocation(
+
+  Future<void> addOrUpdateLocation({int? idToUpdate, int? index}) async {
+    showCustomDialog(message: "updating address detail");
+    final marker = markers[const MarkerId(Google.markerId)];
+    final maplocation = MapLocation(
       lat: marker?.position.latitude ?? CompanyDetail.lat,
       long: marker?.position.longitude ?? CompanyDetail.long,
     );
-    var addressList = await getSelectedLocationName(maplocation);
+    final addressList = await getSelectedLocationName(maplocation);
     currentLocation = "${addressList[0]}  ${addressList[1]}";
-    var addressModel = AddressModel(
-        title: addressList[0],
-        subtitle: addressList[1],
-        mapLocation: maplocation);
+    final addressModel = AddressModel(
+      title: addressList[0],
+      subtitle: addressList[1],
+      mapLocation: maplocation,
+    );
+
+    final shippingAddress = ShippingAddress(
+      title: addressModel.title,
+      subtitle: addressModel.subtitle,
+      lattitude: maplocation.lat,
+      longitude: maplocation.long,
+    );
     if (initLat != null && initLong != null) {
-      userAddresses[selectedAddressIndex] = addressModel;
+      /*IN CASE OF UPDATE*/
+      // userAddresses[selectedAddressIndex] = addressModel;
+      if (idToUpdate != null) {
+        final response = await _checkoutService.updateUserAddress(
+            id: idToUpdate, data: shippingAddress.toJson());
+        response.fold((sucess) {
+          dPrint("sucessfully updated");
+          if (index != null) {
+            shippingAddress.id = idToUpdate;
+            _checkoutPageController.shippingAddresses[index] = shippingAddress;
+          }
+        }, (failure) => dPrint("error updating address"));
+      }
     } else {
-      userAddresses.add(addressModel);
+      /*IN CASE OF New address*/
+      final response =
+          await _checkoutService.addShippingAddress(shippingAddress.toJson());
+      response.fold((sucess) {
+        dPrint(sucess);
+      }, (failure) {
+        dPrint(failure.message);
+      });
+      _checkoutPageController.shippingAddresses.clear();
+      final newResponse = await _checkoutService.getShippingAddresses();
+      newResponse.fold((newShippingAddressList) {
+        _checkoutPageController.shippingAddresses.value =
+            newShippingAddressList;
+      }, (failure) => dPrint("failure retreiving data"));
     }
-    userAddresses.refresh();
+    _checkoutPageController.shippingAddresses.refresh();
+    Get.back();
     Get.back();
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
+import 'package:metrocoffee/modules/checkout/checkout_page_controller.dart';
 import 'package:metrocoffee/ui/src/custom_text_theme.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
@@ -52,7 +53,8 @@ class SetOnMapButton extends StatelessWidget {
               ),
             ],
           ),
-          prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+          prefixIconConstraints:
+              const BoxConstraints(minWidth: 0, minHeight: 0),
         ),
       ),
     );
@@ -79,102 +81,104 @@ class AddressDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<CheckoutPageController>();
     return GestureDetector(
       onTap: () {
-        CustomGoogleMapController.to.selectedAddressIndex = onItemSelected;
+        controller.selectedAddressIndex = onItemSelected;
       },
-      child: Obx(() {
-        return AnimatedContainer(
-          height: 72.h,
-          width: 320.w,
-          duration: const Duration(milliseconds: 500),
-          padding: EdgeInsets.all(4.r),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(
-                color: (onItemSelected ==
-                        CustomGoogleMapController.to.selectedAddressIndex)
-                    ? Palette.coffeeColor
-                    : Colors.white,
-              )),
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 50.r,
-                    width: 50.r,
-                    margin: EdgeInsets.only(left: 4.w),
-                    alignment: Alignment.center,
-                    child: Icon(
-                      Icons.home,
-                      color: Colors.black54,
-                      size: 20.sp,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Palette.grieshWhite,
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16.w, top: 8.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        mainLocation,
-                        style: Theme.of(context).textTheme.normalTextHeading,
+      child: Obx(
+        () {
+          return AnimatedContainer(
+            height: 72.h,
+            width: 320.w,
+            duration: const Duration(milliseconds: 500),
+            padding: EdgeInsets.all(4.r),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8.r),
+                border: Border.all(
+                  color: (onItemSelected == controller.selectedAddressIndex)
+                      ? Palette.coffeeColor
+                      : Colors.white,
+                )),
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height: 50.r,
+                      width: 50.r,
+                      margin: EdgeInsets.only(left: 4.w),
+                      alignment: Alignment.center,
+                      child: Icon(
+                        Icons.home,
+                        color: Colors.black54,
+                        size: 20.sp,
                       ),
-                      Expanded(
-                        child: Text(
-                          subLocation,
-                          style: Theme.of(context).textTheme.normalText,
+                      decoration: BoxDecoration(
+                        color: Palette.grieshWhite,
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 16.w, top: 8.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          mainLocation,
+                          style: Theme.of(context).textTheme.normalTextHeading,
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: Text(
+                            subLocation,
+                            style: Theme.of(context).textTheme.normalText,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              (uop != null)
-                  ? const SizedBox()
-                  : Padding(
-                      padding: EdgeInsets.only(right: 8.r),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: onEdit,
-                            child: Icon(
-                              Icons.edit,
-                              size: 20.h,
-                              color: Palette.darkGrey1,
+                (uop != null)
+                    ? const SizedBox()
+                    : Padding(
+                        padding: EdgeInsets.only(right: 8.r),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: onEdit,
+                              child: Icon(
+                                Icons.edit,
+                                size: 20.h,
+                                color: Palette.darkGrey1,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 10.h),
-                          GestureDetector(
-                            onTap: onDelete,
-                            child: Icon(
-                              CupertinoIcons.delete,
-                              size: 20.h,
-                              color: Colors.red,
+                            SizedBox(height: 10.h),
+                            GestureDetector(
+                              onTap: onDelete,
+                              child: Icon(
+                                CupertinoIcons.delete,
+                                size: 20.h,
+                                color: Colors.red,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-            ],
-          ),
-        );
-      }),
+                          ],
+                        ),
+                      )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -227,7 +231,8 @@ class SearchDestinationBox extends StatelessWidget {
                   ),
                 ],
               ),
-              prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+              prefixIconConstraints:
+                  const BoxConstraints(minWidth: 0, minHeight: 0),
               suffixIcon: const Icon(
                 CupertinoIcons.search,
                 size: 13,
@@ -279,7 +284,8 @@ class CurrentAddressBox extends StatelessWidget {
               }),
             ],
           ),
-          prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+          prefixIconConstraints:
+              const BoxConstraints(minWidth: 0, minHeight: 0),
         ),
       ),
     );
