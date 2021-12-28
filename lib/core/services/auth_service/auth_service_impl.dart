@@ -28,13 +28,17 @@ class AuthServiceImpl extends AuthService {
     } on ServerException catch (e) {
       if (e.code == 400 || e.code == 401 || e.code == 422) {
         return Right(Failure(
-            tag: "Signup Error:", message: "Server Validation Failed!!"));
+            tag: "Signup Error:",
+            message: "Email already taken or invalid email!!"));
       }
-      return Right(Failure(
-          tag: "Signup Error:", message: "Server Failed to Recognize!!"));
+      return Right(
+        Failure(
+          tag: "Signup Error:",
+          message: "Email already taken or invalid email!!",
+        ),
+      );
     } catch (e, stacktrace) {
       print(stacktrace);
-
       return Right(Failure(tag: "Signup Error:", message: "Generice Error"));
     }
   }
@@ -56,8 +60,8 @@ class AuthServiceImpl extends AuthService {
       // ignore: avoid_print
       print(e.code);
       if (e.code == 400 || e.code == 401 || e.code == 422) {
-        return Right(Failure(
-            tag: "Login Error:", message: "Server Validation Failed!!"));
+        return Right(
+            Failure(tag: "Login Error:", message: "Credentials not found!!"));
       }
       return Right(Failure(
           tag: "Login Error:", message: "Server Failed to Recognize!!"));
@@ -77,9 +81,9 @@ class AuthServiceImpl extends AuthService {
   Future<void> logout() async {
     try {
       var response = await _remoteSource.post("/api/auth/customer/logout");
-      print(response);
+      // print(response);
     } on ServerException catch (e) {
-      print({e.message + e.code.toString()});
+      // print({e.message + e.code.toString()});
     } catch (error, stacktrace) {
       print(stacktrace);
     }
@@ -99,7 +103,6 @@ class AuthServiceImpl extends AuthService {
       return Right(Failure(
           tag: "Error sending mail", message: "${error.code} server error"));
     } catch (error, stacktrace) {
-      print(stacktrace);
       return Right(Failure(tag: "Failure!!", message: "Generic Error"));
     }
   }

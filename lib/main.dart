@@ -43,6 +43,12 @@ class MyApp extends StatelessWidget {
           primarySwatch: MetroColor.coffee,
           brightness: Brightness.light,
           fontFamily: CustomFont.poppinsRegular,
+          timePickerTheme: TimePickerThemeData(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.r),
+            ),
+          ),
+          
           textTheme: TextTheme(
             headline1: TextStyle(
               fontSize: 42.sp,

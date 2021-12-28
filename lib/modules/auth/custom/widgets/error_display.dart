@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomErrorWidget extends StatelessWidget {
   final String message;
-  const CustomErrorWidget({Key? key, required this.message}) : super(key: key);
+  final Color? textColor;
+  const CustomErrorWidget({Key? key, required this.message, this.textColor})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -14,7 +16,7 @@ class CustomErrorWidget extends StatelessWidget {
           children: [
             Text(
               message,
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: textColor ?? Colors.white),
             ),
             Icon(
               Icons.error,
