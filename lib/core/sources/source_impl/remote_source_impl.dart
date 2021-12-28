@@ -35,7 +35,6 @@ class RemoteSourceImpl implements RemoteSource {
     Map<String, dynamic>? queryParams,
   }) async {
     try {
-      // print("data to be sent $body");
       final response = await _dio.post(
         url,
         queryParameters: queryParams,
@@ -45,9 +44,27 @@ class RemoteSourceImpl implements RemoteSource {
       if (response.data is Map<String, dynamic>) {
         if (response.statusCode != null) {
           var data =
-              (response.statusCode == 400) || (response.statusCode == 401)
+              (response.statusCode == 400) || (response.statusCode == 422)
                   ? {'error': response.data}
                   : response.data as Map<String, dynamic>;
+
+          //TODO: implement token refresh here
+
+          // if (response.statusCode == 401) {
+          //   var token =
+          //       locator<TempStorage>().readString(TempStorageKeys.authToken);
+          //   if (token != null) {
+          //     final response = await _dio.post('/api/auth/customer/refresh');
+          //     if (response.statusCode == 200) {
+          //       if (response.data is Map<String, dynamic>) {
+          //         final accessToken = response.data["access_token"];
+          //         final token = locator<TempStorage>()
+          //             .writeString(TempStorageKeys.authToken, accessToken);
+
+          //       }
+          //     }
+          //   }
+          // }
           return data;
         }
       }

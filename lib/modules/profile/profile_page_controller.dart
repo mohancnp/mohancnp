@@ -12,18 +12,22 @@ class ProfilePageController extends GetxController {
           securityKey: "",
           firstName: "Caffeinator",
           lastName: "",
-          email: "email not available",
+          email: "metro.admin@gmail.com",
           mobile: "mobile",
           image: "image")
       .obs;
 
   Future<void> getProfile() async {
     final response = await authService.getProfile();
-    response.fold((userProfile) {
-      newUser = userProfile;
-    }, (failure) {
-      print("${failure.tag}: ${failure.message}");
-    });
+    response.fold(
+      (userProfile) {
+        newUser = userProfile;
+      },
+      (failure) {
+        // ignore: avoid_print
+        print("${failure.tag}: ${failure.message}");
+      },
+    );
   }
 
   set newUser(UserProfile user) {
@@ -49,6 +53,7 @@ class ProfilePageController extends GetxController {
 
   Future logout() async {
     locator<TempStorage>().delete(TempStorageKeys.authToken);
+    // await locator<AuthServiceImpl>().logout();
     Get.offAllNamed(PageName.loginpage);
   }
 

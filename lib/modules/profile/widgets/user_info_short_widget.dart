@@ -90,7 +90,7 @@ class UserInfoShort extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Palette.darkGery,
-                          fontSize: 14.5.sp,
+                          fontSize: 16.sp,
                         ),
                       ),
                       Text(

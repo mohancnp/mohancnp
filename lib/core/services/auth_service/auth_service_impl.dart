@@ -75,8 +75,14 @@ class AuthServiceImpl extends AuthService {
 
   @override
   Future<void> logout() async {
-    var response = await _remoteSource.post("/api/auth/customer/logout");
-    //TODO: implement server logout from controller
+    try {
+      var response = await _remoteSource.post("/api/auth/customer/logout");
+      print(response);
+    } on ServerException catch (e) {
+      print({e.message + e.code.toString()});
+    } catch (error, stacktrace) {
+      print(stacktrace);
+    }
   }
 
   @override
@@ -139,15 +145,19 @@ class AuthServiceImpl extends AuthService {
 
   @override
   Future<Either<UserProfile, Failure>> getProfile() async {
+    // print('came in the getprofile method');
     try {
       var response = await _remoteSource.get("/api/auth/customer/profile");
+      // print(response);
       return Left(UserProfile.fromJson(response));
     } on ServerException catch (error) {
-      // ignore: avoid_print
-      print(error.message);
-      return Right(Failure(
+      // print(error.message);
+      return Right(
+        Failure(
           tag: "Profile Retreival Error",
-          message: "${error.code} ${error.message}"));
+          message: "${error.code} ${error.message}",
+        ),
+      );
     } catch (error) {
       return Right(Failure(tag: "Failure!!", message: "Generic Error"));
     }

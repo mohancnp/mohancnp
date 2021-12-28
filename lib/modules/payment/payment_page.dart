@@ -30,7 +30,6 @@ class PaymentPage extends StatelessWidget {
                   "${Currency.symbol} ${cartController.totalAmount.toStringAsPrecision(3)}",
                   style: TextStyle(
                     color: Palette.textColor,
-                     
                     fontSize: 26.sp,
                     fontWeight: FontWeight.w500,
                   ),
@@ -52,7 +51,6 @@ class PaymentPage extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15.sp,
-                     
                     fontWeight: FontWeight.w300,
                   ),
                 ),
@@ -87,7 +85,6 @@ class PaymentPage extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Palette.darkGery,
-                     
                     fontSize: 17.sp,
                   ),
                 ),
@@ -112,7 +109,6 @@ class PaymentPage extends StatelessWidget {
                         style: TextStyle(
                           color: Palette.pagebackgroundcolor,
                           fontSize: screenwidth * 0.0328,
-                           
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -121,7 +117,8 @@ class PaymentPage extends StatelessWidget {
                       onTap: () {},
                       child: AnimatedContainer(
                         padding: EdgeInsets.symmetric(
-                            horizontal: screenwidth * 0.00729),
+                          horizontal: screenwidth * 0.00729,
+                        ),
                         height: screenwidth * 0.0656,
                         width: screenwidth * 0.126,
                         duration: const Duration(milliseconds: 175),
