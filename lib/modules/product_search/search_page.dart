@@ -33,7 +33,7 @@ class SearchPage extends StatelessWidget {
                     top: 60.h,
                     left: 28.w,
                     right: 44.w,
-                    bottom: 3.h,
+                    bottom: 2.h,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

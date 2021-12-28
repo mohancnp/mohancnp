@@ -56,10 +56,10 @@ class UtilityInfoWidget extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(top: 59.h),
+              padding: EdgeInsets.only(top: 56.h),
               child: CustomReusableBtn(
-                height: 47.h,
-                width: 233.w,
+                height: 48.h,
+                width: 232.w,
                 buttonText: buttonText,
                 onPressed: onPressed,
               ),

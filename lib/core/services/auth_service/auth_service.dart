@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/models/new_user.dart';
+import 'package:metrocoffee/core/models/user_profile.dart';
 
 abstract class AuthService {
   Future<Either<SignupResponse, Failure>> createUser(Map<String, dynamic> data);
@@ -12,4 +13,5 @@ abstract class AuthService {
       Map<String, dynamic> data);
   Future<Either<String, Failure>> verifyOtp(Map<String, dynamic> data);
   Future<Either<String, Failure>> resetPassword(Map<String, dynamic> data);
+  Future<Either<UserProfile, Failure>> getProfile();
 }

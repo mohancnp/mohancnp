@@ -6,6 +6,7 @@ import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/older/user_model.dart';
 import 'package:metrocoffee/core/services/older/profile_service/profile_service.dart';
+import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'profile_page_controller.dart';
 
 class PersonalDataPageController extends GetxController {
@@ -16,7 +17,7 @@ class PersonalDataPageController extends GetxController {
   TextEditingController membershipcontroller = TextEditingController();
   TextEditingController newpasswordcontroller = TextEditingController();
   TextEditingController confirmpasswordcontroller = TextEditingController();
-  final _profileService = locator.get<ProfileService>();
+  final _profileService = locator<ProfileService>();
   bool obscurecurrentpassword = true;
   String? gender;
   bool changesmade = false;
@@ -63,42 +64,45 @@ class PersonalDataPageController extends GetxController {
   }
 
   initializeFeilds() {
-    namecontroller.text = profileController.newUser.name ?? " ";
-    emailcontroller.text = profileController.newUser.email ?? " ";
-    jobcontroller.text = profileController.newUser.job ?? "Add Your Job";
-    imageUri = profileController.newUser.imageUri;
+    namecontroller.text = profileController.newUser.firstName +
+        "  " +
+        profileController.newUser.lastName;
+    emailcontroller.text = profileController.newUser.email;
+    jobcontroller.text = "Graphic Designer";
+    imageUri = profileController.newUser.image;
   }
 
-  Future getUserImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(
-      source: ImageSource.gallery,
-    );
-    if (image != null) {
-      imageData = File(image.path);
-    }
+  Future<void> getUserImage() async {
+    //TODO: uncomment on profile update
+
+    // final ImagePicker _picker = ImagePicker();
+    // final XFile? image = await _picker.pickImage(
+    //   source: ImageSource.gallery,
+    // );
+    // if (image != null) {
+    //   imageData = File(image.path);
+    // }
   }
 
   updateUserInfoInDbAndServer() async {
-    Get.defaultDialog(
-        content: const SizedBox(
-      height: 50,
-      width: 50,
-      child: Center(child: CircularProgressIndicator()),
-    ));
-
-    User user = User();
-    user.name = namecontroller.text;
-    user.email = emailcontroller.text;
-    user.job = jobcontroller.text;
-    user.gender = gender;
-    
+    showCustomDialog();
+    await Future.delayed(const Duration(milliseconds: 2000));
+    profileController.newUser.email = emailcontroller.text;
+    final splittedName = namecontroller.text.split(' ');
+    profileController.newUser.firstName =
+        splittedName.isNotEmpty ? splittedName[0] : " ";
+    profileController.newUser.lastName =
+        splittedName.length > 1 ? splittedName[1] : " ";
+    Get.back();
   }
 
   showSnackBarWithMsg(String title, String message) {
-    Get.snackbar(title, message,
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(milliseconds: 1500));
+    Get.snackbar(
+      title,
+      message,
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(milliseconds: 1500),
+    );
   }
 
   changePassword() async {

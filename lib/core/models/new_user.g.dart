@@ -56,7 +56,6 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) {
     createdBy: json['created_by'] as int,
     updatedAt: json['updated_at'] as String,
     updatedBy: json['updated_by'] as int,
-    status: json['status'] as int,
   );
 }
 
@@ -74,7 +73,6 @@ Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
       'created_by': instance.createdBy,
       'updated_at': instance.updatedAt,
       'updated_by': instance.updatedBy,
-      'status': instance.status,
     };
 
 SignupError _$SignupErrorFromJson(Map<String, dynamic> json) {
