@@ -12,7 +12,6 @@ class Palette {
   static Color otpContainer = const Color(0xE6FFFFFF);
   static Color otpContainerBorder = const Color(0x45000000);
   static Color deepOrange = const Color(0xffD4874C);
-  
 }
 
 class MetroColor {
