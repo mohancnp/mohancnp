@@ -27,9 +27,9 @@ class CheckoutServiceImpl extends CheckoutService {
   }
 
   @override
-  Future<Either<String, Failure>> addShippingAddress() async {
+  Future<Either<String, Failure>> addShippingAddress(data) async {
     try {
-      await _remoteSource.post("/api/auth/customer/shipping/add");
+      await _remoteSource.post("/api/auth/customer/shipping/add", body: data);
       return const Left("successfully Added");
     } on ServerException catch (error) {
       return Right(
@@ -67,9 +67,11 @@ class CheckoutServiceImpl extends CheckoutService {
   }
 
   @override
-  Future<Either<String, Failure>> updateUserAddress({required int id}) async {
+  Future<Either<String, Failure>> updateUserAddress(
+      {required int id, required Map<String, dynamic> data}) async {
     try {
-      await _remoteSource.post("/api/auth/customer/shipping/edit/$id");
+      await _remoteSource.post("/api/auth/customer/shipping/edit/$id",
+          body: data);
       return const Left("Address Edited SucessFully");
     } on ServerException catch (error) {
       return Right(
@@ -80,6 +82,26 @@ class CheckoutServiceImpl extends CheckoutService {
       );
     } catch (error) {
       return Right(Failure(tag: "Failure!!", message: "Generic Error"));
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> deleteAddressWithId({required int id}) async {
+    try {
+      await _remoteSource
+          .post("/api/auth/customer/shipping/delete", body: {"id": id});
+      return const Left("Address Deleted SucessFully");
+    } on ServerException catch (error) {
+      return Right(
+        Failure(
+          tag: "Address Delete Error",
+          message: "${error.code} ${error.message}",
+        ),
+      );
+    } catch (error) {
+      return Right(
+        Failure(tag: "Failure!!", message: "Generic Error"),
+      );
     }
   }
 }

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
+import 'package:metrocoffee/core/models/shipping_address.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
@@ -18,7 +19,6 @@ import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
 import 'package:time_picker_widget/time_picker_widget.dart';
-
 import 'checkout_page_controller.dart';
 
 // ignore: must_be_immutable
@@ -37,10 +37,7 @@ class CheckoutPage extends StatelessWidget {
         buttonText: "Proceed to Pay",
         width: 320.w,
         height: 48.h,
-        onPressed: () => controller.navigateToPageName(
-          pageName: PageName.paymentspage,
-          defaultPageName: PageName.loginpage,
-        ),
+        onPressed: controller.navigateToPaymentOrLogin,
       ),
       appBar: AppBar(
         backgroundColor: Palette.pagebackgroundcolor,
@@ -158,64 +155,75 @@ class CheckoutPage extends StatelessWidget {
                         onItemSelected: 0,
                       ),
                     )
-                  : GetX<CustomGoogleMapController>(
-                      // init: CustomGoogleMapController(),
+                  : GetX<CheckoutPageController>(
                       builder: (controller) {
-                        return ListView.builder(
-                          itemCount: controller.userAddresses.length,
-                          shrinkWrap: true,
-                          primary: false,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 28.w,
-                          ),
-                          itemBuilder: (context, index) {
-                            var admodel = controller.userAddresses[index];
-                            // print(selectedIndex);
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: AddressDetailWidget(
-                                mainLocation: admodel.title,
-                                subLocation: admodel.subtitle,
-                                onItemSelected: index,
-                                onDelete: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) {
-                                        return ClipRRect(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(8.r),
-                                          ),
-                                          child: SimpleDialog(children: [
-                                            UserPreference(
-                                              question:
-                                                  "Really Want to Remove Address?",
-                                              onPressedFirst: () {
-                                                controller.userAddresses
-                                                    .removeAt(index);
-                                                Get.back();
-                                              },
-                                              firstText: "SURE",
-                                              onPressedSecond: () {
-                                                Get.back();
-                                              },
-                                              secondText: "CANCEL",
-                                            ),
-                                          ]),
+                        return controller.addresssisLoading.isTrue
+                            ? const Center(
+                                child: SizedBox(
+                                  child: Text("Loading..."),
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: controller.shippingAddresses.length,
+                                shrinkWrap: true,
+                                primary: false,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 28.w,
+                                ),
+                                itemBuilder: (context, index) {
+                                  final ShippingAddress admodel =
+                                      controller.shippingAddresses[index];
+                                  return Padding(
+                                    padding: EdgeInsets.only(top: 8.w),
+                                    child: AddressDetailWidget(
+                                      mainLocation: admodel.title,
+                                      subLocation: admodel.subtitle,
+                                      onItemSelected: index,
+                                      onDelete: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (_) {
+                                            return ClipRRect(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(8.r),
+                                              ),
+                                              child: SimpleDialog(
+                                                children: [
+                                                  UserPreference(
+                                                    question: "Remove Address?",
+                                                    onPressedFirst: () async {
+                                                      await controller
+                                                          .deleteAddress(
+                                                              admodel.id,
+                                                              index);
+                                                      Get.back();
+                                                    },
+                                                    firstText: "Confirm",
+                                                    onPressedSecond: () {
+                                                      Get.back();
+                                                    },
+                                                    secondText: "CANCEL",
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
                                         );
-                                      });
-                                },
-                                onEdit: () {
-                                  Get.to(
-                                    () => GoogleMapPage(
-                                      initialLat: admodel.mapLocation.lat,
-                                      initialLong: admodel.mapLocation.long,
+                                      },
+                                      onEdit: () {
+                                        Get.to(
+                                          () => GoogleMapPage(
+                                            initialLat: admodel.lattitude,
+                                            initialLong: admodel.longitude,
+                                            indexToUpdate: index,
+                                            idToUpdate: admodel.id,
+                                          ),
+                                        );
+                                      },
                                     ),
                                   );
                                 },
-                              ),
-                            );
-                          },
-                        );
+                              );
                       },
                     ),
               Padding(
@@ -265,13 +273,15 @@ class CheckoutPage extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(9)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(9),
+                        ),
                         boxShadow: [
                           BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              offset: const Offset(0, 3),
-                              blurRadius: 10)
+                            color: Colors.black.withOpacity(0.05),
+                            offset: const Offset(0, 4),
+                            blurRadius: 12,
+                          )
                         ],
                       ),
                       child: Padding(
@@ -295,23 +305,6 @@ class CheckoutPage extends StatelessWidget {
                               color: Palette.darkGery.withOpacity(0.15),
                               thickness: 1.5,
                             ),
-                            // Expanded(
-                            //   child: ListView.builder(
-                            //       itemCount: controller.timeValues.length,
-                            //       // clipBehavior: Clip.none,
-                            //       scrollDirection: Axis.horizontal,
-                            //       itemBuilder: (context, index) {
-                            //         return TimerWidget(
-                            //             index: index,
-                            //             onPressed: () {
-                            //               controller.selectedTimeIndex.value =
-                            //                   index;
-                            //               controller.selectedTimeFrame.value =
-                            //                   controller.timeValues[controller
-                            //                       .selectedTimeIndex.value];
-                            //             });
-                            //       }),
-                            // )
                           ],
                         ),
                       ),
@@ -330,7 +323,6 @@ class CheckoutPage extends StatelessWidget {
                       )
                     : const SizedBox(),
               ),
-
               Padding(
                 padding: EdgeInsets.only(top: 24.h),
                 child: Center(

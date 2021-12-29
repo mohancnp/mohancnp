@@ -28,9 +28,15 @@ void showErrorDialog({String? errorMessage, String? errorTitle}) {
         padding: EdgeInsets.all(4.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.r),
-          color: Palette.pagebackgroundcolor,
+          color: Palette.deepOrange,
         ),
-        child: const Text("Cancel"),
+        child: Padding(
+          padding: EdgeInsets.all(4.w),
+          child: Text(
+            "Cancel",
+            style: TextStyle(fontSize: 12.sp),
+          ),
+        ),
       ),
     ),
     // onCancel: ()=>print('called'),
