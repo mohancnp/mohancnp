@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
+import 'package:metrocoffee/core/services/checkout_service/checkout_service.dart';
+import 'package:metrocoffee/core/services/checkout_service/checkout_service_impl.dart';
 import 'package:metrocoffee/core/services/older/notification_service/notification_service.dart';
 import 'package:metrocoffee/core/services/older/notification_service/notification_service_impl.dart';
 import 'package:metrocoffee/core/services/older/order_service/order_service.dart';
@@ -43,6 +45,8 @@ Future<void> setupLocator() async {
       locator.registerLazySingleton<ProfileService>(() => ProfileServiceImpl());
       locator.registerLazySingleton<NotificationService>(
           () => NotificationServiceImpl());
+      locator
+          .registerLazySingleton<CheckoutService>(() => CheckoutServiceImpl());
     },
   );
   locator.isReady<DbStorage>().whenComplete(() {

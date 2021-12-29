@@ -6,6 +6,7 @@ import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
+import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/widgets/single_order.dart';
 import 'package:metrocoffee/modules/maps/new/google_map_controller.dart';
@@ -231,60 +232,30 @@ class CheckoutPage extends StatelessWidget {
               Obx(
                 () {
                   return GestureDetector(
-                    onTap: () {
-                      //TODO: logic to refactor
-                      TimeOfDay _currentTime = TimeOfDay.now();
-                      var remainder = _currentTime.minute % 15;
-                      showCustomTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay(
-                            hour: calculateHoursWithRemainder(
-                                remainder, _currentTime),
-                            minute: calculateMinutesWithRemainder(
-                                remainder, _currentTime),
-                          ),
-                          onFailValidation: (context) {
-                            showMessage(context, "Shift Unavailbale");
-                            // print("unavailable");
-                          },
-                          selectableTimePredicate: (time) =>
-                              (time!.hour >= _currentTime.hour) &&
-                              (time.minute % 15 == 0)).then(
-                        (time) {
-                          if (time != null) {
-                            if (time.hour > _currentTime.hour) {
-                              controller.selectedTimeFrame.value =
-                                  "${time.hour}:${time.minute}";
-                            } else {
-                              if ((time.minute - _currentTime.minute) >= 15) {
-                                controller.selectedTimeFrame.value =
-                                    "${time.hour}:${time.minute}";
-                              } else {
-                                if (_currentTime.minute + 15 > 59) {
-                                  controller.selectedTimeFrame.value =
-                                      "${_currentTime.hour + 1}:${_currentTime.minute + 15 - 59}";
-                                }
-                                controller.selectedTimeFrame.value =
-                                    "${_currentTime.hour}:${_currentTime.minute + 15}";
-                              }
-                            }
-                          }
-                          // print(time.format(context));
+                    onTap: () async {
+                      final _currentTime = TimeOfDay.now();
+                      final userSelectedTime = await showCustomTimePicker(
+                        context: context,
+                        builder: (context, child) {
+                          return MediaQuery(
+                            data: MediaQuery.of(context)
+                                .copyWith(alwaysUse24HourFormat: true),
+                            child: child!,
+                          );
                         },
+                        initialTime: TimeOfDay(
+                          hour: _currentTime.hour,
+                          minute: _currentTime.minute,
+                        ),
+                        onFailValidation: (context) {
+                          controller.wrongTimeSelectionMessage.value =
+                              "Selected Time must be above ${controller.timeInterval.minDeliveryTime} min from current time";
+                        },
+                        selectableTimePredicate:
+                            controller.handleServerTimeLogic,
                       );
-                      // Navigator.of(context).push(
-                      //   showPicker(
-                      //       value: _time,
-                      //       onChangeDateTime: (value) {},
-                      //       borderRadius: 9,
-                      //       okText: "SET TIME",
-                      //       accentColor: Palette.coffeeColor,
-                      //       onChange: (v) {
-                      //         controller.selectedTimeFrame.value =
-                      //             "${v.hour}:${v.minute}";
-                      //         // print("${v.hour}:${v.minute}");
-                      //       }),
-                      // );
+                      controller.handleTimePickerResponse(
+                          selectedTime: userSelectedTime);
                     },
                     child: Container(
                       height: 64.h,
@@ -293,15 +264,16 @@ class CheckoutPage extends StatelessWidget {
                         horizontal: 28.w,
                       ),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(9)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                offset: const Offset(0, 3),
-                                blurRadius: 10)
-                          ]),
+                        color: Colors.white,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(9)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              offset: const Offset(0, 3),
+                              blurRadius: 10)
+                        ],
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -347,6 +319,18 @@ class CheckoutPage extends StatelessWidget {
                   );
                 },
               ),
+              Obx(
+                () => controller.wrongTimeSelectionMessage.isNotEmpty
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 28.w),
+                        child: CustomErrorWidget(
+                          message: controller.wrongTimeSelectionMessage.value,
+                          textColor: Colors.black54,
+                        ),
+                      )
+                    : const SizedBox(),
+              ),
+
               Padding(
                 padding: EdgeInsets.only(top: 24.h),
                 child: Center(
@@ -369,26 +353,6 @@ class CheckoutPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  int calculateMinutesWithRemainder(int remainder, currentTime) {
-    int newValue = (15 - remainder) + currentTime.minute as int;
-    if (remainder != 0) {
-      if (newValue == 60) {
-        return 00;
-      }
-    }
-    return newValue;
-  }
-
-  int calculateHoursWithRemainder(int remainder, TimeOfDay currentTime) {
-    if (remainder != 0) {
-      var newValue = (15 - remainder) + currentTime.minute;
-      if (newValue == 60) {
-        return currentTime.hour + 1;
-      }
-    }
-    return currentTime.hour;
   }
 }
 
