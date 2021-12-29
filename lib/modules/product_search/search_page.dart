@@ -10,7 +10,6 @@ import 'package:metrocoffee/modules/home/widgets/new_card.dart';
 import 'package:metrocoffee/modules/product_search/search_page_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
-
 import '../shareables/widgets/searchbar.dart';
 
 class SearchPage extends StatelessWidget {
@@ -67,7 +66,7 @@ class SearchPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 26.h),
+                SizedBox(height: 24.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 28.w),
                   child: const SearchBar(

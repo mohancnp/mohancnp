@@ -3,15 +3,15 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
+import 'package:metrocoffee/core/models/new_user.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
-import 'package:metrocoffee/core/services/auth_service/auth_service_impl.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
+import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/error_dialog.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/validator.dart';
-import 'package:metrocoffee/core/models/new_user.dart';
 
 class SignUpController extends GetxController {
   final emailEditingController = TextEditingController();
@@ -100,6 +100,7 @@ class SignUpController extends GetxController {
       );
       final data = await _authService.createUser(newUser.toJson());
       handleRegistrationResponse(data);
+      await Get.find<ProfilePageController>().getProfile();
     }
   }
 

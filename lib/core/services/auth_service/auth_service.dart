@@ -7,7 +7,7 @@ abstract class AuthService {
   Future<Either<SignupResponse, Failure>> createUser(Map<String, dynamic> data);
   Future<Either<SignupResponse, Failure>> loginUserWithEmail(
       Map<String, dynamic> data);
-  Future<void> refreshToken();
+  Future<Either<String, Failure>> refreshToken();
   Future<void> logout();
   Future<Either<String, Failure>> sendEmailForPasswordReset(
       Map<String, dynamic> data);

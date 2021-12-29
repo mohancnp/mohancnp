@@ -4,6 +4,7 @@ import 'package:metrocoffee/core/models/user_profile.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
+import 'package:metrocoffee/util/debug_printer.dart';
 
 class ProfilePageController extends GetxController {
   var authService = locator<AuthService>();
@@ -13,7 +14,7 @@ class ProfilePageController extends GetxController {
           firstName: "Caffeinator",
           lastName: "",
           email: "metro.admin@gmail.com",
-          mobile: "mobile",
+          mobile: "+010000000",
           image: "image")
       .obs;
 
@@ -24,8 +25,12 @@ class ProfilePageController extends GetxController {
         newUser = userProfile;
       },
       (failure) {
-        // ignore: avoid_print
-        print("${failure.tag}: ${failure.message}");
+        final accessToken =
+            locator<TempStorage>().readString(TempStorageKeys.authToken);
+        if (accessToken != null) {
+          Get.offAllNamed(PageName.loginpage);
+        }
+        dPrint("${failure.tag}: ${failure.message}");
       },
     );
   }
@@ -53,7 +58,7 @@ class ProfilePageController extends GetxController {
 
   Future logout() async {
     locator<TempStorage>().delete(TempStorageKeys.authToken);
-    // await locator<AuthServiceImpl>().logout();
+    await authService.logout();
     Get.offAllNamed(PageName.loginpage);
   }
 

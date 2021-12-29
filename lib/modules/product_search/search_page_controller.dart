@@ -11,11 +11,14 @@ class SearchPageController extends GetxController {
   static SearchPageController get to => Get.find();
   String errorMessage = "";
   bool searching = false;
+
   FilterProduct ctp = FilterProduct(products: []);
-  Future performSearch() async {
+  Future<void> performSearch() async {
+    // dPrint("called");
     errorMessage = "";
     searching = true;
     update();
+    await Future.delayed(const Duration(seconds: 1));
     var response =
         await _productService.getFilteredList(searchBarController.text);
     response.fold((l) => handleResponse(l), (r) => handleFailure(r));

@@ -48,23 +48,6 @@ class RemoteSourceImpl implements RemoteSource {
                   ? {'error': response.data}
                   : response.data as Map<String, dynamic>;
 
-          //TODO: implement token refresh here
-
-          // if (response.statusCode == 401) {
-          //   var token =
-          //       locator<TempStorage>().readString(TempStorageKeys.authToken);
-          //   if (token != null) {
-          //     final response = await _dio.post('/api/auth/customer/refresh');
-          //     if (response.statusCode == 200) {
-          //       if (response.data is Map<String, dynamic>) {
-          //         final accessToken = response.data["access_token"];
-          //         final token = locator<TempStorage>()
-          //             .writeString(TempStorageKeys.authToken, accessToken);
-
-          //       }
-          //     }
-          //   }
-          // }
           return data;
         }
       }

@@ -1,9 +1,16 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
+import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/new_user.dart';
 import 'package:metrocoffee/core/models/user_profile.dart';
+import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/core/sources/remote_source.dart';
+import 'package:metrocoffee/util/debug_printer.dart';
 import 'auth_service.dart';
 
 class AuthServiceImpl extends AuthService {
@@ -21,7 +28,8 @@ class AuthServiceImpl extends AuthService {
         // var newError = SignupError.fromJson(response);
         return Right(Failure(
             tag: "Signup Error",
-            message: "Validation Failed, Please try different credentials"));
+            message:
+                "Credentials already used or are incorrectly formatted!!!"));
       }
       var newUser = SignupResponse.fromJson(response);
       return Left(newUser);
@@ -29,17 +37,20 @@ class AuthServiceImpl extends AuthService {
       if (e.code == 400 || e.code == 401 || e.code == 422) {
         return Right(Failure(
             tag: "Signup Error:",
-            message: "Email already taken or invalid email!!"));
+            message:
+                "Credentials already used or are incorrectly formatted!!!"));
       }
       return Right(
         Failure(
           tag: "Signup Error:",
-          message: "Email already taken or invalid email!!",
+          message: "Credentials already used or are incorrectly formatted!!!",
         ),
       );
     } catch (e, stacktrace) {
-      print(stacktrace);
-      return Right(Failure(tag: "Signup Error:", message: "Generice Error"));
+      // print(stacktrace);
+      return Right(Failure(
+          tag: "Signup Error:",
+          message: "Generice Error, Contact at +0100000"));
     }
   }
 
@@ -71,21 +82,42 @@ class AuthServiceImpl extends AuthService {
   }
 
   @override
-  Future<void> refreshToken() async {
-    var response = await _remoteSource.post("/api/auth/customer/refresh");
-    // ignore: avoid_print
-    print(response);
+  Future<Either<String, Failure>> refreshToken() async {
+    try {
+      var token = locator<TempStorage>().readString(TempStorageKeys.authToken);
+      options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+      options.headers[HttpHeaders.contentTypeHeader] = 'application/json';
+      options.headers[HttpHeaders.acceptHeader] = 'application/json';
+      if (token != null) {
+        final response = await Dio(options).post('/api/auth/customer/refresh');
+        if (response.statusCode == 200) {
+          if (response.data is Map<String, dynamic>) {
+            final accessToken = response.data["access_token"];
+            locator<TempStorage>()
+                .writeString(TempStorageKeys.authToken, accessToken);
+            return Left(accessToken);
+          }
+        }
+      }
+      return Right(Failure(tag: "Error", message: "Token Refresh Error"));
+    } on DioError catch (e) {
+      dPrint(e.response?.statusCode);
+      return Right(Failure(tag: "Error", message: "Token Refresh Error"));
+    } catch (e) {
+      dPrint(e);
+      return Right(Failure(tag: "Error", message: "Token Refresh Error"));
+    }
   }
 
   @override
   Future<void> logout() async {
     try {
       var response = await _remoteSource.post("/api/auth/customer/logout");
-      // print(response);
+      dPrint(response);
     } on ServerException catch (e) {
-      // print({e.message + e.code.toString()});
+      dPrint({e.message + e.code.toString()});
     } catch (error, stacktrace) {
-      print(stacktrace);
+      dPrint(stacktrace);
     }
   }
 

@@ -30,9 +30,12 @@ class SearchBar extends StatelessWidget {
             child: TextField(
               enabled: enabled,
               controller: SearchPageController.to.searchBarController,
-              onEditingComplete: () => SearchPageController.to.performSearch(),
+              onChanged: (value) async {
+                SearchPageController.to.performSearch();
+              },
+              // onSubmitted: (value) => SearchPageController.to.performSearch(),
+              // onEditingComplete: () => SearchPageController.to.performSearch(),
               style: TextStyle(
-                 
                 color: Colors.black87,
                 fontSize: 10.sp,
               ),
