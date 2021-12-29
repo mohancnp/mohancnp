@@ -264,6 +264,7 @@ class CheckoutPage extends StatelessWidget {
                       );
                       controller.handleTimePickerResponse(
                           selectedTime: userSelectedTime);
+                      controller.userSelectedTimeOfDay = userSelectedTime;
                     },
                     child: Container(
                       height: 64.h,

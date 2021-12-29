@@ -11,4 +11,6 @@ abstract class CheckoutService {
       {required int id, required Map<String, dynamic> data});
 
   Future<Either<String, Failure>> deleteAddressWithId({required int id});
+  Future<Either<Map<String, dynamic>, Failure>> getPaymentInstance(
+      Map<String, dynamic> data);
 }

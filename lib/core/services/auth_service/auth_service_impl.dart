@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -197,4 +198,6 @@ class AuthServiceImpl extends AuthService {
       return Right(Failure(tag: "Failure!!", message: "Generic Error"));
     }
   }
+
+  
 }

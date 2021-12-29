@@ -14,4 +14,5 @@ abstract class AuthService {
   Future<Either<String, Failure>> verifyOtp(Map<String, dynamic> data);
   Future<Either<String, Failure>> resetPassword(Map<String, dynamic> data);
   Future<Either<UserProfile, Failure>> getProfile();
+
 }

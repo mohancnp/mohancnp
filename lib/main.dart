@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:metrocoffee/core/controller_binding.dart';
 import 'package:metrocoffee/ui/app_name.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+import 'core/config.dart';
 import 'core/locator.dart';
 import 'core/routing/routes.dart';
 import 'core/routing/routes_handler.dart';
 
 void mainCommon() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = AppConfig.publishableKey;
   await setupLocator();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -48,7 +51,6 @@ class MyApp extends StatelessWidget {
               borderRadius: BorderRadius.circular(16.r),
             ),
           ),
-          
           textTheme: TextTheme(
             headline1: TextStyle(
               fontSize: 42.sp,

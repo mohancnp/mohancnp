@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:metrocoffee/core/config.dart';
+import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
@@ -101,7 +102,7 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$ $price",
+                    " ${Currency.symbol} $price",
                     style: TextStyle(
                       color: coffeecolor,
                       fontSize: 20.sp,
