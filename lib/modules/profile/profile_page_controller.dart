@@ -9,14 +9,14 @@ import 'package:metrocoffee/util/debug_printer.dart';
 class ProfilePageController extends GetxController {
   var authService = locator<AuthService>();
   final Rx<UserProfile> _newUser = UserProfile(
-          id: 0,
-          securityKey: "",
-          firstName: "Caffeinator",
-          lastName: "",
-          email: "metro.admin@gmail.com",
-          mobile: "+010000000",
-          image: "image")
-      .obs;
+    id: 0,
+    securityKey: "",
+    firstName: "User",
+    lastName: "",
+    email: "metro.admin@gmail.com",
+    mobile: "+010000000",
+    image: "image",
+  ).obs;
 
   Future<void> getProfile() async {
     final response = await authService.getProfile();
@@ -28,9 +28,13 @@ class ProfilePageController extends GetxController {
         final accessToken =
             locator<TempStorage>().readString(TempStorageKeys.authToken);
         if (accessToken != null) {
-          Get.offAllNamed(PageName.loginpage);
+          if (failure.errorStatusCode != null) {
+            if (failure.errorStatusCode == 401) {
+              locator<TempStorage>().delete(TempStorageKeys.authToken);
+            }
+          }
         }
-        dPrint("${failure.tag}: ${failure.message}");
+        dPrint("${failure.errorStatusCode}: ${failure.message}");
       },
     );
   }
@@ -58,7 +62,7 @@ class ProfilePageController extends GetxController {
 
   Future logout() async {
     locator<TempStorage>().delete(TempStorageKeys.authToken);
-    await authService.logout();
+    // await authService.logout();
     Get.offAllNamed(PageName.loginpage);
   }
 

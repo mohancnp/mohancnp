@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:metrocoffee/core/config.dart';
@@ -113,8 +111,8 @@ class AuthServiceImpl extends AuthService {
   @override
   Future<void> logout() async {
     try {
-      var response = await _remoteSource.post("/api/auth/customer/logout");
-      dPrint(response);
+      await _remoteSource.post("/api/auth/customer/logout");
+      // dPrint(response);
     } on ServerException catch (e) {
       dPrint({e.message + e.code.toString()});
     } catch (error, stacktrace) {
@@ -181,7 +179,6 @@ class AuthServiceImpl extends AuthService {
 
   @override
   Future<Either<UserProfile, Failure>> getProfile() async {
-    // print('came in the getprofile method');
     try {
       var response = await _remoteSource.get("/api/auth/customer/profile");
       // print(response);
@@ -191,6 +188,7 @@ class AuthServiceImpl extends AuthService {
       return Right(
         Failure(
           tag: "Profile Retreival Error",
+          errorStatusCode: error.code,
           message: "${error.code} ${error.message}",
         ),
       );
@@ -199,5 +197,27 @@ class AuthServiceImpl extends AuthService {
     }
   }
 
-  
+  @override
+  Future<Either<String, Failure>> getSecretKey() async {
+    try {
+      var response =
+          await _remoteSource.get("/api/auth/customer/order/stripe-secret-key");
+      // print(response);
+      if (response.containsKey('data')) {
+        return Left(response['data']);
+      }
+      return Right(Failure(tag: "Secret Key", message: "Unexpected Response"));
+    } on ServerException catch (error) {
+      // print(error.message);
+      return Right(
+        Failure(
+          tag: "Secret Key Retrieval Error",
+          message: "${error.code} ${error.message}",
+        ),
+      );
+    } catch (error, stacktrace) {
+      dPrint(stacktrace);
+      return Right(Failure(tag: "Failure!!", message: "Generic Error"));
+    }
+  }
 }

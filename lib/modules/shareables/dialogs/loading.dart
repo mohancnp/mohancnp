@@ -22,9 +22,9 @@ class LoadingPage extends StatelessWidget {
             Container(
               width: screenwidth * 0.58,
               padding: EdgeInsets.symmetric(
-//          horizontal: 12.5,vertical:12.5
-                  horizontal: screenwidth * 0.03041,
-                  vertical: screenwidth * 0.03041),
+                horizontal: screenwidth * 0.03041,
+                vertical: screenwidth * 0.03041,
+              ),
               decoration: BoxDecoration(
                 color: Palette.pagebackgroundcolor,
                 borderRadius: const BorderRadius.all(Radius.circular(9)),

@@ -6,7 +6,6 @@ import 'package:sqflite/sqflite.dart';
 
 class DbStorage {
   late Database db;
-
   Future openDB() async {
     var path = await getDBPath();
     if (path != null) {

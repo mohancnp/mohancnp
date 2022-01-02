@@ -9,6 +9,4 @@ class OrderReceiptController extends GetxController {
     await cartService.clearCart();
     Get.offNamed(PageName.homepage);
   }
-
-  
 }

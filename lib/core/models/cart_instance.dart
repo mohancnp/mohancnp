@@ -16,7 +16,7 @@ class CartInstance {
   @JsonKey(name: ProductCartField.selectedVariants)
   Variant selectedVariants;
   @JsonKey(name: ProductCartField.selectedProductType)
-  ProductType selectedProductType;
+  ProductType? selectedProductType;
   @JsonKey(name: ProductCartField.toppingsList)
   List<Topping> toppingsList;
   List<Addon> addons;
@@ -29,7 +29,7 @@ class CartInstance {
     required this.name,
     required this.imageUri,
     required this.selectedVariants,
-    required this.selectedProductType,
+    this.selectedProductType,
     required this.toppingsList,
     required this.addons,
   });
@@ -37,5 +37,4 @@ class CartInstance {
       _$CartInstanceFromJson(json);
 
   Map<String, dynamic> toJson() => _$CartInstanceToJson(this);
-
 }

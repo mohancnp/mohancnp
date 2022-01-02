@@ -1,11 +1,14 @@
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
-import 'package:metrocoffee/core/models/older/order_model.dart';
+import 'package:metrocoffee/core/locator.dart';
+import 'package:metrocoffee/core/models/order_history.dart';
+import 'package:metrocoffee/core/services/checkout_service/checkout_service.dart';
+import 'package:metrocoffee/util/debug_printer.dart';
 
 class OrderHistoryController extends GetxController {
   DataState _dataState = DataState.na;
-  final RxList<dynamic> _orderHistoryList = <dynamic>[].obs;
-
+  List<OrderInstance> orderHistoryList = <OrderInstance>[];
+  final _checkoutService = locator<CheckoutService>();
   set dataState(d) {
     _dataState = d;
     update();
@@ -15,17 +18,25 @@ class OrderHistoryController extends GetxController {
     return _dataState;
   }
 
-  RxList<dynamic> get orderHistoryList {
-    return _orderHistoryList;
+  Future<void> getAllOrders() async {
+    final response = await _checkoutService.getOrderHistory();
+    response.fold(setOrderList, (r) {
+      dPrint(" error retreiving order list:${r.message}");
+      dataState = DataState.error;
+    });
   }
 
-  set updateOrderList(OrderHistory ohy) {
-    _orderHistoryList.add(ohy);
-    _orderHistoryList.refresh();
-  }
-
-  getAllOrders() async {
-    //TODO get all order data and giv to orderlist instance
+  void setOrderList(List<OrderInstance> odl) {
+    dPrint(odl);
     orderHistoryList.clear();
+    orderHistoryList = odl;
+    dataState = DataState.loaded;
+  }
+
+  @override
+  void onInit() {
+    dataState = DataState.loading;
+    getAllOrders();
+    super.onInit();
   }
 }

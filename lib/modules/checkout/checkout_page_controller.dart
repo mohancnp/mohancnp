@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:metrocoffee/core/models/checkout_order.dart';
 import 'package:metrocoffee/core/models/shipping_address.dart';
 import 'package:metrocoffee/core/models/user_profile.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
+import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
 import 'package:metrocoffee/core/services/checkout_service/checkout_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
@@ -22,8 +24,10 @@ import 'package:metrocoffee/util/time_diff_calculator.dart';
 class CheckoutPageController extends GetxController {
   Rx<String> selectedTimeFrame = "Enter Time".obs;
   TimeOfDay? userSelectedTimeOfDay;
+  String? formattedTimeStamp;
   final cartController = Get.find<CartController>();
   final _checkoutService = locator<CheckoutService>();
+  final _authService = locator<AuthService>();
   Rx<String> wrongTimeSelectionMessage = "".obs;
   UserOrderPreference userPreference = UserOrderPreference.pickup;
   RxBool addresssisLoading = false.obs;
@@ -31,13 +35,15 @@ class CheckoutPageController extends GetxController {
       TimeInterval(id: 1, minDeliveryTime: 30, minTakeawayTime: 15);
   RxList<ShippingAddress> shippingAddresses = <ShippingAddress>[].obs;
   final Rx<int> _selectedAddressIndex = 0.obs;
-
+  String? secretKey;
   var c = Get.find<RedirectionController>();
+
   Future<void> navigateToPaymentOrLogin() async {
     handleTimePickerResponse(selectedTime: userSelectedTimeOfDay);
     final connection = await InternetConnectionHelper.isConnectionReady();
+
     if (connection) {
-      if (c.userExists) {
+      if (secretKey != null) {
         if (selectedTimeFrame.contains("Enter Time")) {
           showErrorDialog(
             errorTitle: "Incomplete Request",
@@ -48,13 +54,16 @@ class CheckoutPageController extends GetxController {
           await handlePaymentTask();
         }
       } else {
-        c.fromPaymentPage = true;
-        Get.toNamed(PageName.loginpage);
+        showErrorDialog(
+          errorTitle: "Sorry!!!",
+          errorMessage:
+              "Couldn't proceed to payment, please contact the owner!!!",
+        );
       }
     } else {
       showErrorDialog(
-        errorTitle: "Internet Problem!!!",
-        errorMessage: "connect internet and try again",
+        errorTitle: "Connection Problem",
+        errorMessage: "Please connect and try again",
       );
     }
   }
@@ -81,13 +90,25 @@ class CheckoutPageController extends GetxController {
     } else if (userPreference == UserOrderPreference.pickup) {
       shippingAddresses.add(
         ShippingAddress(
-            lattitude: CompanyDetail.lat,
-            longitude: CompanyDetail.long,
-            title: CompanyDetail.address,
-            subtitle: CompanyDetail.subAddress),
+          lattitude: CompanyDetail.lat,
+          longitude: CompanyDetail.long,
+          title: CompanyDetail.address,
+          subtitle: CompanyDetail.subAddress,
+        ),
       );
       await initPaymentSheet();
     }
+  }
+
+  Future<void> getClientSecretKey() async {
+    final response = await _authService.getSecretKey();
+    response.fold(handleSecretKey, (r) => dPrint(r.tag + r.message));
+  }
+
+  void handleSecretKey(String base64Key) {
+    final bytesInLatin1Decoded = base64.decode(base64Key);
+    final decryptedKey = latin1.decode(bytesInLatin1Decoded);
+    secretKey = decryptedKey;
   }
 
   @override
@@ -99,28 +120,30 @@ class CheckoutPageController extends GetxController {
     _setTimeInterval();
     addresssisLoading.value = true;
     setShippingAddresses();
+    getClientSecretKey();
     super.onInit();
   }
 
   Future<void> initPaymentSheet() async {
     final user = Get.find<ProfilePageController>().newUser;
     final Map<String, dynamic> data = {
+      //amount in penny (smallest unit of pound sterling 1 pound=100 penny)
       "amount": (cartController.totalAmount.value.toPrecision(2) * 100).toInt(),
       "currency": "GBP",
       "payment_method_types[]": "card",
       "receipt_email": user.email,
     };
     // 1. create payment intent
-    final response = await _checkoutService.getPaymentInstance(data);
-    if (response.isLeft()) {
-      //remove the loading dialog
+    final response =
+        await _checkoutService.getPaymentInstance(data, secretKey: secretKey);
+    response.fold((l) {
       Get.back();
       response.leftMap((l) => handlePaymentIntent(l, user));
-    } else {
+    }, (r) {
+      Get.back();
       dPrint("Failure Making Payment");
-      showCustomSnackBarMessage(
-          title: "Error", message: "Error Initiating Payment");
-    }
+      showCustomSnackBarMessage(title: r.tag, message: r.message);
+    });
   }
 
   Future<void> handlePaymentIntent(
@@ -135,9 +158,10 @@ class CheckoutPageController extends GetxController {
         state: null,
         postalCode: null,
       ),
-    ); // mocked data for tests
+    );
 
     try {
+      showCustomDialog(message: "confirming order...");
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           // Main params
@@ -155,7 +179,7 @@ class CheckoutPageController extends GetxController {
           merchantCountryCode: 'GBP',
         ),
       );
-      await confirmPayment();
+      await confirmPayment(transId: response["id"]);
     } on StripeError catch (error) {
       dPrint(error.message);
       showCustomSnackBarMessage(
@@ -166,23 +190,68 @@ class CheckoutPageController extends GetxController {
     }
   }
 
-  Future<void> confirmPayment() async {
+  Future<void> processOrder({required String transactionId}) async {
+    shippingAddresses.add(
+      ShippingAddress(
+        lattitude: CompanyDetail.lat,
+        longitude: CompanyDetail.long,
+        title: CompanyDetail.address,
+        subtitle: CompanyDetail.subAddress,
+      ),
+    );
+
+    final _selectedAddress = shippingAddresses[selectedAddressIndex];
+    List<OrderItem> _orderItems = <OrderItem>[];
+    for (var item in cartController.cartProductList) {
+      final orderItem = OrderItem(
+        subTotalPrice: item.totalPrice,
+        productId: item.productId,
+        name: item.name,
+        qty: item.qty,
+        imageUri: item.imageUri,
+        productVariants: item.selectedVariants,
+        productType: item.selectedProductType,
+        toppingList: item.toppingsList,
+        addons: item.addons,
+      );
+      _orderItems.add(orderItem);
+    }
+    final _finalTotal = cartController.totalAmount.value;
+    final _finalCartCount = cartController.cartCount.value;
+    final _dataToSend = OrderData(
+      orderItems: _orderItems,
+      shippingAddress: _selectedAddress,
+      totalAmount: _finalTotal,
+      shipppingTime: formattedTimeStamp ?? "0000:00:00",
+      txnId: transactionId,
+      itemsCount: _finalCartCount,
+    ).toJson();
+    final response = await _checkoutService.processOrder(_dataToSend);
+    response.fold((result) {
+      dPrint(result);
+    }, (r) {
+      dPrint(r.tag + r.message);
+    });
+  }
+
+  Future<void> confirmPayment({required String transId}) async {
     try {
       // 3. display the payment sheet.
       await Stripe.instance.presentPaymentSheet();
+      //4. Now process the order0
+      await processOrder(transactionId: transId);
       Get.offAllNamed(PageName.orderReceiptPage);
-      // showCustomSnackBarMessage(
-      //     title: "Message", message: "Payment succesfully completed");
-
     } on StripeError catch (e) {
+      Get.back();
       showCustomSnackBarMessage(
         title: "Message",
         message: e.message,
       );
     } catch (error, stacktrace) {
+      Get.back();
       dPrint(stacktrace);
       showCustomSnackBarMessage(
-          title: "Couldn't Proceed", message: "Generic Payment Error:");
+          title: "Couldn't Proceed", message: "Generic Payment Error");
     }
   }
 
@@ -224,7 +293,8 @@ class CheckoutPageController extends GetxController {
     if (selectedTime != null) {
       double _timeDiff = getSelectedTimeDifference(
           time: selectedTime, currentTime: _currentTime);
-      double _minute = (_timeDiff - _timeDiff.truncate()) * 60;
+      int _minute = _timeDiff.truncate();
+      // print(_minute);
       if (_minute >= minTime) {
         selectedTimeFrame.value = "${selectedTime.hour}:${selectedTime.minute}";
         wrongTimeSelectionMessage.value = "";

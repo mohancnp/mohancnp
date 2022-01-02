@@ -12,6 +12,7 @@ InterceptorsWrapper getTokenInterceptor(Dio dio) {
     onRequest: (options, handler) {
       final token = secureStore.readString(TempStorageKeys.authToken);
       options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+      print(token);
       return handler.next(options);
     },
     onError: (DioError error, handler) async {

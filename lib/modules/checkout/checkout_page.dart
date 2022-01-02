@@ -6,7 +6,6 @@ import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:metrocoffee/core/models/shipping_address.dart';
-import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/auth/custom/widgets/error_display.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/checkout/widgets/single_order.dart';
@@ -25,8 +24,8 @@ import 'checkout_page_controller.dart';
 class CheckoutPage extends StatelessWidget {
   CheckoutPage({Key? key}) : super(key: key);
   final controller = Get.put(CheckoutPageController());
-  final cartConroller = Get.put(CartController());
   final mapController = Get.put(CustomGoogleMapController());
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +74,11 @@ class CheckoutPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListView.builder(
-                itemCount: cartConroller.cartProductList.length,
+                itemCount: cartController.cartProductList.length,
                 shrinkWrap: true,
                 primary: false,
                 itemBuilder: (context, index) {
-                  CartInstance cartModel = cartConroller.cartProductList[index];
+                  CartInstance cartModel = cartController.cartProductList[index];
                   return Padding(
                     padding: EdgeInsets.only(bottom: 10.h),
                     child: SingleOrder(
@@ -265,10 +264,11 @@ class CheckoutPage extends StatelessWidget {
                       controller.handleTimePickerResponse(
                           selectedTime: userSelectedTime);
                       controller.userSelectedTimeOfDay = userSelectedTime;
+                      controller.formattedTimeStamp =
+                          userSelectedTime?.format(context);
                     },
                     child: Container(
                       height: 64.h,
-                      // padding: EdgeInsets.symmetric(horizontal: 22.w),
                       margin: EdgeInsets.symmetric(
                         horizontal: 28.w,
                       ),
@@ -338,9 +338,6 @@ class CheckoutPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // SizedBox(
-              //   height: 62.h,
-              // )
             ],
           ),
         ),

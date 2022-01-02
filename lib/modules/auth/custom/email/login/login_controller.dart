@@ -67,11 +67,10 @@ class LoginController extends GetxController {
       _tempStorage.writeString(TempStorageKeys.authToken, signup.accessToken);
       Get.back();
       redirectionController.userExists = true;
-      if (redirectionController.fromPaymentPage) {
+      if (redirectionController.fromCheckoutPage) {
         BaseController.to
             .updateUserVerificationStatus(UserVerficationStatus.verified);
-        Get.offNamedUntil(
-            PageName.checkoutpage, ModalRoute.withName(PageName.checkoutpage));
+        Get.offAllNamed(PageName.homepage);
       } else {
         Get.offAllNamed(PageName.homepage);
       }

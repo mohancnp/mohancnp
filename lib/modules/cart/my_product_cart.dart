@@ -9,6 +9,7 @@ import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/cart/widgets/product_card.dart';
+import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/modules/shareables/userpreference.dart';
 import 'package:metrocoffee/modules/shareables/widgets/finalpricecalculationcard.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
@@ -22,7 +23,6 @@ class MyProductCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<CartController>(
       init: CartController(),
       initState: (v) {
@@ -41,52 +41,48 @@ class MyProductCart extends StatelessWidget {
                       width: 320.w,
                       height: 48.h,
                       onPressed: () {
-                        showDialog(
+                        final redirection = Get.find<RedirectionController>();
+                        if (redirection.userExists) {
+                          showDialog(
                             context: context,
                             builder: (_) {
                               return ClipRRect(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8.r)),
                                 child: SimpleDialog(
-                                    contentPadding: const EdgeInsets.all(0),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(18.r),
-                                      ),
+                                  contentPadding: const EdgeInsets.all(0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(18.r),
                                     ),
-                                    children: [
-                                      UserPreference(
-                                        question:
-                                            "How would you like to\nhave your order?",
-                                        onPressedFirst: () {
-                                          Get.back();
-                                          Get.toNamed(
-                                            PageName.checkoutpage,
-                                            arguments:
-                                                UserOrderPreference.pickup,
-                                          );
-                                        },
-                                        firstText: "COLLECTIONS",
-                                        onPressedSecond: () {
-                                          Get.back();
-                                          Get.toNamed(
-                                            PageName.checkoutpage,
-                                            arguments:
-                                                UserOrderPreference.delivery,
-                                          );
-                                        },
-                                        secondText: "DELIVERY",
-                                      ),
-                                    ]),
+                                  ),
+                                  children: [
+                                    UserPreference(
+                                      question:
+                                          "How would you like to\nhave your order?",
+                                      onPressedFirst:
+                                          controller.handleOrderPickUp,
+                                      firstText: "COLLECTIONS",
+                                      onPressedSecond:
+                                          controller.handleOrderDelivery,
+                                      secondText: "DELIVERY",
+                                    ),
+                                  ],
+                                ),
                               );
-                            });
+                            },
+                          );
+                        } else {
+                          redirection.fromCheckoutPage = true;
+                          Get.toNamed(PageName.loginpage);
+                        }
                       },
                     )
                   : const SizedBox();
             },
           ),
           appBar: AppBar(
-            backgroundColor: const Color(0xFFF3F5F5),
+            backgroundColor: Palette.pagebackgroundcolor,
             elevation: 0,
             centerTitle: true,
             leading: GestureDetector(
@@ -107,9 +103,10 @@ class MyProductCart extends StatelessWidget {
             title: Text(
               "MY CART",
               style: TextStyle(
-                  fontFamily: CustomFont.poppinsMedium,
-                  color: const Color(0xff404D4D),
-                  fontSize: screenwidth * 0.0389),
+                fontFamily: CustomFont.poppinsMedium,
+                color: Palette.darkGery,
+                fontSize: 14.sp,
+              ),
             ),
           ),
           body: controller.cartProductList.isEmpty
@@ -143,7 +140,6 @@ class MyProductCart extends StatelessWidget {
                                     " ${controller.cartCount.value} items",
                                     style: const TextStyle(
                                       color: Color(0xCF344141),
-                                       
                                     ),
                                   );
                                 }),

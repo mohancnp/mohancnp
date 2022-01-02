@@ -5,11 +5,10 @@ enum UserVerficationStatus { verified, unverified, unknown }
 
 class BaseController extends GetxController {
   static BaseController get to => Get.find();
-
   int _currentindex = 0;
   UserVerficationStatus _userVerficationStatus =
       UserVerficationStatus.unverified;
-    final _redirectionController = Get.find<RedirectionController>();
+  final _redirectionController = Get.find<RedirectionController>();
 
   UserVerficationStatus get userVerificationStatus => _userVerficationStatus;
 

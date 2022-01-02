@@ -148,7 +148,6 @@ class CustomGoogleMapController extends GetxController {
     updateMarker(marker);
   }
 
-
   Future<void> addOrUpdateLocation({int? idToUpdate, int? index}) async {
     showCustomDialog(message: "updating address detail");
     final marker = markers[const MarkerId(Google.markerId)];
@@ -201,9 +200,11 @@ class CustomGoogleMapController extends GetxController {
       }, (failure) => dPrint("failure retreiving data"));
     }
     _checkoutPageController.shippingAddresses.refresh();
-    Get.back();
+    removeDialog();
     Get.back();
   }
+
+  void removeDialog() => Get.back();
 
   Set<Circle> getCircles() {
     final circleSet = <Circle>{};

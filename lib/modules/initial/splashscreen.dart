@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
-import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/modules/public/redirection_controller.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
@@ -45,7 +44,9 @@ class _SplashScreenState extends State<SplashScreen>
             (value) {
               firsTimeUser =
                   tempStorage.readBool(TempStorageKeys.firstTimeUser);
+
               authToken = tempStorage.readString(TempStorageKeys.authToken);
+
               if (firsTimeUser != null) {
                 if (authToken != null) {
                   Get.find<RedirectionController>().userExists = true;
@@ -192,6 +193,7 @@ class _SplashScreenState extends State<SplashScreen>
     if (_loginstat < 0) {
       Get.offNamed(PageName.nointernetpage);
     } else {
+      /*2 for first time user 1 for non-logged in user or else logged in user*/
       Get.offAllNamed(
         _loginstat == 1
             ? PageName.homepage

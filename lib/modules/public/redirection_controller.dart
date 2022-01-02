@@ -2,11 +2,11 @@ import 'package:get/get.dart';
 
 class UserExistence {
   bool exits;
-  bool fromPaymentPage;
+  bool fromCheckoutPage;
   bool editFromProfile;
   UserExistence(
       {required this.exits,
-      required this.fromPaymentPage,
+      required this.fromCheckoutPage,
       required this.editFromProfile});
 }
 
@@ -14,7 +14,7 @@ class RedirectionController extends GetxController {
   static RedirectionController get to => Get.find();
 
   final Rx<UserExistence> _userExists = UserExistence(
-          exits: false, fromPaymentPage: false, editFromProfile: false)
+          exits: false, fromCheckoutPage: false, editFromProfile: false)
       .obs;
 
   set userExists(bool status) {
@@ -25,19 +25,19 @@ class RedirectionController extends GetxController {
     return _userExists.value.exits;
   }
 
-  set fromPaymentPage(bool from) {
-    _userExists.value.fromPaymentPage = from;
+  set fromCheckoutPage(bool from) {
+    _userExists.value.fromCheckoutPage = from;
   }
 
-  bool get fromPaymentPage {
-    return _userExists.value.fromPaymentPage;
+  bool get fromCheckoutPage {
+    return _userExists.value.fromCheckoutPage;
   }
 
   set editFromProfile(bool from) {
-    _userExists.value.fromPaymentPage = from;
+    _userExists.value.fromCheckoutPage = from;
   }
 
   bool get editFromProfile {
-    return _userExists.value.fromPaymentPage;
+    return _userExists.value.fromCheckoutPage;
   }
 }

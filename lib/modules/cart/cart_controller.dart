@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/enums/user_order_preference.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 
 class CartController extends GetxController {
@@ -18,11 +20,31 @@ class CartController extends GetxController {
 
   Future removeItemFromCart(int id, int atIndex) async {
     var response = await cartService.removeProductWithId(id);
-    response.fold((l) {
-      cartProductList.removeAt(atIndex);
-      cartCount.value -= 1;
-      update();
-    }, (r) {});
+    response.fold(
+      (l) {
+        cartProductList.removeAt(atIndex);
+        cartCount.value -= 1;
+        update();
+      },
+      (r) {},
+    );
+  }
+
+  void handleOrderPickUp() {
+    //gettting the dialog back
+    Get.back();
+    Get.toNamed(
+      PageName.checkoutpage,
+      arguments: UserOrderPreference.pickup,
+    );
+  }
+
+  void handleOrderDelivery() {
+    Get.back();
+    Get.toNamed(
+      PageName.checkoutpage,
+      arguments: UserOrderPreference.delivery,
+    );
   }
 
   Future increaseItemQty(CartInstance cartInstance, atIndex) async {

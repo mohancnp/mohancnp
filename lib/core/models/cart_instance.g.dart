@@ -15,8 +15,10 @@ CartInstance _$CartInstanceFromJson(Map<String, dynamic> json) {
     imageUri: json['image_uri'] as String,
     selectedVariants:
         Variant.fromJson(json['selected_variants'] as Map<String, dynamic>),
-    selectedProductType: ProductType.fromJson(
-        json['selected_product_type'] as Map<String, dynamic>),
+    selectedProductType: json['selected_product_type'] == null
+        ? null
+        : ProductType.fromJson(
+            json['selected_product_type'] as Map<String, dynamic>),
     toppingsList: (json['toppings_list'] as List<dynamic>)
         .map((e) => Topping.fromJson(e as Map<String, dynamic>))
         .toList(),

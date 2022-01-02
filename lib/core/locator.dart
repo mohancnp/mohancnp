@@ -4,8 +4,6 @@ import 'package:metrocoffee/core/services/checkout_service/checkout_service.dart
 import 'package:metrocoffee/core/services/checkout_service/checkout_service_impl.dart';
 import 'package:metrocoffee/core/services/older/notification_service/notification_service.dart';
 import 'package:metrocoffee/core/services/older/notification_service/notification_service_impl.dart';
-import 'package:metrocoffee/core/services/older/order_service/order_service.dart';
-import 'package:metrocoffee/core/services/older/order_service/order_service_impl.dart';
 import 'package:metrocoffee/core/services/product_service/product_service_impl.dart';
 import 'package:metrocoffee/core/services/older/profile_service/profile_service.dart';
 import 'package:metrocoffee/core/services/storage/db/core.dart';
@@ -16,6 +14,8 @@ import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
 import 'services/auth_service/auth_service.dart';
 import 'services/auth_service/auth_service_impl.dart';
 import 'services/cart_service/cart_service_impl.dart';
+import 'services/older/order_service/order_service.dart';
+import 'services/older/order_service/order_service_impl.dart';
 import 'services/older/profile_service/profile_service_impl.dart';
 import 'sources/remote_source.dart';
 
@@ -53,6 +53,5 @@ Future<void> setupLocator() async {
     locator.registerLazySingleton<CartService>(() => CartServiceImpl());
     locator.registerLazySingleton<UserTableHandler>(() => UserTableHandler());
   });
-
   await locator.allReady();
 }

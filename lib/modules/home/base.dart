@@ -12,7 +12,6 @@ import 'package:metrocoffee/modules/profile/profile_page.dart';
 import 'package:metrocoffee/modules/public/redirection_page.dart';
 import 'package:metrocoffee/modules/shareables/dialogs/loading.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-
 import 'home_controller.dart';
 import 'widgets/categories_controller.dart';
 
@@ -21,7 +20,7 @@ class Base extends StatelessWidget {
   final baseController = Get.put(BaseController());
   final controllerCategories = Get.put(CategoriesController());
   final controllerHome = Get.put(HomeController());
-  final controllerSearh = Get.put(SearchPageController());
+  final controllerSearch = Get.put(SearchPageController());
   final cartController = Get.put(CartController());
 
   List privatePages = [
@@ -53,9 +52,10 @@ class Base extends StatelessWidget {
                   decoration: const BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                          offset: Offset(0, -6),
-                          color: Color(0x0D000000),
-                          blurRadius: 25)
+                        offset: Offset(0, -6),
+                        color: Color(0x0D000000),
+                        blurRadius: 25,
+                      )
                     ],
                     color: Colors.white70,
                     borderRadius: BorderRadius.only(

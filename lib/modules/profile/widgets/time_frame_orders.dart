@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:metrocoffee/core/models/older/order_model.dart';
-import 'package:metrocoffee/core/routing/routes.dart';
+import 'package:metrocoffee/core/models/order_history.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TimeFrameOrders extends StatelessWidget {
   final int? index;
-  final OrderHistory orderData;
+  final OrderInstance orderData;
   final bool? reorder;
   const TimeFrameOrders(
       {Key? key, @required this.index, this.reorder, required this.orderData})
@@ -15,24 +14,22 @@ class TimeFrameOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
     return InkWell(
-      onTap: () {
-        Get.toNamed(PageName.orderdetailspage, arguments: orderData.id);
-      },
+      onTap: null,
       child: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: screenwidth * 0.0194, vertical: screenwidth * 0.0145),
-        margin: EdgeInsets.only(bottom: screenwidth * 0.0486),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+        margin: EdgeInsets.only(bottom: 16.w),
         decoration: BoxDecoration(
-            color: const Color(0xffFBFBFB),
-            borderRadius: const BorderRadius.all(Radius.circular(9)),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  offset: const Offset(0, 3),
-                  blurRadius: 10)
-            ]),
+          color: const Color(0xffFBFBFB),
+          borderRadius: BorderRadius.all(Radius.circular(8.r)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              offset: Offset(0, 4.r),
+              blurRadius: 12.r,
+            )
+          ],
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,110 +38,90 @@ class TimeFrameOrders extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  height: screenwidth * 0.2433,
-                  width: screenwidth * 0.2433,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(9)),
+                  height: 90.w,
+                  width: 90.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8.r)),
                   ),
                   child: Image.asset(
                     "assets/images/metro_coffee_logo.png",
                     fit: BoxFit.cover,
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: screenwidth * 0.0437),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${orderData.orderProductsCount} items",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xff404D4D),
-                           
-                          fontSize: screenwidth * 0.03527,
-                        ),
+                SizedBox(width: 16.w),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${orderData.itemsCount} items",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Palette.darkGery,
+                        fontSize: 12.sp,
                       ),
-                      Text(
-                        "Date: ${DateTime.parse(orderData.createdAt!.substring(0, 16).toString()).toString().substring(0, 16)}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: const Color(0xff404D4D),
-                           
-                          fontSize: screenwidth * 0.0279,
-                        ),
+                    ),
+                    Text(
+                      "Date: ${orderData.requestAt}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Palette.darkGery,
+                        fontSize: 10.sp,
                       ),
-                      Text(
-                        "Order ID: #${orderData.id}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: const Color(0xff404D4D),
-                           
-                          fontSize: screenwidth * 0.0279,
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    Text(
+                      "Order ID: #${orderData.id}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Palette.darkGery,
+                        fontSize: 10.sp,
+                      ),
+                    )
+                  ],
                 )
               ],
             ),
+            SizedBox(width: 8.w),
+            Container(
+              height: 32.h,
+              width: 2.w,
+              decoration: const BoxDecoration(
+                color: Color(0xffA5A5A5),
+              ),
+            ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: screenwidth * 0.0754,
-                      width: 2,
-                      decoration: const BoxDecoration(
-                        color: Color(0xffA5A5A5),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: screenwidth * 0.0218,
-                          right: screenwidth * 0.0389),
-                      child: Text(
-                        "\$ ${orderData.cost}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xff550E1C),
-                           
-                          fontSize: screenwidth * 0.0389,
-                        ),
-                      ),
-                    ),
-                    Icon(
-                      CupertinoIcons.forward,
-                      size: screenwidth * 0.0486,
-                      color: const Color(0xff404D4D),
-                    )
-                  ],
+                Text(
+                  "\$ ${orderData.totalAmount}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff550E1C),
+                    fontSize: 16.sp,
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.greenAccent),
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(4.r),
                   ),
-                  margin: const EdgeInsets.only(top: 16),
-                  padding: const EdgeInsets.all(4),
+                  margin: EdgeInsets.only(top: 8.h),
+                  padding: EdgeInsets.all(4.r),
                   child: Row(
                     children: [
                       Icon(
                         Icons.cancel_rounded,
                         color: Palette.coffeeColor,
-                        size: 12,
+                        size: 12.r,
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 4),
-                        child: const Text(
+                      Padding(
+                        padding: EdgeInsets.only(left: 4.w),
+                        child: Text(
                           "Pending",
                           style: TextStyle(
                             fontWeight: FontWeight.w300,
                             color: Colors.red,
-                            fontSize: 12,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ),
@@ -152,6 +129,11 @@ class TimeFrameOrders extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            Icon(
+              CupertinoIcons.forward,
+              size: 16.w,
+              color: Palette.darkGery,
             )
           ],
         ),

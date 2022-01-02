@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
-import 'package:metrocoffee/modules/payment/order_receipt_controller.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
+import 'order_receipt_controller.dart';
 import 'widgets/order_item_detail.dart';
 import 'widgets/order_receipt_banner.dart';
 

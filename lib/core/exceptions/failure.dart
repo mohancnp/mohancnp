@@ -1,5 +1,6 @@
 class Failure {
   String message;
   String tag;
-  Failure({required this.tag, required this.message});
+  int? errorStatusCode;
+  Failure({required this.tag, required this.message,this.errorStatusCode});
 }

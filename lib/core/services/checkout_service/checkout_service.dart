@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/models/checkout_order.dart';
+import 'package:metrocoffee/core/models/order_history.dart';
 import 'package:metrocoffee/core/models/shipping_address.dart';
 
 abstract class CheckoutService {
@@ -12,5 +13,10 @@ abstract class CheckoutService {
 
   Future<Either<String, Failure>> deleteAddressWithId({required int id});
   Future<Either<Map<String, dynamic>, Failure>> getPaymentInstance(
-      Map<String, dynamic> data);
+      Map<String, dynamic> data,
+      {String? secretKey});
+  Future<Either<String, Failure>> processOrder(Map<String, dynamic> data);
+  Future<Either<List<OrderInstance>, Failure>> getOrderHistory();
+  Future<Either<List<OrderInstance>, Failure>> getOrderDetailWithId(
+      {required int orderId});
 }

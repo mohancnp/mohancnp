@@ -5,16 +5,16 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/models/older/order_model.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/profile/contents/order_history_controller.dart';
 import 'package:metrocoffee/modules/profile/widgets/time_frame_orders.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
-
 import '../../../core/theme.dart';
 
 class MyOrderPage extends StatelessWidget {
-   MyOrderPage({Key? key}) : super(key: key);
+  MyOrderPage({Key? key}) : super(key: key);
   final controller = Get.put(OrderHistoryController());
 
   @override
@@ -22,10 +22,6 @@ class MyOrderPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Palette.pagebackgroundcolor,
       body: GetBuilder<OrderHistoryController>(
-        init: OrderHistoryController(),
-        initState: (v) {
-          Get.find<OrderHistoryController>().getAllOrders();
-        },
         builder: (controller) {
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -41,7 +37,6 @@ class MyOrderPage extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         color: darkgrey,
-                         
                         fontSize: 16.sp,
                       ),
                     ),
@@ -71,70 +66,57 @@ class MyOrderPage extends StatelessWidget {
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SpinKitCubeGrid(
+                              SpinKitSpinningCircle(
                                 color: Palette.coffeeColor,
                               ),
                             ],
                           )
                         : (controller.dataState == DataState.error)
-                            ? const SizedBox(
-                                child: Center(
-                                  child: Text('Error retrieving your order'),
+                            ? Container(
+                                width: 375.w,
+                                height: 500.h,
+                                alignment: Alignment.center,
+                                child: UtilityInfoWidget(
+                                  title: " Your Order Couldn't be retreived",
+                                  content:
+                                      "Please log back in, and try again!!",
+                                  onPressed: () =>
+                                      Get.toNamed(PageName.loginpage),
+                                  svgImageUri: UtilityIcons.noResults,
+                                  buttonText: "Login",
                                 ),
                               )
-                            : GetX<OrderHistoryController>(
-                                builder: (controller) {
-                                  var myOrderList = controller.orderHistoryList;
-                                  if (myOrderList.length < 3) {
-                                    return Container(
-                                      width: 375.w,
-                                      height: 500.h,
-                                      alignment: Alignment.center,
-                                      child: UtilityInfoWidget(
-                                          title: "No Order History",
-                                          content:
-                                              "Looks Like you have no history",
-                                          onPressed: () {
-                                            Get.find<BaseController>()
-                                                .setindex(0);
-                                          },
-                                          svgImageUri: UtilityIcons.noDocuments,
-                                          buttonText: "Start Browsing"),
-                                    );
-                                  }
-
-                                  return ListView.builder(
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemCount: myOrderList.length,
+                            : controller.orderHistoryList.isEmpty
+                                ? Container(
+                                    width: 375.w,
+                                    height: 500.h,
+                                    alignment: Alignment.center,
+                                    child: UtilityInfoWidget(
+                                      title: "No Order History",
+                                      content: "Looks Like you have no history",
+                                      onPressed: () {
+                                        Get.find<BaseController>().setindex(0);
+                                      },
+                                      svgImageUri: UtilityIcons.noDocuments,
+                                      buttonText: "Start Browsing",
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount:
+                                        controller.orderHistoryList.length,
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      var newData = myOrderList[index];
-                                      if (newData == 0) {
-                                        return const Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 8.0, bottom: 8.0),
-                                          child: Text("Today"),
-                                        );
-                                      }
-                                      if (newData == 1) {
-                                        return const Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 8.0, bottom: 8.0),
-                                          child: Text("This Month"),
-                                        );
-                                      }
-                                      if (newData is OrderHistory) {
-                                        return TimeFrameOrders(
-                                          index: index,
-                                          orderData: newData,
-                                        );
-                                      }
-                                      return const SizedBox();
+                                      var newData =
+                                          controller.orderHistoryList[index];
+                                      return TimeFrameOrders(
+                                        index: index,
+                                        orderData: newData,
+                                      );
                                     },
-                                  );
-                                },
-                              ),
+                                  ),
                   )
                 ],
               ),

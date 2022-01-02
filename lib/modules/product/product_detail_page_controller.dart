@@ -9,6 +9,7 @@ import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
+import 'package:metrocoffee/util/debug_printer.dart';
 
 class ProductDetailPageController extends GetxController
     with StateMixin<ProductDetail> {
@@ -16,8 +17,7 @@ class ProductDetailPageController extends GetxController
   final _productService = locator.get<ProductService>();
   var cartService = locator.get<CartService>();
   late Variant selectedVariant;
-  late ProductType selectedproductType =
-      ProductType(id: -1, name: "None", price: 0.0);
+  ProductType? selectedproductType;
   late List<Topping> selectedToppingsObject = <Topping>[];
   late List<Addon> selectedAddons = <Addon>[];
 
@@ -217,11 +217,9 @@ class ProductDetailPageController extends GetxController
       addons: selectedAddons,
       imageUri: productDetail.product.image,
     );
-    print(newInstance.toppingsList);
-    print(newInstance.addons);
-
+    // dPrint(newInstance.toppingsList);
+    // dPrint(newInstance.addons);
     var response = await cartService.addProductToCart(newInstance.toJson());
-
     response.fold(
         (l) => handleCartProductSucess(l), (r) => handleCartProductFailure(r));
 

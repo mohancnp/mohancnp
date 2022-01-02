@@ -8,7 +8,6 @@ import 'package:metrocoffee/core/models/new_user.dart';
 import 'package:metrocoffee/core/models/product.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/home/widgets/categories_controller.dart';
-import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
 import 'package:metrocoffee/util/internet.dart';
 
 class HomeController extends GetxController with StateMixin<CategoryProduct> {
@@ -42,7 +41,6 @@ class HomeController extends GetxController with StateMixin<CategoryProduct> {
     return ready;
   }
 
-  void getRightList() {}
 
   @override
   void onInit() {

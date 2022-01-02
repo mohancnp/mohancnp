@@ -19,7 +19,7 @@ class RemoteSourceImpl implements RemoteSource {
       {Map<String, dynamic>? queryParams}) async {
     try {
       final response = await _dio.get(url, queryParameters: queryParams);
-      if (response.data is Map<String, dynamic>) {
+      if (response.statusCode == 200 && response.data is Map<String, dynamic>) {
         return response.data as Map<String, dynamic>;
       }
       return {'data': response.data};
@@ -41,17 +41,15 @@ class RemoteSourceImpl implements RemoteSource {
         data: body,
       );
 
-      if (response.data is Map<String, dynamic>) {
-        if (response.statusCode != null) {
-          var data =
-              (response.statusCode == 400) || (response.statusCode == 422)
-                  ? {'error': response.data}
-                  : response.data as Map<String, dynamic>;
-
-          return data;
+      if (response.statusCode != null) {
+        if (response.statusCode == 200) {
+          if (response.data is Map<String, dynamic>) {
+            return response.data;
+          }
+          return {"data": response.data};
         }
       }
-      return {'data': response.data};
+      return {"error": "error occured"};
     } on DioError catch (e) {
       throw getServerException(e);
     }
