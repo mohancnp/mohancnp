@@ -5,14 +5,16 @@ import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/util/debug_printer.dart';
 import '../locator.dart';
 
-InterceptorsWrapper getTokenInterceptor(Dio dio) {
+InterceptorsWrapper getTokenInterceptorWithHeader(Dio dio) {
   final secureStore = locator<TempStorage>();
 
   return InterceptorsWrapper(
     onRequest: (options, handler) {
       final token = secureStore.readString(TempStorageKeys.authToken);
       options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
-      print(token);
+      options.headers[HttpHeaders.contentTypeHeader] = 'application/json';
+      options.headers[HttpHeaders.acceptHeader] = 'application/json';
+      // print('Token: $token');
       return handler.next(options);
     },
     onError: (DioError error, handler) async {
@@ -43,14 +45,14 @@ InterceptorsWrapper getTokenInterceptor(Dio dio) {
 
 final loggingInterceptor = InterceptorsWrapper(
   onRequest: (options, handler) {
-    // dPrint('APIRequest: ${options.method} ${options.uri}');
-    // dPrint(options.headers);
-    // dPrint(options.data);
+    dPrint('APIRequest: ${options.method} ${options.uri}');
+    dPrint(options.headers);
+    dPrint(options.data);
     handler.next(options);
   },
   onResponse: (response, handler) {
-    // dPrint('APIRequest: ${response.statusCode}');
-    // dPrint('API Request: ${response.data}');
+    dPrint('APIRequest: ${response.statusCode}');
+    dPrint('API Request: ${response.data}');
     handler.next(response);
   },
   onError: (error, handler) {

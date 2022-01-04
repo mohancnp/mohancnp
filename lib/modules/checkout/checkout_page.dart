@@ -78,7 +78,8 @@ class CheckoutPage extends StatelessWidget {
                 shrinkWrap: true,
                 primary: false,
                 itemBuilder: (context, index) {
-                  CartInstance cartModel = cartController.cartProductList[index];
+                  CartInstance cartModel =
+                      cartController.cartProductList[index];
                   return Padding(
                     padding: EdgeInsets.only(bottom: 10.h),
                     child: SingleOrder(
@@ -242,7 +243,7 @@ class CheckoutPage extends StatelessWidget {
                     onTap: () async {
                       final _currentTime = TimeOfDay.now();
                       final userSelectedTime = await showCustomTimePicker(
-                        context: context,
+                        context: context,                        
                         builder: (context, child) {
                           return MediaQuery(
                             data: MediaQuery.of(context)
@@ -325,7 +326,9 @@ class CheckoutPage extends StatelessWidget {
                     : const SizedBox(),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 24.h),
+                padding: EdgeInsets.symmetric(
+                  vertical: 16.h,
+                ),
                 child: Center(
                   child: Text(
                     "View Full Allergy statement",

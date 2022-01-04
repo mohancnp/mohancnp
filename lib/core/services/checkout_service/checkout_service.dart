@@ -15,7 +15,7 @@ abstract class CheckoutService {
   Future<Either<Map<String, dynamic>, Failure>> getPaymentInstance(
       Map<String, dynamic> data,
       {String? secretKey});
-  Future<Either<String, Failure>> processOrder(Map<String, dynamic> data);
+  Future<Either<OrderInstance, Failure>> processOrder(Map<String, dynamic> data);
   Future<Either<List<OrderInstance>, Failure>> getOrderHistory();
   Future<Either<List<OrderInstance>, Failure>> getOrderDetailWithId(
       {required int orderId});

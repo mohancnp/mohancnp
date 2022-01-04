@@ -56,7 +56,7 @@ class ProductCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.r),
               child: Material(
                 child: Image.network(
-                  "${AppConfig.baseUrl}/$imageUri",
+                  "${AppConfig.webBaseUrl}/$imageUri",
                   height: 116.w,
                   width: 116.w,
                   fit: BoxFit.cover,

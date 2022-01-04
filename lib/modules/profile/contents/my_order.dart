@@ -22,6 +22,10 @@ class MyOrderPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Palette.pagebackgroundcolor,
       body: GetBuilder<OrderHistoryController>(
+        initState: (v) {
+          controller.dataState = DataState.loading;
+          controller.getAllOrders();
+        },
         builder: (controller) {
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -53,7 +57,7 @@ class MyOrderPage extends StatelessWidget {
                     width: 375.w,
                     height: 1,
                     decoration: BoxDecoration(
-                      color: const Color(0xffA5A5A5).withOpacity(0.4),
+                      color: Palette.pagebackgroundcolor.withOpacity(0.4),
                     ),
                   ),
                   Container(
@@ -71,7 +75,7 @@ class MyOrderPage extends StatelessWidget {
                               ),
                             ],
                           )
-                        : (controller.dataState == DataState.error)
+                        : (controller.dataState == DataState.authError)
                             ? Container(
                                 width: 375.w,
                                 height: 500.h,
@@ -86,37 +90,61 @@ class MyOrderPage extends StatelessWidget {
                                   buttonText: "Login",
                                 ),
                               )
-                            : controller.orderHistoryList.isEmpty
+                            : (controller.dataState == DataState.error)
                                 ? Container(
                                     width: 375.w,
                                     height: 500.h,
                                     alignment: Alignment.center,
                                     child: UtilityInfoWidget(
-                                      title: "No Order History",
-                                      content: "Looks Like you have no history",
+                                      title: "Error Occured",
+                                      content:
+                                          "We couldn't retreive your order, please retry later.",
                                       onPressed: () {
                                         Get.find<BaseController>().setindex(0);
                                       },
                                       svgImageUri: UtilityIcons.noDocuments,
-                                      buttonText: "Start Browsing",
+                                      buttonText: "Browse Products",
                                     ),
                                   )
-                                : ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount:
-                                        controller.orderHistoryList.length,
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      var newData =
-                                          controller.orderHistoryList[index];
-                                      return TimeFrameOrders(
-                                        index: index,
-                                        orderData: newData,
-                                      );
-                                    },
-                                  ),
+                                : controller.orderHistoryList.isEmpty
+                                    ? Container(
+                                        width: 375.w,
+                                        height: 500.h,
+                                        alignment: Alignment.center,
+                                        child: UtilityInfoWidget(
+                                          title: "No Order History",
+                                          content:
+                                              "Looks Like you have no history",
+                                          onPressed: () {
+                                            Get.find<BaseController>()
+                                                .setindex(0);
+                                          },
+                                          svgImageUri: UtilityIcons.noDocuments,
+                                          buttonText: "Start Browsing",
+                                        ),
+                                      )
+                                    : ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount:
+                                            controller.orderHistoryList.length,
+                                        scrollDirection: Axis.vertical,
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          final newData = controller
+                                              .orderHistoryList[index];
+                                          final orderStatus =
+                                              controller.getStatusStringForId(
+                                                  newData.status);
+                                          return TimeFrameOrders(
+                                            index: index,
+                                            orderData: newData,
+                                            orderStatus: orderStatus,
+                                            onPressed: () => controller
+                                                .goToOrderDetail(newData.id),
+                                          );
+                                        },
+                                      ),
                   )
                 ],
               ),

@@ -57,7 +57,6 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                           color: Palette.textColor,
                           fontSize: 26.sp,
                           fontWeight: FontWeight.w500,
-                           
                         ),
                       ),
                 controller.totalPrice.value == 0.0
@@ -86,7 +85,6 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                               color: Colors.white,
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w300,
-                               
                             ),
                           ),
                         ),
@@ -116,7 +114,7 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                             bottomRight: Radius.circular(8.w),
                           ),
                           child: Image.network(
-                            "${AppConfig.baseUrl}/${pd.product.image}",
+                            "${AppConfig.webBaseUrl}/${pd.product.image}",
                             fit: BoxFit.cover,
                             width: 375.w,
                             loadingBuilder: (context, widget, imageProgress) {
@@ -278,7 +276,6 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16.sp,
-                                 
                                 color: const Color(0xFF414141),
                               ),
                             ),
@@ -300,7 +297,6 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     color: darkgrey,
-                                     
                                     fontSize: 14.sp,
                                   ),
                                 ),
@@ -361,7 +357,6 @@ class ProductDescriptionWidget extends StatelessWidget {
                     style: TextStyle(
                       color: const Color(0xE5FFFFFF),
                       fontSize: 20.sp,
-                       
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -400,7 +395,6 @@ class ProductDescriptionWidget extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12.sp,
                         color: const Color(0xE5FFFFFF),
-                         
                       ),
                       maxLines: 3,
                     ),

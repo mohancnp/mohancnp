@@ -5,6 +5,7 @@ import 'server_exceptions.dart';
 ServerException getServerException(DioError e) {
   switch (e.type) {
     case DioErrorType.response:
+      // print("response status code: ${e.response!.statusCode!}");
       final responseMsg = e.response!.data ?? AppMessage.somethingWentWrong;
       return ServerException(
         code: e.response!.statusCode!,

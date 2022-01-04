@@ -63,9 +63,10 @@ class LoginController extends GetxController {
   }
 
   Future<void> handleLoginResponse(Either<SignupResponse, Failure> data) async {
-    data.fold((signup) {
+    data.fold((signup) async {
       _tempStorage.writeString(TempStorageKeys.authToken, signup.accessToken);
-      Get.back();
+      await Get.find<ProfilePageController>().getProfile();
+      removeDialog();
       redirectionController.userExists = true;
       if (redirectionController.fromCheckoutPage) {
         BaseController.to
@@ -75,13 +76,16 @@ class LoginController extends GetxController {
         Get.offAllNamed(PageName.homepage);
       }
     }, (failure) {
-      Get.back();
+      removeDialog();
       showErrorDialog(errorTitle: failure.tag, errorMessage: failure.message);
     });
-    await Get.find<ProfilePageController>().getProfile();
   }
 
   void navigateToRoute({required String pageName}) {
     Get.toNamed(pageName);
+  }
+
+  void removeDialog() {
+    Get.back();
   }
 }

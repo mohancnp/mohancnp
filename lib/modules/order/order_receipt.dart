@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/currency.dart';
+import 'package:metrocoffee/core/models/order_history.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
+import 'package:metrocoffee/modules/checkout/checkout_page_controller.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/custom_button.dart';
@@ -13,8 +16,11 @@ class OrderReceiptPage extends StatelessWidget {
   OrderReceiptPage({Key? key}) : super(key: key);
   final controller = Get.put(OrderReceiptController());
   final cartController = Get.find<CartController>();
+  final checkoutPageController = Get.find<CheckoutPageController>();
   @override
   Widget build(BuildContext context) {
+    final address = checkoutPageController.shippingAddresses;
+    final order = Get.arguments as OrderInstance;
     const dimText = Color(0xDE000000);
     return Scaffold(
       backgroundColor: Palette.pagebackgroundcolor,
@@ -42,7 +48,7 @@ class OrderReceiptPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const CustomBanner(orderId: 1),
+          CustomBanner(orderId: order.id),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 28.w),
             child: Column(
@@ -63,7 +69,7 @@ class OrderReceiptPage extends StatelessWidget {
                   height: 20.h,
                 ),
                 Text(
-                  "Date: 01-02-2021",
+                  "Date: ${order.requestAt}",
                   style: TextStyle(
                     color: dimText,
                     fontSize: 12.sp,
@@ -121,7 +127,11 @@ class OrderReceiptPage extends StatelessWidget {
                           color: Palette.darkGery,
                         ),
                         Text(
-                          "2. Saint Street. st",
+                          address.isNotEmpty
+                              ? address[checkoutPageController
+                                      .selectedAddressIndex]
+                                  .title
+                              : "Not Available",
                           style: TextStyle(
                             color: Palette.darkGery,
                             fontSize: 12.sp,
@@ -132,7 +142,7 @@ class OrderReceiptPage extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "\$ ${cartController.totalAmount}",
+                      "${Currency.symbol} ${order.totalAmount}",
                       style: TextStyle(
                         color: Palette.coffeeColor,
                         fontSize: 20.sp,

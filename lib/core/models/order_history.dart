@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'order_history.g.dart';
+
 @JsonSerializable()
 class OrderInstance {
   int id;
@@ -12,17 +13,20 @@ class OrderInstance {
   @JsonKey(name: 'items_count')
   int itemsCount;
   @JsonKey(name: 'total_amount')
-  int totalAmount;
+  double totalAmount;
   @JsonKey(name: 'request_at')
   String requestAt;
-  @JsonKey(name: 'order_id')
-  int orderId;
+  int status;
   @JsonKey(name: 'product_id')
   int productId;
   @JsonKey(name: 'product_name')
   String productName;
   @JsonKey(name: 'product_image')
   String productImage;
+  @JsonKey(includeIfNull: true)
+  String? title;
+  @JsonKey(includeIfNull: true)
+  String? subtitle;
   OrderInstance({
     required this.id,
     required this.customerId,
@@ -31,12 +35,14 @@ class OrderInstance {
     required this.txnId,
     required this.totalAmount,
     required this.requestAt,
-    required this.orderId,
+    required this.status,
     required this.productId,
     required this.productName,
     required this.productImage,
+    this.title,
+    this.subtitle,
   });
-factory OrderInstance.fromJson(Map<String, dynamic> json) =>
+  factory OrderInstance.fromJson(Map<String, dynamic> json) =>
       _$OrderInstanceFromJson(json);
 
   Map<String, dynamic> toJson() => _$OrderInstanceToJson(this);

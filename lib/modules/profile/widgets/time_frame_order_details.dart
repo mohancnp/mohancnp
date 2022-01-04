@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/core/constants/order_status.dart';
 import 'package:metrocoffee/core/models/older/order_model.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/profile/widgets/order_detail_row.dart';
@@ -50,7 +49,6 @@ class TimeFrameOrderDetails extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   color: coffeecolor,
-                   
                   fontSize: screenwidth * 0.0328,
                 ),
               ),
@@ -63,21 +61,14 @@ class TimeFrameOrderDetails extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
                       color: darkgrey,
-                       
                       fontSize: screenwidth * 0.023,
                     ),
                   ),
                   Row(
                     children: [
                       Icon(
-                        orderDetail.status == OrderStatus.cancelled
-                            ? Icons.cancel_rounded
-                            : CupertinoIcons.timer_fill,
-                        color: orderDetail.status == OrderStatus.cancelled
-                            ? Colors.red
-                            : orderDetail.status == OrderStatus.delivered
-                                ? Palette.coffeeColor
-                                : const Color(0xffE1C40D),
+                        CupertinoIcons.timer_fill,
+                        color: Colors.red,
                         size: screenwidth * 0.0364,
                       ),
                       Container(
@@ -86,12 +77,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
                           "${orderDetail.status}",
                           style: TextStyle(
                             fontWeight: FontWeight.w300,
-                             
-                            color: orderDetail.status == OrderStatus.cancelled
-                                ? Colors.red
-                                : orderDetail.status == OrderStatus.delivered
-                                    ? Palette.coffeeColor
-                                    : const Color(0xffE1C40D),
+                            color: Palette.coffeeColor,
                             fontSize: screenwidth * 0.0255,
                           ),
                         ),
@@ -112,7 +98,6 @@ class TimeFrameOrderDetails extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: darkgrey,
-                     
                     fontSize: screenwidth * 0.0279,
                   ),
                 ),
@@ -128,7 +113,6 @@ class TimeFrameOrderDetails extends StatelessWidget {
                   "${orderDetail.deliveryTimeEnd}",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                     
                     color: darkgrey,
                     fontSize: screenwidth * 0.0279,
                   ),
@@ -156,7 +140,6 @@ class TimeFrameOrderDetails extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     color: coffeecolor,
                     decoration: TextDecoration.underline,
-                     
                     fontSize: screenwidth * 0.0267,
                   ),
                 ),
@@ -173,7 +156,6 @@ class TimeFrameOrderDetails extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: darkgrey.withOpacity(0.8),
-                     
                     fontSize: screenwidth * 0.0267,
                   ),
                 ),
@@ -216,7 +198,6 @@ class TimeFrameOrderDetails extends StatelessWidget {
               fontWeight: FontWeight.w500,
               color: coffeecolor,
               fontSize: screenwidth * 0.0498,
-               
             ),
           ),
           Container(
@@ -229,52 +210,44 @@ class TimeFrameOrderDetails extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              if (orderDetail.status == OrderStatus.pending) {
-              } else if (orderDetail.status == OrderStatus.delivered) {
-                showDialog(
-                    context: context,
-                    builder: (_) {
-                      return ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(18)),
-                          child: SimpleDialog(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18)),
-                              ),
-                              children: [
-                                orderDetail.id != null
-                                    ? ReOrderDialog(
-                                        orderId: orderDetail.id!,
-                                        amount: orderDetail.cost,
-                                      )
-                                    : const SizedBox()
-                              ]));
-                    });
-              }
+              showDialog(
+                  context: context,
+                  builder: (_) {
+                    return ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(18)),
+                        child: SimpleDialog(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(18)),
+                            ),
+                            children: [
+                              orderDetail.id != null
+                                  ? ReOrderDialog(
+                                      orderId: orderDetail.id!,
+                                      amount: orderDetail.cost,
+                                    )
+                                  : const SizedBox()
+                            ]));
+                  });
             },
             child: Container(
               height: screenwidth * 0.0754,
               width: screenwidth * 0.299,
               decoration: BoxDecoration(
-                  color: orderDetail.status == OrderStatus.delivered
-                      ? Palette.coffeeColor
-                      : Colors.transparent,
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(
-                      color: orderDetail.status == OrderStatus.delivered
-                          ? Colors.black
-                          : Colors.redAccent,
-                      width: 1.5)),
+                color: Palette.coffeeColor,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                border: Border.all(
+                  color: Colors.redAccent,
+                  width: 1.5,
+                ),
+              ),
               child: Center(
                 child: Text(
-                  getTextAccordingToStatus(),
+                  "Order Status",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                     
-                    color: orderDetail.status == OrderStatus.delivered
-                        ? Colors.white
-                        : Colors.redAccent,
+                    color: Colors.redAccent,
                     fontSize: screenwidth * 0.0304,
                   ),
                 ),
@@ -284,14 +257,5 @@ class TimeFrameOrderDetails extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String getTextAccordingToStatus() {
-    if (orderDetail.status == OrderStatus.pending) {
-      return "In Progress";
-    } else if (orderDetail.status == OrderStatus.delivered) {
-      return "Re Order";
-    }
-    return orderDetail.status ?? "N/A";
   }
 }

@@ -9,7 +9,6 @@ class InternetConnectionHelper {
     if (connectivityResult != ConnectivityResult.none) {
       try {
         final response2 = await InternetAddress.lookup("8.8.8.8");
-
         if (response2.isNotEmpty) {
           _status = true;
         }

@@ -1,6 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
+
 import 'package:metrocoffee/core/models/cart_instance.dart';
+
 import 'map_location.dart';
+
 part 'order.g.dart';
 
 @JsonSerializable()
@@ -19,10 +22,9 @@ class Order {
     required this.totalAmount,
     required this.selectedTime,
   });
-  factory Order.fromJson(Map<String, dynamic> json) =>
-        _$OrderFromJson(json);
-  
-    Map<String, dynamic> toJson() => _$OrderToJson(this);
+  factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OrderToJson(this);
 }
 
 @JsonSerializable()
@@ -37,7 +39,7 @@ class Address {
     required this.mapLocation,
   });
   factory Address.fromJson(Map<String, dynamic> json) =>
-        _$AddressFromJson(json);
-  
-    Map<String, dynamic> toJson() => _$AddressToJson(this);
+      _$AddressFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AddressToJson(this);
 }

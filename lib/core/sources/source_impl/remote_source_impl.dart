@@ -9,7 +9,7 @@ class RemoteSourceImpl implements RemoteSource {
 
   RemoteSourceImpl() {
     // Interceptors
-    final tokenInterceptor = getTokenInterceptor(_dio);
+    final tokenInterceptor = getTokenInterceptorWithHeader(_dio);
     _dio.interceptors.add(tokenInterceptor);
     _dio.interceptors.add(loggingInterceptor);
   }

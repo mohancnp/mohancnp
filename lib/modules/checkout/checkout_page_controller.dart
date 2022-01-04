@@ -1,15 +1,19 @@
 import 'dart:convert';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/company_detail.dart';
 import 'package:metrocoffee/core/enums/user_order_preference.dart';
+import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/checkout_order.dart';
+import 'package:metrocoffee/core/models/order_history.dart';
 import 'package:metrocoffee/core/models/shipping_address.dart';
 import 'package:metrocoffee/core/models/user_profile.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
+import 'package:metrocoffee/core/services/cart_service/cart_service.dart';
 import 'package:metrocoffee/core/services/checkout_service/checkout_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
@@ -27,6 +31,7 @@ class CheckoutPageController extends GetxController {
   String? formattedTimeStamp;
   final cartController = Get.find<CartController>();
   final _checkoutService = locator<CheckoutService>();
+  final _cartService = locator<CartService>();
   final _authService = locator<AuthService>();
   Rx<String> wrongTimeSelectionMessage = "".obs;
   UserOrderPreference userPreference = UserOrderPreference.pickup;
@@ -161,7 +166,7 @@ class CheckoutPageController extends GetxController {
     );
 
     try {
-      showCustomDialog(message: "confirming order...");
+      showCustomDialog(message: "initializing payment gateway...");
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           // Main params
@@ -190,7 +195,8 @@ class CheckoutPageController extends GetxController {
     }
   }
 
-  Future<void> processOrder({required String transactionId}) async {
+  Future<Either<OrderInstance, Failure>> processOrder(
+      {required String transactionId}) async {
     shippingAddresses.add(
       ShippingAddress(
         lattitude: CompanyDetail.lat,
@@ -227,11 +233,7 @@ class CheckoutPageController extends GetxController {
       itemsCount: _finalCartCount,
     ).toJson();
     final response = await _checkoutService.processOrder(_dataToSend);
-    response.fold((result) {
-      dPrint(result);
-    }, (r) {
-      dPrint(r.tag + r.message);
-    });
+    return response;
   }
 
   Future<void> confirmPayment({required String transId}) async {
@@ -239,8 +241,22 @@ class CheckoutPageController extends GetxController {
       // 3. display the payment sheet.
       await Stripe.instance.presentPaymentSheet();
       //4. Now process the order0
-      await processOrder(transactionId: transId);
-      Get.offAllNamed(PageName.orderReceiptPage);
+
+      //remove dialog related to payment and initializing order processing dialog
+      removeDailog();
+      showCustomDialog(message: "confirming your order");
+      final response = await processOrder(transactionId: transId);
+      _cartService.clearCart();
+      response.fold((result) {
+        Get.offAllNamed(
+          PageName.orderReceiptPage,
+          arguments: result,
+        );
+        // dPrint(result);
+      }, (r) {
+        Get.offAllNamed(PageName.homepage);
+        dPrint(r.tag + r.message);
+      });
     } on StripeError catch (e) {
       Get.back();
       showCustomSnackBarMessage(
@@ -324,5 +340,9 @@ class CheckoutPageController extends GetxController {
         Get.back();
       });
     }
+  }
+
+  void removeDailog() {
+    Get.back();
   }
 }

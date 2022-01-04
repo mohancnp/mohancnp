@@ -1,21 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/core/constants/order_status.dart';
 import 'package:metrocoffee/core/models/order_history.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TimeFrameOrders extends StatelessWidget {
   final int? index;
   final OrderInstance orderData;
+  final String orderStatus;
   final bool? reorder;
-  const TimeFrameOrders(
-      {Key? key, @required this.index, this.reorder, required this.orderData})
-      : super(key: key);
+  final void Function()? onPressed;
+  const TimeFrameOrders({
+    Key? key,
+    @required this.index,
+    this.reorder,
+    required this.orderData,
+    required this.orderStatus,
+    this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: null,
+      onTap: onPressed,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
         margin: EdgeInsets.only(bottom: 16.w),
@@ -102,7 +110,8 @@ class TimeFrameOrders extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.greenAccent),
+                    border: Border.all(
+                        color: getBorderColorAccordingToStatus(orderStatus)),
                     borderRadius: BorderRadius.circular(4.r),
                   ),
                   margin: EdgeInsets.only(top: 8.h),
@@ -110,17 +119,17 @@ class TimeFrameOrders extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(
-                        Icons.cancel_rounded,
+                        getIconAccordingToStatus(orderStatus),
                         color: Palette.coffeeColor,
                         size: 12.r,
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 4.w),
                         child: Text(
-                          "Pending",
+                          orderStatus,
                           style: TextStyle(
                             fontWeight: FontWeight.w300,
-                            color: Colors.red,
+                            color: Palette.darkGery,
                             fontSize: 12.sp,
                           ),
                         ),
@@ -139,5 +148,27 @@ class TimeFrameOrders extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Color getBorderColorAccordingToStatus(String orderStatus) {
+  switch (orderStatus) {
+    case OrderStatus.received:
+      return Colors.greenAccent;
+    case OrderStatus.cancelled:
+      return Colors.red;
+    default:
+      return Colors.blueAccent;
+  }
+}
+
+IconData getIconAccordingToStatus(String orderStatus) {
+  switch (orderStatus) {
+    case OrderStatus.received:
+      return Icons.done;
+    case OrderStatus.cancelled:
+      return Icons.cancel_rounded;
+    default:
+      return Icons.dangerous;
   }
 }

@@ -13,12 +13,14 @@ OrderInstance _$OrderInstanceFromJson(Map<String, dynamic> json) {
     ordersNo: json['orders_no'] as int,
     itemsCount: json['items_count'] as int,
     txnId: json['txn_id'] as String,
-    totalAmount: json['total_amount'] as int,
+    totalAmount: (json['total_amount'] as num).toDouble(),
     requestAt: json['request_at'] as String,
-    orderId: json['order_id'] as int,
+    status: json['status'] as int,
     productId: json['product_id'] as int,
     productName: json['product_name'] as String,
     productImage: json['product_image'] as String,
+    title: json['title'] as String?,
+    subtitle: json['subtitle'] as String?,
   );
 }
 
@@ -31,8 +33,10 @@ Map<String, dynamic> _$OrderInstanceToJson(OrderInstance instance) =>
       'items_count': instance.itemsCount,
       'total_amount': instance.totalAmount,
       'request_at': instance.requestAt,
-      'order_id': instance.orderId,
+      'status': instance.status,
       'product_id': instance.productId,
       'product_name': instance.productName,
       'product_image': instance.productImage,
+      'title': instance.title,
+      'subtitle': instance.subtitle,
     };

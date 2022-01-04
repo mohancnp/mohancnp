@@ -1,4 +1,5 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
 import 'package:flutter/material.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
@@ -18,28 +19,37 @@ class ItemDetail extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          cartInstance.name,
-          style: TextStyle(
-            color: Palette.darkGery,
-            fontSize: 12.sp,
-            fontFamily: CustomFont.poppinsMedium,
+        Expanded(
+          flex: 6,
+          child: Text(
+            cartInstance.name,
+            style: TextStyle(
+              color: Palette.darkGery,
+              fontSize: 12.sp,
+              fontFamily: CustomFont.poppinsMedium,
+            ),
           ),
         ),
-        Text(
-          "${cartInstance.qty} item",
-          style: TextStyle(
-            color: const Color(0xAB000000),
-            fontSize: 12.sp,
-            fontFamily: CustomFont.poppinsRegular,
+        Expanded(
+          flex: 3,
+          child: Text(
+            "${cartInstance.qty} item",
+            style: TextStyle(
+              color: const Color(0xAB000000),
+              fontSize: 12.sp,
+              fontFamily: CustomFont.poppinsRegular,
+            ),
           ),
         ),
-        Text(
-          "\$ ${cartInstance.totalPrice}",
-          style: TextStyle(
-            color: dimText,
-            fontSize: 12.sp,
-            fontFamily: CustomFont.poppinsRegular,
+        Expanded(
+          flex: 2,
+          child: Text(
+            "${Currency.symbol} ${cartInstance.totalPrice}",
+            style: TextStyle(
+              color: dimText,
+              fontSize: 12.sp,
+              fontFamily: CustomFont.poppinsRegular,
+            ),
           ),
         ),
       ],

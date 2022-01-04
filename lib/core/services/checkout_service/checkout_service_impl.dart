@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:metrocoffee/core/config.dart';
+import 'package:metrocoffee/core/constants/app_message.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
@@ -164,22 +165,21 @@ class CheckoutServiceImpl extends CheckoutService {
   }
 
   @override
-  Future<Either<String, Failure>> processOrder(
+  Future<Either<OrderInstance, Failure>> processOrder(
       Map<String, dynamic> data) async {
     // dPrint(jsonEncode(data));
     try {
       final response = await _remoteSource
           .post("/api/auth/customer/order/checkout", body: data);
-      if (response.containsKey("data")) {
-        return Left(response["data"]);
-      }
-      return const Left("Order Received Successfully");
+      // print("API SAMPLE RESPONSE: $response");
+      final _currentInstance = OrderInstance.fromJson(response);
+      return Left(_currentInstance);
     } on ServerException catch (error) {
-      dPrint("${error.code} ${error.message}");
       return Right(
         Failure(
           tag: "Couldn't place order!!",
           message: "${error.code} ${error.message}",
+          errorStatusCode: error.code,
         ),
       );
     } catch (error, stacktrace) {
@@ -200,23 +200,47 @@ class CheckoutServiceImpl extends CheckoutService {
       }
       return Left(_orderList);
     } on ServerException catch (error) {
-      dPrint("${error.code} ${error.message}");
       return Right(
         Failure(
           tag: "Couldn't get order!!",
           message: "${error.code} ${error.message}",
+          errorStatusCode: error.code,
         ),
       );
     } catch (error, stacktrace) {
       dPrint(stacktrace);
-      return Right(Failure(tag: "Failure!!", message: "Generic Error"));
+      return Right(
+        Failure(
+          tag: "Failure!!",
+          message: "Generic Error",
+          errorStatusCode: AppMessage.localError,
+        ),
+      );
     }
   }
 
   @override
   Future<Either<List<OrderInstance>, Failure>> getOrderDetailWithId(
-      {required int orderId}) {
-    // TODO: implement getOrderDetailWithId
+      {required int orderId}) async {
     throw UnimplementedError();
+    //   try {
+    //     final response = await _remoteSource.get(
+    //       "/api/auth/customer/order/checkout",
+    //     );
+    //     // print("API SAMPLE RESPONSE: $response");
+    //     final _currentInstance = OrderInstance.fromJson(response);
+    //     return Left(_currentInstance);
+    //   } on ServerException catch (error) {
+    //     return Right(
+    //       Failure(
+    //         tag: "Couldn't place order!!",
+    //         message: "${error.code} ${error.message}",
+    //         errorStatusCode: error.code,
+    //       ),
+    //     );
+    //   } catch (error, stacktrace) {
+    //     dPrint(stacktrace);
+    //     return Right(Failure(tag: "Failure!!", message: "Generic Error"));
+    //   }
   }
 }

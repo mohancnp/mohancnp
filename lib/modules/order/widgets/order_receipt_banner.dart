@@ -34,7 +34,7 @@ class CustomBanner extends StatelessWidget {
                   text: "Order ID: ",
                   children: [
                     TextSpan(
-                      text: "#5432",
+                      text: "# $orderId",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],
