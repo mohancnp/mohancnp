@@ -243,7 +243,7 @@ class CheckoutPage extends StatelessWidget {
                     onTap: () async {
                       final _currentTime = TimeOfDay.now();
                       final userSelectedTime = await showCustomTimePicker(
-                        context: context,                        
+                        context: context,
                         builder: (context, child) {
                           return MediaQuery(
                             data: MediaQuery.of(context)
@@ -252,8 +252,9 @@ class CheckoutPage extends StatelessWidget {
                           );
                         },
                         initialTime: TimeOfDay(
-                          hour: _currentTime.hour,
-                          minute: _currentTime.minute,
+                          hour: controller.getHour(
+                              _currentTime.hour, _currentTime.minute),
+                          minute: controller.getMinute(_currentTime.minute),
                         ),
                         onFailValidation: (context) {
                           controller.wrongTimeSelectionMessage.value =
@@ -389,14 +390,19 @@ showMessage(BuildContext context, String message) => showDialog(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   decoration: const BoxDecoration(
-                      border:
-                          Border(top: BorderSide(color: Color(0xFFE8ECF3)))),
+                    border: Border(
+                      top: BorderSide(
+                        color: Color(0xFFE8ECF3),
+                      ),
+                    ),
+                  ),
                   child: const Text(
                     'Cerrar',
                     style: TextStyle(
-                        color: Color(0xFF231F20),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                      color: Color(0xFF231F20),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

@@ -21,38 +21,45 @@ InterceptorsWrapper getTokenInterceptorWithHeader(Dio dio) {
       if (error.response?.statusCode == 403 ||
           error.response?.statusCode == 401) {
         final response = await locator<AuthService>().refreshToken();
-        response.fold((accessToken) {
-          dPrint("Access Token: $accessToken");
-          final requestOptions = error.requestOptions;
-          final options = BaseOptions(
-            method: requestOptions.method,
-            headers: requestOptions.headers,
-          );
-          Dio _dio = Dio(options);
-          _dio.request(requestOptions.path,
+        response.fold(
+          (accessToken) {
+            dPrint("Access Token: $accessToken");
+            final requestOptions = error.requestOptions;
+            final options = BaseOptions(
+              method: requestOptions.method,
+              headers: requestOptions.headers,
+            );
+            Dio _dio = Dio(options);
+            _dio.request(
+              requestOptions.path,
               data: requestOptions.data,
               queryParameters: requestOptions.queryParameters,
               options: Options(
                 method: requestOptions.method,
                 headers: requestOptions.headers,
-              ));
-        }, (failure) => {dPrint(failure.message)});
+              ),
+            );
+          },
+          (failure) => {
+            dPrint("Token Refresh Error ${failure.errorStatusCode}"),
+          },
+        );
       }
-      return handler.next(error);
+      // return handler.next(error);
     },
   );
 }
 
 final loggingInterceptor = InterceptorsWrapper(
   onRequest: (options, handler) {
-    dPrint('APIRequest: ${options.method} ${options.uri}');
-    dPrint(options.headers);
-    dPrint(options.data);
+    // dPrint('APIRequest: ${options.method} ${options.uri}');
+    // dPrint(options.headers);
+    // dPrint(options.data);
     handler.next(options);
   },
   onResponse: (response, handler) {
-    dPrint('APIRequest: ${response.statusCode}');
-    dPrint('API Request: ${response.data}');
+    // dPrint('APIRequest: ${response.statusCode}');
+    // dPrint('API Request: ${response.data}');
     handler.next(response);
   },
   onError: (error, handler) {

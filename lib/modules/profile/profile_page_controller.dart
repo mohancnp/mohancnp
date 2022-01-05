@@ -4,6 +4,7 @@ import 'package:metrocoffee/core/models/user_profile.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/services/auth_service/auth_service.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
+import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
 import 'package:metrocoffee/util/debug_printer.dart';
 
 class ProfilePageController extends GetxController {
@@ -30,7 +31,8 @@ class ProfilePageController extends GetxController {
         if (accessToken != null) {
           if (failure.errorStatusCode != null) {
             if (failure.errorStatusCode == 401) {
-              locator<TempStorage>().delete(TempStorageKeys.authToken);
+              print("user session has expired");
+              // locator<TempStorage>().delete(TempStorageKeys.authToken);
             }
           }
         }
@@ -62,9 +64,12 @@ class ProfilePageController extends GetxController {
 
   Future logout() async {
     locator<TempStorage>().delete(TempStorageKeys.authToken);
-    // await authService.logout();
+    showCustomDialog(message: "logging out...");
+    await authService.logout();
     Get.offAllNamed(PageName.loginpage);
   }
+
+  void removeDialog() => Get.back();
 
   @override
   void onInit() {

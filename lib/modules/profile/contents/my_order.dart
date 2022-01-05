@@ -62,6 +62,7 @@ class MyOrderPage extends StatelessWidget {
                   ),
                   Container(
                     width: 375.w,
+                    alignment: Alignment.center,
                     padding: EdgeInsets.only(
                       left: 20.w,
                       right: 20.w,
@@ -69,9 +70,12 @@ class MyOrderPage extends StatelessWidget {
                     child: controller.dataState == DataState.loading
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
                             children: [
-                              SpinKitSpinningCircle(
-                                color: Palette.coffeeColor,
+                              Center(
+                                child: SpinKitCircle(
+                                  color: Palette.coffeeColor,
+                                ),
                               ),
                             ],
                           )

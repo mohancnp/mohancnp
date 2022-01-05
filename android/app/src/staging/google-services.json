@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "358449484532",
+    "project_id": "metro-coffee-staging",
+    "storage_bucket": "metro-coffee-staging.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358449484532:android:8079e48d8dc9c0318d84a1",
+        "android_client_info": {
+          "package_name": "com.clickandpress.metrocoffee.np.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358449484532-72e1s9m0i4648tlbrlbgta42trbbuul9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clickandpress.metrocoffee.np.staging",
+            "certificate_hash": "be73127b829ce32a4b6e5cffa56072414cd88fbe"
+          }
+        },
+        {
+          "client_id": "358449484532-nu2gq2eqmjvgqevun1g7dbb53g3dch9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_SIAO2wm38rHaDjxE1tg4BUsben24NHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358449484532-nu2gq2eqmjvgqevun1g7dbb53g3dch9b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

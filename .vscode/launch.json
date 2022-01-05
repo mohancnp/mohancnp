@@ -12,17 +12,26 @@
             "flutterMode": "debug"
         },
         {
-            "name": "MetroCoffee QA",
+            "name": "MetroCoffee Staging",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main_qa.dart"
+            "flutterMode": "debug",
+            "program": "lib/main_staging.dart",
+            "args": [
+                "--flavor",
+                "staging"
+            ]
         },
         {
             "name": "MetroCoffee Prod",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
-            "program": "lib/main_prod.dart"
+            "program": "lib/main_prod.dart",
+            "args": [
+                "--flavor",
+                "prod"
+            ]
         },
     ]
 }

@@ -83,13 +83,16 @@ class AuthServiceImpl extends AuthService {
   @override
   Future<Either<String, Failure>> refreshToken() async {
     try {
-      var token = locator<TempStorage>().readString(TempStorageKeys.authToken);
+      final token =
+          locator<TempStorage>().readString(TempStorageKeys.authToken);
+      print("current token: $token");
       options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
       options.headers[HttpHeaders.contentTypeHeader] = 'application/json';
       options.headers[HttpHeaders.acceptHeader] = 'application/json';
       if (token != null) {
         final response = await Dio(options).post('/api/auth/customer/refresh');
         if (response.statusCode == 200) {
+          print("into response code 200");
           if (response.data is Map<String, dynamic>) {
             final accessToken = response.data["access_token"];
             locator<TempStorage>()
@@ -98,13 +101,17 @@ class AuthServiceImpl extends AuthService {
           }
         }
       }
-      return Right(Failure(tag: "Error", message: "Token Refresh Error"));
+      return Right(Failure(tag: "Response", message: "Token Refresh Error"));
     } on DioError catch (e) {
       dPrint(e.response?.statusCode);
-      return Right(Failure(tag: "Error", message: "Token Refresh Error"));
+      return Right(Failure(
+          tag: "Error",
+          message: "Token Refresh Error",
+          errorStatusCode: e.response?.statusCode));
     } catch (e) {
       dPrint(e);
-      return Right(Failure(tag: "Error", message: "Token Refresh Error"));
+      return Right(
+          Failure(tag: "Error", message: "Generic Token Refresh Error"));
     }
   }
 
@@ -202,7 +209,6 @@ class AuthServiceImpl extends AuthService {
     try {
       var response =
           await _remoteSource.get("/api/auth/customer/order/stripe-secret-key");
-      // print(response);
       if (response.containsKey('data')) {
         return Left(response['data']);
       }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/firebase_test.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/home/home.dart';
@@ -127,7 +128,7 @@ class Base extends StatelessWidget {
                       ),
                       BottomNavigationBarItem(
                         activeIcon: SvgPicture.asset(
-                          "assets/images/user.svg",
+                          "assets/images/bottomnav/user.svg",
                           width: 20.w,
                           height: 20.h,
                           color: Palette.selectedBottomNavIconColor,

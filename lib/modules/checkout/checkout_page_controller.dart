@@ -81,6 +81,32 @@ class CheckoutPageController extends GetxController {
     return _selectedAddressIndex.value;
   }
 
+  int getMinute(int minute) {
+    if (userPreference == UserOrderPreference.pickup) {
+      final newMin = ((timeInterval.minTakeawayTime + minute) > 59)
+          ? ((timeInterval.minTakeawayTime + minute) - 59)
+          : minute;
+      return newMin;
+    } else {
+      final newMin = ((timeInterval.minDeliveryTime + minute) > 59)
+          ? ((timeInterval.minDeliveryTime + minute) - 59)
+          : minute;
+      return newMin;
+    }
+  }
+
+  int getHour(int hour, int minute) {
+    if (userPreference == UserOrderPreference.pickup) {
+      final newHour =
+          ((timeInterval.minTakeawayTime + minute) > 59) ? hour + 1 : hour;
+      return newHour;
+    } else {
+      final newHour =
+          ((timeInterval.minDeliveryTime + minute) > 59) ? hour + 1 : hour;
+      return newHour;
+    }
+  }
+
   Future<void> handlePaymentTask() async {
     if (userPreference == UserOrderPreference.delivery) {
       if (shippingAddresses.isNotEmpty) {

@@ -33,7 +33,7 @@ class OrderHistoryController extends GetxController {
   void setOrderList(List<OrderInstance> odl) {
     dPrint(odl);
     orderHistoryList.clear();
-    orderHistoryList = odl;
+    orderHistoryList = List.from(odl.reversed);
     dataState = DataState.loaded;
   }
 

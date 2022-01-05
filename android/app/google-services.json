@@ -1,49 +1,33 @@
 {
   "project_info": {
-    "project_number": "432074400499",
-    "project_id": "metrocoffee-330510",
-    "storage_bucket": "metrocoffee-330510.appspot.com"
+    "project_number": "680923821765",
+    "project_id": "metro-coffee-prod",
+    "storage_bucket": "metro-coffee-prod.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:432074400499:android:8fdbf12641e4de69938d86",
+        "mobilesdk_app_id": "1:680923821765:android:9af21c74e2c160016be2ac",
         "android_client_info": {
           "package_name": "com.clickandpress.metrocoffee.np"
         }
       },
       "oauth_client": [
         {
-          "client_id": "432074400499-6t87jire0si4lnq1h4vms7k23mdqculj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.clickandpress.metrocoffee.np",
-            "certificate_hash": "be73127b829ce32a4b6e5cffa56072414cd88fbe"
-          }
-        },
-        {
-          "client_id": "432074400499-cpvngad9hh4lr7nh8f23u0me1aavajhg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.clickandpress.metrocoffee.np",
-            "certificate_hash": "bbf92d1facbedf829070fc2485654801db1e88d9"
-          }
-        },
-        {
-          "client_id": "432074400499-49tfnnleubv8pgd6eghe5shg5rbjrqrk.apps.googleusercontent.com",
+          "client_id": "680923821765-ebhjut7q751a1lknf0fhp3uquk6bk9kg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDlCfv00hBFzNtRRJuVk8XsBQidQtIPpi4"
+          "current_key": "AIzaSyBiL5GCmmRvq4316X2-AuDsVdObMtOeXeQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "432074400499-49tfnnleubv8pgd6eghe5shg5rbjrqrk.apps.googleusercontent.com",
+              "client_id": "680923821765-ebhjut7q751a1lknf0fhp3uquk6bk9kg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
