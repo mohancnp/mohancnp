@@ -4,7 +4,7 @@ import 'package:metrocoffee/ui/src/palette.dart';
 
 class CustomReusableBtn extends StatelessWidget {
   final String buttonText;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final double height, width;
   const CustomReusableBtn(
       {Key? key,

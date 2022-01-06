@@ -5,4 +5,6 @@ class AppMessage {
   static const String validTimeWarning =
       "Selected Time must be above 30 min from current time";
   static const int localError = 900;
+  static const String noDataFound =
+      "We didn't find any results for your search.";
 }

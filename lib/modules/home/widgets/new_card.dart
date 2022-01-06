@@ -110,26 +110,28 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                      onTap: onPressed,
-                      child: Container(
-                        width: 28.r,
-                        height: 28.r,
-                        child: Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 16.w,
-                        ),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: coffeecolor,
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(0, 3.h),
-                                color: const Color(0x62722030),
-                                blurRadius: 10.r)
-                          ],
-                        ),
-                      )),
+                    onTap: onPressed,
+                    child: Container(
+                      width: 28.r,
+                      height: 28.r,
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 16.w,
+                      ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: coffeecolor,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 3.h),
+                            color: const Color(0x62722030),
+                            blurRadius: 10.r,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

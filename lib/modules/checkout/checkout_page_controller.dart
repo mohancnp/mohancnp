@@ -158,6 +158,7 @@ class CheckoutPageController extends GetxController {
   Future<void> initPaymentSheet() async {
     final user = Get.find<ProfilePageController>().newUser;
     final Map<String, dynamic> data = {
+      
       //amount in penny (smallest unit of pound sterling 1 pound=100 penny)
       "amount": (cartController.totalAmount.value.toPrecision(2) * 100).toInt(),
       "currency": "GBP",
@@ -223,14 +224,16 @@ class CheckoutPageController extends GetxController {
 
   Future<Either<OrderInstance, Failure>> processOrder(
       {required String transactionId}) async {
-    shippingAddresses.add(
-      ShippingAddress(
-        lattitude: CompanyDetail.lat,
-        longitude: CompanyDetail.long,
-        title: CompanyDetail.address,
-        subtitle: CompanyDetail.subAddress,
-      ),
-    );
+    if (userPreference == UserOrderPreference.pickup) {
+      shippingAddresses.add(
+        ShippingAddress(
+          lattitude: CompanyDetail.lat,
+          longitude: CompanyDetail.long,
+          title: CompanyDetail.address,
+          subtitle: CompanyDetail.subAddress,
+        ),
+      );
+    }
 
     final _selectedAddress = shippingAddresses[selectedAddressIndex];
     List<OrderItem> _orderItems = <OrderItem>[];

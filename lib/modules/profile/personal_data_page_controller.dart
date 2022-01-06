@@ -1,12 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:metrocoffee/core/exceptions/app_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
-import 'package:metrocoffee/core/models/older/user_model.dart';
 import 'package:metrocoffee/core/services/older/profile_service/profile_service.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
+
 import 'profile_page_controller.dart';
 
 class PersonalDataPageController extends GetxController {

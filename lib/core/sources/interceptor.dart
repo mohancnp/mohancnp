@@ -41,11 +41,12 @@ InterceptorsWrapper getTokenInterceptorWithHeader(Dio dio) {
             );
           },
           (failure) => {
-            dPrint("Token Refresh Error ${failure.errorStatusCode}"),
+            dPrint(
+                "Token Refresh Error code:${failure.errorStatusCode}${failure.message}"),
           },
         );
       }
-      // return handler.next(error);
+      return handler.next(error);
     },
   );
 }

@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:metrocoffee/modules/maps/new/widgets/map_widgets.dart';
-import 'package:metrocoffee/modules/maps/new/widgets/places_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'widgets/map_widgets.dart';
+import 'widgets/places_controller.dart';
 
 class PlaceSelection extends StatelessWidget {
   const PlaceSelection({Key? key}) : super(key: key);

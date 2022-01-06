@@ -49,7 +49,7 @@ class ProductCard extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(9)),
                 ),
                 child: Image.network(
-                  "${AppConfig.baseUrl}/${cartModel.imageUri}",
+                  "${AppConfig.webBaseUrl}/${cartModel.imageUri}",
                   fit: BoxFit.cover,
                   loadingBuilder: (context, widget, imageProgress) {
                     if (imageProgress == null) {
@@ -72,7 +72,7 @@ class ProductCard extends StatelessWidget {
               ),
               Container(
                 height: 76.h,
-                margin: EdgeInsets.only(left: 18.w),
+                margin: EdgeInsets.only(left: 16.w),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +82,6 @@ class ProductCard extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Palette.darkGery,
-                         
                         fontSize: 14.sp,
                       ),
                     ),

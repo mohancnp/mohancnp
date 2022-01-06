@@ -37,8 +37,8 @@ class ProductDetailPage extends GetView<ProductDetailPageController> {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(9.r),
-              topRight: Radius.circular(9.r),
+              topLeft: Radius.circular(8.r),
+              topRight: Radius.circular(8.r),
             )),
         child: Obx(
           () {

@@ -64,8 +64,10 @@ class ProfilePageController extends GetxController {
 
   Future logout() async {
     locator<TempStorage>().delete(TempStorageKeys.authToken);
-    showCustomDialog(message: "logging out...");
-    await authService.logout();
+    //TODO: uncomment to implement server logout, test needed when token is expiring
+
+    // showCustomDialog(message: "logging out...");
+    // await authService.logout();
     Get.offAllNamed(PageName.loginpage);
   }
 

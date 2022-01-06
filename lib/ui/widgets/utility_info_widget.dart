@@ -6,15 +6,16 @@ import 'package:metrocoffee/ui/src/palette.dart';
 import 'custom_button.dart';
 
 class UtilityInfoWidget extends StatelessWidget {
-  final String title, content, buttonText, svgImageUri;
-  final void Function() onPressed;
+  final String title, content, svgImageUri;
+  final String? buttonText;
+  final void Function()? onPressed;
   const UtilityInfoWidget({
     Key? key,
     required this.title,
     required this.content,
-    required this.onPressed,
+    this.onPressed,
     required this.svgImageUri,
-    required this.buttonText,
+    this.buttonText,
   }) : super(key: key);
 
   @override
@@ -55,15 +56,17 @@ class UtilityInfoWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 56.h),
-              child: CustomReusableBtn(
-                height: 48.h,
-                width: 232.w,
-                buttonText: buttonText,
-                onPressed: onPressed,
-              ),
-            ),
+            onPressed == null
+                ? const SizedBox()
+                : Padding(
+                    padding: EdgeInsets.only(top: 56.h),
+                    child: CustomReusableBtn(
+                      height: 48.h,
+                      width: 232.w,
+                      buttonText: buttonText ?? "",
+                      onPressed: onPressed,
+                    ),
+                  ),
           ],
         ),
       ),

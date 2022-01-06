@@ -11,7 +11,6 @@ import 'package:metrocoffee/modules/cart/my_product_cart.dart';
 import 'package:metrocoffee/modules/checkout/checkout_page.dart';
 import 'package:metrocoffee/modules/home/base.dart';
 import 'package:metrocoffee/modules/initial/splashscreen.dart';
-import 'package:metrocoffee/modules/maps/map.dart';
 import 'package:metrocoffee/modules/onboarding/onboarding_screen.dart';
 import 'package:metrocoffee/modules/order/order_receipt.dart';
 import 'package:metrocoffee/modules/product/product_detail_page.dart';
@@ -63,16 +62,12 @@ class PageNameHandler {
         page: () => const FavoriteProductsPage(),
       ),
       GetPage(
-        name: PageName.orderdetailspage,
-        page: () => const OrderDetails(),
+        name: PageName.orderdetailspage + '/:id',
+        page: () => OrderDetails(),
       ),
       GetPage(
         name: PageName.checkoutpage,
         page: () => CheckoutPage(),
-      ),
-      GetPage(
-        name: PageName.googlemappage,
-        page: () => const GoogleMapScreen(),
       ),
       GetPage(
         name: PageName.productdetailpage + '/:id',

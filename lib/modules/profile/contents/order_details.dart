@@ -2,31 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/app_message.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/profile/contents/order_details_controller.dart';
 import 'package:metrocoffee/modules/profile/widgets/time_frame_order_details.dart';
+import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
 import '../../../core/theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderDetails extends StatelessWidget {
-  const OrderDetails({Key? key}) : super(key: key);
-
+  OrderDetails({Key? key}) : super(key: key);
+  final controller = Get.put(OrderDetailsController());
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
     return GetBuilder<OrderDetailsController>(
-      init: OrderDetailsController(),
-      initState: (v) {
-        int id = Get.arguments;
-        Get.find<OrderDetailsController>().getOrderDetailWithId(id);
-      },
       builder: (controller) {
         return Scaffold(
-          backgroundColor: const Color(0xffF3F5F5),
+          backgroundColor: Palette.pagebackgroundcolor,
           body: SizedBox(
-            width: screenwidth,
+            width: 375.w,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,18 +34,16 @@ class OrderDetails extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       color: darkgrey,
-                      fontSize: screenwidth * 0.0401,
+                      fontSize: 16.sp,
                     ),
                   ),
                   centerTitle: true,
                   leading: IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
+                    onPressed: Get.back,
                     icon: Icon(
                       CupertinoIcons.back,
                       color: darkgrey,
-                      size: screenwidth * 0.0681,
+                      size: 24.r,
                     ),
                   ),
                   backgroundColor: Colors.transparent,
@@ -56,44 +51,59 @@ class OrderDetails extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                    left: screenwidth * 0.0535,
-                    right: screenwidth * 0.0535,
-                    top: 26,
-                    bottom: 14,
+                    left: 20.w,
+                    right: 20.w,
+                    top: 24.h,
+                    bottom: 16.h,
                   ),
-                  width: screenwidth,
+                  width: 375.w,
                   height: 1,
                   decoration: BoxDecoration(
-                    color: const Color(0xffA5A5A5).withOpacity(0.4),
+                    color: Palette.pagebackgroundcolor.withOpacity(0.4),
                   ),
                 ),
-                controller.dataState == DataState.na
+                controller.dataState == DataState.passive
                     ? const SizedBox()
                     : (controller.dataState == DataState.loading)
-                        ? SpinKitCubeGrid(
+                        ? SpinKitCircle(
                             color: coffeecolor,
                           )
                         : (controller.dataState == DataState.error)
                             ? UtilityInfoWidget(
                                 title: "Oops!",
-                                content:
-                                    "Something went wrong please try again.",
-                                onPressed: () {
-                                  Get.offAllNamed(PageName.homepage);
-                                },
+                                content: AppMessage.somethingWentWrong,
+                                onPressed: Get.back,
                                 svgImageUri: UtilityIcons.somethingWrong,
-                                buttonText: "Reload Page")
-                            : ListView.builder(
-                                itemCount: 1,
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                physics: const BouncingScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return TimeFrameOrderDetails(
-                                    orderDetail: controller.orderDetail,
-                                  );
-                                },
+                                buttonText: "Go Back",
                               )
+                            : (controller.dataState == DataState.authError)
+                                ? Container(
+                                    width: 375.w,
+                                    height: 500.h,
+                                    alignment: Alignment.center,
+                                    child: UtilityInfoWidget(
+                                      title:
+                                          " Your Order Couldn't be retreived",
+                                      content:
+                                          "Please log back in, and try again!!",
+                                      onPressed: () =>
+                                          Get.toNamed(PageName.loginpage),
+                                      svgImageUri: UtilityIcons.noResults,
+                                      buttonText: "Login",
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: 1,
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      //TODO: implement  order items here.
+
+                                      return const Center(
+                                          child: Text("Single Item here"));
+                                    },
+                                  )
               ],
             ),
           ),

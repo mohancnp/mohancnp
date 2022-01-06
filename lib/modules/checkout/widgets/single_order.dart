@@ -10,7 +10,6 @@ class SingleOrder extends StatelessWidget {
   final CartInstance cartModel;
   @override
   Widget build(BuildContext context) {
-    print(cartModel.selectedVariants);
     return Container(
       height: 100.h,
       margin: EdgeInsets.only(left: 28.w, right: 28.w),

@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/modules/profile/contents/order_details_controller.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
-
 import '../../../core/theme.dart';
 
 class ReOrderDialog extends StatelessWidget {

@@ -1,41 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:metrocoffee/core/models/older/order_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/core/models/order_detail.dart';
 import 'package:metrocoffee/core/theme.dart';
-import 'package:metrocoffee/modules/profile/widgets/order_detail_row.dart';
-import 'package:metrocoffee/modules/profile/widgets/reorder_dialog.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class TimeFrameOrderDetails extends StatelessWidget {
-  final OrderDetail orderDetail;
+  final Order order;
 
-  const TimeFrameOrderDetails({Key? key, required this.orderDetail})
+  const TimeFrameOrderDetails({Key? key, required this.order})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.only(
-        left: screenwidth * 0.0535,
-        right: screenwidth * 0.0535,
-        top: screenwidth * 0.0389,
-        bottom: screenwidth * 0.0486,
+        left: 20.w,
+        right: 20.w,
+        top: 16.h,
+        bottom: 20.h,
       ),
       padding: EdgeInsets.only(
-          top: screenwidth * 0.0291,
-          left: screenwidth * 0.0389,
-          right: screenwidth * 0.0389,
-          bottom: 24),
+        top: 16.h,
+        left: 16.w,
+        right: 16.w,
+        bottom: 24.h,
+      ),
       decoration: BoxDecoration(
-          color: const Color(0xffFBFBFB),
-          borderRadius: const BorderRadius.all(Radius.circular(9)),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black.withOpacity(0.07),
-                blurRadius: 10,
-                offset: const Offset(0, 3))
-          ]),
+        color: const Color(0xffFBFBFB),
+        borderRadius: BorderRadius.all(Radius.circular(8.r)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.07),
+            blurRadius: 10.r,
+            offset: Offset(0, 4.r),
+          )
+        ],
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,11 +46,11 @@ class TimeFrameOrderDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Order ID: #${orderDetail.id}",
+                "Order ID: #${order.id}",
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   color: coffeecolor,
-                  fontSize: screenwidth * 0.0328,
+                  fontSize: 12.sp,
                 ),
               ),
               Column(
@@ -61,7 +62,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
                       color: darkgrey,
-                      fontSize: screenwidth * 0.023,
+                      fontSize: 8.sp,
                     ),
                   ),
                   Row(
@@ -69,16 +70,17 @@ class TimeFrameOrderDetails extends StatelessWidget {
                       Icon(
                         CupertinoIcons.timer_fill,
                         color: Colors.red,
-                        size: screenwidth * 0.0364,
+                        size: 12.sp,
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: screenwidth * 0.0097),
+                        margin: EdgeInsets.only(left: 4.w),
                         child: Text(
-                          "${orderDetail.status}",
+                          //TODO: change order status
+                          "${order.status}",
                           style: TextStyle(
                             fontWeight: FontWeight.w300,
                             color: Palette.coffeeColor,
-                            fontSize: screenwidth * 0.0255,
+                            fontSize: 8.sp,
                           ),
                         ),
                       ),
@@ -92,13 +94,13 @@ class TimeFrameOrderDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: screenwidth * 0.00608),
+                margin: EdgeInsets.only(bottom: 2.w),
                 child: Text(
-                  "Date: ${orderDetail.createdAt!.substring(0, 17)}",
+                  "Date: ${order.requestAt}",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: darkgrey,
-                    fontSize: screenwidth * 0.0279,
+                    fontSize: 12.sp,
                   ),
                 ),
               ),
@@ -108,13 +110,13 @@ class TimeFrameOrderDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: screenwidth * 0.00973),
+                margin: EdgeInsets.only(bottom: 4.h),
                 child: Text(
-                  "${orderDetail.deliveryTimeEnd}",
+                  order.shippingTime,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: darkgrey,
-                    fontSize: screenwidth * 0.0279,
+                    fontSize: 12.sp,
                   ),
                 ),
               ),
@@ -126,21 +128,22 @@ class TimeFrameOrderDetails extends StatelessWidget {
             children: [
               Icon(
                 Icons.location_on,
-                size: screenwidth * 0.0364,
+                size: 12.w,
                 color: darkgrey,
               ),
               Container(
                 margin: EdgeInsets.only(
-                    left: screenwidth * 0.0097, bottom: screenwidth * 0.00608),
+                  left: 4.w,
+                  bottom: 4.h,
+                ),
                 child: Text(
-                  (orderDetail.address == null)
-                      ? "N/A"
-                      : "${orderDetail.address?.addr1}",
+                  //TODO : add address here
+                  "Address Here",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: coffeecolor,
                     decoration: TextDecoration.underline,
-                    fontSize: screenwidth * 0.0267,
+                    fontSize: 12.sp,
                   ),
                 ),
               ),
@@ -150,34 +153,36 @@ class TimeFrameOrderDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: screenwidth * 0.00973),
+                margin: EdgeInsets.only(bottom: 4.h),
                 child: Text(
-                  "${orderDetail.orderProductList?.length} items",
+                  "${order.itemsCount}",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: darkgrey.withOpacity(0.8),
-                    fontSize: screenwidth * 0.0267,
+                    fontSize: 12.sp,
                   ),
                 ),
               ),
             ],
           ),
-          ListView.builder(
-              itemCount: orderDetail.orderProductList!.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              itemBuilder: (context, index) {
-                OrderProduct? orderProduct =
-                    orderDetail.orderProductList?.elementAt(index);
+          //TODO: implement single order with detail
 
-                if (orderProduct != null) {
-                  return OrderDetailRow(
-                    odp: orderProduct,
-                  );
-                }
-                return const SizedBox();
-              }),
+          // ListView.builder(
+          //     itemCount: orderDetail.orderProductList!.length,
+          //     shrinkWrap: true,
+          //     physics: const NeverScrollableScrollPhysics(),
+          //     scrollDirection: Axis.vertical,
+          //     itemBuilder: (context, index) {
+          //       OrderProduct? orderProduct =
+          //           orderDetail.orderProductList?.elementAt(index);
+
+          //       if (orderProduct != null) {
+          //         return OrderDetailRow(
+          //           odp: orderProduct,
+          //         );
+          //       }
+          //       return const SizedBox();
+          //     }),
           totalpricebox(context)
         ],
       ),
@@ -185,55 +190,35 @@ class TimeFrameOrderDetails extends StatelessWidget {
   }
 
   Widget totalpricebox(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.only(top: screenwidth * 0.0729),
-      width: screenwidth,
+      margin: EdgeInsets.only(top: 28.w),
+      width: 375.w,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "\$ ${orderDetail.cost}",
+            "\$ ${order.totalAmount}",
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              color: coffeecolor,
-              fontSize: screenwidth * 0.0498,
+              color: Palette.coffeeColor,
+              fontSize: 16.sp,
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: screenwidth * 0.0535),
-            height: screenwidth * 0.0754,
-            width: screenwidth * 0.00437,
+            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            height: 28.h,
+            width: 2.w,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
                 color: Colors.grey.withOpacity(0.5)),
           ),
           GestureDetector(
             onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (_) {
-                    return ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(18)),
-                        child: SimpleDialog(
-                            shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(18)),
-                            ),
-                            children: [
-                              orderDetail.id != null
-                                  ? ReOrderDialog(
-                                      orderId: orderDetail.id!,
-                                      amount: orderDetail.cost,
-                                    )
-                                  : const SizedBox()
-                            ]));
-                  });
+              //TODO: implement re-order with reorder custom dialog design.
             },
             child: Container(
-              height: screenwidth * 0.0754,
-              width: screenwidth * 0.299,
+              height: 28.h,
+              width: 112.w,
               decoration: BoxDecoration(
                 color: Palette.coffeeColor,
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -248,7 +233,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: Colors.redAccent,
-                    fontSize: screenwidth * 0.0304,
+                    fontSize: 12.sp,
                   ),
                 ),
               ),

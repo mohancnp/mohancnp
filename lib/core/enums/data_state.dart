@@ -1,1 +1,1 @@
-enum DataState { na, loading, error, loaded,authError }
+enum DataState { passive,na, loading, error, loaded,authError }

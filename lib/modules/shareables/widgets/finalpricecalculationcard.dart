@@ -38,7 +38,6 @@ class FinalProductCalculationCard extends StatelessWidget {
                 "Discount",
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
-                   
                   color: const Color(0xff404D4D),
                   fontSize: 12.sp,
                 ),
@@ -60,7 +59,6 @@ class FinalProductCalculationCard extends StatelessWidget {
                 "Delivery Fee",
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
-                   
                   color: const Color(0xff404D4D),
                   fontSize: 12.sp,
                 ),
@@ -70,7 +68,6 @@ class FinalProductCalculationCard extends StatelessWidget {
                   "${Currency.symbol} 0.0",
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
-                     
                     color: const Color(0xff404D4D),
                     fontSize: 12.sp,
                   ),
@@ -88,7 +85,6 @@ class FinalProductCalculationCard extends StatelessWidget {
                     "Total",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                       
                       color: const Color(0xff404D4D),
                       fontSize: 16.sp,
                     ),
@@ -97,9 +93,8 @@ class FinalProductCalculationCard extends StatelessWidget {
                     () {
                       return SizedBox(
                         child: Text(
-                          "${Currency.symbol} ${controller.totalAmount.toStringAsPrecision(3)}",
+                          "${Currency.symbol} ${controller.totalAmount.value.toPrecision(2)}",
                           style: TextStyle(
-                             
                             fontWeight: FontWeight.w500,
                             color: const Color(0xff404D4D),
                             fontSize: 16.sp,

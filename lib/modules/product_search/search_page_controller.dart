@@ -17,11 +17,15 @@ class SearchPageController extends GetxController {
     // dPrint("called");
     errorMessage = "";
     searching = true;
+    // print("searching");
     update();
-    await Future.delayed(const Duration(seconds: 1));
-    var response =
-        await _productService.getFilteredList(searchBarController.text);
-    response.fold((l) => handleResponse(l), (r) => handleFailure(r));
+    await Future.delayed(const Duration(seconds: 1), () async {
+      if (searchBarController.text.isNotEmpty) {
+        var response =
+            await _productService.getFilteredList(searchBarController.text);
+        response.fold(handleResponse, handleFailure);
+      }
+    });
   }
 
   handleResponse(FilterProduct cp) {

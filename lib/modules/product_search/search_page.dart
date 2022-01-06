@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/app_message.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/theme.dart';
@@ -59,7 +60,6 @@ class SearchPage extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             color: const Color(0xFFF5F5F5),
                             fontSize: 16.sp,
-                             
                           ),
                         ),
                       )
@@ -86,10 +86,9 @@ class SearchPage extends StatelessWidget {
                 builder: (controller) {
                   if (controller.errorMessage.isNotEmpty ||
                       controller.ctp.products.isEmpty) {
-                    return UtilityInfoWidget(
-                      title: "title",
-                      content: "content",
-                      onPressed: () {},
+                    return const UtilityInfoWidget(
+                      title: "No Results",
+                      content: AppMessage.noDataFound,
                       svgImageUri: UtilityIcons.noResults,
                       buttonText: "Perform Search",
                     );

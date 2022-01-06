@@ -4,13 +4,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
 import 'package:metrocoffee/core/enums/data_state.dart';
-import 'package:metrocoffee/core/models/older/order_model.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/home/base_controller.dart';
 import 'package:metrocoffee/modules/profile/contents/order_history_controller.dart';
 import 'package:metrocoffee/modules/profile/widgets/time_frame_orders.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
+import 'package:metrocoffee/util/order_status_info.dart';
 import '../../../core/theme.dart';
 
 class MyOrderPage extends StatelessWidget {
@@ -138,14 +138,20 @@ class MyOrderPage extends StatelessWidget {
                                           final newData = controller
                                               .orderHistoryList[index];
                                           final orderStatus =
-                                              controller.getStatusStringForId(
-                                                  newData.status);
+                                              getStatusStringForId(
+                                            newData.status,
+                                          );
                                           return TimeFrameOrders(
                                             index: index,
                                             orderData: newData,
                                             orderStatus: orderStatus,
-                                            onPressed: () => controller
-                                                .goToOrderDetail(newData.id),
+                                            onPressed: () {
+                                              // print(newData.id);
+                                              Get.toNamed(
+                                                PageName.orderdetailspage +
+                                                    "/${newData.id}",
+                                              );
+                                            },
                                           );
                                         },
                                       ),

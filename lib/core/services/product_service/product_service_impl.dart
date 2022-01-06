@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:metrocoffee/core/constants/app_message.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/models/category.dart';
@@ -74,7 +75,7 @@ class ProductServiceImpl extends ProductService {
   @override
   Future<Either<FilterProduct, Failure>> getFilteredList(String filter) async {
     var failureData =
-        Failure(tag: "product detail: ", message: "no product found");
+        Failure(tag: "Product Filter: ", message: AppMessage.noDataFound);
     try {
       var data = await _remoteSource
           .get("/api/product_list_filter", queryParams: {"prod": filter});

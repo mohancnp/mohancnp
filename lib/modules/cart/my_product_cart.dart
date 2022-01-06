@@ -162,7 +162,9 @@ class MyProductCart extends StatelessWidget {
                                           controller.cartProductList[index];
                                       // print(cartData.imageUri);
                                       return ProductCard(
-                                          cartModel: cartData, index: index);
+                                        cartModel: cartData,
+                                        index: index,
+                                      );
                                     },
                                   )
                                 : const SizedBox(),

@@ -7,6 +7,7 @@ import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/checkout_order.dart';
+import 'package:metrocoffee/core/models/order_detail.dart';
 import 'package:metrocoffee/core/models/order_history.dart';
 import 'package:metrocoffee/core/models/shipping_address.dart';
 import 'package:metrocoffee/core/sources/remote_source.dart';
@@ -220,27 +221,24 @@ class CheckoutServiceImpl extends CheckoutService {
   }
 
   @override
-  Future<Either<List<OrderInstance>, Failure>> getOrderDetailWithId(
+  Future<Either<OrderDetail, Failure>> getOrderDetailWithId(
       {required int orderId}) async {
-    throw UnimplementedError();
-    //   try {
-    //     final response = await _remoteSource.get(
-    //       "/api/auth/customer/order/checkout",
-    //     );
-    //     // print("API SAMPLE RESPONSE: $response");
-    //     final _currentInstance = OrderInstance.fromJson(response);
-    //     return Left(_currentInstance);
-    //   } on ServerException catch (error) {
-    //     return Right(
-    //       Failure(
-    //         tag: "Couldn't place order!!",
-    //         message: "${error.code} ${error.message}",
-    //         errorStatusCode: error.code,
-    //       ),
-    //     );
-    //   } catch (error, stacktrace) {
-    //     dPrint(stacktrace);
-    //     return Right(Failure(tag: "Failure!!", message: "Generic Error"));
-    //   }
+    try {
+      final response =
+          await _remoteSource.get("/api/auth/customer/order/detail/$orderId");
+      final _orderDetail = OrderDetail.fromJson(response["data"]);
+      return Left(_orderDetail);
+    } on ServerException catch (error) {
+      return Right(
+        Failure(
+          tag: "Couldn't Retreived order detail!!",
+          message: "${error.code} ${error.message}",
+          errorStatusCode: error.code,
+        ),
+      );
+    } catch (error, stacktrace) {
+      dPrint(stacktrace);
+      return Right(Failure(tag: "Failure!!", message: "Generic Error"));
+    }
   }
 }

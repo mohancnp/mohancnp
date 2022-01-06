@@ -7,7 +7,6 @@ import 'package:metrocoffee/core/services/older/notification_service/notificatio
 import 'package:metrocoffee/core/services/product_service/product_service_impl.dart';
 import 'package:metrocoffee/core/services/older/profile_service/profile_service.dart';
 import 'package:metrocoffee/core/services/storage/db/core.dart';
-import 'package:metrocoffee/core/services/storage/db/user_table.dart';
 import 'package:metrocoffee/core/services/storage/sharedpref/temp_storage.dart';
 import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/core/sources/source_impl/remote_source_impl.dart';
@@ -51,7 +50,7 @@ Future<void> setupLocator() async {
   );
   locator.isReady<DbStorage>().whenComplete(() {
     locator.registerLazySingleton<CartService>(() => CartServiceImpl());
-    locator.registerLazySingleton<UserTableHandler>(() => UserTableHandler());
+
   });
   await locator.allReady();
 }

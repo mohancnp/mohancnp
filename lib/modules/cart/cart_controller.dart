@@ -23,6 +23,7 @@ class CartController extends GetxController {
     response.fold(
       (l) {
         cartProductList.removeAt(atIndex);
+        calculateTotal();
         cartCount.value -= 1;
         update();
       },
