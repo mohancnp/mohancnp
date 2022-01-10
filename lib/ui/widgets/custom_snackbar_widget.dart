@@ -14,5 +14,6 @@ showCustomSnackBarMessage(
     duration: const Duration(milliseconds: 1000),
     isDismissible: true,
     snackPosition: snackPosition,
+    dismissDirection: DismissDirection.horizontal,
   );
 }

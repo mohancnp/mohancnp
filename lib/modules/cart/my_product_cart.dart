@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/constants/icons/utility_icons.dart';
-import 'package:metrocoffee/core/enums/user_order_preference.dart';
-import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
+import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/modules/cart/widgets/product_card.dart';
@@ -160,7 +159,7 @@ class MyProductCart extends StatelessWidget {
                                     itemBuilder: (context, index) {
                                       CartInstance cartData =
                                           controller.cartProductList[index];
-                                      // print(cartData.imageUri);
+                                      print(cartData.toString());
                                       return ProductCard(
                                         cartModel: cartData,
                                         index: index,

@@ -36,20 +36,26 @@ class TopHomeGreeting extends StatelessWidget {
                 builder: (controller) {
                   var user = controller.newUser;
                   var firstName = user.firstName;
-                  return Text(
-                    int.parse(DateFormat.H('en_US').format(DateTime.now())) < 16
-                        ? 'Good Afternoon,' + firstName
-                        : 'Good Evening,' + firstName,
-                    style: TextStyle(
-                      fontFamily: CustomFont.montserratSemiBold,
-                      color: Colors.white,
-                      fontSize: 20.sp,
+                  return SizedBox(
+                    width: 280.w,
+                    child: Text(
+                      int.parse(DateFormat.H('en_US').format(DateTime.now())) <
+                              16
+                          ? 'Good Afternoon,' + firstName
+                          : 'Good Evening,' + firstName,
+                      style: TextStyle(
+                        fontFamily: CustomFont.montserratSemiBold,
+                        color: Colors.white,
+                        fontSize: 20.sp,
+                      ),
                     ),
                   );
                 },
               ),
               Container(
-                margin: EdgeInsets.only(top: 4.h),
+                margin: EdgeInsets.only(
+                  top: 4.h,
+                ),
                 child: Text(
                   "You can order drinks for collections or Delivery.",
                   style: Theme.of(context).textTheme.caption,

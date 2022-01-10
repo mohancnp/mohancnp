@@ -1,14 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:metrocoffee/core/constants/currency.dart';
+import 'package:metrocoffee/core/constants/order_status.dart';
 import 'package:metrocoffee/core/models/order_detail.dart';
 import 'package:metrocoffee/core/theme.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+import 'package:metrocoffee/util/date_trimmer.dart';
+import 'package:metrocoffee/util/order_status_info.dart';
+import 'order_detail_row.dart';
 
 class TimeFrameOrderDetails extends StatelessWidget {
-  final Order order;
+  final OrderDetail orderDetail;
 
-  const TimeFrameOrderDetails({Key? key, required this.order})
+  const TimeFrameOrderDetails({Key? key, required this.orderDetail})
       : super(key: key);
 
   @override
@@ -46,11 +51,11 @@ class TimeFrameOrderDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Order ID: #${order.id}",
+                "Order ID: #${orderDetail.order.id}",
                 style: TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   color: coffeecolor,
-                  fontSize: 12.sp,
+                  fontSize: 16.sp,
                 ),
               ),
               Column(
@@ -65,18 +70,23 @@ class TimeFrameOrderDetails extends StatelessWidget {
                       fontSize: 8.sp,
                     ),
                   ),
+                  SizedBox(
+                    height: 4.h,
+                  ),
                   Row(
                     children: [
                       Icon(
                         CupertinoIcons.timer_fill,
-                        color: Colors.red,
-                        size: 12.sp,
+                        color: getStatusStringForId(orderDetail.order.status) ==
+                                OrderStatus.received
+                            ? Colors.green
+                            : Colors.yellow,
+                        size: 16.sp,
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 4.w),
                         child: Text(
-                          //TODO: change order status
-                          "${order.status}",
+                          getStatusStringForId(orderDetail.order.status),
                           style: TextStyle(
                             fontWeight: FontWeight.w300,
                             color: Palette.coffeeColor,
@@ -90,13 +100,14 @@ class TimeFrameOrderDetails extends StatelessWidget {
               ),
             ],
           ),
+          // SizedBox(height: 10.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 margin: EdgeInsets.only(bottom: 2.w),
                 child: Text(
-                  "Date: ${order.requestAt}",
+                  "Date: ${orderDetail.order.requestAt}",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: darkgrey,
@@ -112,7 +123,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(bottom: 4.h),
                 child: Text(
-                  order.shippingTime,
+                  getTimeFromDateTimeStamp(orderDetail.order.shippingTime),
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: darkgrey,
@@ -137,8 +148,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
                   bottom: 4.h,
                 ),
                 child: Text(
-                  //TODO : add address here
-                  "Address Here",
+                  orderDetail.order.title,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: coffeecolor,
@@ -155,7 +165,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(bottom: 4.h),
                 child: Text(
-                  "${order.itemsCount}",
+                  "${orderDetail.order.itemsCount} items",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: darkgrey.withOpacity(0.8),
@@ -165,24 +175,18 @@ class TimeFrameOrderDetails extends StatelessWidget {
               ),
             ],
           ),
-          //TODO: implement single order with detail
-
-          // ListView.builder(
-          //     itemCount: orderDetail.orderProductList!.length,
-          //     shrinkWrap: true,
-          //     physics: const NeverScrollableScrollPhysics(),
-          //     scrollDirection: Axis.vertical,
-          //     itemBuilder: (context, index) {
-          //       OrderProduct? orderProduct =
-          //           orderDetail.orderProductList?.elementAt(index);
-
-          //       if (orderProduct != null) {
-          //         return OrderDetailRow(
-          //           odp: orderProduct,
-          //         );
-          //       }
-          //       return const SizedBox();
-          //     }),
+          ListView.builder(
+            itemCount: orderDetail.orderItems.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              OrderItem orderProduct = orderDetail.orderItems[index];
+              return OrderDetailRow(
+                order: orderProduct,
+              );
+            },
+          ),
           totalpricebox(context)
         ],
       ),
@@ -197,9 +201,9 @@ class TimeFrameOrderDetails extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "\$ ${order.totalAmount}",
+            Currency.symbol + " ${orderDetail.order.totalAmount}",
             style: TextStyle(
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.bold,
               color: Palette.coffeeColor,
               fontSize: 16.sp,
             ),
@@ -209,8 +213,9 @@ class TimeFrameOrderDetails extends StatelessWidget {
             height: 28.h,
             width: 2.w,
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(15)),
-                color: Colors.grey.withOpacity(0.5)),
+              borderRadius: BorderRadius.all(Radius.circular(16.r)),
+              color: Colors.grey.withOpacity(0.5),
+            ),
           ),
           GestureDetector(
             onTap: () {
@@ -221,18 +226,18 @@ class TimeFrameOrderDetails extends StatelessWidget {
               width: 112.w,
               decoration: BoxDecoration(
                 color: Palette.coffeeColor,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(Radius.circular(10.r)),
                 border: Border.all(
-                  color: Colors.redAccent,
-                  width: 1.5,
+                  color: Palette.coffeeColor,
+                  width: 2.w,
                 ),
               ),
               child: Center(
                 child: Text(
-                  "Order Status",
+                  "Re Order",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    color: Colors.redAccent,
+                    color: Palette.pagebackgroundcolor,
                     fontSize: 12.sp,
                   ),
                 ),

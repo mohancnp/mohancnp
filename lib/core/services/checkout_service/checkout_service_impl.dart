@@ -168,11 +168,10 @@ class CheckoutServiceImpl extends CheckoutService {
   @override
   Future<Either<OrderInstance, Failure>> processOrder(
       Map<String, dynamic> data) async {
-    // dPrint(jsonEncode(data));
+
     try {
       final response = await _remoteSource
           .post("/api/auth/customer/order/checkout", body: data);
-      // print("API SAMPLE RESPONSE: $response");
       final _currentInstance = OrderInstance.fromJson(response);
       return Left(_currentInstance);
     } on ServerException catch (error) {
@@ -226,7 +225,10 @@ class CheckoutServiceImpl extends CheckoutService {
     try {
       final response =
           await _remoteSource.get("/api/auth/customer/order/detail/$orderId");
+      print(response["data"]);
+
       final _orderDetail = OrderDetail.fromJson(response["data"]);
+
       return Left(_orderDetail);
     } on ServerException catch (error) {
       return Right(

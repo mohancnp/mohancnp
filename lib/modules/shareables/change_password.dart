@@ -63,7 +63,6 @@ class ChangePasswordPage extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                                 color: Colors.white,
                                 fontSize: 14.5.sp,
-                                 
                               ),
                             ),
                           ),
@@ -72,7 +71,7 @@ class ChangePasswordPage extends StatelessWidget {
                     ),
                   ),
                 ),
-          backgroundColor: const Color(0xffF3F5F5),
+          backgroundColor: Palette.pagebackgroundcolor,
           body: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: SizedBox(
@@ -136,30 +135,31 @@ class ChangePasswordPage extends StatelessWidget {
                                         offset: Offset(0, 3.r))
                                   ]),
                               child: user.image.isEmpty
-                                  ? Obx(() {
-                                      var newUser =
-                                          controller.getImagePlacholder();
+                                  ? Obx(
+                                      () {
+                                        ;
 
-                                      return Container(
-                                        alignment: Alignment.center,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Text(
-                                          newUser,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.textColor,
+                                        return Container(
+                                          alignment: Alignment.center,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
                                           ),
-                                        ),
-                                      );
-                                    })
+                                          child: Text(
+                                            controller.getImagePlacholder(),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Palette.textColor,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    )
                                   : ClipRRect(
                                       borderRadius: BorderRadius.circular(
                                         32.r,
                                       ),
                                       child: Image.network(
-                                        "${AppConfig.baseUrl}${user.image}",
+                                        "${AppConfig.baseUrl}/${user.image}",
                                         fit: BoxFit.cover,
                                         height: 64.r,
                                         width: 64.r,
@@ -173,8 +173,15 @@ class ChangePasswordPage extends StatelessWidget {
                                             );
                                           }
                                         },
-                                        errorBuilder: (a, b, c) =>
-                                            const Center(child: Text("Error")),
+                                        errorBuilder: (a, b, c) {
+                                          return Text(
+                                            controller.getImagePlacholder(),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Palette.textColor,
+                                            ),
+                                          );
+                                        },
                                       ),
                                     ),
                             ),
@@ -233,7 +240,6 @@ class ChangePasswordPage extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               fontSize: 12.5.sp,
                               color: darkgrey.withOpacity(0.66),
-                               
                             ),
                           ),
                         )
@@ -273,7 +279,6 @@ class ChangePasswordPage extends StatelessWidget {
                             fontWeight: FontWeight.w300,
                             color: Colors.white,
                             fontSize: 14.5,
-                             
                           ),
                         ),
                       ),

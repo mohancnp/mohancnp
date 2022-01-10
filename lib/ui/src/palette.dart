@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class Palette {
-  static Color coffeeColor = const Color(0xFF550E1C);
-  static Color textColor = const Color(0xFC404D4D);
-  static Color pagebackgroundcolor = const Color(0xFFF3F5F5);
-  static Color coffeeColorShadow = const Color(0x4DC3916A);
-  static Color darkGery = const Color(0xFF404D4D);
-  static Color darkGrey1 = const Color(0xC2404D4D);
-  static Color grieshWhite = const Color(0xFFE8E8E8);
-  static Color selectedBottomNavIconColor = const Color(0xff550E1C);
-  static Color otpContainer = const Color(0xE6FFFFFF);
-  static Color otpContainerBorder = const Color(0x45000000);
-  static Color deepOrange = const Color(0xffD4874C);
+  static const Color coffeeColor = Color(0xFF550E1C);
+  static const Color textColor = Color(0xFC404D4D);
+  static const Color pagebackgroundcolor = Color(0xFFF3F5F5);
+  static const Color coffeeColorShadow = Color(0x4DC3916A);
+  static const Color darkGery = Color(0xFF404D4D);
+  static const Color darkGrey1 = Color(0xC2404D4D);
+  static const Color grieshWhite = Color(0xFFE8E8E8);
+  static const Color selectedBottomNavIconColor = Color(0xff550E1C);
+  static const Color otpContainer = Color(0xE6FFFFFF);
+  static const Color otpContainerBorder = Color(0x45000000);
+  static const Color deepOrange = Color(0xffD4874C);
 }
 
 class MetroColor {

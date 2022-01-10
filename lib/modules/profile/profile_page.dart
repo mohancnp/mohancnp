@@ -11,11 +11,12 @@ import 'package:metrocoffee/ui/widgets/utility_info_widget.dart';
 import 'widgets/user_info_short_widget.dart';
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({Key? key}) : super(key: key);
-  final profileController = Get.find<ProfilePageController>();
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // print("came here");
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -78,7 +79,7 @@ class ProfilePage extends StatelessWidget {
                               )
                             ],
                           ),
-                          child: const UserInfoShort(),
+                          child: UserInfoShort(),
                         ),
                         Container(
                           margin: EdgeInsets.only(
@@ -88,7 +89,7 @@ class ProfilePage extends StatelessWidget {
                           width: 375.w,
                           height: 1,
                           decoration: BoxDecoration(
-                            color: const Color(0xffA5A5A5).withOpacity(0.4),
+                            color: Palette.pagebackgroundcolor.withOpacity(0.4),
                           ),
                         ),
                         GestureDetector(
@@ -125,7 +126,7 @@ class ProfilePage extends StatelessWidget {
                                       margin: EdgeInsets.only(
                                         left: 11.sp,
                                       ),
-                                      child: Text(
+                                      child: const Text(
                                         "Personal Data",
                                         style: TextStyle(
                                           color: Palette.darkGery,
@@ -208,7 +209,7 @@ class ProfilePage extends StatelessWidget {
                           padding: EdgeInsets.only(bottom: 14.h),
                           child: SizedBox(
                             child: GestureDetector(
-                              onTap: profileController.logout,
+                              onTap: controller.logout,
                               child: Container(
                                 margin: EdgeInsets.only(
                                   top: 20.h,

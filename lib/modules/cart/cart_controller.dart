@@ -87,7 +87,6 @@ class CartController extends GetxController {
   @override
   void onInit() {
     getCartItemCount();
-
     super.onInit();
   }
 

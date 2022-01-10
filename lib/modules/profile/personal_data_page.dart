@@ -23,7 +23,7 @@ class PersonalDataPage extends StatelessWidget {
       init: PersonalDataPageController(),
       builder: (personaldatacontroller) {
         return Scaffold(
-          backgroundColor: const Color(0xffF3F5F5),
+          backgroundColor: Palette.pagebackgroundcolor,
           body: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Container(
@@ -125,7 +125,7 @@ class PersonalDataPage extends StatelessWidget {
                               child: Container(
                                 height: 20.w,
                                 width: 20.w,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Palette.coffeeColor,
                                   shape: BoxShape.circle,
                                 ),
@@ -147,10 +147,13 @@ class PersonalDataPage extends StatelessWidget {
                     width: 375.w,
                     height: 1,
                     decoration: BoxDecoration(
-                      color: const Color(0xffA5A5A5).withOpacity(0.4),
+                      color: Palette.pagebackgroundcolor.withOpacity(0.4),
                     ),
                   ),
-                  UserDataFeildWidget(),
+                  Form(
+                    key: personalDataPageController.key,
+                    child: UserDataFeildWidget(),
+                  ),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
@@ -163,8 +166,7 @@ class PersonalDataPage extends StatelessWidget {
                         "UPDATE",
                         style: TextStyle(color: Colors.white),
                       ),
-                      onPressed:
-                          personaldatacontroller.updateUserInfoInDbAndServer,
+                      onPressed: personaldatacontroller.updateUserInfo,
                     ),
                   )
                 ],

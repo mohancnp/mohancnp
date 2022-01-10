@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:metrocoffee/core/locator.dart';
 import 'package:metrocoffee/core/models/user_profile.dart';
@@ -53,21 +54,21 @@ class ProfilePageController extends GetxController {
   String getImagePlacholder() {
     var user = newUser;
     String imagePlaceHolder = "NA";
-    if (user.image.isEmpty && user.firstName.isNotEmpty) {
+    if (user.image.isEmpty &&
+        user.firstName.isNotEmpty &&
+        user.lastName.isNotEmpty) {
       imagePlaceHolder = "";
       imagePlaceHolder = user.firstName[0].toUpperCase();
-      var surname = user.lastName.isEmpty ? "A" : user.lastName[0];
-      imagePlaceHolder = imagePlaceHolder + surname.toUpperCase();
+      var surname = user.lastName[0].toUpperCase();
+      imagePlaceHolder = imagePlaceHolder + surname;
     }
     return imagePlaceHolder;
   }
 
   Future logout() async {
     locator<TempStorage>().delete(TempStorageKeys.authToken);
-    //TODO: uncomment to implement server logout, test needed when token is expiring
-
-    // showCustomDialog(message: "logging out...");
-    // await authService.logout();
+    showCustomDialog(message: "logging out...");
+    await authService.logout();
     Get.offAllNamed(PageName.loginpage);
   }
 

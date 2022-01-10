@@ -164,6 +164,7 @@ class CustomGoogleMapController extends GetxController {
     );
 
     final shippingAddress = ShippingAddress(
+      id: idToUpdate,
       title: addressModel.title,
       subtitle: addressModel.subtitle,
       lattitude: maplocation.lat,

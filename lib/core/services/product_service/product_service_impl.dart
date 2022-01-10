@@ -62,7 +62,6 @@ class ProductServiceImpl extends ProductService {
       );
       var results = ProductDetail.fromJson(data);
       results.variants[0].selected = true;
-      results.addons[0].selected = true;
       return Left(results);
     } on ServerException catch (e) {
       failureData.message = e.message;

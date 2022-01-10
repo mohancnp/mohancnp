@@ -33,11 +33,10 @@ class OrderDetailsController extends GetxController {
     dataState = DataState.loading;
     final response =
         await _checkoutService.getOrderDetailWithId(orderId: orderId);
-    response.fold((l) => setOrderDetail, handleOrderRetreivalError);
+    response.fold(setOrderDetail, handleOrderRetreivalError);
   }
 
   void setOrderDetail(OrderDetail orderDetail) {
-    print(orderDetail.toString());
     this.orderDetail = orderDetail;
     dataState = DataState.loaded;
   }

@@ -11,10 +11,10 @@ import 'package:metrocoffee/ui/src/palette.dart';
 import 'topup_reward_dialog.dart';
 
 class UserInfoShort extends StatelessWidget {
-  const UserInfoShort({
+  UserInfoShort({
     Key? key,
   }) : super(key: key);
-
+  final controller = Get.find<ProfilePageController>();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -22,6 +22,7 @@ class UserInfoShort extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GetX<ProfilePageController>(
+          init: ProfilePageController(),
           builder: (controller) {
             UserProfile user = controller.newUser;
             return Row(
@@ -61,7 +62,7 @@ class UserInfoShort extends StatelessWidget {
                         ),
                         child: Text(
                           controller.getImagePlacholder(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Palette.textColor,
                           ),
@@ -82,7 +83,7 @@ class UserInfoShort extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Palette.darkGery,
-                          fontSize: 11.5.sp,
+                          fontSize: 12.sp,
                         ),
                       ),
                       Text(
@@ -141,7 +142,7 @@ class UserInfoShort extends StatelessWidget {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: Color(0xff5AB898),
+                          color: const Color(0xff5AB898),
                           width: 2,
                         )),
                     child: Center(

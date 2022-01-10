@@ -15,7 +15,7 @@
             "name": "MetroCoffee Staging",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug",
+            "flutterMode": "release",
             "program": "lib/main_staging.dart",
             "args": [
                 "--flavor",

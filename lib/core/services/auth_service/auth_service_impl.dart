@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:metrocoffee/core/config.dart';
+import 'package:metrocoffee/core/constants/app_message.dart';
 import 'package:metrocoffee/core/exceptions/failure.dart';
 import 'package:metrocoffee/core/exceptions/server_exceptions.dart';
 import 'package:metrocoffee/core/locator.dart';
@@ -62,7 +63,7 @@ class AuthServiceImpl extends AuthService {
       if (response.containsKey("error")) {
         // print(response);
         return Right(
-            Failure(tag: "Login Error:", message: "Validation failed!"));
+            Failure(tag: "Login Error:", message: "Credentials aren't valid"));
       }
       var newUser = SignupResponse.fromJson(response);
       return Left(newUser);
@@ -70,11 +71,11 @@ class AuthServiceImpl extends AuthService {
       // ignore: avoid_print
       print(e.code);
       if (e.code == 400 || e.code == 401 || e.code == 422) {
-        return Right(
-            Failure(tag: "Login Error:", message: "Credentials not found!!"));
+        return Right(Failure(
+            tag: "Login Error:", message: "Credentials doesn't exists!!"));
       }
-      return Right(Failure(
-          tag: "Login Error:", message: "Server Failed to Recognize!!"));
+      return Right(
+          Failure(tag: "Login Error:", message: AppMessage.somethingWentWrong));
     } catch (e) {
       return Right(Failure(tag: "Signup Error:", message: "Generic Error"));
     }
@@ -119,11 +120,14 @@ class AuthServiceImpl extends AuthService {
   Future<void> logout() async {
     try {
       await _remoteSource.post("/api/auth/customer/logout");
-      // dPrint(response);
+      dPrint("logged out sucessfully");
+      return;
     } on ServerException catch (e) {
       dPrint({e.message + e.code.toString()});
+      return;
     } catch (error, stacktrace) {
       dPrint(stacktrace);
+      return;
     }
   }
 
@@ -225,5 +229,34 @@ class AuthServiceImpl extends AuthService {
       dPrint(stacktrace);
       return Right(Failure(tag: "Failure!!", message: "Generic Error"));
     }
+  }
+
+  @override
+  Future<Either<String, Failure>> updateProfile(
+      Map<String, dynamic> data) async {
+    try {
+      await _remoteSource.post('/api/auth/customer/profile_update', body: data);
+      return const Left("Profile update Sucessfull");
+    } on ServerException catch (error) {
+      return Right(
+        Failure(
+          tag: "Profile Update",
+          message: error.message,
+          errorStatusCode: error.code,
+        ),
+      );
+    } catch (e) {
+      return Right(
+        Failure(
+          tag: "Profile Update",
+          message: "Generic Error",
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<String, Failure>> updateProfileImage() async {
+    throw UnimplementedError();
   }
 }

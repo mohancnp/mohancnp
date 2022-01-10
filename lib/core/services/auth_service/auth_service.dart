@@ -15,4 +15,7 @@ abstract class AuthService {
   Future<Either<String, Failure>> resetPassword(Map<String, dynamic> data);
   Future<Either<UserProfile, Failure>> getProfile();
   Future<Either<String, Failure>> getSecretKey();
+  Future<Either<String, Failure>> updateProfile(Map<String, dynamic> data);
+
+  Future<Either<String, Failure>> updateProfileImage();
 }

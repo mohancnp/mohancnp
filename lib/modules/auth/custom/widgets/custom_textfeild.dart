@@ -48,7 +48,7 @@ class CustomTextFormFeild extends StatelessWidget {
           hintText: hintText,
           border: InputBorder.none,
           errorStyle: const TextStyle(height: 0),
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
              
             color: Palette.darkGery,
           ),

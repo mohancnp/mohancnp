@@ -9,7 +9,6 @@ import 'package:metrocoffee/core/services/product_service/product_service.dart';
 import 'package:metrocoffee/modules/cart/cart_controller.dart';
 import 'package:metrocoffee/ui/widgets/custom_snackbar_widget.dart';
 import 'package:metrocoffee/ui/widgets/progress_dialog.dart';
-import 'package:metrocoffee/util/debug_printer.dart';
 
 class ProductDetailPageController extends GetxController
     with StateMixin<ProductDetail> {
@@ -55,6 +54,9 @@ class ProductDetailPageController extends GetxController
 
   void handleResponse(ProductDetail productDetail) {
     change(productDetail, status: RxStatus.success());
+    // for (var item in productDetail.addons) {
+    //   print(item.toString());
+    // }
     selectedVariant = productDetail.variants[0];
     totalPrice.value = productDetail.variants[0].price;
     this.productDetail = productDetail;
@@ -111,6 +113,7 @@ class ProductDetailPageController extends GetxController
     var total = 0.0;
     for (var i = 0; i < addons.length; i++) {
       if (addons[i].selected) {
+        // print("came here");
         // selectedAddons.add(addons[i]);
         total += addons[i].price;
       }
@@ -141,16 +144,20 @@ class ProductDetailPageController extends GetxController
     for (var i = 0; i < variants.length; i++) {
       if (variants[i].productId != variants[atIndex].productId) {
         productDetail.variants[i].selected = false;
+        selectedVariant = productDetail.variants[i];
       }
     }
     _productDetail.refresh();
   }
 
   void handleAddonSelection(id) {
+    // selectedAddons.clear();
+
     var addons = productDetail.addons;
     for (var i = 0; i < addons.length; i++) {
       if (id == addons[i].id) {
         productDetail.addons[i].selected = !productDetail.addons[i].selected;
+        selectedAddons.add(addons[i]);
       }
     }
     _productDetail.refresh();
@@ -196,6 +203,7 @@ class ProductDetailPageController extends GetxController
       // var status = productDetail.productTypes[atIndex].selected;
       if (elementToCheck.id == pt[i].id) {
         productDetail.productTypes[atIndex].selected = true;
+        selectedproductType = pt[i];
       } else {
         productDetail.productTypes[i].selected = false;
       }
@@ -206,6 +214,12 @@ class ProductDetailPageController extends GetxController
 
   Future addProductToCart() async {
     showCustomDialog();
+    List<Addon> addonsToSend = [];
+    for (var addon in selectedAddons) {
+      if (addon.selected) {
+        addonsToSend.add(addon);
+      }
+    }
     var newInstance = CartInstance(
       productId: productDetail.product.id,
       totalPrice: totalPrice.value,
@@ -214,14 +228,13 @@ class ProductDetailPageController extends GetxController
       selectedVariants: selectedVariant,
       selectedProductType: selectedproductType,
       toppingsList: selectedToppingsObject,
-      addons: selectedAddons,
+      addons: addonsToSend,
       imageUri: productDetail.product.image,
     );
     // dPrint(newInstance.toppingsList);
     // dPrint(newInstance.addons);
     var response = await cartService.addProductToCart(newInstance.toJson());
-    response.fold(
-        (l) => handleCartProductSucess(l), (r) => handleCartProductFailure(r));
+    response.fold(handleCartProductSucess, handleCartProductFailure);
 
     var countResponse = await cartService.getCount();
     var cartController = Get.find<CartController>();

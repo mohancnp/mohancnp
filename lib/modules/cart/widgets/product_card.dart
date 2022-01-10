@@ -30,7 +30,7 @@ class ProductCard extends StatelessWidget {
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(0.05),
-                offset: const Offset(0, 3),
+                offset: const Offset(0, 4),
                 blurRadius: 10)
           ]),
       child: Row(
@@ -86,7 +86,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${Currency.symbol} ${(cartModel.totalPrice * cartModel.qty).toStringAsPrecision(3)}',
+                      '${Currency.symbol} ${(cartModel.totalPrice * cartModel.qty).toPrecision(3)}',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: const Color(0xff550E1C),

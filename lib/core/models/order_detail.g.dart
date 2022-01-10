@@ -9,12 +9,6 @@ part of 'order_detail.dart';
 OrderDetail _$OrderDetailFromJson(Map<String, dynamic> json) {
   return OrderDetail(
     order: Order.fromJson(json['order'] as Map<String, dynamic>),
-    toppings: (json['topping'] as List<dynamic>)
-        .map((e) => Topping.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    addons: (json['addons'] as List<dynamic>)
-        .map((e) => Addon.fromJson(e as Map<String, dynamic>))
-        .toList(),
     orderItems: (json['order_items'] as List<dynamic>)
         .map((e) => OrderItem.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -25,8 +19,6 @@ Map<String, dynamic> _$OrderDetailToJson(OrderDetail instance) =>
     <String, dynamic>{
       'order': instance.order,
       'order_items': instance.orderItems,
-      'topping': instance.toppings,
-      'addons': instance.addons,
     };
 
 OrderItem _$OrderItemFromJson(Map<String, dynamic> json) {
@@ -36,13 +28,19 @@ OrderItem _$OrderItemFromJson(Map<String, dynamic> json) {
     productId: json['product_id'] as int,
     productName: json['product_name'] as String,
     productQty: json['product_qty'] as int,
-    productPrice: json['product_price'] as int,
+    productPrice: (json['product_price'] as num).toDouble(),
     productAttributeId: json['product_attribute_id'] as int,
     productSize: json['product_size'] as String,
     productImage: json['product_image'] as String,
     productTypeId: json['product_type_id'] as int?,
     productTypeName: json['product_type_name'] as String?,
     productTypePrice: (json['product_type_price'] as num?)?.toDouble(),
+    toppings: (json['toppings'] as List<dynamic>)
+        .map((e) => Topping.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    addons: (json['addons'] as List<dynamic>)
+        .map((e) => Addon.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -59,6 +57,8 @@ Map<String, dynamic> _$OrderItemToJson(OrderItem instance) => <String, dynamic>{
       'product_type_id': instance.productTypeId,
       'product_type_name': instance.productTypeName,
       'product_type_price': instance.productTypePrice,
+      'toppings': instance.toppings,
+      'addons': instance.addons,
     };
 
 Order _$OrderFromJson(Map<String, dynamic> json) {
@@ -67,7 +67,7 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
     txnId: json['txn_id'] as String,
     customerId: json['customer_id'] as int,
     ordersNo: json['orders_no'] as int,
-    shippingId: json['shipping_id'] as int,
+    shippingId: json['shipping_id'] as int?,
     title: json['title'] as String,
     subtitle: json['subtitle'] as String,
     lattitude: (json['lattitude'] as num).toDouble(),

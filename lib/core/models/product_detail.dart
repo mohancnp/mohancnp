@@ -137,4 +137,9 @@ class Addon {
   factory Addon.fromJson(Map<String, dynamic> json) => _$AddonFromJson(json);
 
   Map<String, dynamic> toJson() => _$AddonToJson(this);
+
+  @override
+  String toString() {
+    return 'Addon(id: $id, name: $name, image: $image, price: $price, selected: $selected)';
+  }
 }

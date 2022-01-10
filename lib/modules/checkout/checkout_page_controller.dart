@@ -55,6 +55,8 @@ class CheckoutPageController extends GetxController {
             errorMessage: "please select valid time before proceeding",
           );
         } else {
+          double amt = (cartController.totalAmount.value.toPrecision(2));
+          print("Amount Sent: $amt");
           showCustomDialog();
           await handlePaymentTask();
         }
@@ -158,7 +160,6 @@ class CheckoutPageController extends GetxController {
   Future<void> initPaymentSheet() async {
     final user = Get.find<ProfilePageController>().newUser;
     final Map<String, dynamic> data = {
-      
       //amount in penny (smallest unit of pound sterling 1 pound=100 penny)
       "amount": (cartController.totalAmount.value.toPrecision(2) * 100).toInt(),
       "currency": "GBP",
@@ -261,6 +262,8 @@ class CheckoutPageController extends GetxController {
       txnId: transactionId,
       itemsCount: _finalCartCount,
     ).toJson();
+    print("DATA SENT: $_dataToSend");
+
     final response = await _checkoutService.processOrder(_dataToSend);
     return response;
   }

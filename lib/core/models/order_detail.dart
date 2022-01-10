@@ -9,14 +9,8 @@ class OrderDetail {
   Order order;
   @JsonKey(name: 'order_items')
   List<OrderItem> orderItems;
-  @JsonKey(name: 'topping')
-  List<Topping> toppings;
-  List<Addon> addons;
-
   OrderDetail({
     required this.order,
-    required this.toppings,
-    required this.addons,
     required this.orderItems,
   });
   factory OrderDetail.fromJson(Map<String, dynamic> json) =>
@@ -25,9 +19,7 @@ class OrderDetail {
   Map<String, dynamic> toJson() => _$OrderDetailToJson(this);
 
   @override
-  String toString() {
-    return 'OrderDetail(order: $order, orderItems: $orderItems, toppings: $toppings, addons: $addons)';
-  }
+  String toString() => 'OrderDetail(order: $order, orderItems: $orderItems)';
 }
 
 @JsonSerializable()
@@ -42,7 +34,7 @@ class OrderItem {
   @JsonKey(name: "product_qty")
   int productQty;
   @JsonKey(name: "product_price")
-  int productPrice;
+  double productPrice;
   @JsonKey(name: "product_attribute_id")
   int productAttributeId;
   @JsonKey(name: "product_size")
@@ -55,6 +47,9 @@ class OrderItem {
   String? productTypeName;
   @JsonKey(name: "product_type_price")
   double? productTypePrice;
+  List<Topping> toppings;
+  List<Addon> addons;
+
   OrderItem({
     required this.id,
     required this.orderId,
@@ -68,6 +63,8 @@ class OrderItem {
     required this.productTypeId,
     required this.productTypeName,
     required this.productTypePrice,
+    required this.toppings,
+    required this.addons,
   });
   factory OrderItem.fromJson(Map<String, dynamic> json) =>
       _$OrderItemFromJson(json);
@@ -85,7 +82,7 @@ class Order {
   @JsonKey(name: "orders_no")
   int ordersNo;
   @JsonKey(name: "shipping_id")
-  int shippingId;
+  int? shippingId;
   String title;
   String subtitle;
   double lattitude;

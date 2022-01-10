@@ -9,3 +9,10 @@ String getTrimmedDateAndTime({required String dateToTrim}) {
   }
   return dateToTrim.substring(0, 16);
 }
+
+//to get the time from the date time stamp
+//format : 2022-1-06 16:43:56
+String getTimeFromDateTimeStamp(String dateTimeStamp) {
+  print(dateTimeStamp);
+  return dateTimeStamp.substring(11);
+}

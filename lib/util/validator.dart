@@ -14,3 +14,10 @@ String? emailValidtor({String? value}) {
 }
 
 void passwordValidator({String? value}) {}
+
+bool phoneNumberValidator(String phoneNumber) {
+  if (phoneNumber.length > 9) {
+    return int.tryParse(phoneNumber) != null;
+  }
+  return false;
+}

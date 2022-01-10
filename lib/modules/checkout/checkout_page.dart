@@ -43,7 +43,7 @@ class CheckoutPage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: GestureDetector(
-          onTap: () => Get.back(),
+          onTap: Get.back,
           child: Container(
             width: 24.w,
             height: 24.h,
