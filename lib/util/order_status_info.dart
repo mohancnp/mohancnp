@@ -4,16 +4,10 @@ String getStatusStringForId(int id) {
   // print(id);
   switch (id) {
     case 1:
-      return OrderStatus.received;
+      return OrderStatus.pending;
     case 2:
       return OrderStatus.processing;
-    case 3:
-      return OrderStatus.onHold;
-    case 4:
-      return OrderStatus.cancelled;
-    case 5:
-      return OrderStatus.delivered;
     default:
-      return OrderStatus.failed;
+      return OrderStatus.delivered;
   }
 }

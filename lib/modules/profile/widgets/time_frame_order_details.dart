@@ -78,7 +78,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
                       Icon(
                         CupertinoIcons.timer_fill,
                         color: getStatusStringForId(orderDetail.order.status) ==
-                                OrderStatus.received
+                                OrderStatus.delivered
                             ? Colors.green
                             : Colors.yellow,
                         size: 16.sp,

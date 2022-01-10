@@ -153,9 +153,9 @@ class TimeFrameOrders extends StatelessWidget {
 
 Color getBorderColorAccordingToStatus(String orderStatus) {
   switch (orderStatus) {
-    case OrderStatus.received:
+    case OrderStatus.delivered:
       return Colors.greenAccent;
-    case OrderStatus.cancelled:
+    case OrderStatus.processing:
       return Colors.red;
     default:
       return Colors.blueAccent;
@@ -164,9 +164,9 @@ Color getBorderColorAccordingToStatus(String orderStatus) {
 
 IconData getIconAccordingToStatus(String orderStatus) {
   switch (orderStatus) {
-    case OrderStatus.received:
+    case OrderStatus.delivered:
       return Icons.done;
-    case OrderStatus.cancelled:
+    case OrderStatus.processing:
       return Icons.cancel_rounded;
     default:
       return Icons.dangerous;
