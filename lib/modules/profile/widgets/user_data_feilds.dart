@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:metrocoffee/core/constants/gender.dart';
 import 'package:metrocoffee/core/routing/routes.dart';
 import 'package:metrocoffee/modules/profile/personal_data_page_controller.dart';
 import 'package:metrocoffee/modules/profile/widgets/personal_data_feilds.dart';
@@ -157,7 +158,7 @@ class UserDataFeildWidget extends StatelessWidget {
               )
             ],
           ),
-           PersonalDataFeild(
+          PersonalDataFeild(
             hintText: 'john.doe@4gmail.com',
             textEditingController: controller.emailcontroller,
             enabled: false,
@@ -202,7 +203,7 @@ class UserDataFeildWidget extends StatelessWidget {
           ),
           const PersonalDataFeild(
             hintText: 'Gold Member',
-            enabled: false,            
+            enabled: false,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -228,7 +229,7 @@ class UserDataFeildWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    controller.setgender('male');
+                    controller.setgender(Gender.male);
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -250,10 +251,10 @@ class UserDataFeildWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
-                          controller.gender == 'male'
+                          controller.gender == Gender.male
                               ? CupertinoIcons.largecircle_fill_circle
                               : CupertinoIcons.circle,
-                          color: controller.gender == 'male'
+                          color: controller.gender == Gender.male
                               ? Palette.userDataFeildColor
                               : Colors.grey,
                           size: 18.w,
@@ -261,7 +262,7 @@ class UserDataFeildWidget extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(left: 8.w),
                           child: Text(
-                            "Male",
+                            'Male',
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 12.w,
@@ -275,7 +276,7 @@ class UserDataFeildWidget extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    controller.setgender('female');
+                    controller.setgender(Gender.female);
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -297,10 +298,10 @@ class UserDataFeildWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
-                          controller.gender == 'female'
+                          controller.gender == Gender.female
                               ? CupertinoIcons.largecircle_fill_circle
                               : CupertinoIcons.circle,
-                          color: controller.gender == 'female'
+                          color: controller.gender == Gender.female
                               ? Palette.userDataFeildColor
                               : Colors.grey,
                           size: 18.w,
@@ -310,7 +311,7 @@ class UserDataFeildWidget extends StatelessWidget {
                             left: 8.w,
                           ),
                           child: Text(
-                            "Female",
+                            'Female',
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 12.w,
