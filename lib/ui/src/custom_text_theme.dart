@@ -7,7 +7,6 @@ extension CustomStyles on TextTheme {
     return TextStyle(
       fontSize: 10.sp,
       color: Palette.darkGrey1,
-       
       fontWeight: FontWeight.w400,
     );
   }
@@ -16,8 +15,15 @@ extension CustomStyles on TextTheme {
     return TextStyle(
       fontSize: 13.sp,
       color: Palette.darkGrey1,
-       
       fontWeight: FontWeight.bold,
+    );
+  }
+
+  TextStyle get addonsWrapperTheme {
+    return TextStyle(
+      fontWeight: FontWeight.w300,
+      color: Palette.coffeeColor,
+      fontSize: 12.sp,
     );
   }
 }

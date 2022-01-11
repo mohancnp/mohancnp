@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/constants/order_status.dart';
 import 'package:metrocoffee/core/models/order_detail.dart';
 import 'package:metrocoffee/core/theme.dart';
+import 'package:metrocoffee/modules/profile/widgets/reorder_total_price.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 import 'package:metrocoffee/util/date_trimmer.dart';
 import 'package:metrocoffee/util/order_status_info.dart';
@@ -187,63 +187,7 @@ class TimeFrameOrderDetails extends StatelessWidget {
               );
             },
           ),
-          totalpricebox(context)
-        ],
-      ),
-    );
-  }
-
-  Widget totalpricebox(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 28.w),
-      width: 375.w,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            Currency.symbol + " ${orderDetail.order.totalAmount}",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Palette.coffeeColor,
-              fontSize: 16.sp,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
-            height: 28.h,
-            width: 2.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(16.r)),
-              color: Colors.grey.withOpacity(0.5),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              //TODO: implement re-order with reorder custom dialog design.
-            },
-            child: Container(
-              height: 28.h,
-              width: 112.w,
-              decoration: BoxDecoration(
-                color: Palette.coffeeColor,
-                borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                border: Border.all(
-                  color: Palette.coffeeColor,
-                  width: 2.w,
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  "Re Order",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: Palette.pagebackgroundcolor,
-                    fontSize: 12.sp,
-                  ),
-                ),
-              ),
-            ),
-          )
+          ReorderTotalPrice(orderDetail: orderDetail),
         ],
       ),
     );

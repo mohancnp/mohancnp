@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/models/user_profile.dart';
 import 'package:metrocoffee/modules/profile/profile_page_controller.dart';
+import 'package:metrocoffee/ui/src/custom_text_theme.dart';
 import 'package:metrocoffee/ui/src/fonts.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
@@ -80,11 +81,10 @@ class UserInfoShort extends StatelessWidget {
                     children: [
                       Text(
                         "Welcome",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Palette.darkGery,
-                          fontSize: 12.sp,
-                        ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .addonsWrapperTheme
+                            .copyWith(color: Palette.darkGery),
                       ),
                       Text(
                         "${user.firstName} ${user.lastName} ",
@@ -96,11 +96,12 @@ class UserInfoShort extends StatelessWidget {
                       ),
                       Text(
                         user.email,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Palette.darkGery,
-                          fontSize: 12.sp,
-                        ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .addonsWrapperTheme
+                            .copyWith(
+                              color: Palette.darkGery,
+                            ),
                       )
                     ],
                   ),
@@ -149,10 +150,11 @@ class UserInfoShort extends StatelessWidget {
                       child: Text(
                         "000",
                         style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Palette.darkGery,
-                            fontSize: 12.sp,
-                            fontFamily: CustomFont.poppinsRegular),
+                          fontWeight: FontWeight.w400,
+                          color: Palette.darkGery,
+                          fontSize: 12.sp,
+                          fontFamily: CustomFont.poppinsRegular,
+                        ),
                       ),
                     ),
                   ),

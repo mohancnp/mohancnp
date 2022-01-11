@@ -56,4 +56,5 @@ class OrderDetailsController extends GetxController {
     getOrderDetail();
     super.onInit();
   }
+
 }

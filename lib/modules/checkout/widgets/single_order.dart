@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:metrocoffee/core/config.dart';
 import 'package:metrocoffee/core/constants/currency.dart';
 import 'package:metrocoffee/core/models/cart_instance.dart';
+import 'package:metrocoffee/modules/checkout/widgets/addons_toppings.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
 
 class SingleOrder extends StatelessWidget {
@@ -41,7 +42,7 @@ class SingleOrder extends StatelessWidget {
                   if (imageChunkEvent == null) {
                     return widget;
                   } else {
-                    return CircularProgressIndicator(
+                    return const CircularProgressIndicator(
                       color: Palette.coffeeColor,
                     );
                   }
@@ -96,15 +97,7 @@ class SingleOrder extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 200.w,
-                  child: Wrap(
-                    direction: Axis.horizontal,
-                    spacing: 2.0,
-                    runSpacing: 1.0,
-                    children: getListItems(cartModel),
-                  ),
-                ),
+                AddonsToppings(order: cartModel)
               ],
             ),
           ),
@@ -112,63 +105,4 @@ class SingleOrder extends StatelessWidget {
       ),
     );
   }
-}
-
-List<Widget> getListItems(CartInstance order) {
-  var widgetList = [
-    Text(
-      "Size",
-      style: TextStyle(
-        fontWeight: FontWeight.w300,
-        color: Palette.coffeeColor,
-        fontSize: 12.sp,
-      ),
-    ),
-    order.selectedProductType == null
-        ? Text(
-            "default",
-            style: TextStyle(
-              fontWeight: FontWeight.w300,
-              color: Palette.coffeeColor,
-              fontSize: 12.sp,
-            ),
-          )
-        : Text(
-            " ${order.selectedProductType!.name} ",
-            style: TextStyle(
-              fontWeight: FontWeight.w300,
-              color: Palette.coffeeColor,
-              fontSize: 12.sp,
-            ),
-          ),
-  ];
-  final toppings = List.generate(
-    order.toppingsList.length,
-    (index) {
-      return Text(
-        "| ${order.toppingsList[index].name}",
-        style: TextStyle(
-          fontWeight: FontWeight.w300,
-          color: Palette.coffeeColor,
-          fontSize: 12.sp,
-        ),
-      );
-    },
-  );
-  widgetList.addAll(toppings);
-  final addons = List.generate(
-    order.addons.length,
-    (index) {
-      return Text(
-        "| ${order.addons[index].name}",
-        style: TextStyle(
-          fontWeight: FontWeight.w300,
-          color: Palette.coffeeColor,
-          fontSize: 12.sp,
-        ),
-      );
-    },
-  );
-  widgetList.addAll(addons);
-  return widgetList;
 }

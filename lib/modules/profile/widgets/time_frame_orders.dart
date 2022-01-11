@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:metrocoffee/core/constants/order_status.dart';
 import 'package:metrocoffee/core/models/order_history.dart';
 import 'package:metrocoffee/ui/src/palette.dart';
+import 'package:metrocoffee/util/icon_from_status.dart';
+import 'package:metrocoffee/util/status_to_color.dart';
 
 class TimeFrameOrders extends StatelessWidget {
   final int? index;
@@ -22,6 +23,7 @@ class TimeFrameOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
       onTap: onPressed,
       child: Container(
@@ -148,27 +150,5 @@ class TimeFrameOrders extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-Color getBorderColorAccordingToStatus(String orderStatus) {
-  switch (orderStatus) {
-    case OrderStatus.delivered:
-      return Colors.greenAccent;
-    case OrderStatus.processing:
-      return Colors.red;
-    default:
-      return Colors.blueAccent;
-  }
-}
-
-IconData getIconAccordingToStatus(String orderStatus) {
-  switch (orderStatus) {
-    case OrderStatus.delivered:
-      return Icons.done;
-    case OrderStatus.processing:
-      return Icons.cancel_rounded;
-    default:
-      return Icons.dangerous;
   }
 }

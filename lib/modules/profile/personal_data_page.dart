@@ -62,61 +62,63 @@ class PersonalDataPage extends StatelessWidget {
                       Stack(
                         children: [
                           Container(
-                              margin: EdgeInsets.only(
-                                left: 20.w,
-                                right: 20.w,
+                            margin: EdgeInsets.only(
+                              left: 20.w,
+                              right: 20.w,
+                            ),
+                            padding: EdgeInsets.all(
+                              16.r,
+                            ),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  blurRadius: 10.r,
+                                  offset: Offset(0, 4.r),
+                                )
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                36.w,
                               ),
-                              padding: EdgeInsets.all(
-                                16.r,
-                              ),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 10.r,
-                                    offset: Offset(0, 4.r),
-                                  )
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                  36.w,
-                                ),
-                                child: Image.network(
-                                  "${AppConfig.baseUrl}/${profilePageController.newUser.image}",
-                                  width: 76.w,
-                                  loadingBuilder:
-                                      (context, widget, imageProgress) {
-                                    if (imageProgress == null) {
-                                      return widget;
-                                    } else {
-                                      return const Center(
-                                        child: Text("Loading..."),
-                                      );
-                                    }
-                                  },
-                                  errorBuilder: (a, b, c) => Container(
-                                    alignment: Alignment.center,
-                                    width: 60.r,
-                                    height: 60.r,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Text(
-                                      Get.find<ProfilePageController>()
-                                          .getImagePlacholder(),
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Palette.textColor,
-                                        fontSize: 16.sp,
-                                      ),
+                              child: Image.network(
+                                "${AppConfig.baseUrl}/${profilePageController.newUser.image}",
+                                width: 76.w,
+                                height: 76.w,
+                                loadingBuilder:
+                                    (context, widget, imageProgress) {
+                                  if (imageProgress == null) {
+                                    return widget;
+                                  } else {
+                                    return const Center(
+                                      child: Text("Loading..."),
+                                    );
+                                  }
+                                },
+                                errorBuilder: (a, b, c) => Container(
+                                  alignment: Alignment.center,
+                                  width: 60.r,
+                                  height: 60.r,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Text(
+                                    Get.find<ProfilePageController>()
+                                        .getImagePlacholder(),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.textColor,
+                                      fontSize: 16.sp,
                                     ),
                                   ),
-                                  fit: BoxFit.fill,
                                 ),
-                              )),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                           Positioned(
                             left: 80.w,
                             bottom: 10.h,
